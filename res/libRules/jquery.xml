@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Rules>
+	<Triggers>
+		<Trigger interact="server" event="success" />
+	</Triggers>
+	<Potentials>
+		<Potential interact="User" via="mouse" func="on" target="propTarget" event="arg_1" callback="arg_2"/>
+		
+		<!-- mouse events -->
+		<Potential interact="User" via="mouse" func="click" target="propTarget" event="click" callback="arg_1"/>
+		<Potential interact="User" via="mouse" func="dblclick" target="propTarget" event="double click" callback="arg_1"/>
+		<Potential interact="User" via="mouse" func="hover" target="propTarget" event="hover" callback="arg_1"/>
+		<Potential interact="User" via="mouse" func="mousedown" target="propTarget" event="mouse down" callback="arg_1"/>
+		<Potential interact="User" via="mouse" func="mouseenter" target="propTarget" event="mouse enter" callback="arg_1"/>
+		<Potential interact="User" via="mouse" func="mouseleave" target="propTarget" event="mouse leave" callback="arg_1"/>
+		<Potential interact="User" via="mouse" func="mousemove" target="propTarget" event="mouse move" callback="arg_1"/>
+		<Potential interact="User" via="mouse" func="mouseover" target="propTarget" event="mouse over" callback="arg_1"/>
+		<Potential interact="User" via="mouse" func="mouseup" target="propTarget" event="mouse up" callback="arg_1"/>
+		<Potential interact="User" via="mouse" func="focusin" target="propTarget" event="focus in" callback="arg_1"/>
+		<!-- クリック毎にN番目のコールバック関数を呼び出す。意味的な振舞い→扱いが難しい。onclickで代用可能なので、解析対象外としたい。
+			<Potential interact="User" func="toggle" target="propTarget" event="toggle" callback="arg_N"/>
+		-->
+		<!-- keyboard events -->
+		<Potential interact="User" via="keyboard" func="keydown" target="propTarget" event="key down" callback="arg_1"/>
+		<Potential interact="User" via="keyboard" func="keypress" target="propTarget" event="key press" callback="arg_1"/>
+		<Potential interact="User" via="keyboard" func="keyup" target="propTarget" event="key up" callback="arg_1"/>
+		<!-- mouse and keyboard events -->
+		<Potential interact="User" via="mouse_keyboard" func="focusin" target="propTarget" event="focus in" callback="arg_1"/>
+		<Potential interact="User" via="mouse_keyboard" func="focusout" target="propTarget" event="focus out" callback="arg_1"/>
+		<!-- form events -->
+		<Potential interact="User" via="form" func="blur" target="propTarget" event="blur" callback="arg_1"/>
+		<Potential interact="User" via="form" func="change" target="propTarget" event="change" callback="arg_1"/>
+		<Potential interact="User" via="form" func="focus" target="propTarget" event="focus" callback="arg_1"/>
+		<Potential interact="User" via="form" func="focusin" target="propTarget" event="focusin" callback="arg_1"/>
+		<Potential interact="User" via="form" func="select" target="propTarget" event="select" callback="arg_1"/>
+		<Potential interact="User" via="form" func="submit" target="propTarget" event="submit" callback="arg_1"/>
+		<!-- document loading events -->
+		<Potential interact="Self" via="window" func="load" target="propTarget" event="load" callback="arg_1"/> <!-- img? --> <!-- server event?? --> <!-- *1) 第1引数が関数ならば？ -->
+		<Potential interact="Self" via="document" func="ready" target="propTarget" event="ready" callback="arg_1"/>
+		<Potential interact="Self" via="window" func="unload" target="propTarget" event="unload" callback="arg_1"/>
+		<!-- Browser events -->
+		<Potential interact="Self" via="browser" func="error" target="propTarget" event="error" callback="arg_1"/>
+		<Potential interact="Self" via="browser" func="resize" target="propTarget" event="resize" callback="arg_1"/>
+		<Potential interact="Self" via="browser" func="scroll" target="propTarget" event="scroll" callback="arg_1"/>
+		
+		<!-- Global Ajax -->
+		<Potential interact="Server" via="XMLHttpRequest" func="ajaxComplete" target="$(document)" event="ajax complete" callback="arg_1"/>
+		<Potential interact="Server" via="XMLHttpRequest" func="ajaxError" target="$(document)" event="ajax error" callback="arg_1"/>
+		<Potential interact="Server" via="XMLHttpRequest" func="ajaxSend" target="$(document)" event="ajax send" callback="arg_1"/>
+		<Potential interact="Server" via="XMLHttpRequest" func="ajaxStart" target="$(document)" event="ajax start" callback="arg_1"/>
+		<Potential interact="Server" via="XMLHttpRequest" func="ajaxStop" target="$(document)" event="ajax stop" callback="arg_1"/>
+		<Potential interact="Server" via="XMLHttpRequest" func="ajaxSuccess" target="$(document)" event="ajax success" callback="arg_1"/>
+		<!-- Helper functions: param, serialize, serializeArray は単なる処理なので対象外 -->
+		<!-- Low-level interfaces -->
+		<Potential interact="Server" via="XMLHttpRequest" func="ajax" target="$" event="ajax" callback="prop" unimplemented="true" />
+		<Potential interact="Server" via="XMLHttpRequest" func="ajaxPrefilter" target="$" event="ajax" callback="prop" unimplemented="true" />
+		<Potential interact="Server" via="XMLHttpRequest" func="ajaxSetup" target="$" event="ajax" callback="prop" unimplemented="true" />
+		<Potential interact="Server" via="XMLHttpRequest" func="ajaxTransport" target="$" event="ajax" callback="prop" unimplemented="true" />
+		<!-- shorthand -->
+		<!--
+		-- "success" is defined at the trigger rule
+		<Potential interact="Server" via="XMLHttpRequest" func="get" target="$" event="success" callback="arg_2||3" />
+		<Potential interact="Server" via="XMLHttpRequest" func="getJSON" target="$" event="success" callback="arg_2||3" />
+		<Potential interact="Server" via="XMLHttpRequest" func="getScript" target="$" event="success" callback="arg_2||3" />
+		<Potential interact="Server" via="XMLHttpRequest" func="post" target="$" event="success" callback="arg_2||3" />
+		-->
+		<Potential interact="Server" via="XMLHttpRequest" func="load" target="propTarget" event="complete" callback="arg_2||3" /> <!-- *1) 第2or3引数が関数ならば？ -->
+	</Potentials>
+	<Controls>
+		<Control func="disable" target="ret" disable="" />
+		<!-- visibility -->
+			<!-- 特殊操作かつ代用可能なので無視 -->
+			<Control sector="hidden" unimplemented="true" />
+			<Control sector="visible" unimplemented="true" />
+	</Controls>
+	<Manipulates>
+		<Manipulate func="$" semantic="get" by="css_query" value="arg_1" target="ret" />
+		<!-- Class -->
+		<Manipulate func="addClass" semantic="add" by="class" value="arg_1" target="propTarget" />
+		<Manipulate func="removeClass" semantic="remove" by="class" value="arg_1" target="propTarget" />
+		<!-- 
+			<Manipulate func="hasClass" semantic="??" by="class" value="arg_1" target="propTarget" /> <!-- 値に変化なしなので、スコープ外 -->
+			<Manipulate func="toggleClass" semantic="??" by="class" value="arg_1" target="propTarget" /> <!-- 意味的で解析困難だが代用可能なので、スコープ外 -->
+		-->
+		<!-- Copyrightのclone()はどうしよう。。。 -->
+		<!-- General attributes -->
+		<Manipulate func="attr" semantic="set" by="arg_1" value="arg_2" target="propTarget" /><!-- 属性値の取得もできるが、データフローなのでスコープ外 -->
+		
+		<!-- Insertion -->
+		<Manipulate func="append" semantic="insert" by="arg_1" value="arg_2" target="propTarget" />
+	</Manipulates>
+</Rules>

@@ -1,0 +1,39 @@
+warning: for p.o. reduction to be valid the never claim must be stutter-invariant
+(never claims generated from LTL formulae are stutter-invariant)
+
+(Spin Version 6.2.2 -- 6 June 2012)
+	+ Partial Order Reduction
+
+Full statespace search for:
+	never claim         	+ (never_0)
+	assertion violations	+ (if within scope of claim)
+	acceptance   cycles 	+ (fairness disabled)
+	invalid end states	- (disabled by never claim)
+
+State-vector 44 byte, depth reached 439, errors: 0
+     1950 states, stored
+     1687 states, matched
+     3637 transitions (= stored+matched)
+        0 atomic steps
+hash conflicts:         0 (resolved)
+
+Stats on memory usage (in Megabytes):
+    0.134	equivalent memory usage for states (stored*(State-vector + overhead))
+    0.265	actual memory usage for states
+  128.000	memory used for hash table (-w24)
+    0.534	memory used for DFS stack (-m10000)
+  128.730	total actual memory usage
+
+
+unreached in proctype App
+	Test.pml:364, state 307, "flg_exit = 1"
+	Test.pml:365, state 308, "-end-"
+	(2 of 308 states)
+unreached in proctype Interaction
+	Test.pml:384, state 27, "-end-"
+	(1 of 27 states)
+unreached in claim never_0
+	Test.pml.7.ltl:9, state 8, "-end-"
+	(1 of 8 states)
+
+pan: elapsed time 0.01 seconds

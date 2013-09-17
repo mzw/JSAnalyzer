@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Controls>
+	<Control type="attr" attr="disabled" disabled="true" />
+	<Control type="attr" attr="readonly" disabled="true" />
+	<Control type="attr" attr="visibility"  disabled="hidden" />
+	<Control type="attr" attr="display"  disabled="none" />
+	
+	<Control type="css" prop="display"  disabled="none" />
+</Controls>

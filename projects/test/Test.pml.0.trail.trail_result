@@ -1,0 +1,52 @@
+starting claim 2
+spin: couldn't find claim 2 (ignored)
+using statement merging
+  2:	proc  1 (Interaction) Test.pml:412 (state 3)	[else]
+  4:	proc  1 (Interaction) Test.pml:415 (state 6)	[(1)]
+  6:	proc  0 (App) Test.pml:33 (state 4)	[Int_event = __empty__]
+		Int_event = __empty__
+  6:	proc  0 (App) Test.pml:35 (state 2)	[App_event = __empty__]
+		App_event = __empty__
+		Int_event = __empty__
+  6:	proc  0 (App) Test.pml:36 (state 3)	[App_state = _init]
+		App_state = _init
+		App_event = __empty__
+		Int_event = __empty__
+  8:	proc  1 (Interaction) Test.pml:415 Sent User_Click	-> queue 1 (App_ch)
+  8:	proc  1 (Interaction) Test.pml:415 (state 7)	[App_ch!User_Click]
+  9:	proc  0 (App) Test.pml:40 Recv User_Click	<- queue 1 (App_ch)
+  9:	proc  0 (App) Test.pml:40 (state 5)	[App_ch?Int_event]
+		Int_event = User_Click
+ 11:	proc  1 (Interaction) Test.pml:412 (state 3)	[else]
+ 13:	proc  1 (Interaction) Test.pml:416 (state 8)	[(1)]
+ 15:	proc  0 (App) Test.pml:401 (state 339)	[else]
+ 17:	proc  0 (App) Test.pml:401 (state 340)	[Int_event = __empty__]
+		Int_event = __empty__
+ 19:	proc  1 (Interaction) Test.pml:416 Sent onclick	-> queue 1 (App_ch)
+ 19:	proc  1 (Interaction) Test.pml:416 (state 9)	[App_ch!onclick]
+ 20:	proc  0 (App) Test.pml:40 Recv onclick	<- queue 1 (App_ch)
+ 20:	proc  0 (App) Test.pml:40 (state 5)	[App_ch?Int_event]
+		Int_event = onclick
+ 22:	proc  1 (Interaction) Test.pml:412 (state 3)	[else]
+ 24:	proc  1 (Interaction) Test.pml:414 (state 4)	[(1)]
+ 26:	proc  0 (App) Test.pml:393 (state 332)	[((Int_event==onclick))]
+ 28:	proc  0 (App) Test.pml:394 (state 333)	[App_event = onclick]
+		App_event = onclick
+ 30:	proc  0 (App) Test.pml:395 (state 337)	[Int_event = __empty__]
+		Int_event = __empty__
+ 30:	proc  0 (App) Test.pml:397 (state 335)	[App_event = __empty__]
+		App_event = __empty__
+		Int_event = __empty__
+ 30:	proc  0 (App) Test.pml:398 (state 336)	[App_state = onGood]
+		App_state = onGood
+		App_event = __empty__
+		Int_event = __empty__
+spin: trail ends after 31 steps
+#processes: 2
+		App_state = onGood
+		App_event = __empty__
+		Int_event = __empty__
+		flg_exit = 0
+ 31:	proc  1 (Interaction) Test.pml:414 (state 5)
+ 31:	proc  0 (App) Test.pml:93 (state 51)
+2 processes created

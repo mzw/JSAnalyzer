@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Potentials>
+	<Potential func="alert"       event="User Click"        type="UserEvent" callback="ret"/>
+	<Potential func="setTimeout"  event="after(arg_2 msec)" type="SelfEvent" callback="arg_1" />
+</Potentials>

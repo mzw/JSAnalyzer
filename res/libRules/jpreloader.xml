@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Rules>
+	<Triggers>
+	</Triggers>
+	<Potentials>
+		<!--<Potential func="jpreLoader" event="click" callback="arg_2"/>-->
+	</Potentials>
+	<Controls>
+	</Controls>
+</Rules>

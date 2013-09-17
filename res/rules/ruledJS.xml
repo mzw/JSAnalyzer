@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Libraries>
+	<Library name="prototype.js" path="res/libRules/prototype.xml" skip="true" />
+	<Library name="window.js" path="res/libRules/window.xml" skip="true" />
+	<Library name="effects.js" path="res/libRules/effects.xml" skip="true" />
+	
+	<!-- hard coding -->
+	<Library name="jquery.js?ver=1.7.2" path="res/libRules/jquery.xml" skip="true" />
+	<Library name="jquery.js?ver=1.8.3" path="res/libRules/jquery.xml" skip="true" />
+	<Library name="login-with-ajax.jquery.tools.js?ver=3.5.1" path="res/libRules/jquery.xml" skip="true" />
+	<Library name="navigation.js?ver=1.0" path="res/libRules/jquery.xml" skip="true" />
+	
+	<Library name="yahoo.js" path="res/libRules/yahoo.xml" skip="true" />
+	<Library name="event.js" path="res/libRules/yahoo.xml" skip="true" />
+	<Library name="treeview.js" path="res/libRules/yahoo.xml" skip="true" />
+	
+	<Library name="misc.js" path="res/libRules/misc.xml" skip="true" />
+	<Library name="dom.js" path="res/libRules/dom.xml" skip="true" />
+	<Library name="md5.js" path="res/libRules/md5.xml" skip="true" />
+	
+	
+	<!--<Library name="application-df55285ec308919465b1d6220f610781.js" path="res/libRules/jquery.xml" skip="true" /> <!-- jQuery ver 1.8.3 at storys.jp -->
+	<Library name="bookmark_button.js" path="res/libRules/hatena.xml" skip="true" />
+	
+	
+	<Library name="jquery.min.js" path="res/libRules/jquery.xml" skip="true" />
+	<Library name="jpreloader.js" path="res/libRules/jpreloader.xml" skip="true" />
+	<Library name="jpreLoader.min.js" path="res/libRules/jpreloader.xml" skip="true" />
+	
+	
+	<Library name="jquery-1.8.3.min.js?ver=3.5.1" path="res/libRules/jquery.xml" skip="true" />
+	
+	
+</Libraries>
+

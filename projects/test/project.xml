@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="Test">
+	<Settings>
+		<Setting type="URL" value="http://maezawa.honiden.nii.ac.jp/yuta/research/cs/DocAccessor_Ajax/index.html" />
+		
+		<Setting type="URL" value="http://maezawa.honiden.nii.ac.jp/yuta/test/ItemSelector/ItemSelector.html" />
+		
+		
+		
+		<Setting type="URL" value="http://maezawa.honiden.nii.ac.jp/yuta/research/cs/sForm_submit/sForm_fault.html" />
+		<Setting type="URL" value="http://maezawa.honiden.nii.ac.jp/yuta/research/cs/sForm_correct/sForm_correct.html" />
+		
+		<Setting type="URL" value="http://maezawa.honiden.nii.ac.jp/yuta/research/ex/sws/fault_quick.html" />
+		<Setting type="URL" value="http://maezawa.honiden.nii.ac.jp/yuta/research/ex/sws/correct.html" />
+		
+		
+		<Setting type="URL" value="http://maezawa.honiden.nii.ac.jp/yuta/research/cs/sForm_correct/sForm_correct.html" />
+		<Setting type="URL" value="http://maezawa.honiden.nii.ac.jp/yuta/research/cs/sForm_submit/sForm_fault.html" />
+		
+		<Setting type="URL" value="http://maezawa.honiden.nii.ac.jp/yuta/test/wp_debug/index.php" />
+		<Setting type="URL" value="http://maezawa.honiden.nii.ac.jp/yuta/test/wp/index.php" />
+		
+		
+		
+		<Setting type="URL" value="http://maezawa.honiden.nii.ac.jp/yuta/research/ex/sws/correct.html" />
+		<Setting type="URL" value="http://maezawa.honiden.nii.ac.jp/yuta/research/ex/sws/fault_quick.html" />
+		
+		
+		<Setting type="URL" value="http://maezawa.honiden.nii.ac.jp/yuta/research/ex/fd/motivatingExample.html" />
+		<Setting type="URL" value="http://maezawa.honiden.nii.ac.jp/yuta/research/ex/fd/motivatingExample_fault.html" />
+		
+		
+		<Setting type="URL" value="http://maezawa.honiden.nii.ac.jp/yuta/research/cs/DocAccessor_Ajax/index.html" />
+		
+		
+		<Setting type="URL" value="http://maezawa.honiden.nii.ac.jp/yuta/research/cs/LoginDemo/index.php" />
+		<Setting type="URL" value="http://maezawa.honiden.nii.ac.jp/yuta/research/cs/LoginDemo/noreaddown.php" />
+		<Setting type="URL" value="http://maezawa.honiden.nii.ac.jp/yuta/research/cs/LoginDemo/readup.php" />
+		
+		
+		<Setting type="URL" value="http://maezawa.me/yuta/research/cs/storys_jp/article_id.html" />
+		<Setting type="URL" value="http://www.2klabs.com/updemo/demo1/index.php" />
+		
+		
+		<Setting type="URL" value="http://maezawa.me/yuta/research/cs/jpreloader/test.html" />
+		
+		<Setting type="URL" value="http://mzw.jp/yuta/research/cs/QAsite_debug_2/index.html" />
+		
+		<Setting type="URL" value="http://mzw.jp/yuta/research/cs/QAsite/index.html" />
+		
+		<Setting type="URL" value="http://mzw.jp/yuta/research/cs/QAsite_error/index.html" />
+		<Setting type="URL" value="http://mzw.jp/yuta/research/cs/QAsite_debug/index.html" />
+		
+		
+		<Setting type="URL" value="http://maezawa.honiden.nii.ac.jp/yuta/research/ex/QAsite/debug_MLP/index.html" />
+		<Setting type="URL" value="http://maezawa.honiden.nii.ac.jp/yuta/research/ex/QAsite/error/index.html" />
+		
+		
+		<Setting type="URL" value="http://www.easyservicedapartments.com/index.php" />
+		
+		<Setting type="Rule" value="res/rules/trigger.xml" />
+		<Setting type="Rule" value="res/rules/potential.xml" />
+		<Setting type="Rule" value="res/rules/control.xml" />
+		<Setting type="Rule" value="res/rules/manipulate.xml" />
+		
+		<Setting type="Rule" value="res/rules/ruledJS.xml" />
+	</Settings>
+	<Directory type="StateMachine">
+		<!--<File name="layout_FileDownloader.html.sm" />-->
+		<File name="StateMachine_test.sm" />
+	</Directory>
+	<Directory type="CallGraph">
+		<!--<File name="FileDownloader.html.cg" />-->
+		<File name="CallGraph_test.cg" />
+	</Directory>
+</Project>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Rules>
+	<Triggers>
+		<Trigger type="ServerInteraction" event="onSuccess" />
+		<Trigger type="ServerInteraction" event="onComplete" />
+		<Trigger type="ServerInteraction" event="onFailure" />
+		<Trigger type="ServerInteraction" event="onException" />
+	</Triggers>
+	<Potentials>
+		<Potential func="Ajax" event="prop" callback="prop"/>
+	</Potentials>
+	<Controls>
+		<Control func="$" semantic="get" by="id" value="arg_1" target="ret" />
+	</Controls>
+</Rules>

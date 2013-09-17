@@ -1,0 +1,9 @@
+never  {    /* <>((App_state == validateLogin) && (App_event == onmousedown)) */
+T0_init:
+	if
+	:: (((App_state == validateLogin) && (App_event == onmousedown))) -> goto accept_all
+	:: (1) -> goto T0_init
+	fi;
+accept_all:
+	skip
+}

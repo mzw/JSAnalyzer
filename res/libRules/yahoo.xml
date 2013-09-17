@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Rules>
+	<Triggers>
+		<Trigger type="UserInteraction" event="onCollapse" />
+		<Trigger type="UserInteraction" event="onExpand" />
+		<Trigger type="UserInteraction" event="onLabelClick" />
+	</Triggers>
+	<Potentials>
+		<Potential func="YAHOO" event="prop" callback="prop"/>
+	</Potentials>
+	<Controls>
+		<!--<Control func="$" semantic="get" by="id" value="arg_1" target="ret" />-->
+	</Controls>
+</Rules>

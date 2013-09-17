@@ -1,0 +1,13 @@
+starting claim 2
+spin: couldn't find claim 2 (ignored)
+using statement merging
+  2:	proc  1 (Interaction) Test.pml:648 (state 3)	[else]
+spin: trail ends after 3 steps
+#processes: 2
+		App_state = 0
+		App_event = 0
+		Int_event = 0
+		flg_exit = 0
+  3:	proc  1 (Interaction) Test.pml:649 (state 16)
+  3:	proc  0 (App) Test.pml:42 (state 4)
+2 processes created

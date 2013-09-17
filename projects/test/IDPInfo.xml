@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImplementedDesignPatternInfomation>
+
+
+
+<!-- Shopping Website  -->
+	<Application name="Shopping Website" url="http://maezawa.honiden.nii.ac.jp/yuta/research/ex/sws/fault_quick.html">
+		<Property id="0">
+			<Name>User event registration</Name>
+			<Description>An application should register user events in an onload callback</Description>
+			<AjaxDesignPattern name="User Action" />
+			<PropertyPattern name="Precedence">(App_event != arg_0) U (App_event == arg_1)</PropertyPattern>
+			<Arguments>
+				<Argument order="0">onload</Argument>
+				<Argument order="1">EachUserEvent</Argument>
+			</Arguments>
+		</Property>
+		<Property id="1">
+			<Name>User event handler singleton</Name>
+			<Description>An application can avoid multiple calls of specific user event handler</Description>
+			<AjaxDesignPattern name="User Action" />
+			<PropertyPattern name="Existence">&lt;&gt;((App_state == arg_0) &amp;&amp; (App_event == arg_1))</PropertyPattern>
+			<Arguments>
+				<Argument order="0">addCart</Argument>
+				<Argument order="1">onclick</Argument>
+			</Arguments>
+		</Property>
+	</Application>
+	<Application name="Shopping Website" url="http://maezawa.honiden.nii.ac.jp/yuta/research/ex/sws/correct.html">
+		<Property id="0">
+			<Name>User event registration</Name>
+			<Description>An application should register user events in an onload callback</Description>
+			<AjaxDesignPattern name="User Action" />
+			<PropertyPattern name="Precedence">(App_event != arg_0) U (App_event == arg_1)</PropertyPattern>
+			<Arguments>
+				<Argument order="0">onload</Argument>
+				<Argument order="1">EachUserEvent</Argument>
+			</Arguments>
+		</Property>
+		<Property id="1">
+			<Name>User event handler singleton</Name>
+			<Description>An application can avoid multiple calls of specific user event handler</Description>
+			<AjaxDesignPattern name="User Action" />
+			<PropertyPattern name="Existence">&lt;&gt;((App_state == arg_0) &amp;&amp; (App_event == arg_1))</PropertyPattern>
+			<Arguments>
+				<Argument order="0">addCart</Argument>
+				<Argument order="1">onclick</Argument>
+			</Arguments>
+		</Property>
+	</Application>
+	
+</ImplementedDesignPatternInfomation>
