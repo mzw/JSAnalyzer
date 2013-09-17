@@ -15,11 +15,11 @@ import org.w3c.dom.css.*;
 import org.w3c.dom.stylesheets.MediaList;
 
 import java.io.StringReader;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class CSSParser {
+	private static final Set<String> HTML_TAGS = new HashSet<String>(
+			Arrays.asList(new String[] {"h1", "h2", "h3", "h4", "h5", "h6", "div", "span", "body", "img"}));
 
 	private CSSCode cssCode = null;
 	private CSSStyleSheet stylesheet = null;
@@ -130,6 +130,11 @@ public class CSSParser {
 							}
 							
 							Elements elms = doc.select(selector);
+							if (HTML_TAGS.contains(selector)) {
+								elms = doc.getElementsByTag(selector);
+							} else {
+								elms = doc.select(selector);
+							}
 							for(Element elm : elms) {
 								CSSCode cssCode = new CSSCode(this.cssCode.getUrl(), cssText);
 								cssCode.setTarget(elm, null);
