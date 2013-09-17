@@ -11,10 +11,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.mozilla.javascript.ast.*;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class DOM {
 
@@ -532,11 +529,20 @@ public class DOM {
 		} else if("css_query".equals(rule.getBy())) {
 			String valNodeStr = Util.removeQuote(val);
 			if(!"".equals(valNodeStr)) { // function($) {...
-				
+
 				/// hard coding for jQuery
 				if(valNodeStr.charAt(0) == '<') { // new element creation: $("<div><p>Hello</p></div>").appendTo("body");
 					Element elm = this.doc.html(valNodeStr);
 					elms.add(elm);
+				} else if (node.getAstNode().getParent() instanceof PropertyGet){
+					String[] ajaxMethods = new String[] {"post", "get", "getJSON", "ajax"};
+					String methodName = ((PropertyGet) node.getAstNode().getParent()).getProperty().toSource();
+					if (Arrays.asList(ajaxMethods).contains(methodName)) {
+						System.out.println("ignore jQuery's ajax method [" + methodName
+								+ "] in manipulateGet, this should be handled in other place.");
+					} else {
+						System.err.println("unknown method: @DOM.manipulate.get" + methodName);
+					}
 				} else {
 					elms = this.doc.select(valNodeStr);
 				}
