@@ -6,4 +6,6 @@
 	<Manipulate func="getElementById"      semantic="get"    by="id"    value="arg_1"      target="ret" />
 	<Manipulate func="getElementByTagName" semantic="get"    by="name"  value="arg_1"      target="ret" />
 	<Manipulate func="setAttribute"        semantic="set"    by="arg_1" value="arg_2"      target="propTarget" />
+	<Manipulate func="attachEvent"         semantic="set"    by="arg_1" value="arg_2"      target="propTarget" />
+	<Manipulate func="addEventListener"    semantic="set"    by="arg_1" value="arg_2"      target="propTarget" />
 </Manipulates>
