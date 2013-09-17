@@ -1,10 +1,10 @@
 package Verifier;
 
-import java.util.Iterator;
-
 import Analyzer.Util;
 import Graph.State;
 import Graph.StateMachine;
+
+import java.util.Iterator;
 
 public class Uppaal extends Verifier {
 

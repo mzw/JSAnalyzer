@@ -1,19 +1,16 @@
 package Modeler;
 
-import java.util.List;
-
+import Graph.Edge;
+import Graph.Node;
+import Parser.CSSParser;
+import Parser.DOM;
+import Rule.RuleList;
 import org.jsoup.nodes.Attribute;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.mozilla.javascript.ast.AstNode;
 
-import Parser.CSSCode;
-import Parser.CSSParser;
-import Parser.DOM;
-import Rule.Potential;
-import Rule.RuleList;
-import Graph.Edge;
-import Graph.Node;
+import java.util.List;
 
 public class Interaction {
 

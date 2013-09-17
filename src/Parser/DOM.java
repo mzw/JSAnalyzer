@@ -1,32 +1,20 @@
 package Parser;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import org.mozilla.javascript.ast.Assignment;
-import org.mozilla.javascript.ast.AstNode;
-import org.mozilla.javascript.ast.AstRoot;
-import org.mozilla.javascript.ast.Block;
-import org.mozilla.javascript.ast.ExpressionStatement;
-import org.mozilla.javascript.ast.FunctionCall;
-import org.mozilla.javascript.ast.FunctionNode;
-import org.mozilla.javascript.ast.InfixExpression;
-import org.mozilla.javascript.ast.Name;
-import org.mozilla.javascript.ast.PropertyGet;
-import org.mozilla.javascript.ast.Scope;
-import org.mozilla.javascript.ast.VariableInitializer;
-
 import Analyzer.Util;
 import Graph.Node;
 import Modeler.Modeler;
 import Rule.Control;
 import Rule.Manipulate;
 import Rule.Rule;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.mozilla.javascript.ast.*;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 public class DOM {
 

@@ -1,15 +1,15 @@
 package Graph;
 
-import java.awt.Point;
+import Analyzer.Analyzer;
+import Analyzer.Config;
+import Analyzer.Util;
+
+import java.awt.*;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
-
-import Analyzer.Analyzer;
-import Analyzer.Config;
-import Analyzer.Util;
 
 public class StateMachine extends Graph {
 

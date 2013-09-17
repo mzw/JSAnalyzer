@@ -1,16 +1,15 @@
 package Analyzer;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import Modeler.Extractor;
 import Graph.Graph;
 import Graph.StateMachine;
+import Modeler.Extractor;
 import Rule.RuleList;
 import Verifier.AjaxDesignProperty;
 import Verifier.Specification;
 import Verifier.Spin;
-import Verifier.Uppaal;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class Analyzer {
 

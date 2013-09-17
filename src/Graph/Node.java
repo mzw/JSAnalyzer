@@ -1,14 +1,10 @@
 package Graph;
 
+import Analyzer.Util;
+import Rule.*;
+
 import java.util.LinkedList;
 import java.util.List;
-
-import Analyzer.Util;
-import Rule.Control;
-import Rule.Manipulate;
-import Rule.Potential;
-import Rule.RuleList;
-import Rule.Trigger;
 
 public class Node extends Element {
 	

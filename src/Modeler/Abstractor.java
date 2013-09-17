@@ -1,12 +1,12 @@
 package Modeler;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
-
 import Graph.Edge;
 import Graph.Graph;
 import Graph.Node;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
 
 public class Abstractor extends Modeler {
 	

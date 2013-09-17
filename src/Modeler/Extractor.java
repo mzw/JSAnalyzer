@@ -1,21 +1,14 @@
 package Modeler;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import org.jsoup.nodes.Document;
-
 import Analyzer.Analyzer;
 import Analyzer.Util;
-import Parser.CSSParser;
-import Parser.DOM;
 import Graph.Graph;
 import Graph.Node;
-import Graph.StateMachine;
-import Parser.CSSCode;
-import Parser.HTMLParser;
-import Parser.JSCode;
-import Parser.JSParser;
+import Parser.*;
+import org.jsoup.nodes.Document;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class Extractor {
 	Analyzer analyzer = null;

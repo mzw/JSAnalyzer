@@ -1,17 +1,17 @@
 package Verifier;
 
+import Analyzer.Analyzer;
+import Analyzer.Config;
+import Analyzer.Util;
+import Graph.State;
+import Graph.StateMachine;
+import Graph.Transition;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
-import Analyzer.Analyzer;
-import Analyzer.Config;
-import Analyzer.Util;
-import Graph.StateMachine;
-import Graph.State;
-import Graph.Transition;;
 
 public class Spin extends Verifier {
 	public Spin(StateMachine sm) {

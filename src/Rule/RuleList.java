@@ -1,15 +1,14 @@
 package Rule;
 
-import java.util.LinkedList;
-import java.util.List;
-
+import Analyzer.Util;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 
-import Analyzer.Util;
+import java.util.LinkedList;
+import java.util.List;
 
 public class RuleList {
 	private List<String> filenames = null;

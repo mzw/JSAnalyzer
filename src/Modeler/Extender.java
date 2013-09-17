@@ -1,14 +1,14 @@
 package Modeler;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
-
 import Graph.Edge;
 import Graph.Graph;
 import Graph.Node;
 import Rule.Potential;
 import Rule.Rule;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
 
 public class Extender extends Modeler {
 

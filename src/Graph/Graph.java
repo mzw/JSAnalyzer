@@ -1,17 +1,15 @@
 package Graph;
 
+import Analyzer.Config;
+import Analyzer.Util;
+import Rule.RuleList;
+import org.jsoup.nodes.Attribute;
+import org.mozilla.javascript.ast.AstRoot;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
-
-import org.jsoup.nodes.Attribute;
-import org.mozilla.javascript.ast.AstRoot;
-
-import Rule.RuleList;
-
-import Analyzer.Config;
-import Analyzer.Util;
 
 public class Graph {
 	

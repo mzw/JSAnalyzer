@@ -1,10 +1,10 @@
 package Modeler;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import Graph.Graph;
 import Graph.Node;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class Modeler {
 	

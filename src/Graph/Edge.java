@@ -1,11 +1,10 @@
 package Graph;
 
-import java.util.List;
-import java.util.LinkedList;
-
+import Modeler.Interaction;
 import org.jsoup.nodes.Attribute;
 
-import Modeler.Interaction;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Edge extends Element {
 

@@ -1,10 +1,9 @@
 package Parser;
 
-import java.io.StringReader;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.StringTokenizer;
-
+import Analyzer.Util;
+import Rule.Control;
+import Rule.RuleList;
+import com.steadystate.css.parser.CSSOMParser;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -12,24 +11,13 @@ import org.w3c.css.sac.CSSException;
 import org.w3c.css.sac.CSSParseException;
 import org.w3c.css.sac.ErrorHandler;
 import org.w3c.css.sac.InputSource;
-import org.w3c.dom.css.CSSCharsetRule;
-import org.w3c.dom.css.CSSFontFaceRule;
-import org.w3c.dom.css.CSSImportRule;
-import org.w3c.dom.css.CSSMediaRule;
-import org.w3c.dom.css.CSSPageRule;
-import org.w3c.dom.css.CSSRule;
-import org.w3c.dom.css.CSSRuleList;
-import org.w3c.dom.css.CSSStyleDeclaration;
-import org.w3c.dom.css.CSSStyleRule;
-import org.w3c.dom.css.CSSStyleSheet;
-import org.w3c.dom.css.CSSUnknownRule;
+import org.w3c.dom.css.*;
 import org.w3c.dom.stylesheets.MediaList;
 
-import com.steadystate.css.parser.CSSOMParser;
-
-import Analyzer.Util;
-import Rule.Control;
-import Rule.RuleList;
+import java.io.StringReader;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 public class CSSParser {
 	

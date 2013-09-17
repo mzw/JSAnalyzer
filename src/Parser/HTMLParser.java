@@ -1,20 +1,14 @@
 package Parser;
 
+import Analyzer.Util;
+import Rule.RuleList;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.*;
+import org.jsoup.select.Elements;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Attribute;
-import org.jsoup.nodes.Attributes;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Node;
-import org.jsoup.select.Elements;
-
-import Rule.RuleList;
-
-import Analyzer.Util;
 
 public class HTMLParser {
 	private String url = null;

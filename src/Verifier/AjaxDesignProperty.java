@@ -1,17 +1,16 @@
 package Verifier;
 
-import java.util.LinkedList;
-import java.util.List;
-
+import Analyzer.Analyzer;
+import Analyzer.Util;
+import Graph.StateMachine;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 
-import Analyzer.Analyzer;
-import Analyzer.Util;
-import Graph.StateMachine;
+import java.util.LinkedList;
+import java.util.List;
 
 public class AjaxDesignProperty extends Specification {
 	

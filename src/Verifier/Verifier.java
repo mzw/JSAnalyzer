@@ -1,10 +1,10 @@
 package Verifier;
 
-import java.util.List;
-
 import Analyzer.Analyzer;
 import Analyzer.Util;
 import Graph.StateMachine;
+
+import java.util.List;
 
 public class Verifier {
 	

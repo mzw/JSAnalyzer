@@ -1,14 +1,14 @@
 package Modeler;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-
-import Parser.DOM;
-import Rule.RuleList;
 import Graph.Edge;
 import Graph.Graph;
 import Graph.Node;
+import Parser.DOM;
+import Rule.RuleList;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Refiner extends Modeler {
 	

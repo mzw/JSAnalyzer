@@ -1,14 +1,14 @@
 package Analyzer;
 
-import java.io.File;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
+
+import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Project {
 	private Document xmlDoc = null;

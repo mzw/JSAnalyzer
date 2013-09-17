@@ -1,23 +1,16 @@
 package Analyzer;
 
-import java.awt.Point;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import att.grappa.Graph;
+import att.grappa.Node;
+import att.grappa.Parser;
+
+import java.awt.*;
+import java.io.*;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
-import att.grappa.Graph;
-import att.grappa.Node;
-import att.grappa.Parser;
 
 public class Util {
 	public static String wget(String url) {
