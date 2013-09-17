@@ -454,6 +454,12 @@ public class JSParser {
 		// if $ is used as object, we replace it to jQuery, which represents same object.
 		jsCode = jsCode.replaceAll("\\$\\.", "jQuery.");
 
+		// onSubmit can take value like 'return func();', but this sentence itself is syntactically
+		// invalid when parsed as independent JavaScript. Here we remove 'return' word.
+		if (jsCode.startsWith("return") && (jsCode.endsWith("();") || jsCode.endsWith("()"))) {
+			jsCode = jsCode.substring("return".length(), jsCode.length()).trim();
+		}
+
 		return jsCode;
 	}
 
