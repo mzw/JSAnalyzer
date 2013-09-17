@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class CSSParser {
-	
+
 	private CSSCode cssCode = null;
 	private CSSStyleSheet stylesheet = null;
 	
@@ -299,7 +299,12 @@ public class CSSParser {
 			StringTokenizer _tokenizer = new StringTokenizer(token, " ");
 			while(_tokenizer.hasMoreTokens()) {
 				String _token = _tokenizer.nextToken();
-				
+
+				// Vender-prefixed pseudo classes
+				if (_token.contains(":-webkit-") || _token.contains(":-moz-") || _token.contains(":-ms-")){
+					return true;
+				}
+
 				// hard coding
 				for(int i = 0; i < CSSParser.PseudoClasses.length; i++) {
 					String pc = CSSParser.PseudoClasses[i];
