@@ -211,78 +211,72 @@ public class Spin extends Verifier {
 			
 			String anti_example = "";
 			// parse trail result
-			String line = "";
-			for(int i = 0; i < result.length(); i++) {
-				int n = result.indexOf('\n');
-				if(n != -1) {
-					line = result.substring(0, n);
-					//System.out.println(line);
-					result = result.substring(n+1, result.length()-1);
-					//if(line.contains("\t\tApp_state")) {
-					if(line.contains("[App_state")) {
-						//String[] line_split = line.split("=");
-						//String App_state = line_split[1].replaceAll(" ", "");
-						
-						// parse of [App_state = XXX]
-						int beginIndex = line.indexOf("[");
-						int endIndex = line.indexOf("]");
-						String target = line.substring(beginIndex+1, endIndex);
-						
-						String[] target_split = target.split("=");
-						String App_state = target_split[1].replaceAll(" ", "");
-						
-						if(original.hasStateForSpin(App_state)) {
-							//System.out.println("App is in: " + App_state);
-							//System.out.println("(" + App_state + ")");
-							anti_example += "(" + App_state + ")";
-							//ep_states.addAll(abstractedStates);
-							List<State> abstractedStates = this.sm.getErrorProneStatesForSpin(App_state);
-							for(State as : abstractedStates) {
-								if(!ep_states.contains(as)) {
-									ep_states.add(as);
-								}
-							}
-							pre_ass = abstractedStates;
-							//ep_transs.addAll(sm.getErrorProneTransitionsForSpin(abstractedStates));
-							List<Transition> abstractedTranss = this.sm.getErrorProneTransitionsForSpin(abstractedStates);
-							for(Transition at : abstractedTranss) {
-								if(!ep_transs.contains(at)) {
-									ep_transs.add(at);
-								}
+			String[] lines = result.split(System.lineSeparator());
+			for (String line: lines) {
+				//if(line.contains("\t\tApp_state")) {
+				if(line.contains("[App_state")) {
+					//String[] line_split = line.split("=");
+					//String App_state = line_split[1].replaceAll(" ", "");
+
+					// parse of [App_state = XXX]
+					int beginIndex = line.indexOf("[");
+					int endIndex = line.indexOf("]");
+					String target = line.substring(beginIndex+1, endIndex);
+
+					String[] target_split = target.split("=");
+					String App_state = target_split[1].replaceAll(" ", "");
+
+					if(original.hasStateForSpin(App_state)) {
+						//System.out.println("App is in: " + App_state);
+						//System.out.println("(" + App_state + ")");
+						anti_example += "(" + App_state + ")";
+						//ep_states.addAll(abstractedStates);
+						List<State> abstractedStates = this.sm.getErrorProneStatesForSpin(App_state);
+						for(State as : abstractedStates) {
+							if(!ep_states.contains(as)) {
+								ep_states.add(as);
 							}
 						}
-					} else if(line.contains("[App_event")) {
-					//} else if(line.contains("\t\tApp_event")) {
-						//String[] line_split = line.split("=");
-						//String App_handling_event = line_split[1].replaceAll(" ", "");
-						
-						// parse of [App_event = XXX]
-						int beginIndex = line.indexOf("[");
-						int endIndex = line.indexOf("]");
-						String target = line.substring(beginIndex+1, endIndex);
-						
-						String[] target_split = target.split("=");
-						String App_handling_event = target_split[1].replaceAll(" ", "");
-						
-						if(this.sm.hasEventForSpin(App_handling_event) && !"__empty__".equals(App_handling_event)) {
-							//System.out.println("App handles: " + App_handling_event);
-							//System.out.println("--" + App_handling_event + "-->");
-							anti_example += "--" + App_handling_event + "-->";
-							Transition t = original.getErrorProneTransitionForSpin(App_handling_event, pre_ass);
-							if(!ep_transs.contains(t)) {
-								ep_transs.add(t);
+						pre_ass = abstractedStates;
+						//ep_transs.addAll(sm.getErrorProneTransitionsForSpin(abstractedStates));
+						List<Transition> abstractedTranss = this.sm.getErrorProneTransitionsForSpin(abstractedStates);
+						for(Transition at : abstractedTranss) {
+							if(!ep_transs.contains(at)) {
+								ep_transs.add(at);
 							}
-						} else {
-							//System.out.println("does not have: " + App_handling_event);
 						}
-					} else if(line.contains("\t\tInt_event")) {
-						String[] line_split = line.split("=");
-						String fired_event = line_split[1].replaceAll(" ", "");
-						if(this.sm.hasEventForSpin(fired_event)) {
-							//System.out.println("\tfired(random): " + fired_event);
-						} else {
-							//System.out.println("does not have: " + App_handling_event);
+					}
+				} else if(line.contains("[App_event")) {
+				//} else if(line.contains("\t\tApp_event")) {
+					//String[] line_split = line.split("=");
+					//String App_handling_event = line_split[1].replaceAll(" ", "");
+
+					// parse of [App_event = XXX]
+					int beginIndex = line.indexOf("[");
+					int endIndex = line.indexOf("]");
+					String target = line.substring(beginIndex+1, endIndex);
+
+					String[] target_split = target.split("=");
+					String App_handling_event = target_split[1].replaceAll(" ", "");
+
+					if(this.sm.hasEventForSpin(App_handling_event) && !"__empty__".equals(App_handling_event)) {
+						//System.out.println("App handles: " + App_handling_event);
+						//System.out.println("--" + App_handling_event + "-->");
+						anti_example += "--" + App_handling_event + "-->";
+						Transition t = original.getErrorProneTransitionForSpin(App_handling_event, pre_ass);
+						if(!ep_transs.contains(t)) {
+							ep_transs.add(t);
 						}
+					} else {
+						//System.out.println("does not have: " + App_handling_event);
+					}
+				} else if(line.contains("\t\tInt_event")) {
+					String[] line_split = line.split("=");
+					String fired_event = line_split[1].replaceAll(" ", "");
+					if(this.sm.hasEventForSpin(fired_event)) {
+						//System.out.println("\tfired(random): " + fired_event);
+					} else {
+						//System.out.println("does not have: " + App_handling_event);
 					}
 				}
 			}
