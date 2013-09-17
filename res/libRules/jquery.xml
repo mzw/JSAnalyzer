@@ -63,8 +63,8 @@
 		<Potential interact="Server" via="XMLHttpRequest" func="get" target="$" event="success" callback="arg_2||3" />
 		<Potential interact="Server" via="XMLHttpRequest" func="getJSON" target="$" event="success" callback="arg_2||3" />
 		<Potential interact="Server" via="XMLHttpRequest" func="getScript" target="$" event="success" callback="arg_2||3" />
-		<Potential interact="Server" via="XMLHttpRequest" func="post" target="$" event="success" callback="arg_2||3" />
 		-->
+        <Potential interact="Server" via="XMLHttpRequest" func="post" target="$" event="success" callback="arg_3" />
 		<Potential interact="Server" via="XMLHttpRequest" func="load" target="propTarget" event="complete" callback="arg_2||3" /> <!-- *1) 第2or3引数が関数ならば？ -->
 	</Potentials>
 	<Controls>
