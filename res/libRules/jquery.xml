@@ -5,8 +5,9 @@
 	</Triggers>
 	<Potentials>
 		<Potential interact="User" via="mouse" func="on" target="propTarget" event="arg_1" callback="arg_2"/>
-		
-		<!-- mouse events -->
+        <Potential interact="User" via="mouse" func="bind" target="propTarget" event="arg_1" callback="arg_2"/>
+
+        <!-- mouse events -->
 		<Potential interact="User" via="mouse" func="click" target="propTarget" event="click" callback="arg_1"/>
 		<Potential interact="User" via="mouse" func="dblclick" target="propTarget" event="double click" callback="arg_1"/>
 		<Potential interact="User" via="mouse" func="hover" target="propTarget" event="hover" callback="arg_1"/>
