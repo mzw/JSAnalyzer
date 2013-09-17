@@ -344,6 +344,11 @@ public class CSSParser {
 			// nth-child
 			":odd",
 			":even",
+
+			":valid",
+			":invalid",
+			":after",
+			":before"
 	};
 	public static void causedByLimitation(CSSStyleDeclaration styles, RuleList myRules, String limitType) {
 		for(int _item = 0; _item < styles.getLength(); _item++) {
