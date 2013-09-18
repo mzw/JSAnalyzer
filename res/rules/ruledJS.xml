@@ -5,8 +5,6 @@
 	<Library name="effects.js" path="res/libRules/effects.xml" skip="true" />
 	
 	<!-- hard coding -->
-	<Library name="jquery.js?ver=1.7.2" path="res/libRules/jquery.xml" skip="true" />
-	<Library name="jquery.js?ver=1.8.3" path="res/libRules/jquery.xml" skip="true" />
 	<Library name="login-with-ajax.jquery.tools.js?ver=3.5.1" path="res/libRules/jquery.xml" skip="true" />
 	<Library name="navigation.js?ver=1.0" path="res/libRules/jquery.xml" skip="true" />
 	
@@ -23,13 +21,18 @@
 	<Library name="bookmark_button.js" path="res/libRules/hatena.xml" skip="true" />
 	
 	
-	<Library name="jquery.min.js" path="res/libRules/jquery.xml" skip="true" />
 	<Library name="jpreloader.js" path="res/libRules/jpreloader.xml" skip="true" />
 	<Library name="jpreLoader.min.js" path="res/libRules/jpreloader.xml" skip="true" />
 	
-	
+	<!-- startsWith -->
+	<Library name="startsWith('jquery')" path="res/libRules/jquery.xml" skip="true" />
+	<!--
+	<Library name="jquery.js?ver=1.7.2" path="res/libRules/jquery.xml" skip="true" />
+	<Library name="jquery.js?ver=1.8.3" path="res/libRules/jquery.xml" skip="true" />
 	<Library name="jquery-1.8.3.min.js?ver=3.5.1" path="res/libRules/jquery.xml" skip="true" />
-	
+	<Library name="jquery.min.js" path="res/libRules/jquery.xml" skip="true" />
+	-->
+	<!-- contains (ToDo) -->
 	
 </Libraries>
 

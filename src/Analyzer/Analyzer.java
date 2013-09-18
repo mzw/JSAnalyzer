@@ -299,7 +299,7 @@ public class Analyzer {
 		Util.write("/Users/yuta/Desktop", "sm.dot", _sm.toString_dot());
 		//analyzer.verify(graph);
 		
-		analyzer.verifyADP("projects/test/IADPInfo_QAsite.xml", analyzer, graph);
+		//analyzer.verifyADP("projects/test/IADPInfo_QAsite.xml", analyzer, graph);
 		//analyzer.verify4ouworkshop("/Users/yuta/Desktop/result/", graph);
 		
 		/*

@@ -2,10 +2,6 @@ package Analyzer;
 
 public class Config {
 	public static final String version = "0.3.0";
-
-	// external files
-	public static final String JSCOMP_EXTERNS	= "res/js/externs";
-
 	
 	// commands
 	public static final String spin				= "/opt/local/bin/spin";
@@ -34,7 +30,8 @@ public class Config {
 	public static final String EXT_Path			= ".path.sm";
 	public static final String EXT_SpinResult_HTML	= ".result.html";
 	public static final String EXT_Dot			= ".dot";
-	
-	
+
+	// Reserved keywords
+	public static final String Lib_StartsWith 	= "startsWith(";
 	
 }

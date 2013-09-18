@@ -236,7 +236,7 @@ public class Util {
 		return ret;
 	}
 	public static String removeQuote(String str) {
-		String ret = "";
+		String ret = str;
 		if(str == null || "".equals(str)) {
 			return "";
 		}
