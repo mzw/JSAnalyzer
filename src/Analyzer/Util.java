@@ -392,4 +392,5 @@ public class Util {
 	}
 
 	public static final String SYSTEM_DIR = System.getProperty("file.separator");
+	public static final String SYSTEM_LINE = System.getProperty("line.separator");
 }

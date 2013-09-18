@@ -211,7 +211,7 @@ public class Spin extends Verifier {
 			
 			String anti_example = "";
 			// parse trail result
-			String[] lines = result.split(System.lineSeparator());
+			String[] lines = result.split(Util.SYSTEM_LINE);
 			for (String line: lines) {
 				//if(line.contains("\t\tApp_state")) {
 				if(line.contains("[App_state")) {

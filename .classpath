@@ -2,5 +2,14 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="jar/CSSParser/cssparser-0.9.7.jar"/>
+	<classpathentry kind="lib" path="jar/jsoup/jsoup-1.7.1.jar"/>
+	<classpathentry kind="lib" path="jar/Rhino/js-14.jar"/>
+	<classpathentry kind="lib" path="jar/Rhino/js.jar"/>
+	<classpathentry kind="lib" path="jar/Grappa/grappa1_2.jar"/>
+	<classpathentry kind="lib" path="jar/SAC/sac.jar"/>
+	<classpathentry kind="lib" path="jar/Xerces/serializer.jar"/>
+	<classpathentry kind="lib" path="jar/Xerces/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="jar/Xerces/xml-apis.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
