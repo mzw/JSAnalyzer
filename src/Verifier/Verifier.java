@@ -29,7 +29,7 @@ public class Verifier {
 		content += "<h1>Target application</h1>\n";
 		content += "<a href=\"" + analyzer.getProject().getUrl() + "\">" + analyzer.getProject().getUrl() + "</a>\n";
 
-		content += "<h1>Reaults</h1>\n";
+		content += "<h1>Results</h1>\n";
 		content += "<table cellspacing=1>\n";
 		
 		content += "<tr><th>Id</th><th>Description</th><th>LTL formula</th><th>Result</th></tr>\n";
@@ -45,7 +45,7 @@ public class Verifier {
 	}
 	
 
-	public String saveVerifyADPResults(Analyzer analyzer, List<AjaxDesignProperty> specs) {
+	public String saveVerifyIADPResults(Analyzer analyzer, List<AjaxDesignProperty> specs) {
 		String html_filename = analyzer.getProject().getName() + ".html";
 
 		String content = "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\">\n";
@@ -58,7 +58,7 @@ public class Verifier {
 		content += "<h1>Target application</h1>\n";
 		content += "<a href=\"" + analyzer.getProject().getUrl() + "\">" + analyzer.getProject().getUrl() + "</a>\n";
 
-		content += "<h1>Reaults</h1>\n";
+		content += "<h1>Results</h1>\n";
 		content += "<table cellspacing=1>\n";
 		
 		//content += "<tr><th>Id</th><th>Property name</th><th width='50'>Description</th><th>Derived Ajax design pattern</th><th>Mapped property pattern</th><th>Formula template</th><th>Verification formula</th><th>Result</th></tr>\n";
@@ -87,7 +87,7 @@ public class Verifier {
 		content += "<h1>Target application</h1>\n";
 		content += "<p><a href=\"" + analyzer.getProject().getUrl() + "\">" + analyzer.getProject().getUrl() + "</a></p>\n";
 
-		content += "<h1>Reaults</h1>\n";
+		content += "<h1>Results</h1>\n";
 		content += "<table cellspacing=1>\n";
 		
 		content += "<tr><th>Id</th><th>Property name</th><th>Verification formula</th><th>Result</th></tr>\n";

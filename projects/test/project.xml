@@ -58,6 +58,8 @@
 		
 		<Setting type="URL" value="http://www.easyservicedapartments.com/index.php" />
 		
+		<Setting type="URL" value="file://localhost/Users/yuta/Desktop/test/2020m_test/2020m.html" />
+		
 		<Setting type="Rule" value="res/rules/trigger.xml" />
 		<Setting type="Rule" value="res/rules/potential.xml" />
 		<Setting type="Rule" value="res/rules/control.xml" />
