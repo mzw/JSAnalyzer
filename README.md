@@ -1,45 +1,29 @@
-JSAnalyzer (To be debugged)
+JSAnalyzer
 ==========
 
-Objective
-----------
-JSAnalyzer is our developing tool for supporting Ajax application development. 
-JSAnalyzer consists of three main packages (Modeler, Verifier, and Preventer).
-
-
-
-Dependencies
-----------
-####Libraries
-* jsoup
-* Rhino
-* Xerces
-* env-js
-* CSS Parser
-* SAC
-* (Optional)Grappa
-
-####Environment setup
-* JDK 1.6.0 or later
-* Spin 6.2.2 or later
-* (Optional) Graphviz 2.28.0 or later
-
+We are developing the JSAnalyzer tool for supporting Ajax applications developments.
+JSAnalyzer consists of three main components:
+* JSModeler
+ - Statically extracting a finite state machine (FSM) from the source code of target Ajax applications
+* JSVerifier
+ - (Semi-)Automatically verifying whether the extracted FSM satisfies invariants relevant to interactions with Ajax applications
+* JSPreventer
+ - Supports developers to reveal errors due to potential faults of anti-examples from the verification results
+We believe that JSAnalyzer helps developers developing and maintaining highly-quality Ajax applications.
+Enjoy to run JSAnalyzer!
 
 License
 ----------
-To be determined
+[Apache License, Version 2.0](blob/master/LICENSE)
+
+Documentation
+----------
+See [this wiki (updating)](wiki).
 
 Greatest Contributors
 ----------
 * Kazuki Nishiura
 * Junto Nakaoka
 
-Publications
-----------
-1. Yuta Maezawa, Kazuki Nishiura, Hironori Washizaki, Shinichi Honiden,
-"Preventive Maintenance of Ajax Applications using a Delay-based Mutation Technique". (Under submission)
-2. Yuta Maezawa, Hironori Washizaki, Shinichi Honiden,
-"Automated Verification of Pattern-Based Interaction Invariants in Ajax Applications",
-In Proc. ASE'13, November 2013. (To appear)
-3. Yuta Maezawa, Hironori Washizaki, Shinichi Honiden,
-"Extracting Interaction-Based Stateful Behavior in Rich Internet Applications", In Proc. CSMR'12, pp.423-428, March 2012.
+We are looking forward to your contributions!
+
