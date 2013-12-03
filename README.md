@@ -16,7 +16,7 @@ Enjoy to run JSAnalyzer!
 
 License
 ----------
-[Apache License, Version 2.0](blob/master/LICENSE)
+[Apache License, Version 2.0](https://github.com/mzw/JSAnalyzer/blob/master/LICENSE)
 
 Documentation
 ----------
