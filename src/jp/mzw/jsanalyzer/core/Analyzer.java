@@ -90,10 +90,10 @@ public class Analyzer {
 	 * @param args Gives a filename of your project in JSAnalyzer at first argument (to be determined)
 	 */
 	public static void main(String[] args) {
-		System.out.println("==========================================================================================");
-		System.out.println("JSAnalyzer: A Support Tool for Highly Quality Ajax Applications Developments");
+		System.out.println("==============================");
+		System.out.println("Running JSAnalyzer");
 		System.out.println((new Date()).toString());
-		System.out.println("==========================================================================================");
+		System.out.println("==============================");
 
 		System.out.println("Preparing your project...");
 //		Analyzer analyzer = new Analyzer("projects/test2/project.xml");
@@ -122,8 +122,8 @@ public class Analyzer {
 		Util.write("/Users/yuta/Desktop", "uppaal.xml", uppaal.translate());
 		*/
 
-		System.out.println("==========================================================================================");
+		System.out.println("==============================");
 		System.out.println("See you again!");
-		System.out.println("==========================================================================================");
+		System.out.println("==============================");
 	}
 }

@@ -1,5 +1,5 @@
 package jp.mzw.jsanalyzer.modeler.model;
 
-public class State extends FSMElement {
+public class State extends Element {
 
 }

@@ -2,6 +2,8 @@ package jp.mzw.jsanalyzer.parser;
 
 import java.util.ArrayList;
 
+import jp.mzw.jsanalyzer.xml.HTMLAttr;
+
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.w3c.dom.css.CSSStyleDeclaration;
@@ -47,6 +49,10 @@ public class CSSCode extends Code {
 		this.mCSSStyleRuleList.add(cssStyleRule);
 	}
 	
+	public ArrayList<CSSStyleRule> getCSSStyleRuleList() {
+		return this.mCSSStyleRuleList;
+	}
+	
 	public void manipulate(Document doc) {
 		if(this.isInline) {
 			System.out.println(this.mHTMLElement.toString());
@@ -57,6 +63,8 @@ public class CSSCode extends Code {
 
 			System.out.println(selector);
 			for(Element elm : doc.select(selector)) {
+				
+				System.out.println("\tInline:" + elm.attr(HTMLAttr.Style));
 				
 				for(int i = 0; i < style.getLength(); i++) {
 					String prop = style.item(i);

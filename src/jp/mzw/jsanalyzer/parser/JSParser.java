@@ -31,7 +31,6 @@ public class JSParser extends Parser {
 		super(code);
 		this.mAst = this.createAST(code.getCode());
 	}
-	
 
 	/**
 	 * Creates an abstract syntax tree from given JS code

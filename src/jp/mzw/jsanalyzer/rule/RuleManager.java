@@ -129,6 +129,21 @@ public class RuleManager {
 	}
 	
 	/**
+	 * Determines whether given property is control CSS property or not
+	 * @param prop Given CSS property
+	 * @return If given CSS property is control one, returns corresponding control rule.
+	 * Otherwise, returns null.
+	 */
+	public CSSControl isControlCSSProperty(String prop) {
+		for(Control control : this.mControlRuleList) {
+			if(control instanceof CSSControl && control.match(prop)) {
+				return (CSSControl)control;
+			}
+		}
+		return null;
+	}
+	
+	/**
 	 * Gets Library instance corresponding to given filename
 	 * @param filename A filename of a JavaScript library
 	 * @return Library instance. If given filename is not ruled JavaScript library, returns null.

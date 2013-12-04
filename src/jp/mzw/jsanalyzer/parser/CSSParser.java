@@ -66,6 +66,14 @@ public class CSSParser extends Parser {
 	}
 	
 	/**
+	 * Gets this CSS style sheet
+	 * @return This CSS style sheet
+	 */
+	public CSSStyleSheet getCSSStyleSheet() {
+		return this.mStyleSheet;
+	}
+	
+	/**
 	 * Parses this CSS code
 	 */
 	public void parse() {

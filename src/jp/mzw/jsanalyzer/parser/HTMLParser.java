@@ -3,6 +3,7 @@ package jp.mzw.jsanalyzer.parser;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.jsoup.Jsoup;
@@ -10,6 +11,7 @@ import org.jsoup.nodes.Attribute;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
+import org.w3c.dom.css.CSSStyleRule;
 
 import jp.mzw.jsanalyzer.rule.Library;
 import jp.mzw.jsanalyzer.rule.RuleManager;
@@ -103,11 +105,21 @@ public class HTMLParser extends Parser {
 	}
 	
 	/**
-	 * Gets CSS codes
+	 * Represents a list of CSS codes in HTML code
+	 */
+	protected ArrayList<CSSCode> mCSSCodeList;
+	
+	/**
+	 * Gets CSS codes in HTML code
 	 * @return CSS codes
 	 */
 	public ArrayList<CSSCode> getCSSCodeList() {
-		ArrayList<CSSCode> codeList = new ArrayList<CSSCode>();
+		if(this.mCSSCodeList == null) {
+			this.mCSSCodeList = new ArrayList<CSSCode>();
+		} else {
+			return this.mCSSCodeList;
+		}
+		
 		for (Element elm : this.mCode.getHTMLElement().getAllElements()) {
 			// Embedded
 			if (HTMLTag.Style.compareToIgnoreCase(elm.tagName()) == 0) {
@@ -119,7 +131,7 @@ public class HTMLParser extends Parser {
 					 */
 					//String code = Util.removeHtmlComment(childNode.toString());
 					//String code = StringEscapeUtils.escapeHtml4(childNode.toString());
-					codeList.add(new CSSCode(code, elm, false)); 
+					this.mCSSCodeList.add(new CSSCode(code, elm, false)); 
 				}
 			}
 			// External
@@ -132,7 +144,7 @@ public class HTMLParser extends Parser {
 						String href = elm.attr(HTMLAttr.Href);
 						String hrefUrl = StringUtils.getUrlByHref(this.mBaseUrl, href);
 						String code = TextFileUtils.wget(hrefUrl);
-						codeList.add(new CSSCode(code, elm, hrefUrl)); 
+						this.mCSSCodeList.add(new CSSCode(code, elm, hrefUrl)); 
 						// Stores source code
 						try {
 							TextFileUtils.storeRawCode(hrefUrl, this.getBaseDir(), code);
@@ -148,21 +160,52 @@ public class HTMLParser extends Parser {
 			for (Attribute attr : elm.attributes()) {
 				if (HTMLAttr.Style.equals(attr.getKey())) {
 					String code = attr.getValue();
-					codeList.add(new CSSCode(code, elm, true)); 
+					this.mCSSCodeList.add(new CSSCode(code, elm, true)); 
 				}
 			}
 		}
-		return codeList;
+		
+		// Sets CSSStyleRules to CSSCode
+		for(CSSCode cssCode : this.mCSSCodeList) {
+			CSSParser cssParser = new CSSParser(cssCode);
+			cssParser.parse();
+		}
+		
+		return this.mCSSCodeList;
 	}
 	
 	/**
-	 * 
-	 * @param baseUrl is a HTML URL for getting corresponding URLs of external CSS files 
-	 * @param ruleManager used for 
-	 * @return JavaScript source code fragments
+	 * Gets CSS code corresponding to given HTML element
+	 * @param html Given HTML element
+	 * @return CSS codes
 	 */
-	public ArrayList<JSCode> getJSCodeList(String baseUrl, RuleManager ruleManager) {
-		ArrayList<JSCode> codeList = new ArrayList<JSCode>();
+	public CSSCode getCSSCodeByHTMLElement(Element html) {
+		for(CSSCode cssCode : this.mCSSCodeList) {
+			if(cssCode.getHTMLElement().equals(html)) {
+				return cssCode;
+			}
+		}
+		return null;
+	}
+	
+
+	/**
+	 * Represents a list of JavaScript codes in HTML code
+	 */
+	protected ArrayList<JSCode> mJSCodeList;
+	
+	/**
+	 * Gets JavaScript codes in HTML code
+	 * @param ruleManager Detects event attributes at HTML elements.
+	 * Because values of the event attributes are JavaScript codes.
+	 * @return JavaScript codes
+	 */
+	public ArrayList<JSCode> getJSCodeList(RuleManager ruleManager) {
+		if(this.mJSCodeList == null) {
+			this.mJSCodeList = new ArrayList<JSCode>();
+		} else {
+			return this.mJSCodeList;
+		}
 
 		for (Element elm : this.mCode.getHTMLElement().getAllElements()) {
 			if (HTMLTag.Script.compareToIgnoreCase(elm.tagName()) == 0) {
@@ -174,7 +217,7 @@ public class HTMLParser extends Parser {
 					// External
 					if (!"".equals(attr_src)) {
 						try {
-							String srcUrl = StringUtils.getUrlByHref(baseUrl, attr_src);
+							String srcUrl = StringUtils.getUrlByHref(this.mBaseUrl, attr_src);
 							String filename = StringUtils.getFilename(attr_src);
 							Library lib = ruleManager.getLibraryByFilename(filename);
 							if (lib != null) {
@@ -183,7 +226,7 @@ public class HTMLParser extends Parser {
 							} else {
 								String code = TextFileUtils.wget(srcUrl);
 								JSCode jsCode = new JSCode(code, elm, srcUrl);
-								codeList.add(jsCode);
+								this.mJSCodeList.add(jsCode);
 								// Stores source code
 								try {
 									TextFileUtils.storeRawCode(srcUrl, this.getBaseDir(), code);
@@ -202,7 +245,7 @@ public class HTMLParser extends Parser {
 							// to be considered
 							//String code = Util.removeHtmlComment(childNode.toString());
 							JSCode jsCode = new JSCode(code, elm, false);
-							codeList.add(jsCode);
+							this.mJSCodeList.add(jsCode);
 						}
 					}
 				} else {
@@ -214,12 +257,51 @@ public class HTMLParser extends Parser {
 				String key = attr.getKey();
 				if(ruleManager.isTrigger(key)) {
 					String code = attr.getValue();
-					codeList.add(new JSCode(code, elm, true));
+					this.mJSCodeList.add(new JSCode(code, elm, true));
 				}
 			}
 		}
 		
-		return codeList;
+		return this.mJSCodeList;
+	}
+	
+	
+
+	public void manipulateDocumentByCSSCode() {
+		
+
+		for(CSSCode cssCode : this.getCSSCodeList()) {
+			if(!cssCode.isInline()) {
+				
+			}
+		}
+		
+		HashMap<Element, CSSCode> hash_HTMLElement_inlineCSSCode = new HashMap<Element, CSSCode>();
+		for(CSSCode cssCode : this.getCSSCodeList()) {
+			if(cssCode.isInline()) {
+				hash_HTMLElement_inlineCSSCode.put(cssCode.getHTMLElement(), cssCode);
+			}
+		}
+		
+		
+		for(CSSCode cssCode : this.getCSSCodeList()) {
+			
+			if(cssCode.isInline()) { // Target HTML elements have already manipulated 
+				// NOP
+			}
+			// Manipulates using only embedded and external CSS code
+			else {
+				for(CSSStyleRule cssStyleRule : cssCode.getCSSStyleRuleList()) {
+					String selector = cssStyleRule.getSelectorText();
+					// Gets target HTML elements
+					for(Element elm : this.getDoc().select(selector)) {
+						CSSCode inlineCSSCode = this.getCSSCodeByHTMLElement(elm);
+						if(inlineCSSCode != null)
+						System.out.println(inlineCSSCode.getCode());
+					}
+				}
+			}
+		}
 	}
 
 }
