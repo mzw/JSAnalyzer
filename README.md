@@ -1,7 +1,8 @@
 JSAnalyzer
 ==========
 Released: December, 2013.
-Written by [Yuta Maezawa](maezawa@nii.ac.jp) and greate contributers.
+
+Written by [Yuta Maezawa](mailto:maezawa@nii.ac.jp) and great contributers.
 
 Introduction
 ----------
