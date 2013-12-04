@@ -1,6 +1,10 @@
 JSAnalyzer
 ==========
+Released: December, 2013.
+Written by [Yuta Maezawa](maezawa@nii.ac.jp) and greate contributers.
 
+Introduction
+----------
 We are developing the JSAnalyzer tool for supporting Ajax applications developments.
 JSAnalyzer consists of three main components:
 
@@ -14,13 +18,13 @@ JSAnalyzer consists of three main components:
 We believe that JSAnalyzer helps developers developing and maintaining highly-quality Ajax applications.
 Enjoy to run JSAnalyzer!
 
+Getting Started
+----------
+See [this wiki (updating)](https://github.com/mzw/JSAnalyzer/wiki).
+
 License
 ----------
 [Apache License, Version 2.0](https://github.com/mzw/JSAnalyzer/blob/master/LICENSE)
-
-Documentation
-----------
-See [this wiki (updating)](https://github.com/mzw/JSAnalyzer/wiki).
 
 Greatest Contributors
 ----------
@@ -28,4 +32,7 @@ Greatest Contributors
 * Junto Nakaoka
 
 We are looking forward to your contributions!
+
+___
+Copyrights (C) JSAnalyzer All Rights Reserved.
 
