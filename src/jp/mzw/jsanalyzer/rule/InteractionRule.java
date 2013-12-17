@@ -1,5 +1,7 @@
 package jp.mzw.jsanalyzer.rule;
 
+import jp.mzw.jsanalyzer.xml.XMLAttr;
+
 public class InteractionRule extends Rule {
 
 	/**
@@ -23,5 +25,12 @@ public class InteractionRule extends Rule {
 	@Override
 	public String toString() {
 		return Rule.class.toString() + ": keyword = " + this.mKeyword + ", interact = " + this.mInteract;
+	}
+	
+	public boolean isUserInteract() {
+		if(XMLAttr.RuleInteract_User.equals(this.mInteract)) {
+			return true;
+		}
+		return false;
 	}
 }

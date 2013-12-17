@@ -20,42 +20,35 @@ public class Code {
 	protected Element mHTMLElement;
 
 	/**
-	 * 
+	 * URL of this code
 	 */
-	protected boolean isExternal;
-	protected boolean isEmbedded;
-	protected boolean isInline;
-	
 	protected String mURL;
+
+	/**
+	 * Types of this code. 
+	 */
+	protected int mType;
+	
+	/**
+	 * Code types
+	 */
+	public static final int	
+		Inline		= 0,
+		Embedded 	= 1,
+		External 	= 2;
 	
 	/**
 	 * Constructor
-	 * @param code is source code fragment
+	 * @param code Raw source code
+	 * @param html Corresponding HTML object
+	 * @param url URL where this code is
+	 * @param type Code type, i.e., in-line, embedded, or external
 	 */
-	public Code(String code, Element html, boolean isInline) {
+	public Code(String code, Element html, String url, int type) {
 		this.mCode = code;
 		this.mHTMLElement = html;
-		
-		this.isExternal = false;
-		if(isInline) {
-			this.isEmbedded = false;
-			this.isInline = true;
-		} else {
-			this.isEmbedded = true;
-			this.isInline = false;
-		}
-		
-		this.mURL = null;
-	}
-	public Code(String code, Element html, String url) {
-		this.mCode = code;
-		this.mHTMLElement = html;
-		
-		this.isExternal = true;
-		this.isEmbedded = false;
-		this.isInline = false;
-		
 		this.mURL = url;
+		this.mType = type;
 	}
 	
 	/**
@@ -63,7 +56,19 @@ public class Code {
 	 * @return True or false represents in-line code or not
 	 */
 	public boolean isInline() {
-		return this.isInline;
+		if(this.mType == Code.Inline) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * Gets this code type
+	 * @return This code type
+	 */
+	public int getType() {
+		return this.mType;
 	}
 	
 	/**

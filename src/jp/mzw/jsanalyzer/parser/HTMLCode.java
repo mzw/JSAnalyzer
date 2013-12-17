@@ -10,6 +10,6 @@ public class HTMLCode extends Code {
 	
 
 	protected HTMLCode(String code, Document doc, String url) {
-		super(code, doc, url);
+		super(code, doc, url, Code.Inline);
 	}
 }

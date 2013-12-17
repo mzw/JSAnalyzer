@@ -17,6 +17,7 @@ public class XMLAttr {
 	public static final String RuleAttr				= "attr";
 	public static final String RuleLang_CSS			= "css";
 	public static final String RuleProp				= "prop";
+	public static final String RuleLang_JS			= "js";
 	public static final String RuleDisabled			= "disabled";
 	public static final String RuleSemantic			= "semantic";
 	public static final String RuleBy				= "by";

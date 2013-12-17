@@ -1,5 +1,7 @@
 package jp.mzw.jsanalyzer.modeler;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import jp.mzw.jsanalyzer.core.Analyzer;
 import jp.mzw.jsanalyzer.modeler.model.CallGraph;
 import jp.mzw.jsanalyzer.modeler.model.FiniteStateMachine;
@@ -33,13 +35,13 @@ public class FSMExtractor extends Modeler {
 		long start = System.currentTimeMillis();
 		/// start
 		
-		// Gets extended call graph
+		// Gets extended call graph and enable/disable statements
 		FSMExtender extender = new FSMExtender(this.mAnalyzer);
-		CallGraph xcg = extender.createExtendedCallGraph();
+		Pair<CallGraph, EnDisableManager> xcg_ed = extender.createExtendedCallGraph();
 		
 		// Abstracts extended call graph
 		FSMAbstractor abstractor = new FSMAbstractor(this.mAnalyzer);
-		CallGraph acg = abstractor.abst(xcg);
+		CallGraph acg = abstractor.abst(xcg_ed.getLeft());
 		
 		// Refines abstracted call graph
 		FSMRefiner refiner = new FSMRefiner(this.mAnalyzer);

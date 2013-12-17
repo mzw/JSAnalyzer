@@ -125,8 +125,8 @@ public class CSSParser extends Parser {
 				CSSStyleRule cssStyleRule = (CSSStyleRule)cssRule;
 				((CSSCode)this.mCode).addCSSStyleRule(cssStyleRule);
 			} else if(cssRule instanceof CSSUnknownRule) {
-				CSSUnknownRule cssUnknownRule = (CSSUnknownRule)cssRule;
-				this.skipCSSUnknownRule(cssUnknownRule);
+//				CSSUnknownRule cssUnknownRule = (CSSUnknownRule)cssRule;
+				CSSParser.skipCSSRule(cssRule);
 			} else {
 				StringUtils.printError(this, "Unknown CSS rule class", cssRule.getClass().toString());
 			}
@@ -177,11 +177,28 @@ public class CSSParser extends Parser {
 	};
 	
 	/**
-	 * Determines whether given CSS unknown rule can be skipped 
-	 * @param cssUnknownRule
+	 * Determins whether given selector contains CSS pseudo classes.
+	 * Because the classes correspond to one of the static analysis limitations.
+	 * @param selector Given selector string
+	 * @return True or false represents given selector contains the classes or not
 	 * @deprecated
 	 */
-	private void skipCSSUnknownRule(CSSUnknownRule cssUnknownRule) {
+	public static boolean containsCSSPseudoClass(String selector) {
+		for(String pc : CSSParser.PseudoClasses) {
+			if(selector.contains(pc)) {
+				StringUtils.printError(CSSParser.class, "[Limitation] Contains CSS pseudo classes", selector);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Determines whether given CSS unknown rule can be skipped 
+	 * @param cssRule
+	 * @deprecated
+	 */
+	public static void skipCSSRule(CSSRule cssRule) {
 		
 		// hard coding
 		ArrayList<String> skips = new ArrayList<String>();
@@ -193,13 +210,13 @@ public class CSSParser extends Parser {
 		skips.add("@keyframes");
 		
 		for(String skip : skips) {
-			if(skip.contains(cssUnknownRule.toString())) {
-				StringUtils.printError(this, "Unknown CSS rule", cssUnknownRule.toString());
+			if(cssRule.toString().contains(skip)) {
+//				StringUtils.printError(CSSParser.class, "Unknown CSS rule", cssRule.toString());
 				return;
 			}
 		}
 		
-		StringUtils.printError(this, "Really unknown CSS rule", cssUnknownRule.toString());
+		StringUtils.printError(CSSParser.class, "Really unknown CSS rule", cssRule.toString());
 	}
 	
 	/**

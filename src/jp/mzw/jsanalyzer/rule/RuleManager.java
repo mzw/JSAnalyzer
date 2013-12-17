@@ -83,6 +83,11 @@ public class RuleManager {
 				String prop = elm.attr(XMLAttr.RuleProp);
 				String value = elm.attr(XMLAttr.RuleDisabled);
 				control = new CSSControl(prop, value);
+			} else if(XMLAttr.RuleLang_JS.equals(lang)) {
+				// To be debugged
+				String func = elm.attr(XMLAttr.RuleFunc);
+				String value = elm.attr(XMLAttr.RuleDisabled);
+				control = new JSControl(func, value);
 			} else {
 				StringUtils.printError(this, "Unknown lang at control rule", lang);
 			}
@@ -119,13 +124,13 @@ public class RuleManager {
 	 * @param keyword A trigger candidate
 	 * @return True or false represents that given keyword is a trigger or not
 	 */
-	public boolean isTrigger(String keyword) {
+	public Trigger isTrigger(String keyword) {
 		for(Trigger trigger : this.mTriggerRuleList) {
 			if(trigger.match(keyword)) {
-				return true;
+				return trigger;
 			}
 		}
-		return false;
+		return null;
 	}
 	
 	/**
@@ -138,6 +143,41 @@ public class RuleManager {
 		for(Control control : this.mControlRuleList) {
 			if(control instanceof CSSControl && control.match(prop)) {
 				return (CSSControl)control;
+			}
+		}
+		return null;
+	}
+	
+	public HTMLControl isHTMLControl(String attr) {
+		for(Control control : this.mControlRuleList) {
+			if(control instanceof HTMLControl && control.match(attr)) {
+				return (HTMLControl)control;
+			}
+		}
+		return null;
+	}
+	
+	public Control isControl(String keyword) {
+		for(Control control : this.mControlRuleList) {
+			if(control.match(keyword)) {
+				return control;
+			}
+		}
+		return null;
+	}
+	
+	public Potential isPotential(String keyword) {
+		for(Potential potential : this.mPotentialRuleList) {
+			if(potential.match(keyword)) {
+				return potential;
+			}
+		}
+		return null;
+	}
+	public Manipulate isManipulate(String keyword) {
+		for(Manipulate manipulate : this.mManipulateRuleList) {
+			if(manipulate.match(keyword)) {
+				return manipulate;
 			}
 		}
 		return null;

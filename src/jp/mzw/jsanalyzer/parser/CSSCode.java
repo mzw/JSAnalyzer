@@ -22,22 +22,14 @@ public class CSSCode extends Code {
 	protected ArrayList<CSSStyleRule> mCSSStyleRuleList;
 	
 	/**
-	 * Constructor
-	 * @param code is CSS source code fragment
+	 * 
+	 * @param code
+	 * @param html
+	 * @param url
+	 * @param type
 	 */
-	public CSSCode(String code, Element html, boolean isInline) {
-		super(code, html, isInline);
-		init();
-	}
-	
-
-	/**
-	 * Constructor
-	 * @param code is CSS source code fragment
-	 * @param url 
-	 */
-	public CSSCode(String code, Element html, String url) {
-		super(code, html, url);
+	public CSSCode(String code, Element html,String url, int type) {
+		super(code, html, url, type);
 		init();
 	}
 	
@@ -54,7 +46,7 @@ public class CSSCode extends Code {
 	}
 	
 	public void manipulate(Document doc) {
-		if(this.isInline) {
+		if(this.isInline()) {
 			System.out.println(this.mHTMLElement.toString());
 		}
 		for(CSSStyleRule cssStyleRule : this.mCSSStyleRuleList) {

@@ -3,16 +3,14 @@ package jp.mzw.jsanalyzer.parser;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Attribute;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
-import org.w3c.dom.css.CSSStyleRule;
 
+import jp.mzw.jsanalyzer.core.IdGen;
 import jp.mzw.jsanalyzer.rule.Library;
 import jp.mzw.jsanalyzer.rule.RuleManager;
 import jp.mzw.jsanalyzer.util.StringUtils;
@@ -101,6 +99,8 @@ public class HTMLParser extends Parser {
 			e.printStackTrace();
 		}
 		
+		htmlParser.setId();
+		
 		return htmlParser;
 	}
 	
@@ -131,7 +131,7 @@ public class HTMLParser extends Parser {
 					 */
 					//String code = Util.removeHtmlComment(childNode.toString());
 					//String code = StringEscapeUtils.escapeHtml4(childNode.toString());
-					this.mCSSCodeList.add(new CSSCode(code, elm, false)); 
+					this.mCSSCodeList.add(new CSSCode(code, elm, this.mBaseUrl, Code.Embedded)); 
 				}
 			}
 			// External
@@ -144,7 +144,7 @@ public class HTMLParser extends Parser {
 						String href = elm.attr(HTMLAttr.Href);
 						String hrefUrl = StringUtils.getUrlByHref(this.mBaseUrl, href);
 						String code = TextFileUtils.wget(hrefUrl);
-						this.mCSSCodeList.add(new CSSCode(code, elm, hrefUrl)); 
+						this.mCSSCodeList.add(new CSSCode(code, elm, hrefUrl, Code.External)); 
 						// Stores source code
 						try {
 							TextFileUtils.storeRawCode(hrefUrl, this.getBaseDir(), code);
@@ -160,7 +160,7 @@ public class HTMLParser extends Parser {
 			for (Attribute attr : elm.attributes()) {
 				if (HTMLAttr.Style.equals(attr.getKey())) {
 					String code = attr.getValue();
-					this.mCSSCodeList.add(new CSSCode(code, elm, true)); 
+					this.mCSSCodeList.add(new CSSCode(code, elm, this.mBaseUrl, Code.Inline)); 
 				}
 			}
 		}
@@ -225,7 +225,7 @@ public class HTMLParser extends Parser {
 								ruleManager.parseRuleFile(lib.getPath());
 							} else {
 								String code = TextFileUtils.wget(srcUrl);
-								JSCode jsCode = new JSCode(code, elm, srcUrl);
+								JSCode jsCode = new JSCode(code, elm, srcUrl, Code.External);
 								this.mJSCodeList.add(jsCode);
 								// Stores source code
 								try {
@@ -244,7 +244,7 @@ public class HTMLParser extends Parser {
 							String code = childNode.toString();
 							// to be considered
 							//String code = Util.removeHtmlComment(childNode.toString());
-							JSCode jsCode = new JSCode(code, elm, false);
+							JSCode jsCode = new JSCode(code, elm, this.mBaseUrl, Code.Embedded);
 							this.mJSCodeList.add(jsCode);
 						}
 					}
@@ -255,9 +255,11 @@ public class HTMLParser extends Parser {
 			// In-line
 			for (Attribute attr : elm.attributes()) {
 				String key = attr.getKey();
-				if(ruleManager.isTrigger(key)) {
+				if(ruleManager.isTrigger(key) != null) {
 					String code = attr.getValue();
-					this.mJSCodeList.add(new JSCode(code, elm, true));
+					JSCode jsCode = new JSCode(code, elm, this.mBaseUrl, Code.Inline);
+					jsCode.setEventAttr(attr);
+					this.mJSCodeList.add(jsCode);
 				}
 			}
 		}
@@ -265,43 +267,17 @@ public class HTMLParser extends Parser {
 		return this.mJSCodeList;
 	}
 	
-	
 
-	public void manipulateDocumentByCSSCode() {
-		
-
-		for(CSSCode cssCode : this.getCSSCodeList()) {
-			if(!cssCode.isInline()) {
-				
-			}
-		}
-		
-		HashMap<Element, CSSCode> hash_HTMLElement_inlineCSSCode = new HashMap<Element, CSSCode>();
-		for(CSSCode cssCode : this.getCSSCodeList()) {
-			if(cssCode.isInline()) {
-				hash_HTMLElement_inlineCSSCode.put(cssCode.getHTMLElement(), cssCode);
-			}
-		}
-		
-		
-		for(CSSCode cssCode : this.getCSSCodeList()) {
-			
-			if(cssCode.isInline()) { // Target HTML elements have already manipulated 
-				// NOP
-			}
-			// Manipulates using only embedded and external CSS code
-			else {
-				for(CSSStyleRule cssStyleRule : cssCode.getCSSStyleRuleList()) {
-					String selector = cssStyleRule.getSelectorText();
-					// Gets target HTML elements
-					for(Element elm : this.getDoc().select(selector)) {
-						CSSCode inlineCSSCode = this.getCSSCodeByHTMLElement(elm);
-						if(inlineCSSCode != null)
-						System.out.println(inlineCSSCode.getCode());
-					}
-				}
+	/**
+	 * Sets id values to elements whose id attributes are empty
+	 * @deprecated
+	 */
+	private void setId() {
+		for(Element elm : this.mDoc.getAllElements()) {
+			if("".equals(elm.id())) {
+				elm.attr("id", IdGen.genId());
 			}
 		}
 	}
-
+	
 }

@@ -1,4 +1,4 @@
-package jp.mzw.jsanalyzer.core.example;
+package jp.mzw.jsanalyzer.core.examples;
 
 import jp.mzw.jsanalyzer.core.Project;
 

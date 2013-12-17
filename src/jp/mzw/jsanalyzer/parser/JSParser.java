@@ -11,6 +11,7 @@ import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ast.AstRoot;
 import org.mozilla.javascript.tools.shell.Global;
 
+
 /**
  * Parses JavaScript code
  * @author Yuta Maezawa
@@ -21,7 +22,12 @@ public class JSParser extends Parser {
 	/**
 	 * An abstract syntax tree
 	 */
-	protected AstRoot mAst;
+	protected AstRoot mAstRoot;
+	
+	/**
+	 * Contains JavaScript code object
+	 */
+	protected JSCode mJSCode;
 	
 	/**
 	 * Constructor
@@ -29,7 +35,12 @@ public class JSParser extends Parser {
 	 */
 	public JSParser(JSCode code) {
 		super(code);
-		this.mAst = this.createAST(code.getCode());
+		this.mJSCode = code;
+		this.mAstRoot = this.createAST(code.getCode());
+	}
+	
+	public AstRoot getAstRoot() {
+		return this.mAstRoot;
 	}
 
 	/**

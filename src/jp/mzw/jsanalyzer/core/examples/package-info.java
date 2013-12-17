@@ -2,4 +2,4 @@
  * Provides example projects
  * @author Yuta Maezawa
  */
-package jp.mzw.jsanalyzer.core.example;
+package jp.mzw.jsanalyzer.core.examples;
