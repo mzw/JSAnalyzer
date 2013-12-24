@@ -4,8 +4,8 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import jp.mzw.jsanalyzer.config.FilePath;
 import jp.mzw.jsanalyzer.core.Analyzer;
-import jp.mzw.jsanalyzer.modeler.model.CallGraph;
-import jp.mzw.jsanalyzer.modeler.model.FiniteStateMachine;
+import jp.mzw.jsanalyzer.modeler.model.graph.CallGraph;
+import jp.mzw.jsanalyzer.modeler.model.fsm.FiniteStateMachine;
 import jp.mzw.jsanalyzer.util.TextFileUtils;
 
 /**
@@ -41,17 +41,19 @@ public class FSMExtractor extends Modeler {
 		FSMExtender extender = new FSMExtender(this.mAnalyzer);
 		Pair<CallGraph, EnDisableManager> xcg_ed = extender.createExtendedCallGraph();
 		
-		TextFileUtils.write(this.mAnalyzer.getProject().getDir() + FilePath.ModelDir, FilePath.ExtendedCallGraph, xcg_ed.getLeft().toDot());
+		TextFileUtils.write(this.mAnalyzer.getProject().getDir() + FilePath.ModelDir, FilePath.ExtendedCallGraphDot, xcg_ed.getLeft().toDot());
 		
 		// Abstracts extended call graph
 		FSMAbstractor abstractor = new FSMAbstractor(this.mAnalyzer);
 		Pair<CallGraph, AbstractionManager> acg_am = abstractor.abst(xcg_ed.getLeft());
 
-		TextFileUtils.write(this.mAnalyzer.getProject().getDir() + FilePath.ModelDir, FilePath.AbstractedCallGraph, acg_am.getLeft().toDot());
+		TextFileUtils.write(this.mAnalyzer.getProject().getDir() + FilePath.ModelDir, FilePath.AbstractedCallGraphDot, acg_am.getLeft().toDot());
 		
 		// Refines abstracted call graph
 		FSMRefiner refiner = new FSMRefiner(this.mAnalyzer);
 		FiniteStateMachine fsm = refiner.refine(acg_am.getLeft(), xcg_ed.getRight(), acg_am.getRight());
+		
+		TextFileUtils.write(this.mAnalyzer.getProject().getDir() + FilePath.ModelDir, FilePath.ExtractedFiniteStateMachineDot, fsm.toDot());
 		
 		/// end
 		long end = System.currentTimeMillis();

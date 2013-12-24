@@ -121,10 +121,19 @@ public class Project {
 	}
 	
 	/**
-	 * Gets a directory path
+	 * Gets a directory path where this project file exists.
+	 * JSAnalyzer stores some temporaries and outputs there.
 	 * @return A directory path where a project file exists
 	 */
 	public String getDir() {
 		return this.mDir;
+	}
+	
+	/**
+	 * Gets this project name
+	 * @return Project name
+	 */
+	public String getName() {
+		return this.mProjectName;
 	}
 }

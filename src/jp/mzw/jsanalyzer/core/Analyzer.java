@@ -1,11 +1,16 @@
 package jp.mzw.jsanalyzer.core;
 
 import java.util.Date;
+import java.util.List;
 
-import jp.mzw.jsanalyzer.util.*;
 import jp.mzw.jsanalyzer.core.examples.*;
 import jp.mzw.jsanalyzer.modeler.FSMExtractor;
+import jp.mzw.jsanalyzer.modeler.model.fsm.FiniteStateMachine;
 import jp.mzw.jsanalyzer.rule.RuleManager;
+import jp.mzw.jsanalyzer.util.StringUtils;
+import jp.mzw.jsanalyzer.util.TextFileUtils;
+import jp.mzw.jsanalyzer.verifier.Specification;
+import jp.mzw.jsanalyzer.verifier.Verifier;
 
 /**
  * Contains main method
@@ -74,13 +79,18 @@ public class Analyzer {
 	/**
 	 * Starts our analysis method with given project information
 	 */
-	public void analyze() {
+	public FiniteStateMachine extract() {
 		System.out.println("Starts to analyze");
 		
 		System.out.println("Extracting finite state machine...");
 		FSMExtractor extractor = new FSMExtractor(this);
-		extractor.extracts();
+		FiniteStateMachine fsm = extractor.extracts();
+		
+		fsm.show();
+		
+		return fsm;
 	}
+	
 	
 	/**
 	 * An example main method. Set the argument of the Analyzer instance
@@ -100,21 +110,17 @@ public class Analyzer {
 //		Analyzer analyzer = new Analyzer(new LoginDemo());
 		Analyzer analyzer = new Analyzer(new LWA());
 //		Analyzer analyzer = new Analyzer(new Honiden());
-		analyzer.analyze();
 		
+		FiniteStateMachine fsm = analyzer.extract();
 
 		System.out.println("Writing snapshots...");
 		TextFileUtils.writeSnapshots("/Users/yuta/Desktop/dots");
 		
+		Verifier verifier = new Verifier(fsm, analyzer);
+		List<Specification> specList = Specification.read("foo.xml");
+		verifier.setSpecList(specList);
+		
 		/*
-		Analyzer analyzer = new Analyzer(example);
-		
-		Graph graph = analyzer.analyze();
-		StateMachine sm = StateMachine.construct(analyzer, graph);
-		
-		System.out.println(analyzer.getProject().getUrl());
-		
-		Util.write("/Users/yuta/Desktop", "sm.dot", sm.toString_dot());
 
 		//analyzer.verify(graph);
 		//analyzer.verifyADP("projects/test/IADPInfo_QAsite.xml", analyzer, graph);

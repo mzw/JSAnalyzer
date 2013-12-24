@@ -12,9 +12,9 @@ import org.w3c.dom.css.CSSStyleRule;
 
 import jp.mzw.jsanalyzer.core.Analyzer;
 import jp.mzw.jsanalyzer.core.IdGen;
-import jp.mzw.jsanalyzer.modeler.model.CallGraph;
-import jp.mzw.jsanalyzer.modeler.model.Edge;
-import jp.mzw.jsanalyzer.modeler.model.Node;
+import jp.mzw.jsanalyzer.modeler.model.graph.CallGraph;
+import jp.mzw.jsanalyzer.modeler.model.graph.Edge;
+import jp.mzw.jsanalyzer.modeler.model.graph.Node;
 import jp.mzw.jsanalyzer.parser.CSSCode;
 import jp.mzw.jsanalyzer.parser.CSSParser;
 import jp.mzw.jsanalyzer.parser.Code;

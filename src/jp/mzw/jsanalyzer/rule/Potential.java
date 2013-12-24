@@ -1,6 +1,6 @@
 package jp.mzw.jsanalyzer.rule;
 
-import jp.mzw.jsanalyzer.modeler.model.Event;
+import jp.mzw.jsanalyzer.modeler.model.interaction.Event;
 
 public class Potential extends InteractionRule {
 	
