@@ -5,10 +5,7 @@ import java.io.StringReader;
 import java.util.ArrayList;
 
 import jp.mzw.jsanalyzer.util.StringUtils;
-import jp.mzw.jsanalyzer.xml.HTMLAttr;
 
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.w3c.css.sac.CSSException;
 import org.w3c.css.sac.CSSParseException;
 import org.w3c.css.sac.ErrorHandler;
@@ -20,7 +17,6 @@ import org.w3c.dom.css.CSSMediaRule;
 import org.w3c.dom.css.CSSPageRule;
 import org.w3c.dom.css.CSSRule;
 import org.w3c.dom.css.CSSRuleList;
-import org.w3c.dom.css.CSSStyleDeclaration;
 import org.w3c.dom.css.CSSStyleRule;
 import org.w3c.dom.css.CSSStyleSheet;
 import org.w3c.dom.css.CSSUnknownRule;
@@ -77,9 +73,15 @@ public class CSSParser extends Parser {
 	 * Parses this CSS code
 	 */
 	public void parse() {
-		
-		// No iterator API
 		CSSRuleList cssRuleList = this.mStyleSheet.getCssRules();
+		this.parse(cssRuleList);
+	}
+	
+	/**
+	 * Parses CSS rules
+	 * @param cssRuleList A list containing CSS rules 
+	 */
+	private void parse(CSSRuleList cssRuleList) {
 		for(int i = 0; i < cssRuleList.getLength(); i++) {
 			CSSRule cssRule = cssRuleList.item(i);
 			
@@ -95,28 +97,7 @@ public class CSSParser extends Parser {
 				// To be implemented
 				StringUtils.printError(this, "Should implement for CSS import rule", href);
 			} else if(cssRule instanceof CSSMediaRule) {
-				CSSMediaRule cssMediaRule = (CSSMediaRule)cssRule;
-					
-//				| To be implemented | Media types |
-//				| --- | --- |
-//				| yes | all and screen |
-//				| no  | tv, handheld, tty, print, projection, braille, embossed, and speech |
-				
-//				// To be implemented
-//				MediaList mediaList = cssMediaRule.getMedia();
-//				for(int j = 0; j < mediaList.getLength(); j++) {
-//					String media = mediaList.item(j);
-//					if("all".equals(media) || "screen".equals(media)) {
-//						CSSRuleList targetCssMediaRuleList = cssMediaRule.getCssRules();
-//						for(int k = 0; k < targetCssMediaRuleList.getLength(); k++) {
-//							CSSRule targetCssMediaRule = targetCssMediaRuleList.item(k);
-//							// Manipulates DOM using target CSS media rules
-//						}
-//						break;
-//					}
-//				}
-				
-				StringUtils.printError(this, "Should implement for CSS media rule", cssMediaRule.toString());
+				this.parseMediaRules((CSSMediaRule)cssRule);
 			} else if(cssRule instanceof CSSPageRule) {
 				CSSPageRule cssPageRule = (CSSPageRule)cssRule;
 				// To be implemented
@@ -175,6 +156,29 @@ public class CSSParser extends Parser {
 		":after",
 		":before"
 	};
+	
+	/**
+	 * Parses CSS rules which has media at-rule (to be modified)
+	 * @param cssMediaRule A CSS media rule
+	 * @deprecated
+	 */
+	public void parseMediaRules(CSSMediaRule cssMediaRule) {
+		
+//		| To be implemented | Media types |
+//		| --- | --- |
+//		| yes | all and screen |
+//		| no  | tv, handheld, tty, print, projection, braille, embossed, and speech |
+		
+		MediaList mediaList = cssMediaRule.getMedia();
+		for(int j = 0; j < mediaList.getLength(); j++) {
+			String media = mediaList.item(j);
+			if("all".equals(media) || "screen".equals(media)) {
+				this.parse(cssMediaRule.getCssRules());
+				break;
+			}
+		}
+		
+	}
 	
 	/**
 	 * Determins whether given selector contains CSS pseudo classes.

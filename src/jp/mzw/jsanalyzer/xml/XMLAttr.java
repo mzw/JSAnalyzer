@@ -17,8 +17,10 @@ public class XMLAttr {
 	public static final String RuleAttr				= "attr";
 	public static final String RuleLang_CSS			= "css";
 	public static final String RuleProp				= "prop";
+	public static final String RuleArgNum			= "arg_";
 	public static final String RuleLang_JS			= "js";
 	public static final String RuleDisabled			= "disabled";
+	public static final String RuleCond				= "cond";
 	public static final String RuleSemantic			= "semantic";
 	public static final String RuleBy				= "by";
 	public static final String RuleValue			= "value";
@@ -30,5 +32,9 @@ public class XMLAttr {
 	public static final String RuleMethod_StartsWith = "startsWith";
 	public static final String RuleMethod_Containts = "containts";
 	public static final String RuleMethod_Regex 	= "regex";
+	
+	public static final String RuleEventModifier 				= "event_modifier";
+	public static final String RuleEventModifier_AfterMilliSec 	= "after_msec";
+	public static final String RuleEventModifier_UserClick	 	= "user_click";
 
 }

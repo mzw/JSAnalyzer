@@ -2,12 +2,9 @@ package jp.mzw.jsanalyzer.core;
 
 import java.util.Date;
 
-import org.apache.commons.lang3.StringEscapeUtils;
-
 import jp.mzw.jsanalyzer.util.*;
 import jp.mzw.jsanalyzer.core.examples.*;
 import jp.mzw.jsanalyzer.modeler.FSMExtractor;
-import jp.mzw.jsanalyzer.modeler.Modeler;
 import jp.mzw.jsanalyzer.rule.RuleManager;
 
 /**
@@ -97,13 +94,17 @@ public class Analyzer {
 
 		System.out.println("Preparing your project...");
 //		Analyzer analyzer = new Analyzer("projects/test2/project.xml");
-		Analyzer analyzer = new Analyzer(new QAsite());
+//		Analyzer analyzer = new Analyzer(new QAsite());
 //		Analyzer analyzer = new Analyzer(new FileDLerError());
 //		Analyzer analyzer = new Analyzer(new SWSError());
 //		Analyzer analyzer = new Analyzer(new LoginDemo());
-//		Analyzer analyzer = new Analyzer(new LWA());
+		Analyzer analyzer = new Analyzer(new LWA());
 //		Analyzer analyzer = new Analyzer(new Honiden());
 		analyzer.analyze();
+		
+
+		System.out.println("Writing snapshots...");
+		TextFileUtils.writeSnapshots("/Users/yuta/Desktop/dots");
 		
 		/*
 		Analyzer analyzer = new Analyzer(example);

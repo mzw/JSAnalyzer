@@ -1,7 +1,5 @@
 /**
- * Generates concrete verification formulas
- */
-/**
+ * Generates concrete verification formulas based on patterns
  * @author Yuta Maezawa
  *
  */

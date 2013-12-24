@@ -1,7 +1,5 @@
 /**
- * JSAnalyzer graphical user interfaces
- */
-/**
+ * JSAnalyzer graphical user interfaces (to be implemented)
  * @author Yuta Maezawa
  *
  */

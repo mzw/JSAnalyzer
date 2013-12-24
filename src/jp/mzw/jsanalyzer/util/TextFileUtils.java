@@ -11,7 +11,9 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import jp.mzw.jsanalyzer.config.FileExtension;
 import jp.mzw.jsanalyzer.config.FilePath;
+import jp.mzw.jsanalyzer.core.IdGen;
 
 public class TextFileUtils {
 	/**
@@ -132,4 +134,23 @@ public class TextFileUtils {
 		TextFileUtils.write(file.getParent().toString(), file.getName(), code);
 	}
 	
+	
+	private static int serial_num_snapshot = 0;
+	private static ArrayList<String> snapshots = new ArrayList<String>();
+	public static void registSnapchot(String dot) {
+		snapshots.add(dot);
+	}
+	private static String mk_png_snapshot_sh = "#!/bin/sh\n\n";
+	public static void writeSnapshots(String dir) {
+		for(String dot : snapshots) {
+			int _serial_num_snapshot = serial_num_snapshot++;
+			String filename = _serial_num_snapshot + FileExtension.Dot;
+			
+			TextFileUtils.write(dir, filename, dot);
+			mk_png_snapshot_sh += "dot -Tpng " + filename + " -o " + filename + ".png\n";
+		}
+		
+		//mk_png_snapshot_sh += "convert -delay 100 *.png snapshots.gif";
+		TextFileUtils.write(dir, "dot.sh", mk_png_snapshot_sh);
+	}
 }

@@ -1,7 +1,5 @@
 /**
- * JSPreventer: a preventive maintenance method
- */
-/**
+ * JSPreventer: a preventive maintenance method for revealing erroneous behavior due to potential faults suggested by JSVerifier
  * @author Yuta Maezawa
  *
  */

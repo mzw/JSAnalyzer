@@ -1,6 +1,8 @@
 package jp.mzw.jsanalyzer.parser;
 
 import java.io.FileReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import jp.mzw.jsanalyzer.util.StringUtils;
 
@@ -107,4 +109,60 @@ public class JSParser extends Parser {
 
             return jsCode;
     }
+    
+
+	/**
+	 * Skips adding caller-callee relationships to external-defined functions.
+	 * See https://code.google.com/p/closure-compiler/wiki/ExternsForCommonLibraries
+	 * @param funcname Given function name to be called
+	 * @return True or false represents external one or not
+	 * @deprecated
+	 */
+	public static boolean isExtern(String funcname) {
+		String[] externs = {
+				// Built-in
+				"document.getElementById",
+				"document.createElement",
+				"document.createTextNode",
+				"alert",
+				"parseInt",
+				"setTimeout",
+				"isNaN",
+				"Object",
+				// prototype.js
+				"Ajax.Request",
+				"$",
+				// jshash
+				"hex_md5",
+		};
+		for(String extern : externs) {
+			if(extern.equals(funcname)) {
+				return true;
+			}
+		}
+		
+		String[] externs_regex = {
+				".*\\.concat",
+				".*\\.split",
+				".*\\.appendChild",
+				".*\\.replaceChild",
+				".*\\.substr",
+				// prototype.js
+				"$.*",
+				// jQuery
+				"jQuery.*",
+				".*each",
+				".*attr",
+				".*preventDefault",
+		};
+		for(String regex : externs_regex) {
+			Pattern p = Pattern.compile(regex);
+			Matcher m = p.matcher(funcname);
+			if(m.find()) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

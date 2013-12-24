@@ -1,22 +1,240 @@
 package jp.mzw.jsanalyzer.modeler;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
+
+import org.apache.commons.lang3.tuple.Pair;
+import org.mozilla.javascript.ast.AstNode;
+import org.mozilla.javascript.ast.AstRoot;
+
 import jp.mzw.jsanalyzer.core.Analyzer;
 import jp.mzw.jsanalyzer.modeler.model.CallGraph;
-import jp.mzw.jsanalyzer.rule.RuleManager;
+import jp.mzw.jsanalyzer.modeler.model.Edge;
+import jp.mzw.jsanalyzer.modeler.model.Node;
+import jp.mzw.jsanalyzer.util.TextFileUtils;
 
 public class FSMAbstractor extends Modeler {
 	public FSMAbstractor(Analyzer analyzer) {
 		super(analyzer);
 	}
 	
+	
 	/**
 	 * Abstracts extended call graph focusing on interactions with Ajax apps
 	 * @param xcg Extended call graph
-	 * @param ruleManager To distinguish interactions
 	 * @return Abstracted call graph
 	 */
-	public CallGraph abst(CallGraph xcg) {
-		RuleManager ruleManager = this.mAnalyzer.getRuleManager();
-		return null;
+	public Pair<CallGraph, AbstractionManager> abst(CallGraph xcg) {
+		AbstractionManager abstManager = new AbstractionManager();
+		
+		CallGraph acg = xcg.clone();
+		
+		CallGraph.getInitNode().prepareSearch();
+		for(Node node : acg.getNodeList()) {
+			node.prepareSearch();
+			
+			AstNode parentAstNode = node.getAstNode().getParent();
+			if(node.getAstNode() instanceof AstRoot) {
+				CallGraph.getInitNode().addChild(node);
+			}
+			if(parentAstNode != null) {
+				Node parent = acg.getNode(parentAstNode);
+				parent.addChild(node);
+			}
+		}
+		
+		this.search(acg, abstManager);
+		this.removeIsolateNodes(acg, abstManager);
+		
+		return Pair.of(acg, abstManager);
+	}
+	
+
+	/**
+	 * Finds and abstracts given call graph by width-first-search.
+	 * And, stores abstraction information.
+	 * @param graph Given call graph
+	 * @param abstManager Where stores abstraction information
+	 */
+	private void search(CallGraph graph, AbstractionManager abstManager) { // Width first search
+		
+		Stack<Node> stack = new Stack<Node>();
+		stack.push(CallGraph.getInitNode());
+		while(!stack.isEmpty()) {
+			Node node = stack.peek();
+			Node child = node.findUnvisitedChild();
+			if(child == null) {
+				node = stack.pop();
+
+				// Abstraction
+				List<Edge> fromEdges = graph.getEdgesFrom(node);
+				List<Edge> toEdges = graph.getEdgesTo(node);
+				
+				if(fromEdges.size() == 0 && toEdges.size() == 1) {
+					// ---(one edge)---> (this node) (no edge)
+					Edge toEdge = toEdges.get(0);
+					
+					if(!toEdge.hasEvent() && !toEdge.hasCond()) {
+						Node fromNode = graph.getNode(toEdge.getFromNodeId());
+//						fromNode.abstractNode(node, toEdge);
+						abstManager.add(fromNode, node, toEdge);
+						
+						graph.removeNode(node);
+						graph.removeEdge(toEdge);
+						
+						TextFileUtils.registSnapchot(graph.toDot());
+					}
+				} else if(fromEdges.size() == 1 && toEdges.size() == 1) {
+					// (this node) ---(one edge)--->
+					Edge fromEdge = fromEdges.get(0);
+					Edge toEdge = toEdges.get(0);
+					
+					if(!toEdge.hasEvent() && !toEdge.hasCond()
+							&& graph.getNode(toEdge.getFromNodeId()) != null) { // Considering isolate nodes
+						Node fromNode = graph.getNode(toEdge.getFromNodeId());
+						
+//						fromNode.abstractNode(node, toEdge);
+						abstManager.add(fromNode, node, toEdge);
+						
+						graph.removeNode(node);
+						graph.removeEdge(toEdge);
+
+						TextFileUtils.registSnapchot(graph.toDot());
+						
+						fromEdge.setFromNodeId(fromNode.getId());
+					}
+					
+				}
+			} else {
+				child.visit();
+				stack.push(child);
+			}
+		}
+
+		/// abstract improper node
+		List<Node> improperNodes = new LinkedList<Node>();
+		List<Edge> improperEdges = new LinkedList<Edge>();
+		for(Node node : graph.getNodeList()) {
+			List<Edge> fromEdges = graph.getEdgesFrom(node);
+//			if(!node.isAbstractedControl() && fromEdges.size() == 0) {
+			if(!abstManager.isControl(node) && fromEdges.size() == 0) {
+				List<Edge> toEdges = graph.getEdgesTo(node);
+				boolean isImproper = true;
+				for(Edge toEdge : toEdges) {
+					if(toEdge.hasEvent()) {
+						isImproper = false;
+					}
+				}
+				if(isImproper) {
+					for(Edge toEdge : toEdges) {
+						Node fromNode = graph.getNode(toEdge.getFromNodeId());
+//						fromNode.abstractNode(node, toEdge);
+						abstManager.add(fromNode, node, toEdge);
+						improperEdges.add(toEdge);
+					}
+					improperNodes.add(node);
+				}
+			}
+		}
+		// abstract improper edge
+		for(Edge edge : graph.getEdgeList()) {
+			List<Node> fromNodes = graph.getFromNodes(edge);
+			List<Node> toNodes = graph.getToNodes(edge);
+			
+			if(fromNodes.size() == 1 && toNodes.size() == 1 &&
+					!edge.hasEvent() && !edge.hasCond()) {
+				Node fromNode = fromNodes.get(0);
+				Node toNode = toNodes.get(0);
+				
+//				if(fromNode.isAbstractedControl() && toNode.isAbstractedControl()) {
+				if(abstManager.isControl(fromNode) && abstManager.isControl(toNode)) {
+					continue;
+				}
+				
+//				fromNode.abstractNode(toNode, edge);
+				abstManager.add(fromNode, toNode, edge);
+				
+				improperNodes.add(toNode);
+				improperEdges.add(edge);
+				for(Edge _edge : graph.getEdgesFrom(toNode)) {
+					_edge.setFromNodeId(fromNode.getId());
+					if(_edge.getToNodeId() == toNode.getId()) {
+						_edge.setToNodeId(fromNode.getId());
+					}
+				}
+				
+			}
+		}
+		// remove
+		for(Node node : improperNodes) {
+			graph.removeNode(node);
+
+			TextFileUtils.registSnapchot(graph.toDot());
+		}
+		for(Edge edge : improperEdges) {
+			graph.removeEdge(edge);
+
+			TextFileUtils.registSnapchot(graph.toDot());
+		}
+		
+		
+		// re-abstract due to improper nodes
+		if(0 < improperNodes.size()) {
+			this.search(graph, abstManager);
+		}
+	}
+
+	/**
+	 * Finalizes abstraction search (to be debugged)
+	 * @param graph An extended call graph to be abstracted
+	 */
+	private void removeIsolateNodes(CallGraph graph, AbstractionManager abstManager) {
+		List<Node> removeNodes = new LinkedList<Node>();
+		List<Edge> removeEdges = new LinkedList<Edge>();
+		
+		// (Root node) --(no event/cond)-->
+		// to be debugged
+		for(Node node : graph.getNodeList()) {
+			Edge edge = graph.getEdge(CallGraph.getInitNode().getId(), node.getId());
+			if(edge != null && !edge.hasEvent() && !edge.hasCond()) {
+				
+				abstManager.add(CallGraph.getInitNode(), node, edge);
+				removeNodes.add(node);
+				removeEdges.add(edge);
+				
+				for(Edge e : graph.getEdgeList()) {
+					if(e.getFromNodeId() == node.getId()) {
+						e.setFromNodeId(CallGraph.getInitNode().getId());
+					}
+				}
+				
+				TextFileUtils.registSnapchot(graph.toDot());
+			}
+		}
+		
+		// isolate nodes
+		for(Node node : graph.getNodeList()) {
+			boolean isolate = true;
+			for(Edge edge : graph.getEdgeList()) {
+				if(edge.getFromNodeId() == node.getId() ||
+						edge.getToNodeId() == node.getId()) {
+					isolate = false;
+					break;
+				}
+			}
+			if(isolate) {
+				removeNodes.add(node);
+			}
+		}
+		// remove
+		for(Node node : removeNodes) {
+			graph.removeNode(node);
+			TextFileUtils.registSnapchot(graph.toDot());
+		}
+		for(Edge edge : removeEdges) {
+			graph.removeEdge(edge);
+			TextFileUtils.registSnapchot(graph.toDot());
+		}
 	}
 }

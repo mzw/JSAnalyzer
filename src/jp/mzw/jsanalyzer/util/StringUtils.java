@@ -62,6 +62,19 @@ public class StringUtils {
 		System.err.println(obj.getClass().getName() + ": " + message + ", value is \"" + value + "\"");
 	}
 	
+	
+	public static String esc_dot(String str) {
+		String ret = str;
+		if(ret != null) {
+			ret = ret.replaceAll("\\\\\"", "\"");			
+			
+			ret = ret.replaceAll("\"", "\\\\\"");
+			ret = ret.replaceAll("\\.", "\\\\.");
+			ret = ret.replaceAll("\n", " ");
+		}
+		return ret;
+	}
+	
 
 	/*
 	public static String esc_xml(String str) {

@@ -2,23 +2,39 @@ package jp.mzw.jsanalyzer.modeler;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.jsoup.nodes.Element;
+import org.mozilla.javascript.ast.Assignment;
+import org.mozilla.javascript.ast.AstNode;
+import org.mozilla.javascript.ast.FunctionCall;
+import org.mozilla.javascript.ast.ObjectProperty;
+import org.mozilla.javascript.ast.PropertyGet;
 import org.w3c.dom.css.CSSStyleDeclaration;
 import org.w3c.dom.css.CSSStyleRule;
 
 import jp.mzw.jsanalyzer.core.Analyzer;
 import jp.mzw.jsanalyzer.core.IdGen;
 import jp.mzw.jsanalyzer.modeler.model.CallGraph;
+import jp.mzw.jsanalyzer.modeler.model.Edge;
+import jp.mzw.jsanalyzer.modeler.model.Node;
 import jp.mzw.jsanalyzer.parser.CSSCode;
 import jp.mzw.jsanalyzer.parser.CSSParser;
 import jp.mzw.jsanalyzer.parser.Code;
 import jp.mzw.jsanalyzer.parser.HTMLParser;
-import jp.mzw.jsanalyzer.parser.JSCode;
-import jp.mzw.jsanalyzer.parser.JSParser;
 import jp.mzw.jsanalyzer.rule.CSSControl;
+import jp.mzw.jsanalyzer.rule.Control;
+import jp.mzw.jsanalyzer.rule.JSControl;
+import jp.mzw.jsanalyzer.rule.Potential;
+import jp.mzw.jsanalyzer.rule.Rule;
 import jp.mzw.jsanalyzer.rule.RuleManager;
+import jp.mzw.jsanalyzer.rule.Trigger;
+import jp.mzw.jsanalyzer.util.StringUtils;
 import jp.mzw.jsanalyzer.util.TextFileUtils;
 
 public class FSMExtender extends Modeler {
+	
+	/**
+	 * Constructor
+	 * @param analyzer Provides project information
+	 */
 	public FSMExtender(Analyzer analyzer) {
 		super(analyzer);
 	}
@@ -34,37 +50,246 @@ public class FSMExtender extends Modeler {
 		HTMLParser htmlParser = this.parseHTMLCode();
 		
 		EnDisableManager edManager = new EnDisableManager();
-		this.analyzeControlPropertyByCSSCode(htmlParser, edManager);
-		CallGraph callGraph = this.analyzeInteractionRelationships(htmlParser, this.mAnalyzer.getRuleManager(), edManager);
+		this.setCSSControlProperty(htmlParser, edManager);
 		
-		TextFileUtils.write("/Users/yuta/Desktop/test", "a.dot", callGraph.toDot());
+		RuleManager ruleManager = this.mAnalyzer.getRuleManager();
+		CallGraph callGraph = new CallGraph(htmlParser.getJSCodeList(ruleManager));
 		
-		edManager.show();
+		this.extend(callGraph, ruleManager, edManager);
 		
 		return Pair.of(callGraph, edManager);
 	}
 	
-	
-	protected CallGraph analyzeInteractionRelationships(HTMLParser htmlParser, RuleManager ruleManager, EnDisableManager edManager) {
-		CallGraph cg = new CallGraph();
-		for(JSCode jsCode : htmlParser.getJSCodeList(this.mAnalyzer.getRuleManager())) {
-			cg.add(jsCode);
+	/**
+	 * Extends a call graph focusing on interactions with Ajax applications (To be debugged)
+	 * @param ruleManager Contains distinguishing rules
+	 */
+	private void extend(CallGraph callGraph, RuleManager ruleManager, EnDisableManager edManager) {
+		for(Node node : callGraph.getNodeList()) {
+			String src = node.getAstNode().toSource();
+			
+			// For interactions
+			Trigger trigger = ruleManager.isTrigger(src);
+			if(trigger != null) {
+				this.addInteraction(callGraph, node, trigger);
+			}
+			Potential potential = ruleManager.isPotential(src);
+			if(potential != null) {
+				this.addInteraction(callGraph, node, potential);
+			}
+			
+			// for enable/disable statements
+			Control control = ruleManager.isControl(src);
+			if(control != null) {
+				this.addEnDisable(callGraph, node, control, edManager);
+			}
+			
+			
+			if(ruleManager.isManipulate(src) != null) {
+				node.setNodeType(Node.Manipulate);
+			}
 		}
-		cg.extend(ruleManager);
-		
-		return cg;
 	}
 	
-	
-	
-
 	/**
-	 * To be re-factored
-	 * @param htmlParser
+	 * Obtains enable/disable statements (to be debugged)
 	 * @param callGraph
+	 * @param node
+	 * @param rule
 	 * @param edManager
 	 */
-	protected void analyzeControlPropertyByCSSCode(HTMLParser htmlParser, EnDisableManager edManager) {
+	private void addEnDisable(CallGraph callGraph, Node node, Control rule, EnDisableManager edManager) {
+		// object.prop = value
+		if(node.getAstNode().getParent() instanceof PropertyGet &&
+				node.getAstNode().getParent().getParent() instanceof Assignment &&
+				((Assignment)node.getAstNode().getParent().getParent()).getLeft() == node.getAstNode().getParent()) {
+			// Callback node
+			Node assignNode = callGraph.getNode((Assignment)node.getAstNode().getParent().getParent());
+			
+			AstNode valAstNode = ((Assignment)node.getAstNode().getParent().getParent()).getRight();
+			
+			EnDisable ed = new EnDisable(
+					null, // element html
+					node.getAstNode().toSource(),
+					valAstNode.toSource(),
+					node.getJSCode().getType(),
+					rule);
+			
+			edManager.add(assignNode, ed);
+			node.setNodeType(Node.Control);
+			TextFileUtils.registSnapchot(callGraph.toDot());
+		}
+		// Object.function(prop, value), e.g. $("id").attr("disabled", "disabled");
+		// Object.function(prop), e.g. $("id").removeAttr("disabled");
+		else if(rule instanceof JSControl &&
+				node.getAstNode().getParent() instanceof PropertyGet &&
+				node.getAstNode().getParent().getParent() instanceof FunctionCall) {
+			FunctionCall funcCall = (FunctionCall)node.getAstNode().getParent().getParent();
+			
+			String prop = IdGen.genId();
+			String val = IdGen.genId();
+			
+			int propArgNum = Rule.hasArgNum(((JSControl)rule).getProp());
+			if((propArgNum != -1) && (propArgNum < funcCall.getArguments().size())) {
+				AstNode argAstNode = funcCall.getArguments().get(propArgNum);
+				
+				prop = argAstNode.toSource();
+			}
+			int valArgNum = Rule.hasArgNum(((JSControl)rule).getValue());
+			if((valArgNum != -1) && (valArgNum < funcCall.getArguments().size())) {
+				AstNode argAstNode = funcCall.getArguments().get(valArgNum);
+				
+				val = argAstNode.toSource();
+			}
+			
+			// Re-match
+			// Because "setAttribute", "jQuery.attr", and so on are not always used for enabling/disabling interactions
+			// $("id").setAttribute("class", "my_class");
+			if(((JSControl)rule).rematch(prop, val)) {
+				EnDisable ed = new EnDisable(
+						null, // element html
+						prop,
+						val,
+						node.getJSCode().getType(),
+						rule);
+				
+				edManager.add(callGraph.getNode(funcCall), ed);
+				node.setNodeType(Node.Control);
+				TextFileUtils.registSnapchot(callGraph.toDot());
+			}
+		}
+
+		else {
+			StringUtils.printError(this, "Cannot identify enable/disable statement", node.getAstNode().toSource());
+		}
+	}
+	
+	/**
+	 * Add interaction relationships coming from potential functions (to be debugged)
+	 * @param node A node representing a potential function
+	 * @param rule A potential rule which detect the potential function
+	 */
+	private void addInteraction(CallGraph callGraph, Node node, Potential rule) {
+		// potential_function(event, callback);
+		if(node.getAstNode().getParent() instanceof FunctionCall) {
+			FunctionCall funcCall = (FunctionCall)node.getAstNode().getParent();
+			
+			// hard coding
+			AstNode eventAstNode = null;
+			int eventArgNum = Rule.hasArgNum(rule.getEvent());
+			if(eventArgNum != -1) {
+				eventAstNode = funcCall.getArguments().get(eventArgNum);
+			} else {
+				eventAstNode = node.getAstNode();
+			}
+			/////
+			AstNode cbAstNode = null;
+			int cbArgNum = Rule.hasArgNum(rule.getCallback());
+			if(cbArgNum != -1) {
+				AstNode argAstNode = funcCall.getArguments().get(cbArgNum);
+				cbAstNode = callGraph.getFunctionNode(argAstNode);
+			} else {
+				cbAstNode = node.getAstNode();
+			}
+			
+			Node fromNode = callGraph.getNode((FunctionCall)node.getAstNode().getParent());
+			Node toNode = callGraph.getNode(cbAstNode);
+			Edge edge = new Edge(fromNode.getId(), toNode.getId());
+			edge.setEvent(eventAstNode, rule);
+			node.setNodeType(Node.Potential);
+			callGraph.addEdge(edge);
+			TextFileUtils.registSnapchot(callGraph.toDot());
+		}
+		// Object.potential_function(..., callback, ...)
+		else if(node.getAstNode().getParent() instanceof PropertyGet &&
+				node.getAstNode().getParent().getParent() instanceof FunctionCall
+				) {
+			
+			int cbArgNum = Rule.hasArgNum(rule.getCallback());
+			if(cbArgNum != -1) {
+				FunctionCall funcCall = (FunctionCall)node.getAstNode().getParent().getParent();
+				AstNode argAstNode = funcCall.getArguments().get(cbArgNum);
+				AstNode cbAstNode = callGraph.getFunctionNode(argAstNode);
+				
+				if(cbAstNode != null) {
+					Node fromNode = callGraph.getNode(funcCall);
+					Node toNode = callGraph.getNode(cbAstNode);
+					
+					Edge edge = new Edge(fromNode.getId(), toNode.getId());
+					
+					if(!"".equals(rule.getEvent())) { // Due to just callback functions, e.g. jQuery.each
+						edge.setEvent(node.getAstNode());
+						node.setNodeType(Node.Potential);
+					}
+					callGraph.addEdge(edge);
+					TextFileUtils.registSnapchot(callGraph.toDot());
+				}
+				
+				// e.g. jQuery.error(callback) is an potential function
+				// but data objects can have the same name property
+				else {
+					StringUtils.printError(this, "Make sure this is not potential function call", argAstNode.toSource());
+				}
+				
+			} else {
+				StringUtils.printError(this, "Invlid potential rule?", rule.getEvent() + ", " + node.getAstNode().toSource());
+			}
+		}
+		
+		else {
+			StringUtils.printError(this, "Cannot identify interaction", node.getAstNode().toSource());
+		}
+	}
+	
+	/**
+	 * Adds interaction relationships coming from event attributes/properties (to be debugged)
+	 * @param node A node representing a trigger
+	 * @param rule A trigger rule which detects the trigger node
+	 */
+	private void addInteraction(CallGraph callGraph, Node node, Trigger rule) {
+		
+		// object.trigger = callback
+		if(node.getAstNode().getParent() instanceof PropertyGet &&
+				node.getAstNode().getParent().getParent() instanceof Assignment &&
+				((Assignment)node.getAstNode().getParent().getParent()).getLeft() == node.getAstNode().getParent()) {
+			
+			AstNode cbAstNode = ((Assignment)node.getAstNode().getParent().getParent()).getRight();
+			Node fromNode = callGraph.getNode((Assignment)node.getAstNode().getParent().getParent());
+			Node toNode = callGraph.getNode(callGraph.getFunctionNode(cbAstNode));
+			
+			Edge edge = new Edge(fromNode.getId(), toNode.getId());
+			edge.setEvent(node.getAstNode());
+			node.setNodeType(Node.Trigger);
+			callGraph.addEdge(edge);
+			TextFileUtils.registSnapchot(callGraph.toDot());
+		}
+		// new object(..., {..., trigger: callback, ...}, ...)
+		else if(node.getAstNode().getParent() instanceof ObjectProperty &&
+				((ObjectProperty)node.getAstNode().getParent()).getLeft() == node.getAstNode()) {
+			
+			AstNode cbAstNode = ((ObjectProperty)node.getAstNode().getParent()).getRight();
+			Node fromNode = callGraph.getNode((ObjectProperty)node.getAstNode().getParent());
+			Node toNode = callGraph.getNode(callGraph.getFunctionNode(cbAstNode));
+
+			Edge edge = new Edge(fromNode.getId(), toNode.getId());
+			edge.setEvent(node.getAstNode());
+			node.setNodeType(Node.Trigger);
+			callGraph.addEdge(edge);
+			TextFileUtils.registSnapchot(callGraph.toDot());
+		}
+		
+		else {
+			StringUtils.printError(this, "Cannot identify interaction", node.getAstNode().toSource());
+		}
+		
+	}
+
+	/**
+	 * Sets CSS properties which enable/disable interactions (to be re-factored)
+	 * @param htmlParser Provides CSS codes
+	 * @param edManager Manages enable/disable statements
+	 */
+	protected void setCSSControlProperty(HTMLParser htmlParser, EnDisableManager edManager) {
 		
 		// First analyzes embedded and external CSS codes because lower priority
 		for(CSSCode cssCode : htmlParser.getCSSCodeList()) {
@@ -131,8 +356,6 @@ public class FSMExtender extends Modeler {
 			}
 		}
 	}
-	
-	
 
 	/**
 	 * Gets HTML parser 
