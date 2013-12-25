@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.mzw.jsanalyzer.modeler.model.graph.CallGraph;
+import jp.mzw.jsanalyzer.modeler.model.graph.Node;
 import jp.mzw.jsanalyzer.modeler.model.interaction.Event;
 
 
@@ -34,6 +35,7 @@ public class FiniteStateMachine extends CallGraph {
 		this.mExit = new Exit();
 		
 		this.mInitState = new State(CallGraph.getInitNode());
+//		this.mStateList.add(this.mInitState);
 	}
 	
 	
@@ -53,6 +55,9 @@ public class FiniteStateMachine extends CallGraph {
 	///// Setters
 	public void addState(State state) {
 		this.mStateList.add(state);
+	}
+	public void addTransition(Transition trans) {
+		this.mTransList.add(trans);
 	}
 	
 	public void addExit(State fromState) {
@@ -80,6 +85,7 @@ public class FiniteStateMachine extends CallGraph {
 		}
 		return null;
 	}
+	
 	/**
 	 * Gets all events on this transitions
 	 * @return All events
@@ -135,6 +141,7 @@ public class FiniteStateMachine extends CallGraph {
 			ret += state.getId() + state.getDotLabel() + ";\n";
 		}
 		
+		ret += this.mEntry.getId() + " -> " + this.mInitState.getId() + ";\n";
 		for(Transition trans : this.mTransList) {
 			ret += trans.getFromStateId() + " -> " + trans.getToStateId() + trans.getDotLabel() + ";\n";
 		}

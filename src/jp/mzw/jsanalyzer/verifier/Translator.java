@@ -8,6 +8,10 @@ import jp.mzw.jsanalyzer.modeler.model.fsm.State;
 import jp.mzw.jsanalyzer.modeler.model.fsm.Transition;
 import jp.mzw.jsanalyzer.modeler.model.interaction.Event;
 
+/**
+ * Translates from extracted FSM to promela models
+ * @author Yuta Maezawa
+ */
 public class Translator {
 	
 	protected FiniteStateMachine mFSM;
@@ -15,15 +19,6 @@ public class Translator {
 	public Translator(FiniteStateMachine fsm) {
 		this.mFSM = fsm;
 	}
-	
-	/**
-	 * A constructor
-	 * @param filename A filename containing finite state machine information
-	 */
-	public Translator(String filename) {
-		
-	}
-	
 
 	public String translate() {
 //		fsm.abstractNoEventEdges();

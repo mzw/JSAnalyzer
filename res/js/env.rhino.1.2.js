@@ -13958,7 +13958,8 @@ Window = function(scope, parent, opener){
 //finally pre-supply the window with the window-like environment
 //console.log('Default Window');
 new Window(__this__, __this__);
-console.log('[ %s ]',window.navigator.userAgent);
+//To prevent standard I/O output by Yuta Maezawa at Dec 17 2013
+//console.log('[ %s ]',window.navigator.userAgent);
 /**
  *
  * @param {Object} event

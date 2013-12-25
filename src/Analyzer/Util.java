@@ -180,6 +180,7 @@ public class Util {
 		String ret = str;
 		if(ret != null) {
 			ret = ret.replaceAll("\\.", "__dot__");
+			ret = ret.replaceAll("init", "__init__");
 		}
 		return ret;
 	}

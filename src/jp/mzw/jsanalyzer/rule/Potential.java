@@ -20,17 +20,23 @@ public class Potential extends InteractionRule {
 	protected String mCallback;
 	
 	/**
+	 * 
+	 */
+	protected boolean mRepeatable;
+	
+	/**
 	 * Constructor
 	 * @param func A name of function which handles an interaction as a keyword
 	 * @param interact A type of the interaction
 	 * @param event An event of the interaction
 	 * @param callback A callback function of the interaction
 	 */
-	public Potential(String func, String interact, String event, String event_modifier, String callback) {
+	public Potential(String func, String interact, String event, String event_modifier, String callback, boolean repeatable) {
 		super(func, interact);
 		this.mEvent = event;
 		this.mEventModifier = event_modifier;
 		this.mCallback = callback;
+		this.mRepeatable = repeatable;
 	}
 	
 	/**
@@ -66,4 +72,12 @@ public class Potential extends InteractionRule {
 		return this.mCallback;
 	}
 	
+
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean getRepeatable() {
+		return this.mRepeatable;
+	}
 }

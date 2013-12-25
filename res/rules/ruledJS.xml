@@ -34,5 +34,8 @@
 	-->
 	<!-- contains (ToDo) -->
 	
+	
+	<Library method="startsWith" name="jquery"  path="res/libRules/jquery.xml" skip="true" />
+	
 </Libraries>
 

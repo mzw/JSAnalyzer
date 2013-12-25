@@ -1,56 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Rules>
-	<Triggers>
-		<Trigger interact="server" event="success" />
-	</Triggers>
 	<Potentials>
-		<Potential interact="User" via="mouse" func="on" target="propTarget" event="arg_1" callback="arg_2"/>
-        <Potential interact="User" via="mouse" func="bind" target="propTarget" event="arg_1" callback="arg_2"/>
+		<!--
+		In case of get/post(URL, callback), change callback="arg_1"
+		In case of get/post(URL, data, callback), change callback="arg_2"
+		-->
+		<Potential interact="Server" func="get"  target="jQuery" event="get" callback="arg_1" repeatable="false" />
+		<Potential interact="Server" func="post" target="jQuery" event="post" callback="arg_2" repeatable="false" />
+		<!--
+		<Potential interact="Server" func="getJSON"   target="jQuery" event="getJSON" callback="arg_2" />
+		<Potential interact="Server" func="getScript" target="jQuery" event="getScript" callback="arg_2" />
+		-->
+		
+		
+		<!-- The followings are not actually potential functions, but handle virtually callback mechanism -->
+		<Potential func="each" target="jQuery" callback="arg_1" /><!-- Change callback="arg_0" depending on your apps -->
+		
+		
+	
+		<Potential interact="User" via="mouse" func="on" target="PropTarget" event="arg_0" callback="arg_1"/>
+        <Potential interact="User" via="mouse" func="bind" target="PropTarget" event="arg_0" callback="arg_1"/>
 
         <!-- mouse events -->
-		<Potential interact="User" via="mouse" func="click" target="propTarget" event="click" callback="arg_1"/>
-		<Potential interact="User" via="mouse" func="dblclick" target="propTarget" event="double click" callback="arg_1"/>
-		<Potential interact="User" via="mouse" func="hover" target="propTarget" event="hover" callback="arg_1"/>
-		<Potential interact="User" via="mouse" func="mousedown" target="propTarget" event="mouse down" callback="arg_1"/>
-		<Potential interact="User" via="mouse" func="mouseenter" target="propTarget" event="mouse enter" callback="arg_1"/>
-		<Potential interact="User" via="mouse" func="mouseleave" target="propTarget" event="mouse leave" callback="arg_1"/>
-		<Potential interact="User" via="mouse" func="mousemove" target="propTarget" event="mouse move" callback="arg_1"/>
-		<Potential interact="User" via="mouse" func="mouseover" target="propTarget" event="mouse over" callback="arg_1"/>
-		<Potential interact="User" via="mouse" func="mouseup" target="propTarget" event="mouse up" callback="arg_1"/>
-		<Potential interact="User" via="mouse" func="focusin" target="propTarget" event="focus in" callback="arg_1"/>
-		<!-- クリック毎にN番目のコールバック関数を呼び出す。意味的な振舞い→扱いが難しい。onclickで代用可能なので、解析対象外としたい。
-			<Potential interact="User" func="toggle" target="propTarget" event="toggle" callback="arg_N"/>
+		<Potential interact="User" via="mouse" func="click" target="PropTarget" event="click" callback="arg_0"/>
+		<Potential interact="User" via="mouse" func="dblclick" target="PropTarget" event="double click" callback="arg_0"/>
+		<Potential interact="User" via="mouse" func="hover" target="PropTarget" event="hover" callback="arg_0"/>
+		<Potential interact="User" via="mouse" func="mousedown" target="PropTarget" event="mouse down" callback="arg_0"/>
+		<Potential interact="User" via="mouse" func="mouseenter" target="PropTarget" event="mouse enter" callback="arg_0"/>
+		<Potential interact="User" via="mouse" func="mouseleave" target="PropTarget" event="mouse leave" callback="arg_0"/>
+		<Potential interact="User" via="mouse" func="mousemove" target="PropTarget" event="mouse move" callback="arg_0"/>
+		<Potential interact="User" via="mouse" func="mouseover" target="PropTarget" event="mouse over" callback="arg_0"/>
+		<Potential interact="User" via="mouse" func="mouseup" target="PropTarget" event="mouse up" callback="arg_0"/>
+		<Potential interact="User" via="mouse" func="focusin" target="PropTarget" event="focus in" callback="arg_0"/>
+		<!-- Limitation due to the same reason as pseudo classes in CSS
+			<Potential interact="User" func="toggle" target="PropTarget" event="toggle" callback="arg_N"/>
 		-->
 		<!-- keyboard events -->
-		<Potential interact="User" via="keyboard" func="keydown" target="propTarget" event="key down" callback="arg_1"/>
-		<Potential interact="User" via="keyboard" func="keypress" target="propTarget" event="key press" callback="arg_1"/>
-		<Potential interact="User" via="keyboard" func="keyup" target="propTarget" event="key up" callback="arg_1"/>
+		<Potential interact="User" via="keyboard" func="keydown" target="PropTarget" event="key down" callback="arg_0"/>
+		<Potential interact="User" via="keyboard" func="keypress" target="PropTarget" event="key press" callback="arg_0"/>
+		<Potential interact="User" via="keyboard" func="keyup" target="PropTarget" event="key up" callback="arg_0"/>
 		<!-- mouse and keyboard events -->
-		<Potential interact="User" via="mouse_keyboard" func="focusin" target="propTarget" event="focus in" callback="arg_1"/>
-		<Potential interact="User" via="mouse_keyboard" func="focusout" target="propTarget" event="focus out" callback="arg_1"/>
+		<Potential interact="User" via="mouse_keyboard" func="focusin" target="PropTarget" event="focus in" callback="arg_0"/>
+		<Potential interact="User" via="mouse_keyboard" func="focusout" target="PropTarget" event="focus out" callback="arg_0"/>
 		<!-- form events -->
-		<Potential interact="User" via="form" func="blur" target="propTarget" event="blur" callback="arg_1"/>
-		<Potential interact="User" via="form" func="change" target="propTarget" event="change" callback="arg_1"/>
-		<Potential interact="User" via="form" func="focus" target="propTarget" event="focus" callback="arg_1"/>
-		<Potential interact="User" via="form" func="focusin" target="propTarget" event="focusin" callback="arg_1"/>
-		<Potential interact="User" via="form" func="select" target="propTarget" event="select" callback="arg_1"/>
-		<Potential interact="User" via="form" func="submit" target="propTarget" event="submit" callback="arg_1"/>
+		<Potential interact="User" via="form" func="blur" target="PropTarget" event="blur" callback="arg_0"/>
+		<Potential interact="User" via="form" func="change" target="PropTarget" event="change" callback="arg_0"/>
+		<Potential interact="User" via="form" func="focus" target="PropTarget" event="focus" callback="arg_0"/>
+		<Potential interact="User" via="form" func="focusin" target="PropTarget" event="focusin" callback="arg_0"/>
+		<Potential interact="User" via="form" func="select" target="PropTarget" event="select" callback="arg_0"/>
+		<Potential interact="User" via="form" func="submit" target="PropTarget" event="submit" callback="arg_0" />
 		<!-- document loading events -->
-		<Potential interact="Self" via="window" func="load" target="propTarget" event="load" callback="arg_1"/> <!-- img? --> <!-- server event?? --> <!-- *1) 第1引数が関数ならば？ -->
-		<Potential interact="Self" via="document" func="ready" target="propTarget" event="ready" callback="arg_1"/>
-		<Potential interact="Self" via="window" func="unload" target="propTarget" event="unload" callback="arg_1"/>
+		<Potential interact="Self" via="window" func="load" target="PropTarget" event="load" callback="arg_0"/> <!-- img? --> <!-- server event?? --> <!-- *1) 第1引数が関数ならば？ -->
+		<Potential interact="Self" via="document" func="ready" target="PropTarget" event="ready" callback="arg_0" repeatable="false" />
+		<Potential interact="Self" via="window" func="unload" target="PropTarget" event="unload" callback="arg_0"/>
 		<!-- Browser events -->
-		<Potential interact="Self" via="browser" func="error" target="propTarget" event="error" callback="arg_1"/>
-		<Potential interact="Self" via="browser" func="resize" target="propTarget" event="resize" callback="arg_1"/>
-		<Potential interact="Self" via="browser" func="scroll" target="propTarget" event="scroll" callback="arg_1"/>
+		<Potential interact="Self" via="browser" func="error" target="PropTarget" event="error" callback="arg_0"/>
+		<Potential interact="Self" via="browser" func="resize" target="PropTarget" event="resize" callback="arg_0"/>
+		<Potential interact="Self" via="browser" func="scroll" target="PropTarget" event="scroll" callback="arg_0"/>
 		
 		<!-- Global Ajax -->
-		<Potential interact="Server" via="XMLHttpRequest" func="ajaxComplete" target="$(document)" event="ajax complete" callback="arg_1"/>
-		<Potential interact="Server" via="XMLHttpRequest" func="ajaxError" target="$(document)" event="ajax error" callback="arg_1"/>
-		<Potential interact="Server" via="XMLHttpRequest" func="ajaxSend" target="$(document)" event="ajax send" callback="arg_1"/>
-		<Potential interact="Server" via="XMLHttpRequest" func="ajaxStart" target="$(document)" event="ajax start" callback="arg_1"/>
-		<Potential interact="Server" via="XMLHttpRequest" func="ajaxStop" target="$(document)" event="ajax stop" callback="arg_1"/>
-		<Potential interact="Server" via="XMLHttpRequest" func="ajaxSuccess" target="$(document)" event="ajax success" callback="arg_1"/>
+		<Potential interact="Server" via="XMLHttpRequest" func="ajaxComplete" target="$(document)" event="ajax complete" callback="arg_0"/>
+		<Potential interact="Server" via="XMLHttpRequest" func="ajaxError" target="$(document)" event="ajax error" callback="arg_0"/>
+		<Potential interact="Server" via="XMLHttpRequest" func="ajaxSend" target="$(document)" event="ajax send" callback="arg_0"/>
+		<Potential interact="Server" via="XMLHttpRequest" func="ajaxStart" target="$(document)" event="ajax start" callback="arg_0"/>
+		<Potential interact="Server" via="XMLHttpRequest" func="ajaxStop" target="$(document)" event="ajax stop" callback="arg_0"/>
+		<Potential interact="Server" via="XMLHttpRequest" func="ajaxSuccess" target="$(document)" event="ajax success" callback="arg_0"/>
 		<!-- Helper functions: param, serialize, serializeArray は単なる処理なので対象外 -->
 		<!-- Low-level interfaces -->
 		<Potential interact="Server" via="XMLHttpRequest" func="ajax" target="$" event="ajax" callback="prop" unimplemented="true" />
@@ -60,34 +74,58 @@
 		<!-- shorthand -->
 		<!--
 		-- "success" is defined at the trigger rule
-		<Potential interact="Server" via="XMLHttpRequest" func="get" target="$" event="success" callback="arg_2||3" />
-		<Potential interact="Server" via="XMLHttpRequest" func="getJSON" target="$" event="success" callback="arg_2||3" />
-		<Potential interact="Server" via="XMLHttpRequest" func="getScript" target="$" event="success" callback="arg_2||3" />
-		<Potential interact="Server" via="XMLHttpRequest" func="post" target="$" event="success" callback="arg_2||3" />
+		<Potential interact="Server" via="XMLHttpRequest" func="get" target="$" event="success" callback="arg_1||3" />
+		<Potential interact="Server" via="XMLHttpRequest" func="getJSON" target="$" event="success" callback="arg_1||3" />
+		<Potential interact="Server" via="XMLHttpRequest" func="getScript" target="$" event="success" callback="arg_1||3" />
+		<Potential interact="Server" via="XMLHttpRequest" func="post" target="$" event="success" callback="arg_1||3" />
 		-->
-		<Potential interact="Server" via="XMLHttpRequest" func="load" target="propTarget" event="complete" callback="arg_2||3" /> <!-- *1) 第2or3引数が関数ならば？ -->
+		<Potential interact="Server" via="XMLHttpRequest" func="load" target="PropTarget" event="complete" callback="arg_1||3" /> <!-- *1) 第2or3引数が関数ならば？ -->
 	</Potentials>
+	
+	
+	
+	
+	
+	
+	
 	<Controls>
-		<Control func="disable" target="ret" disable="" />
+	<!--
+	All <prop> and <value> is replaced by "prop" and "value", then evaluate "cond".
+	If the evaluation result is false, AST element which matchs by "func" is skipped.
+	Note that "disabled" is also evaluated, not deal it as raw string.
+	 -->
+		<Control lang="js" func="attr" target="PropTarget" prop="arg_0" value="arg_1" cond="<prop>=='disabled'" disabled="<value>=='disabled'" />
+		<Control lang="js" func="removeAttr" target="PropTarget" prop="arg_0" cond="<prop>=='disabled'" disabled="false" />
+		
+		
+		
 		<!-- visibility -->
 			<!-- 特殊操作かつ代用可能なので無視 -->
-			<Control sector="hidden" unimplemented="true" />
-			<Control sector="visible" unimplemented="true" />
+			<Control lang="css" sector="hidden" unimplemented="true" />
+			<Control lang="css" sector="visible" unimplemented="true" />
 	</Controls>
+	
+	
+	
+	
+	
+	
+	
+	
 	<Manipulates>
-		<Manipulate func="$" semantic="get" by="css_query" value="arg_1" target="ret" />
+		<Manipulate func="$" semantic="get" by="css_query" value="arg_0" target="ret" />
 		<!-- Class -->
-		<Manipulate func="addClass" semantic="add" by="class" value="arg_1" target="propTarget" />
-		<Manipulate func="removeClass" semantic="remove" by="class" value="arg_1" target="propTarget" />
+		<Manipulate func="addClass" semantic="add" by="class" value="arg_0" target="PropTarget" />
+		<Manipulate func="removeClass" semantic="remove" by="class" value="arg_0" target="PropTarget" />
 		<!-- 
-			<Manipulate func="hasClass" semantic="??" by="class" value="arg_1" target="propTarget" /> <!-- 値に変化なしなので、スコープ外 -->
-			<Manipulate func="toggleClass" semantic="??" by="class" value="arg_1" target="propTarget" /> <!-- 意味的で解析困難だが代用可能なので、スコープ外 -->
+			<Manipulate func="hasClass" semantic="??" by="class" value="arg_0" target="PropTarget" /> <!-- 値に変化なしなので、スコープ外 -->
+			<Manipulate func="toggleClass" semantic="??" by="class" value="arg_0" target="PropTarget" /> <!-- 意味的で解析困難だが代用可能なので、スコープ外 -->
 		-->
 		<!-- Copyrightのclone()はどうしよう。。。 -->
 		<!-- General attributes -->
-		<Manipulate func="attr" semantic="set" by="arg_1" value="arg_2" target="propTarget" /><!-- 属性値の取得もできるが、データフローなのでスコープ外 -->
+		<!--<Manipulate func="attr" semantic="set" by="arg_0" value="arg_1" target="PropTarget" />--><!-- 属性値の取得もできるが、データフローなのでスコープ外 -->
 		
 		<!-- Insertion -->
-		<Manipulate func="append" semantic="insert" by="arg_1" value="arg_2" target="propTarget" />
+		<!--<Manipulate func="append" semantic="insert" by="arg_0" value="arg_1" target="PropTarget" />-->
 	</Manipulates>
 </Rules>

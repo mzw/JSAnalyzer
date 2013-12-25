@@ -115,7 +115,7 @@ public class FSMExtender extends Modeler {
 					node.getJSCode().getType(),
 					rule);
 			
-			edManager.add(assignNode, ed);
+			edManager.add(assignNode.getId(), ed);
 			node.setNodeType(Node.Control);
 			TextFileUtils.registSnapchot(callGraph.toDot());
 		}
@@ -153,7 +153,7 @@ public class FSMExtender extends Modeler {
 						node.getJSCode().getType(),
 						rule);
 				
-				edManager.add(callGraph.getNode(funcCall), ed);
+				edManager.add(callGraph.getNode(funcCall).getId(), ed);
 				node.setNodeType(Node.Control);
 				TextFileUtils.registSnapchot(callGraph.toDot());
 			}
@@ -218,7 +218,7 @@ public class FSMExtender extends Modeler {
 					Edge edge = new Edge(fromNode.getId(), toNode.getId());
 					
 					if(!"".equals(rule.getEvent())) { // Due to just callback functions, e.g. jQuery.each
-						edge.setEvent(node.getAstNode());
+						edge.setEvent(node.getAstNode(), rule);
 						node.setNodeType(Node.Potential);
 					}
 					callGraph.addEdge(edge);
@@ -258,7 +258,7 @@ public class FSMExtender extends Modeler {
 			Node toNode = callGraph.getNode(callGraph.getFunctionNode(cbAstNode));
 			
 			Edge edge = new Edge(fromNode.getId(), toNode.getId());
-			edge.setEvent(node.getAstNode());
+			edge.setEvent(node.getAstNode(), rule);
 			node.setNodeType(Node.Trigger);
 			callGraph.addEdge(edge);
 			TextFileUtils.registSnapchot(callGraph.toDot());
@@ -272,7 +272,7 @@ public class FSMExtender extends Modeler {
 			Node toNode = callGraph.getNode(callGraph.getFunctionNode(cbAstNode));
 
 			Edge edge = new Edge(fromNode.getId(), toNode.getId());
-			edge.setEvent(node.getAstNode());
+			edge.setEvent(node.getAstNode(), rule);
 			node.setNodeType(Node.Trigger);
 			callGraph.addEdge(edge);
 			TextFileUtils.registSnapchot(callGraph.toDot());
@@ -314,7 +314,7 @@ public class FSMExtender extends Modeler {
 							for(Element elm : htmlParser.getDoc().select(selector)) {
 								// Add
 								EnDisable ed = new EnDisable(elm, prop, val, cssCode.getType(), cssControl);
-								edManager.add(CallGraph.getInitNode(), ed);
+								edManager.add(CallGraph.getInitNode().getId(), ed);
 							}
 						} else { // Not control CSS property
 							 // NOP
@@ -348,7 +348,7 @@ public class FSMExtender extends Modeler {
 
 							 // Add
 							 EnDisable ed = new EnDisable(cssCode.getHTMLElement(), prop, val, cssCode.getType(), cssControl);
-							 edManager.add(CallGraph.getInitNode(), ed);
+							 edManager.add(CallGraph.getInitNode().getId(), ed);
 						 }
 					 }
 					

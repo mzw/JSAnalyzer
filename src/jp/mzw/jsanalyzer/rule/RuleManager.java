@@ -66,8 +66,14 @@ public class RuleManager {
 			String event = elm.attr(XMLAttr.RuleEvent);
 			String event_modifier = elm.attr(XMLAttr.RuleEventModifier);
 			String callback = elm.attr(XMLAttr.RuleCallback);
+
+			boolean repeatable = true;
+			String _repeatalbe = elm.attr(XMLAttr.RuleRepeatable);
+			if(_repeatalbe != null && _repeatalbe.equals(XMLAttr.RuleRepeatable_False)) {
+				repeatable = false;
+			}
 			
-			Potential potential = new Potential(func, interact, event, event_modifier, callback);
+			Potential potential = new Potential(func, interact, event, event_modifier, callback, repeatable);
 			this.mRuleList.add(potential);
 			this.mPotentialRuleList.add(potential);
 		}

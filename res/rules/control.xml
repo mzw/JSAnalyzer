@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Controls>
-	<Control type="attr" attr="disabled" disabled="true" />
-	<Control type="attr" attr="readonly" disabled="true" />
-	<Control type="attr" attr="visibility"  disabled="hidden" />
-	<Control type="attr" attr="display"  disabled="none" />
+	<Control lang="html" type="attr" attr="disabled" disabled="true" />
+	<Control lang="html" type="attr" attr="readonly" disabled="true" />
+	<Control lang="html" type="attr" attr="visibility"  disabled="hidden" />
+	<!--<Control lang="html" type="attr" attr="display"  disabled="none" />-->
 	
-	<Control type="css" prop="display"  disabled="none" />
+	<Control lang="css" type="css" prop="display"  disabled="none" />
 </Controls>

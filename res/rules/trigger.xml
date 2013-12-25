@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Triggers>
-	<Trigger interact="User" via="mouse" event="onchange" />
+	<Trigger interact="User" event="onchange" />
 	<Trigger interact="User" via="mouse" event="onclick" />
 	<Trigger interact="User" via="mouse" event="oncontextmenu" />
 	<Trigger interact="User" via="mouse" event="ondblclick" />

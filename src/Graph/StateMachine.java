@@ -301,6 +301,9 @@ public class StateMachine extends Graph {
 	public Transition getTransition(int id) {
 		return this.transs.get(id);
 	}
+	public List<Transition> getTransitions() {
+		return this.transs;
+	}
 
 	public List<String> getEvents() {
 		List<String> ret = new LinkedList<String>();

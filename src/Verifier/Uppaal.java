@@ -3,6 +3,7 @@ package Verifier;
 import Analyzer.Util;
 import Graph.State;
 import Graph.StateMachine;
+import Graph.Transition;
 
 import java.util.Iterator;
 
@@ -46,16 +47,30 @@ public class Uppaal extends Verifier {
 		ret += "<template>\n";
 		ret += "\t" + "<name x=\"5\" y=\"5\">TemplateApp</name>\n";
 		ret += "\t" + "<declaration>\n";
-		// variables for given conditions here, e.g. int sleepTime = 5
+		// variables for given conditions here, e.g. bool cond;
+		ret += "bool cond;\n";
+		// end of variable declaration
 		ret += "\t" + "</declaration>\n";
 		// states
 		for(Iterator<State> it = this.sm.getStates().iterator(); it.hasNext(); ) {
 			State s = it.next();
-			ret += s.toString_uppaal();
+			ret += Util.esc_uppaal_state(s.toString_uppaal());
 		}
 		// initial state
 		ret += "\t<init ref=\"" + this.sm.getInitState().getId() + "\"/>\n";
 		// transitions
+		for(Iterator<Transition> it = this.sm.getTransitions().iterator(); it.hasNext(); ) {
+			Transition t = it.next();
+			ret += "\t<transition>\n";
+			ret += "\t\t<source ref=\"" + t.getFrom() + "\" />\n";
+			ret += "\t\t<target ref=\"" + t.getTo() + "\" />\n";
+			if(t.hasEvent()) {
+				ret += "\t\t<label kind=\"synchronisation\""
+						+ " x=\"" + t.getFrom() + "\" />\n";
+			}
+			ret += "\t</transition>\n";
+		}
+		
 		ret += "</template>\n";
 
 		ret += "\n";
@@ -64,7 +79,7 @@ public class Uppaal extends Verifier {
 		ret += "<template>\n";
 		ret += "\t" + "<name x=\"5\" y=\"5\">TemplateInteraction</name>\n";
 		// initial state
-		ret += "\t<location id=\"ISiIM\">\n";
+		ret += "\t<location id=\"ISiIM\"/>\n";
 		
 		ret += "\t<init ref=\"ISiIM\"/>\n";
 		ret += "</template>\n";

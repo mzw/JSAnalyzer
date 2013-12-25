@@ -13,6 +13,7 @@ import org.jsoup.nodes.Node;
 import jp.mzw.jsanalyzer.core.IdGen;
 import jp.mzw.jsanalyzer.rule.Library;
 import jp.mzw.jsanalyzer.rule.RuleManager;
+import jp.mzw.jsanalyzer.rule.Trigger;
 import jp.mzw.jsanalyzer.util.StringUtils;
 import jp.mzw.jsanalyzer.util.TextFileUtils;
 import jp.mzw.jsanalyzer.xml.HTMLAttr;
@@ -255,10 +256,11 @@ public class HTMLParser extends Parser {
 			// In-line
 			for (Attribute attr : elm.attributes()) {
 				String key = attr.getKey();
-				if(ruleManager.isTrigger(key) != null) {
+				Trigger rule = ruleManager.isTrigger(key);
+				if(rule != null) {
 					String code = attr.getValue();
 					JSCode jsCode = new JSCode(code, elm, this.mBaseUrl, Code.Inline);
-					jsCode.setEventAttr(attr);
+					jsCode.setEventAttr(attr, rule);
 					this.mJSCodeList.add(jsCode);
 				}
 			}
