@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.mzw.jsanalyzer.modeler.model.graph.CallGraph;
-import jp.mzw.jsanalyzer.modeler.model.graph.Node;
 import jp.mzw.jsanalyzer.modeler.model.interaction.Event;
+import jp.mzw.jsanalyzer.modeler.model.interaction.Interaction;
 
 
 /**
@@ -25,6 +25,9 @@ public class FiniteStateMachine extends CallGraph {
 	protected ArrayList<State> mStateList;
 	protected ArrayList<Transition> mTransList;
 	
+	/**
+	 * Constructor
+	 */
 	public FiniteStateMachine() {
 		super();
 		
@@ -35,14 +38,6 @@ public class FiniteStateMachine extends CallGraph {
 		this.mExit = new Exit();
 		
 		this.mInitState = new State(CallGraph.getInitNode());
-//		this.mStateList.add(this.mInitState);
-	}
-	
-	
-	public void show() {
-		for(State state : this.mStateList) {
-			System.out.println(state.getDotLabel());
-		}
 	}
 
 	///// Booleans
@@ -120,6 +115,16 @@ public class FiniteStateMachine extends CallGraph {
 	 */
 	public List<State> getStateList() {
 		return this.mStateList;
+	}
+	public List<Transition> getTransList() {
+		return this.mTransList;
+	}
+	public void removeTransition(State fromState, Interaction interaction) {
+		for(Transition trans : this.getTransListFrom(fromState.getId())) {
+			if(trans.hasEvent() && trans.getEvent().equals(interaction.getEvent())) {
+				this.mTransList.remove(trans);
+			}
+		}
 	}
 	
 	///// toStrings

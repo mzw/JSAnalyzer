@@ -10,6 +10,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import jp.mzw.jsanalyzer.config.FileExtension;
 import jp.mzw.jsanalyzer.config.FilePath;
@@ -133,7 +134,6 @@ public class TextFileUtils {
 		File file = new File(projDir + FilePath.RawSrcDir + uri.getPath());
 		TextFileUtils.write(file.getParent().toString(), file.getName(), code);
 	}
-	
 	
 	private static int serial_num_snapshot = 0;
 	private static ArrayList<String> snapshots = new ArrayList<String>();

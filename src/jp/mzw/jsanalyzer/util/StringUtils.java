@@ -59,24 +59,13 @@ public class StringUtils {
 	 * @param value A debugging clue
 	 */
 	public static void printError(Object obj, String message, String value) {
+		if(150 < value.length()) {
+			value = value.substring(0, 150);
+		}
 		System.err.println(obj.getClass().getName() + ": " + message + ", value is \"" + value + "\"");
 	}
 	
-	
-	public static String esc_dot(String str) {
-		String ret = str;
-		if(ret != null) {
-			ret = ret.replaceAll("\\\\\"", "\"");			
-			
-			ret = ret.replaceAll("\"", "\\\\\"");
-			ret = ret.replaceAll("\\.", "\\\\.");
-			ret = ret.replaceAll("\n", " ");
-		}
-		return ret;
-	}
-	
 
-	/*
 	public static String esc_xml(String str) {
 		String escaped = str;
 		if(escaped != null) {
@@ -94,6 +83,31 @@ public class StringUtils {
 		}
 		return escaped;
 	}
+	public static String esc_dot(String str) {
+		String ret = str;
+		if(ret != null) {
+			ret = ret.replaceAll("\\\\\"", "\"");			
+			
+			ret = ret.replaceAll("\"", "\\\\\"");
+			ret = ret.replaceAll("\\.", "\\\\.");
+			ret = ret.replaceAll("\n", " ");
+		}
+		return ret;
+	}
+	
+	public static String removeQuote(String str) {
+		String ret = str;
+		if(str == null || "".equals(str)) {
+			return "";
+		}
+		if(str.charAt(0) == '"' || str.charAt(0) == '\'') {
+			ret = str.substring(1, str.length() - 1);
+		}
+		return ret;
+	}
+	
+
+	/*
 	public static String esc_xml_rev(String str) {
 		String xml = str;
 		if(xml != null) {
@@ -112,16 +126,6 @@ public class StringUtils {
 		return xml;
 	}
 
-	public static String removeQuote(String str) {
-		String ret = str;
-		if(str == null || "".equals(str)) {
-			return "";
-		}
-		if(str.charAt(0) == '"' || str.charAt(0) == '\'') {
-			ret = str.substring(1, str.length() - 1);
-		}
-		return ret;
-	}
 	public static String removeHtmlComment(String str) {
 		if(str == null) {
 			return "";

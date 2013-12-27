@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import jp.mzw.jsanalyzer.modeler.EnDisable;
+import jp.mzw.jsanalyzer.modeler.EnDisableManager.EnDisable;
 import jp.mzw.jsanalyzer.modeler.model.graph.Node;
 import jp.mzw.jsanalyzer.modeler.model.interaction.Interaction;
 
@@ -48,6 +48,14 @@ public class State extends Node {
 	}
 	
 	/**
+	 * Gets nodes which construct this state
+	 * @return An origin node list
+	 */
+	public List<Node> getOriginNodeList() {
+		return this.mNodeList;
+	}
+	
+	/**
 	 * Adds interactions which target app has at this state
 	 * @param interaction
 	 */
@@ -55,42 +63,42 @@ public class State extends Node {
 		this.mInteractionList.add(interaction);
 	}
 	
+	public void removeAllInteractions() {
+		this.mInteractionList = new ArrayList<Interaction>();
+	}
 	
+	/**
+	 * Gets interactions at this state
+	 * @return An interaction list
+	 */
 	public List<Interaction> getInteractionList() {
 		return this.mInteractionList;
 	}
 	
+	public String getName() {
+		String ret = "";
+		
+		ret += this.mId;
+		
+		return ret;
+	}
+	
+	/**
+	 * Adds enable and disable statements at this state
+	 * @param ed Enable/Disable statement
+	 */
 	public void addEnDisable(EnDisable ed) {
 		this.mEnDisableList.add(ed);
 	}
 	
-	
-	
-	
-	
-	public boolean isDisabled(Interaction interaction) {
-		
-		
-		return false;
+	public List<EnDisable> getEnDisableList() {
+		return this.mEnDisableList;
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
 	
 	public String getPromelaLabel() {
 		return this.mId;
-	}
-	
-	public String getDotLabel() {
-		String ret = "";
-		
-		return ret;
 	}
 }

@@ -6,6 +6,7 @@ import jp.mzw.jsanalyzer.config.FilePath;
 import jp.mzw.jsanalyzer.core.Analyzer;
 import jp.mzw.jsanalyzer.modeler.model.graph.CallGraph;
 import jp.mzw.jsanalyzer.modeler.model.fsm.FiniteStateMachine;
+import jp.mzw.jsanalyzer.parser.HTMLParser;
 import jp.mzw.jsanalyzer.util.TextFileUtils;
 
 /**
@@ -40,6 +41,7 @@ public class FSMExtractor extends Modeler {
 		// Gets extended call graph and enable/disable statements
 		FSMExtender extender = new FSMExtender(this.mAnalyzer);
 		Pair<CallGraph, EnDisableManager> xcg_ed = extender.createExtendedCallGraph();
+		HTMLParser html = extender.getHTMLParser();
 		
 		TextFileUtils.write(this.mAnalyzer.getProject().getDir() + FilePath.ModelDir, FilePath.ExtendedCallGraphDot, xcg_ed.getLeft().toDot());
 		
@@ -51,7 +53,7 @@ public class FSMExtractor extends Modeler {
 		
 		// Refines abstracted call graph
 		FSMRefiner refiner = new FSMRefiner(this.mAnalyzer);
-		FiniteStateMachine fsm = refiner.refine(acg_am.getLeft(), xcg_ed.getRight(), acg_am.getRight());
+		FiniteStateMachine fsm = refiner.refine(html, acg_am.getLeft(), xcg_ed.getRight(), acg_am.getRight());
 		
 		TextFileUtils.write(this.mAnalyzer.getProject().getDir() + FilePath.ModelDir, FilePath.ExtractedFiniteStateMachineDot, fsm.toDot());
 		

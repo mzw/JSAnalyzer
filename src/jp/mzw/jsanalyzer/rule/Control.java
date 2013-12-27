@@ -24,7 +24,7 @@ public class Control extends Rule {
 	 * @param value Assigned to this disable attribute/property at this statement
 	 * @return  True or false represent disabled or enabled
 	 */
-	public boolean disabled(String value) {
+	public boolean disabled(String prop, String value) {
 		if(value == null || "".equals(value)) {
 			StringUtils.printError(this, "Invalid value", value);
 			return false;

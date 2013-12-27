@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 
+import jp.mzw.jsanalyzer.core.LimitationManager;
+import jp.mzw.jsanalyzer.core.LimitationManager.Limitation;
 import jp.mzw.jsanalyzer.util.StringUtils;
+import jp.mzw.jsanalyzer.util.TextFileUtils;
 
 import org.w3c.css.sac.CSSException;
 import org.w3c.css.sac.CSSParseException;
@@ -190,7 +193,9 @@ public class CSSParser extends Parser {
 	public static boolean containsCSSPseudoClass(String selector) {
 		for(String pc : CSSParser.PseudoClasses) {
 			if(selector.contains(pc)) {
-				StringUtils.printError(CSSParser.class, "[Limitation] Contains CSS pseudo classes", selector);
+				Limitation limitation = new Limitation(selector, Limitation.CSS_Pseudo_Class, "@CSSParser#containsCSSPseudoClass");
+				LimitationManager.addLimitation(limitation);
+//				StringUtils.printError(CSSParser.class, "[Limitation] Contains CSS pseudo classes", selector);
 				return true;
 			}
 		}

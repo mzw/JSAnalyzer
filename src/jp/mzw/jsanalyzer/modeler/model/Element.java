@@ -36,4 +36,17 @@ public class Element {
 	public String getId() {
 		return this.mId;
 	}
+
+	/**
+	 * Determines whether this equals with given element
+	 * @param element
+	 * @return
+	 */
+	public boolean equals(Element element) {
+		if(element != null) {
+			return element.getId().equals(this.mId);
+		}
+		return false;
+	}
+	
 }

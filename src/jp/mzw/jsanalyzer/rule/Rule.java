@@ -31,6 +31,14 @@ public class Rule {
 		
 		return false;
 	}
+	
+	/**
+	 * Gets keyword to be distinguished
+	 * @return
+	 */
+	public String getKeyword() {
+		return this.mKeyword;
+	}
 
 	/**
 	 * @return A string representing contents of this rule

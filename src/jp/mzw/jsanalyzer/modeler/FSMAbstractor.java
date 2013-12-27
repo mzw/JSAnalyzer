@@ -31,6 +31,8 @@ public class FSMAbstractor extends Modeler {
 	 * @return Abstracted call graph
 	 */
 	public Pair<CallGraph, AbstractionManager> abst(CallGraph xcg) {
+		System.out.println("Abstracts call graph...");
+		
 		AbstractionManager abstManager = new AbstractionManager();
 		
 		CallGraph acg = xcg.clone();

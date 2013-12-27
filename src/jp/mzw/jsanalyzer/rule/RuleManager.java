@@ -63,6 +63,7 @@ public class RuleManager {
 		for(Element elm : doc.getElementsByTag(XMLTag.RulePotential)) {
 			String func = elm.attr(XMLAttr.RuleFunc);
 			String interact = elm.attr(XMLAttr.RuleInteract);
+			String target = elm.attr(XMLAttr.RuleTarget);
 			String event = elm.attr(XMLAttr.RuleEvent);
 			String event_modifier = elm.attr(XMLAttr.RuleEventModifier);
 			String callback = elm.attr(XMLAttr.RuleCallback);
@@ -73,7 +74,7 @@ public class RuleManager {
 				repeatable = false;
 			}
 			
-			Potential potential = new Potential(func, interact, event, event_modifier, callback, repeatable);
+			Potential potential = new Potential(func, interact, target, event, event_modifier, callback, repeatable);
 			this.mRuleList.add(potential);
 			this.mPotentialRuleList.add(potential);
 		}
@@ -98,8 +99,9 @@ public class RuleManager {
 				String value = elm.attr(XMLAttr.RuleValue);
 				String cond = elm.attr(XMLAttr.RuleCond);
 				String semantic = elm.attr(XMLAttr.RuleSemantic);
+				String disabled = elm.attr(XMLAttr.RuleDisabled);
 				
-				control = new JSControl(func, target, prop, value, cond, semantic);
+				control = new JSControl(func, target, prop, value, cond, semantic, disabled);
 			} else {
 				StringUtils.printError(this, "Unknown lang at control rule", lang);
 			}

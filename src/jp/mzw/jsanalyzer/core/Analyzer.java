@@ -1,8 +1,10 @@
 package jp.mzw.jsanalyzer.core;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import jp.mzw.jsanalyzer.core.LimitationManager.Limitation;
 import jp.mzw.jsanalyzer.core.examples.*;
 import jp.mzw.jsanalyzer.modeler.FSMExtractor;
 import jp.mzw.jsanalyzer.modeler.model.fsm.FiniteStateMachine;
@@ -80,13 +82,11 @@ public class Analyzer {
 	 * Starts our analysis method with given project information
 	 */
 	public FiniteStateMachine extract() {
-		System.out.println("Starts to analyze");
+		System.out.println("Starts to analyze!");
 		
 		System.out.println("Extracting finite state machine...");
 		FSMExtractor extractor = new FSMExtractor(this);
 		FiniteStateMachine fsm = extractor.extracts();
-		
-		fsm.show();
 		
 		return fsm;
 	}
@@ -123,16 +123,53 @@ public class Analyzer {
 		/*
 
 		//analyzer.verify(graph);
-		//analyzer.verifyADP("projects/test/IADPInfo_QAsite.xml", analyzer, graph);
+		//analyzer.verifyIADP("projects/test/IADPInfo_QAsite.xml", analyzer, graph);
 		
 		/*
 		sm.setStateLayout(analyzer);
 		Uppaal uppaal = new Uppaal(sm);
 		Util.write("/Users/yuta/Desktop", "uppaal.xml", uppaal.translate());
 		*/
+		
+//		for(Limitation l : LimitationManager.getLimitations()) {
+//			System.out.println(l.toString());
+//		}
 
 		System.out.println("==============================");
 		System.out.println("See you again!");
 		System.out.println("==============================");
 	}
+	
+	
+	
+
+//	public void verifyIADP(String filename, Analyzer analyzer, Graph graph) {
+//		
+//		long start = System.currentTimeMillis();
+//		
+//		StateMachine sm = StateMachine.construct(analyzer, graph);
+//		Util.write(this.getProject().getDir(), this.getProject().getName() + Config.EXT_StateMachine, sm.toString_xml());
+//		
+//		Spin spin = new Spin(sm, this);
+//		Util.write(
+//				this.getProject().getDir(),
+//				this.getProject().getName() + Config.EXT_Promela,
+//				spin.translate());
+//		
+//		// generate concrete formulas
+//		List<AjaxDesignProperty> specs = AjaxDesignProperty.parse(filename, analyzer, sm);
+//		for(AjaxDesignProperty spec : specs) {
+//			System.out.println("Veryfy: " + spec.getFormula());
+//			long vstart = System.currentTimeMillis();
+//			spin.verify(spec);
+//			long vend = System.currentTimeMillis();
+//			System.out.println(spec.getId() + ": Verification time is " + (vend - vstart) + " msec");
+//		}
+//		
+//		long end = System.currentTimeMillis();
+//		System.out.println("Verification time: " + (end - start));
+//		
+//		spin.saveVerifyIADPResults(this, specs);
+//	}
+	
 }

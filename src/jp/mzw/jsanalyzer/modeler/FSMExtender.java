@@ -28,6 +28,8 @@ import jp.mzw.jsanalyzer.rule.RuleManager;
 import jp.mzw.jsanalyzer.rule.Trigger;
 import jp.mzw.jsanalyzer.util.StringUtils;
 import jp.mzw.jsanalyzer.util.TextFileUtils;
+import jp.mzw.jsanalyzer.xml.XMLAttr;
+import jp.mzw.jsanalyzer.modeler.EnDisableManager.EnDisable;
 
 public class FSMExtender extends Modeler {
 	
@@ -40,20 +42,33 @@ public class FSMExtender extends Modeler {
 	}
 	
 	/**
+	 * 
+	 */
+	protected HTMLParser mHTMLParser;
+	
+	/**
+	 * This should be called after {@link #createExtendedCallGraph()}
+	 * @return
+	 */
+	public HTMLParser getHTMLParser() {
+		return this.mHTMLParser;
+	}
+	
+	/**
 	 * Gets an extended call graph focusing on interactions.
 	 * Simultaneously, gets enable/disable statements.
 	 * @return An extended call graph and enable/disable statements
 	 */
 	public Pair<CallGraph, EnDisableManager> createExtendedCallGraph() {
-		System.out.println("Extends call graph");
+		System.out.println("Extends call graph...");
 		
-		HTMLParser htmlParser = this.parseHTMLCode();
+		this.mHTMLParser = this.parseHTMLCode();
 		
 		EnDisableManager edManager = new EnDisableManager();
-		this.setCSSControlProperty(htmlParser, edManager);
+		this.setCSSControlProperty(this.mHTMLParser, edManager);
 		
 		RuleManager ruleManager = this.mAnalyzer.getRuleManager();
-		CallGraph callGraph = new CallGraph(htmlParser.getJSCodeList(ruleManager));
+		CallGraph callGraph = new CallGraph(this.mHTMLParser.getJSCodeList(ruleManager));
 		
 		this.extend(callGraph, ruleManager, edManager);
 		
@@ -109,7 +124,7 @@ public class FSMExtender extends Modeler {
 			AstNode valAstNode = ((Assignment)node.getAstNode().getParent().getParent()).getRight();
 			
 			EnDisable ed = new EnDisable(
-					null, // element html
+					((PropertyGet)node.getAstNode().getParent()).getTarget(),
 					node.getAstNode().toSource(),
 					valAstNode.toSource(),
 					node.getJSCode().getType(),
@@ -147,7 +162,7 @@ public class FSMExtender extends Modeler {
 			// $("id").setAttribute("class", "my_class");
 			if(((JSControl)rule).rematch(prop, val)) {
 				EnDisable ed = new EnDisable(
-						null, // element html
+						((PropertyGet)node.getAstNode().getParent()).getTarget(),
 						prop,
 						val,
 						node.getJSCode().getType(),
@@ -158,9 +173,36 @@ public class FSMExtender extends Modeler {
 				TextFileUtils.registSnapchot(callGraph.toDot());
 			}
 		}
-
+		// Parent.appendChild(object) or Object.prependTo(parent)
+		else if(rule instanceof JSControl &&
+				node.getAstNode().getParent() instanceof FunctionCall &&
+				((FunctionCall)node.getAstNode().getParent()).getTarget() instanceof PropertyGet) {
+			
+			FunctionCall funcCall = (FunctionCall)node.getAstNode().getParent();
+			PropertyGet propGet = (PropertyGet)funcCall.getTarget();
+			
+			if(XMLAttr.RuleProp_PropTarget.equals(((JSControl)rule).getTarget())) {
+				EnDisable ed = new EnDisable(
+						propGet.getTarget(),
+						"",
+						"",
+						node.getJSCode().getType(),
+						rule);
+				
+				edManager.add(callGraph.getNode(funcCall).getId(), ed);
+				node.setNodeType(Node.Control);
+				TextFileUtils.registSnapchot(callGraph.toDot());
+				
+			} else {
+				StringUtils.printError(this, "Unknown JSControl.getTarget for identifying enable/disable statement", node.getAstNode().toSource());
+			}
+		}
+		
 		else {
-			StringUtils.printError(this, "Cannot identify enable/disable statement", node.getAstNode().toSource());
+			StringUtils.printError(this, "Cannot identify enable/disable statement",
+					"[Class: " + node.getAstNode().getClass().toString() + "] " + node.getAstNode().toSource() + "\n" +
+					node.getAstNode().getParent().toSource() + " (" + node.getAstNode().getLineno() + "," + node.getAstNode().getPosition() + ")"
+					);
 		}
 	}
 	
@@ -237,7 +279,10 @@ public class FSMExtender extends Modeler {
 		}
 		
 		else {
-			StringUtils.printError(this, "Cannot identify interaction", node.getAstNode().toSource());
+			StringUtils.printError(this, "Cannot identify interaction", 
+					"[Class: " + node.getAstNode().getClass().toString() + "] " + node.getAstNode().toSource() + "\n" +
+					node.getAstNode().toSource() + " (" + node.getAstNode().getLineno() + "," + node.getAstNode().getPosition() + ")"
+					);
 		}
 	}
 	
@@ -279,7 +324,10 @@ public class FSMExtender extends Modeler {
 		}
 		
 		else {
-			StringUtils.printError(this, "Cannot identify interaction", node.getAstNode().toSource());
+			StringUtils.printError(this, "Cannot identify interaction", 
+					"[Class: " + node.getAstNode().getClass().toString() + "] " + node.getAstNode().toSource() + "\n" +
+					node.getAstNode().toSource() + " (" + node.getAstNode().getLineno() + "," + node.getAstNode().getPosition() + ")"
+					);
 		}
 		
 	}

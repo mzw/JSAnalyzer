@@ -3,7 +3,7 @@ package jp.mzw.jsanalyzer.verifier;
 import java.util.ArrayList;
 import java.util.List;
 
-import Analyzer.Util;
+import jp.mzw.jsanalyzer.util.StringUtils;
 
 public class Specification {
 	private int mSpecId;
@@ -99,9 +99,9 @@ public class Specification {
 
 		ret += "\t<tr><td>" + this.mSpecId + "</td>\n";
 
-		ret += "\t<td>" + Util.esc_xml(this.mSpecDescr) + "</td>\n";
-		ret += "\t<td>" + Util.esc_xml(this.mFormula) + "</td>\n";
-		ret += "\t<td " + (this.mVerified ? (this.mIsFault ? "style=\"background-color:#FA8072;\" onclick=\"alert('" + Util.esc_xml(this.mAntiExample) + "')\">fault" : "style=\"background-color:#7FFFD4;\">correct") : "") + "</td>\n";
+		ret += "\t<td>" + StringUtils.esc_xml(this.mSpecDescr) + "</td>\n";
+		ret += "\t<td>" + StringUtils.esc_xml(this.mFormula) + "</td>\n";
+		ret += "\t<td " + (this.mVerified ? (this.mIsFault ? "style=\"background-color:#FA8072;\" onclick=\"alert('" + StringUtils.esc_xml(this.mAntiExample) + "')\">fault" : "style=\"background-color:#7FFFD4;\">correct") : "") + "</td>\n";
 		
 		ret += "\t</tr>\n";
 		

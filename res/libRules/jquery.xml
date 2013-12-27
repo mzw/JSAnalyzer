@@ -50,9 +50,9 @@
 		<Potential interact="User" via="form" func="select" target="PropTarget" event="select" callback="arg_0"/>
 		<Potential interact="User" via="form" func="submit" target="PropTarget" event="submit" callback="arg_0" />
 		<!-- document loading events -->
-		<Potential interact="Self" via="window" func="load" target="PropTarget" event="load" callback="arg_0"/> <!-- img? --> <!-- server event?? --> <!-- *1) 第1引数が関数ならば？ -->
-		<Potential interact="Self" via="document" func="ready" target="PropTarget" event="ready" callback="arg_0" repeatable="false" />
-		<Potential interact="Self" via="window" func="unload" target="PropTarget" event="unload" callback="arg_0"/>
+		<Potential interact="Self" via="window" func="load" target="jQuery" event="load" callback="arg_0"/> <!-- img? --> <!-- server event?? --> <!-- *1) 第1引数が関数ならば？ -->
+		<Potential interact="Self" via="document" func="ready" target="jQuery" event="ready" callback="arg_0" repeatable="false" />
+		<Potential interact="Self" via="window" func="unload" target="jQuery" event="unload" callback="arg_0"/>
 		<!-- Browser events -->
 		<Potential interact="Self" via="browser" func="error" target="PropTarget" event="error" callback="arg_0"/>
 		<Potential interact="Self" via="browser" func="resize" target="PropTarget" event="resize" callback="arg_0"/>
@@ -94,15 +94,25 @@
 	If the evaluation result is false, AST element which matchs by "func" is skipped.
 	Note that "disabled" is also evaluated, not deal it as raw string.
 	 -->
-		<Control lang="js" func="attr" target="PropTarget" prop="arg_0" value="arg_1" cond="<prop>=='disabled'" disabled="<value>=='disabled'" />
-		<Control lang="js" func="removeAttr" target="PropTarget" prop="arg_0" cond="<prop>=='disabled'" disabled="false" />
+		<Control lang="js" func="attr" target="PropTarget" prop="arg_0" value="arg_1" cond="<prop>=='disabled'" disabled="<value>=='disabled'" semantic="set" />
+		<Control lang="js" func="removeAttr" target="PropTarget" prop="arg_0" cond="<prop>=='disabled'" disabled="false" semantic="set" />
 		
+		<!-- Manipulation -->
+		<!--
+		-->
+		<Control lang="js" func="prependTo" target="PropTarget" prop="arg_0" cond="true" disabled="false" semantic="append" />
+		<Control lang="js" func="remove" target="PropTarget" prop="arg_0" cond="true" disabled="true" semantic="remove" />
+		
+		<!-- Effects -->
+		<Control lang="js" func="show" target="PropTarget" prop="arg_0" cond="true" disabled="false" semantic="set" />
+		<Control lang="js" func="hide" target="PropTarget" prop="arg_0" cond="true" disabled="true" semantic="set" />
 		
 		
 		<!-- visibility -->
-			<!-- 特殊操作かつ代用可能なので無視 -->
-			<Control lang="css" sector="hidden" unimplemented="true" />
-			<Control lang="css" sector="visible" unimplemented="true" />
+		<!--
+		<Control lang="css" sector="hidden" unimplemented="true" />
+		<Control lang="css" sector="visible" unimplemented="true" />
+		-->
 	</Controls>
 	
 	
@@ -113,7 +123,8 @@
 	
 	
 	<Manipulates>
-		<Manipulate func="$" semantic="get" by="css_query" value="arg_0" target="ret" />
+		<Manipulate func="$" semantic="get" by="CSSQuery" value="arg_0" target="Return" />
+		
 		<!-- Class -->
 		<Manipulate func="addClass" semantic="add" by="class" value="arg_0" target="PropTarget" />
 		<Manipulate func="removeClass" semantic="remove" by="class" value="arg_0" target="PropTarget" />
