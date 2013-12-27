@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.mozilla.javascript.ast.AstNode;
@@ -68,6 +69,7 @@ public class FSMRefiner extends Modeler {
 	 * @param fsm Finite state machine as output
 	 * @param graph Abstracted call graph
 	 * @param abstManager Provides abstraction information
+	 * @return 
 	 */
 	private HashMap<Node, State> setInteractions(FiniteStateMachine fsm, CallGraph graph, AbstractionManager abstManager) {
 		// Sets interactions at each states where Ajax app registers them
@@ -165,8 +167,30 @@ public class FSMRefiner extends Modeler {
 		
 		return hashNodeState;
 	}
-	
+
+	/**
+	 * Sets enable/disable statements to each state
+	 * @param fsm
+	 * @param graph
+	 * @param hashNodeState
+	 * @param edManager
+	 */
 	private void setEnDisables(FiniteStateMachine fsm, CallGraph graph, HashMap<Node, State> hashNodeState, EnDisableManager edManager) {
+		for(State state : fsm.getStateList()) {
+			ArrayList<EnDisable> edList = new ArrayList<EnDisable>();
+			for(Node node : state.getOriginNodeList()) {
+				List<EnDisable> _edList = edManager.getEnDisableList(node.getId());
+				edList.addAll(_edList);
+			}
+			
+			for(EnDisable ed : edList) {
+				state.addEnDisable(ed);
+			}
+		}
+	}
+	
+	
+	private void _setEnDisables(FiniteStateMachine fsm, CallGraph graph, HashMap<Node, State> hashNodeState, EnDisableManager edManager) {
 
 		for(State state : fsm.getStateList()) {
 			ArrayList<EnDisable> edList = new ArrayList<EnDisable>();
@@ -220,14 +244,11 @@ public class FSMRefiner extends Modeler {
 	 */
 	private void determineEnDisable(FiniteStateMachine fsm, HTMLParser html, CallGraph graph, EnDisableManager edManager) {
 		
-		HashMap<State, Interaction> remove = new HashMap<State, Interaction>();
+		ArrayList<Pair<State, Interaction>> disIntrList = new ArrayList<Pair<State, Interaction>>();
 		
 		for(State state : fsm.getStateList()) {
-
-			System.out.println("===State==");
 			System.out.println(state.getId());
 
-			System.out.println("\t===Interaction==");
 			for(Interaction interaction: state.getInteractionList()) {
 				System.out.println("\t" + interaction.getEvent().getEvent());
 
@@ -247,7 +268,6 @@ public class FSMRefiner extends Modeler {
 					
 					if(XMLAttr.RuleProp_PropTarget.equals(rule.getTarget())) {
 						List<Element> solveResult = TargetSolver.solve(eventAstNode, rule, html);
-						
 						if(solveResult == null) {
 							continue;
 						}
@@ -261,26 +281,34 @@ public class FSMRefiner extends Modeler {
 					
 				}
 				
+				// Determines whether this interactions is disabled or not
 				boolean disabled = false;
 				for(Element intr_elm : intr_targets) {
 					disabled = this.isDisable(state, intr_elm, html);
 				}
 				if(disabled) {
-					remove.put(state, interaction);
+					Pair<State, Interaction> disIntr = Pair.of(state, interaction);
+					disIntrList.add(disIntr);
 				}
 			}
 			
 		}
 		
 		
-		for(State state : remove.keySet()) {
-			Interaction interaction = remove.get(state);
-			System.out.println("Remove: at " + state.getId() + ", Int: " + interaction.getEvent().getEvent());
-			fsm.removeTransition(state, interaction);
+		for(Pair<State, Interaction> disIntr : disIntrList) {
+			System.out.println("Remove: at " + disIntr.getLeft().getId() + ", Int: " + disIntr.getRight().getEvent().getEvent());
+			fsm.removeTransition(disIntr.getLeft(), disIntr.getRight());
 		}
 		
 	}
 	
+	/**
+	 * 
+	 * @param state
+	 * @param target
+	 * @param html
+	 * @return
+	 */
 	private boolean isDisable(State state, Element target, HTMLParser html) {
 		System.out.println("\t\tintr id: " + target.id());
 		
@@ -289,13 +317,14 @@ public class FSMRefiner extends Modeler {
 			
 			ArrayList<Element> edElementList = new ArrayList<Element>();
 			
+			// Solves targets of this enable/disable statements
 			if(ed.getTarget() != null) {
 				edElementList.add(ed.getTarget());
 			} else {
 				AstNode jsTargetNode = ed.getJSTargetNode();
 				JSControl rule = (JSControl)ed.getRule();
-				List<Element> solveResult = TargetSolver.solve(jsTargetNode, rule, html);
 				
+				List<Element> solveResult = TargetSolver.solve(jsTargetNode, rule, html);
 				if(solveResult == null) {
 					continue;
 				}
@@ -303,23 +332,21 @@ public class FSMRefiner extends Modeler {
 				edElementList.addAll(solveResult);
 			}
 			
+			// Determines
 			for(Element edElement : edElementList) {
-				System.out.println("\t\ted id: " + edElement.id() + ", dis: " + ed.isDisabled() + ", match: " + containsById(edElement, target));
+				System.out.println("\t\t\ted id: " + edElement.id() + ", dis: " + ed.isDisabled() + ", match: " + containsById(edElement, target));
 				
 				if(containsById(edElement, target)) {
 					disabled = ed.isDisabled();
 				}
-//				if(target.id().equals(edElement.id())) {
-//					disabled = ed.isDisabled();
-//				}
 			}
 		}
-		
+		System.out.println("\t\t" + disabled);
 		return disabled;
 	}
 	
 	/**
-	 * To be debugged
+	 * Determines whether parent HTML element equals/contains target one as its child
 	 * @param parent
 	 * @param target
 	 * @return
@@ -329,18 +356,33 @@ public class FSMRefiner extends Modeler {
 			return false;
 		}
 		
-		if(target.id().equals(parent.id())) {
-			return true;
-		}
-		
-		for(Element child : parent.children()) {
-			if(target.id().equals(child.id())) {
+		List<String> childrenIdList = getChildrenIdList(parent);
+		for(String id : childrenIdList) {
+			if(target.id().equals(id)) {
 				return true;
 			}
 		}
 		
 		return false;
 	}
+	
+	/**
+	 * Gets children HTML elements of given one
+	 * @param element Given HTML element
+	 * @returnGiven HTML element and its children
+	 */
+	private static List<String> getChildrenIdList(Element element) {
+		ArrayList<String> ret = new ArrayList<String>();
+		ret.add(element.id());
+		
+		for(Element child : element.children()) {
+			List<String> childrenIdList = getChildrenIdList(child);
+			ret.addAll(childrenIdList);
+		}
+		
+		return ret;
+	}
+	
 	
 	/**
 	 * Solves target element in HTML/object in JS from JS AST node (to be debugged)
@@ -420,7 +462,7 @@ public class FSMRefiner extends Modeler {
 		}
 		
 		/**
-		 * 
+		 * Try to get HTML id value from DOM manipulations via raw texts
 		 * @param raw_html_code
 		 * @return
 		 * @deprecated
