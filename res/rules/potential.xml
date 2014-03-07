@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<Potentials>
-	<Potential func="alert"       interact="User" event="User Click" event_modifier="user_click"  callback="ret"/>
-	<Potential func="setTimeout"  interact="Self" event="arg_1"  event_modifier="after_msec" callback="arg_0" />
-	
-	<Potential func="addEventListener" interact="User" event="arg_0" callback="arg_1" target="propTarget" />
-</Potentials>

@@ -1,12 +1,19 @@
 package jp.mzw.jsanalyzer.modeler;
 
+import java.util.List;
+import java.util.Stack;
+
 import org.apache.commons.lang3.tuple.Pair;
 import org.jsoup.nodes.Element;
 import org.mozilla.javascript.ast.Assignment;
 import org.mozilla.javascript.ast.AstNode;
+import org.mozilla.javascript.ast.AstRoot;
 import org.mozilla.javascript.ast.FunctionCall;
 import org.mozilla.javascript.ast.ObjectProperty;
 import org.mozilla.javascript.ast.PropertyGet;
+import org.mozilla.javascript.ast.Scope;
+import org.mozilla.javascript.ast.VariableDeclaration;
+import org.mozilla.javascript.ast.VariableInitializer;
 import org.w3c.dom.css.CSSStyleDeclaration;
 import org.w3c.dom.css.CSSStyleRule;
 
@@ -21,8 +28,8 @@ import jp.mzw.jsanalyzer.parser.Code;
 import jp.mzw.jsanalyzer.parser.HTMLParser;
 import jp.mzw.jsanalyzer.rule.CSSControl;
 import jp.mzw.jsanalyzer.rule.Control;
+import jp.mzw.jsanalyzer.rule.Function;
 import jp.mzw.jsanalyzer.rule.JSControl;
-import jp.mzw.jsanalyzer.rule.Potential;
 import jp.mzw.jsanalyzer.rule.Rule;
 import jp.mzw.jsanalyzer.rule.RuleManager;
 import jp.mzw.jsanalyzer.rule.Trigger;
@@ -70,10 +77,15 @@ public class FSMExtender extends Modeler {
 		RuleManager ruleManager = this.mAnalyzer.getRuleManager();
 		CallGraph callGraph = new CallGraph(this.mHTMLParser.getJSCodeList(ruleManager));
 		
+		// To be implemented
+//		DataFlowManager dfManager = new DataFlowManager();
+//		dfManager.analyze(callGraph);
+		
 		this.extend(callGraph, ruleManager, edManager);
 		
 		return Pair.of(callGraph, edManager);
 	}
+	
 	
 	/**
 	 * Extends a call graph focusing on interactions with Ajax applications (To be debugged)
@@ -88,9 +100,9 @@ public class FSMExtender extends Modeler {
 			if(trigger != null) {
 				this.addInteraction(callGraph, node, trigger);
 			}
-			Potential potential = ruleManager.isPotential(src);
-			if(potential != null) {
-				this.addInteraction(callGraph, node, potential);
+			Function function = ruleManager.isFunction(src);
+			if(function != null) {
+				this.addInteraction(callGraph, node, function);
 			}
 			
 			// for enable/disable statements
@@ -99,10 +111,6 @@ public class FSMExtender extends Modeler {
 				this.addEnDisable(callGraph, node, control, edManager);
 			}
 			
-			
-			if(ruleManager.isManipulate(src) != null) {
-				node.setNodeType(Node.Manipulate);
-			}
 		}
 	}
 	
@@ -211,7 +219,7 @@ public class FSMExtender extends Modeler {
 	 * @param node A node representing a potential function
 	 * @param rule A potential rule which detect the potential function
 	 */
-	private void addInteraction(CallGraph callGraph, Node node, Potential rule) {
+	private void addInteraction(CallGraph callGraph, Node node, Function rule) {
 		// potential_function(event, callback);
 		if(node.getAstNode().getParent() instanceof FunctionCall) {
 			FunctionCall funcCall = (FunctionCall)node.getAstNode().getParent();
@@ -293,7 +301,7 @@ public class FSMExtender extends Modeler {
 	 */
 	private void addInteraction(CallGraph callGraph, Node node, Trigger rule) {
 		
-		// object.trigger = callback
+		// target.trigger = callback
 		if(node.getAstNode().getParent() instanceof PropertyGet &&
 				node.getAstNode().getParent().getParent() instanceof Assignment &&
 				((Assignment)node.getAstNode().getParent().getParent()).getLeft() == node.getAstNode().getParent()) {
@@ -303,12 +311,15 @@ public class FSMExtender extends Modeler {
 			Node toNode = callGraph.getNode(callGraph.getFunctionNode(cbAstNode));
 			
 			Edge edge = new Edge(fromNode.getId(), toNode.getId());
-			edge.setEvent(node.getAstNode(), rule);
+			
+			PropertyGet parent = (PropertyGet)node.getAstNode().getParent();
+			edge.setEvent(parent.getTarget(), node.getAstNode(), rule);
+			
 			node.setNodeType(Node.Trigger);
 			callGraph.addEdge(edge);
 			TextFileUtils.registSnapchot(callGraph.toDot());
 		}
-		// new object(..., {..., trigger: callback, ...}, ...)
+		// new Target(..., {..., trigger: callback, ...}, ...)
 		else if(node.getAstNode().getParent() instanceof ObjectProperty &&
 				((ObjectProperty)node.getAstNode().getParent()).getLeft() == node.getAstNode()) {
 			
@@ -317,7 +328,8 @@ public class FSMExtender extends Modeler {
 			Node toNode = callGraph.getNode(callGraph.getFunctionNode(cbAstNode));
 
 			Edge edge = new Edge(fromNode.getId(), toNode.getId());
-			edge.setEvent(node.getAstNode(), rule);
+			
+			edge.setEvent(null, node.getAstNode(), rule); // to be debugged: determines this target
 			node.setNodeType(Node.Trigger);
 			callGraph.addEdge(edge);
 			TextFileUtils.registSnapchot(callGraph.toDot());

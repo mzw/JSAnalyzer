@@ -1,17 +1,13 @@
 package jp.mzw.jsanalyzer.core;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import jp.mzw.jsanalyzer.core.LimitationManager.Limitation;
 import jp.mzw.jsanalyzer.core.examples.*;
 import jp.mzw.jsanalyzer.modeler.FSMExtractor;
 import jp.mzw.jsanalyzer.modeler.model.fsm.FiniteStateMachine;
 import jp.mzw.jsanalyzer.rule.RuleManager;
 import jp.mzw.jsanalyzer.util.StringUtils;
 import jp.mzw.jsanalyzer.util.TextFileUtils;
-import jp.mzw.jsanalyzer.verifier.Specification;
 import jp.mzw.jsanalyzer.verifier.Verifier;
 
 /**
@@ -91,6 +87,15 @@ public class Analyzer {
 		return fsm;
 	}
 	
+	public void verify(FiniteStateMachine fsm) {
+		System.out.println("Starts to analyze!");
+
+		Verifier verifier = new Verifier(this);
+		verifier.verifyIADP(fsm, "projects/test2/FileDLer.xml");
+		
+		//Results results = verifier.getResults();
+	}
+	
 	
 	/**
 	 * An example main method. Set the argument of the Analyzer instance
@@ -106,30 +111,20 @@ public class Analyzer {
 //		Analyzer analyzer = new Analyzer("projects/test2/project.xml");
 //		Analyzer analyzer = new Analyzer(new QAsite());
 //		Analyzer analyzer = new Analyzer(new FileDLerError());
+		Analyzer analyzer = new Analyzer(new FileDLerCorrect());
 //		Analyzer analyzer = new Analyzer(new SWSError());
 //		Analyzer analyzer = new Analyzer(new LoginDemo());
-		Analyzer analyzer = new Analyzer(new LWA());
-//		Analyzer analyzer = new Analyzer(new Honiden());
+//		Analyzer analyzer = new Analyzer(new LWA());
 		
 		FiniteStateMachine fsm = analyzer.extract();
+		
+//		TextFileUtils.serialize(analyzer.getProject().getDir(), "fsm.state.list.bin", fsm.getStateList());
 
-		System.out.println("Writing snapshots...");
-		TextFileUtils.writeSnapshots("/Users/yuta/Desktop/dots");
+//		System.out.println("Writing snapshots...");
+//		TextFileUtils.writeSnapshots("/Users/yuta/Desktop/dots");
 		
-		Verifier verifier = new Verifier(fsm, analyzer);
-		List<Specification> specList = Specification.read("foo.xml");
-		verifier.setSpecList(specList);
+		analyzer.verify(fsm);
 		
-		/*
-
-		//analyzer.verify(graph);
-		//analyzer.verifyIADP("projects/test/IADPInfo_QAsite.xml", analyzer, graph);
-		
-		/*
-		sm.setStateLayout(analyzer);
-		Uppaal uppaal = new Uppaal(sm);
-		Util.write("/Users/yuta/Desktop", "uppaal.xml", uppaal.translate());
-		*/
 		
 //		for(Limitation l : LimitationManager.getLimitations()) {
 //			System.out.println(l.toString());
@@ -139,8 +134,6 @@ public class Analyzer {
 		System.out.println("See you again!");
 		System.out.println("==============================");
 	}
-	
-	
 	
 
 //	public void verifyIADP(String filename, Analyzer analyzer, Graph graph) {

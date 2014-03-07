@@ -1,8 +1,11 @@
 package jp.mzw.jsanalyzer.modeler.model.fsm;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.mzw.jsanalyzer.modeler.AbstractionManager;
+import jp.mzw.jsanalyzer.modeler.EnDisableManager;
 import jp.mzw.jsanalyzer.modeler.model.graph.CallGraph;
 import jp.mzw.jsanalyzer.modeler.model.interaction.Event;
 import jp.mzw.jsanalyzer.modeler.model.interaction.Interaction;
@@ -13,10 +16,16 @@ import jp.mzw.jsanalyzer.modeler.model.interaction.Interaction;
  * @author Yuta Maezawa
  *
  */
-public class FiniteStateMachine extends CallGraph {
+public class FiniteStateMachine extends CallGraph implements Serializable {
 
 //	protected static final State entry = new State();
 //	protected static final State exit = new State();
+	
+	/**
+	 * For Serializable implementation
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	
 	protected Entry mEntry;
 	protected Exit mExit;
@@ -61,11 +70,18 @@ public class FiniteStateMachine extends CallGraph {
 	}
 	///// Getters
 	/**
-	 * Gets this initial state;
+	 * Gets this initial state
 	 * @return
 	 */
 	public State getInitState() {
 		return this.mInitState;
+	}
+	/**
+	 * Gets this exit state
+	 * @return An exit state instance
+	 */
+	public State getExitState() {
+		return this.mExit;
 	}
 	/**
 	 * Gets a state whose id value is given
@@ -126,6 +142,22 @@ public class FiniteStateMachine extends CallGraph {
 			}
 		}
 	}
+	
+	
+//	protected AbstractionManager mAbstractionManager;
+//	public void setAbstractionManager(AbstractionManager abstManager) {
+//		this.mAbstractionManager = abstManager;
+//	}
+//	public AbstractionManager getAbstractionManager() {
+//		return this.mAbstractionManager;
+//	}
+//	protected EnDisableManager mEnDisableManager;
+//	public void setEnDisableManager(EnDisableManager edManager) {
+//		this.mEnDisableManager = edManager;
+//	}
+//	public EnDisableManager getEnDisableManager() {
+//		return this.mEnDisableManager;
+//	}
 	
 	///// toStrings
 	/**

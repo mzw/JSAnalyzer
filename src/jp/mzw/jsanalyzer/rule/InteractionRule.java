@@ -8,6 +8,11 @@ public class InteractionRule extends Rule {
 	 * Represents a kind of the interaction
 	 */
 	protected String mInteract;
+
+	/**
+	 * 
+	 */
+	protected boolean mRepeatable;
 	
 	/**
 	 * Constructor
@@ -32,5 +37,13 @@ public class InteractionRule extends Rule {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean getRepeatable() {
+		return this.mRepeatable;
 	}
 }

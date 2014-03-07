@@ -2,10 +2,15 @@ package jp.mzw.jsanalyzer.util;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -152,5 +157,56 @@ public class TextFileUtils {
 		
 		//mk_png_snapshot_sh += "convert -delay 100 *.png snapshots.gif";
 		TextFileUtils.write(dir, "dot.sh", mk_png_snapshot_sh);
+	}
+	
+	/**
+	 * Serializes an object
+	 * @param projDir Directory path where serialize file name is saved
+	 * @param objName Serialize file name
+	 * @param obj Target object instance
+	 */
+	public static void serialize(String projDir, String objName, Object obj) {
+		try {
+			File dir = new File(projDir + FilePath.ExtractResult);
+			dir.mkdirs();
+			
+			File file = new File(projDir + FilePath.ExtractResult, objName);
+			FileOutputStream fos = new FileOutputStream(file);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			
+			oos.writeObject(obj);
+			oos.close();
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Deserializes an object
+	 * @param filename Serialize file name
+	 * @return Target object instance
+	 */
+	public static Object deserialize(String filename) {
+		try {
+			
+			File file = new File(filename);
+			FileInputStream fis = new FileInputStream(file);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			
+			Object obj = ois.readObject();
+			ois.close();
+			return obj;
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

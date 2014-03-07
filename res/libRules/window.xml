@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Rules>
 	<Triggers>
-		<Trigger type="UserInteraction" event="ok" />
-		<Trigger type="UserInteraction" event="cancel" />
+		<Exclusive>
+			<Trigger type="User" event="ok" repeatable="false" />
+			<Trigger type="User" event="cancel" repeatable="false" />
+		</Exclusive>
 	</Triggers>
-	<Potentials>
-		<Potential func="Dialog.confirm" event="prop" callback="prop"/>
-		<Potential func="Dialog.alert"   event="prop" callback="prop"/>
-	</Potentials>
+	<Functions>
+	</Functions>
 	<Controls>
 	</Controls>
 </Rules>

@@ -185,9 +185,27 @@ public class FSMAbstractor extends Modeler {
 			TextFileUtils.registSnapchot(graph.toDot());
 		}
 		
+		// Over abstraction
+		boolean overAbst = false;
+		for(Edge edge : graph.getEdgeList()) {
+			Node fromNode = graph.getNode(edge.getFromNodeId());
+			Node toNode = graph.getNode(edge.getToNodeId());
+			
+			if(toNode == null) {
+				// Over abstracted node
+				// fromNode -(edge)-> "No toNode"
+				toNode = abstManager.getAbstractedNode(edge.getToNodeId());
+				graph.addNode(toNode);
+				
+				abstManager.remove(fromNode, toNode);
+				
+				overAbst = true;
+			}
+		}
+		
 		
 		// re-abstract due to improper nodes
-		if(0 < improperNodes.size()) {
+		if(0 < improperNodes.size() || overAbst) {
 			this.search(graph, abstManager);
 		}
 	}

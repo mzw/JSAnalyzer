@@ -14,9 +14,8 @@ public class XMLTag {
 	 * Rule
 	 */
 	public static final String RuleTrigger 			= "Trigger";
-	public static final String RulePotential 		= "Potential";
+	public static final String RuleFunction			= "Function";
 	public static final String RuleControl	 		= "Control";
-	public static final String RuleManipulate 		= "Manipulate";
 	public static final String RuleLibrary 			= "Library";
 	
 	

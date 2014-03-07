@@ -23,11 +23,6 @@ public class XMLAttr {
 	public static final String RuleFunc 			= "func";
 	public static final String RuleCallback 		= "callback";
 	
-	public static final String RuleLang				= "lang";
-	public static final String RuleLang_CSS			= "css";
-	public static final String RuleLang_HTML		= "html";
-	public static final String RuleLang_JS			= "js";
-	
 	public static final String RuleAttr				= "attr";
 	public static final String
 		RuleProp 			= "prop",

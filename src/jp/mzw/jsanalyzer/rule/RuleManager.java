@@ -9,6 +9,7 @@ import org.jsoup.parser.Parser;
 
 import jp.mzw.jsanalyzer.xml.XMLAttr;
 import jp.mzw.jsanalyzer.xml.XMLTag;
+import jp.mzw.jsanalyzer.modeler.model.interaction.Event;
 import jp.mzw.jsanalyzer.util.StringUtils;
 import jp.mzw.jsanalyzer.util.TextFileUtils;
 
@@ -16,9 +17,8 @@ public class RuleManager {
 	
 	protected ArrayList<Rule> mRuleList;
 	protected ArrayList<Trigger> mTriggerRuleList;
-	protected ArrayList<Potential> mPotentialRuleList;
+	protected ArrayList<Function> mFunctionRuleList;
 	protected ArrayList<Control> mControlRuleList;
-	protected ArrayList<Manipulate> mManipulateRuleList;
 	protected ArrayList<Library> mLibraryRuleList;
 	
 	
@@ -29,9 +29,8 @@ public class RuleManager {
 	public RuleManager(ArrayList<String> filenames) {
 		this.mRuleList = new ArrayList<Rule>();
 		this.mTriggerRuleList = new ArrayList<Trigger>();
-		this.mPotentialRuleList = new ArrayList<Potential>();
+		this.mFunctionRuleList = new ArrayList<Function>();
 		this.mControlRuleList = new ArrayList<Control>();
-		this.mManipulateRuleList = new ArrayList<Manipulate>();
 		this.mLibraryRuleList = new ArrayList<Library>();
 		for(String filename : filenames) {
 			this.parseRuleFile(filename);
@@ -55,12 +54,18 @@ public class RuleManager {
 			String event = elm.attr(XMLAttr.RuleEvent);
 			String interact = elm.attr(XMLAttr.RuleInteract);
 			
-			Trigger trigger = new Trigger(event, interact);
+			boolean repeatable = true;
+			String _repeatalbe = elm.attr(XMLAttr.RuleRepeatable);
+			if(_repeatalbe != null && _repeatalbe.equals(XMLAttr.RuleRepeatable_False)) {
+				repeatable = false;
+			}
+			
+			Trigger trigger = new Trigger(event, interact, repeatable);
 			this.mRuleList.add(trigger);
 			this.mTriggerRuleList.add(trigger);
 		}
 
-		for(Element elm : doc.getElementsByTag(XMLTag.RulePotential)) {
+		for(Element elm : doc.getElementsByTag(XMLTag.RuleFunction)) {
 			String func = elm.attr(XMLAttr.RuleFunc);
 			String interact = elm.attr(XMLAttr.RuleInteract);
 			String target = elm.attr(XMLAttr.RuleTarget);
@@ -74,52 +79,36 @@ public class RuleManager {
 				repeatable = false;
 			}
 			
-			Potential potential = new Potential(func, interact, target, event, event_modifier, callback, repeatable);
-			this.mRuleList.add(potential);
-			this.mPotentialRuleList.add(potential);
+			Function function = new Function(func, interact, target, event, event_modifier, callback, repeatable);
+			this.mRuleList.add(function);
+			this.mFunctionRuleList.add(function);
 		}
 
 		for(Element elm : doc.getElementsByTag(XMLTag.RuleControl)) {
 			Control control = null;
+
+			String attr = elm.attr(XMLAttr.RuleAttr);
+			String func = elm.attr(XMLAttr.RuleFunc);
+			String prop = elm.attr(XMLAttr.RuleProp);
 			
-			String lang = elm.attr(XMLAttr.RuleLang);
-			if(XMLAttr.RuleLang_HTML.equals(lang)) {
-				String attr = elm.attr(XMLAttr.RuleAttr);
+			if(attr != null) {
 				String value = elm.attr(XMLAttr.RuleDisabled);
 				control = new HTMLControl(attr, value);
-			} else if(XMLAttr.RuleLang_CSS.equals(lang)) {
-				String prop = elm.attr(XMLAttr.RuleProp);
-				String value = elm.attr(XMLAttr.RuleDisabled);
-				control = new CSSControl(prop, value);
-			} else if(XMLAttr.RuleLang_JS.equals(lang)) {
-				// To be debugged
-				String func = elm.attr(XMLAttr.RuleFunc);
-				String target = elm.attr(XMLAttr.RuleTarget);
-				String prop = elm.attr(XMLAttr.RuleProp);
+			} else if(func != null) {
 				String value = elm.attr(XMLAttr.RuleValue);
 				String cond = elm.attr(XMLAttr.RuleCond);
-				String semantic = elm.attr(XMLAttr.RuleSemantic);
 				String disabled = elm.attr(XMLAttr.RuleDisabled);
-				
-				control = new JSControl(func, target, prop, value, cond, semantic, disabled);
+
+				control = new JSControl(func, "PropTarget", prop, value, cond, "set", disabled);
+			} else if (prop != null) {
+				String value = elm.attr(XMLAttr.RuleDisabled);
+				control = new CSSControl(prop, value);
 			} else {
-				StringUtils.printError(this, "Unknown lang at control rule", lang);
+				StringUtils.printError(this, "Unknown lang at control rule", "attr, func, prop = " + attr + ", " + func + ", " + prop);
 			}
 			
 			this.mRuleList.add(control);
 			this.mControlRuleList.add(control);
-		}
-		
-		for(Element elm : doc.getElementsByTag(XMLTag.RuleManipulate)) {
-			String func = elm.attr(XMLAttr.RuleFunc);
-			String semantic = elm.attr(XMLAttr.RuleSemantic);
-			String by = elm.attr(XMLAttr.RuleBy);
-			String value = elm.attr(XMLAttr.RuleValue);
-			String target = elm.attr(XMLAttr.RuleTarget);
-			
-			Manipulate manipulate = new Manipulate(func, semantic, by, value, target);
-			this.mRuleList.add(manipulate);
-			this.mManipulateRuleList.add(manipulate);
 		}
 		
 		for(Element elm : doc.getElementsByTag(XMLTag.RuleLibrary)) {
@@ -180,18 +169,10 @@ public class RuleManager {
 		return null;
 	}
 	
-	public Potential isPotential(String keyword) {
-		for(Potential potential : this.mPotentialRuleList) {
+	public Function isFunction(String keyword) {
+		for(Function potential : this.mFunctionRuleList) {
 			if(potential.match(keyword)) {
 				return potential;
-			}
-		}
-		return null;
-	}
-	public Manipulate isManipulate(String keyword) {
-		for(Manipulate manipulate : this.mManipulateRuleList) {
-			if(manipulate.match(keyword)) {
-				return manipulate;
 			}
 		}
 		return null;
@@ -211,5 +192,6 @@ public class RuleManager {
 		
 		return null;
 	}
+	
 	
 }

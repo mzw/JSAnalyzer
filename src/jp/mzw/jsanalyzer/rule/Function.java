@@ -2,7 +2,7 @@ package jp.mzw.jsanalyzer.rule;
 
 import jp.mzw.jsanalyzer.modeler.model.interaction.Event;
 
-public class Potential extends InteractionRule {
+public class Function extends InteractionRule {
 	/**
 	 * A target element/object of interaction
 	 */
@@ -23,18 +23,13 @@ public class Potential extends InteractionRule {
 	protected String mCallback;
 	
 	/**
-	 * 
-	 */
-	protected boolean mRepeatable;
-	
-	/**
 	 * Constructor
 	 * @param func A name of function which handles an interaction as a keyword
 	 * @param interact A type of the interaction
 	 * @param event An event of the interaction
 	 * @param callback A callback function of the interaction
 	 */
-	public Potential(String func, String interact, String target, String event, String event_modifier, String callback, boolean repeatable) {
+	public Function(String func, String interact, String target, String event, String event_modifier, String callback, boolean repeatable) {
 		super(func, interact);
 		this.mTarget = target;
 		this.mEvent = event;
@@ -84,12 +79,4 @@ public class Potential extends InteractionRule {
 		return this.mCallback;
 	}
 	
-
-	/**
-	 * 
-	 * @return
-	 */
-	public boolean getRepeatable() {
-		return this.mRepeatable;
-	}
 }

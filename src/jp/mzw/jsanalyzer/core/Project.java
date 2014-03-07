@@ -97,9 +97,8 @@ public class Project {
 		ArrayList<String> ret = new ArrayList<String>();
 
 		ret.add("res/rules/trigger.xml");
-		ret.add("res/rules/potential.xml");
+		ret.add("res/rules/function.xml");
 		ret.add("res/rules/control.xml");
-		ret.add("res/rules/manipulate.xml");
 		ret.add("res/rules/ruledJS.xml");
 		
 		return ret;

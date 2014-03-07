@@ -68,6 +68,32 @@ public class State extends Node {
 	}
 	
 	/**
+	 * @deprecated
+	 */
+	protected Interaction mMaskInteraction = null;
+	/**
+	 * @deprecated
+	 */
+	public void setMaskInteraction(Interaction interaction) {
+		this.mMaskInteraction = interaction;
+	}
+	/**
+	 * @deprecated
+	 */
+	public boolean isMasked() {
+		if(this.mMaskInteraction != null) {
+			return true;
+		}
+		return false;
+	}
+	/**
+	 * @deprecated
+	 */
+	public Interaction getMaskInteraction() {
+		return this.mMaskInteraction;
+	}
+	
+	/**
 	 * Gets interactions at this state
 	 * @return An interaction list
 	 */
@@ -95,10 +121,4 @@ public class State extends Node {
 		return this.mEnDisableList;
 	}
 	
-	
-	
-	
-	public String getPromelaLabel() {
-		return this.mId;
-	}
 }

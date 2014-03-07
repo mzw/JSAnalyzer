@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Triggers>
-	<Trigger interact="User" event="onchange" />
+	<Trigger event="onchange" />
+	<Trigger event="onload" repeatable="false" />
+	
+	
 	<Trigger interact="User" via="mouse" event="onclick" />
 	<Trigger interact="User" via="mouse" event="oncontextmenu" />
 	<Trigger interact="User" via="mouse" event="ondblclick" />
@@ -62,7 +65,7 @@
 	<Trigger interact="Server" via="XMLHttpRequest" event="onvolumechange" />
 	<Trigger interact="Server" via="XMLHttpRequest" event="onwaiting" />
 	<Trigger interact="Server" via="XMLHttpRequest" event="onerror" />
-	<Trigger interact="Server" via="XMLHttpRequest" event="onload" />
+	<Trigger interact="Server" via="XMLHttpRequest" event="onload" repeatable="false" />
 	<Trigger interact="Server" via="XMLHttpRequest" event="onafterprint" />
 	<Trigger interact="Server" via="XMLHttpRequest" event="onbeforeprint" />
 	<Trigger interact="Server" via="XMLHttpRequest" event="onbeforeunload" />

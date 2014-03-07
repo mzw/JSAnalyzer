@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Rules>
 	<Triggers>
-		<Trigger type="ServerInteraction" event="onSuccess" />
-		<Trigger type="ServerInteraction" event="onComplete" />
-		<Trigger type="ServerInteraction" event="onFailure" />
-		<Trigger type="ServerInteraction" event="onException" />
+		<Exclusive>
+			<Trigger interact="Server" event="onSuccess" repeatable="false" />
+			<Trigger interact="Server" event="onComplete" repeatable="false" />
+			<Trigger interact="Server" event="onFailure" repeatable="false" />
+			<Trigger interact="Server" event="onException" repeatable="false" />
+		</Exclusive>
 	</Triggers>
-	<Potentials>
-		<!--<Potential func="Ajax" event="prop" callback="prop"/>-->
-	</Potentials>
+	<Functions>
+	</Functions>
 	<Controls>
-		<!--<Control lang="" func="$" semantic="get" by="id" value="arg_1" target="ret" />-->
+		<Control lang="" func="$" semantic="get" by="id" value="arg_1" target="ret" />
 	</Controls>
-	<Manipulates>
-		<Manipulate func="$" semantic="get" by="id" value="arg_1" target="ret" />
-	</Manipulates>
 </Rules>

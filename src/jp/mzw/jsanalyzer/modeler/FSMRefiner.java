@@ -13,6 +13,7 @@ import org.mozilla.javascript.ast.FunctionCall;
 import org.mozilla.javascript.ast.InfixExpression;
 import org.mozilla.javascript.ast.Name;
 import org.mozilla.javascript.ast.PropertyGet;
+import org.mozilla.javascript.ast.Scope;
 import org.mozilla.javascript.ast.StringLiteral;
 
 import jp.mzw.jsanalyzer.core.Analyzer;
@@ -29,9 +30,8 @@ import jp.mzw.jsanalyzer.modeler.model.fsm.FiniteStateMachine;
 import jp.mzw.jsanalyzer.modeler.model.fsm.State;
 import jp.mzw.jsanalyzer.modeler.model.fsm.Transition;
 import jp.mzw.jsanalyzer.parser.HTMLParser;
+import jp.mzw.jsanalyzer.rule.Function;
 import jp.mzw.jsanalyzer.rule.JSControl;
-import jp.mzw.jsanalyzer.rule.Potential;
-import jp.mzw.jsanalyzer.rule.Rule;
 import jp.mzw.jsanalyzer.rule.Trigger;
 import jp.mzw.jsanalyzer.util.StringUtils;
 import jp.mzw.jsanalyzer.xml.XMLAttr;
@@ -61,7 +61,28 @@ public class FSMRefiner extends Modeler {
 		
 		this.determineEnDisable(fsm, html, acg, edManager);
 		
+		this.addExitTransitions(fsm);
+		
+//		fsm.setAbstractionManager(abstManager);
+//		fsm.setEnDisableManager(edManager);
+		
 		return fsm;
+	}
+	
+	private void addExitTransitions(FiniteStateMachine fsm) {
+		for(State state : fsm.getStateList()) {
+			boolean exit = true;
+			for(Transition trans : fsm.getTransList()) {
+				if(trans.getFromStateId().equals(state.getId())) {
+					exit = false;
+					break;
+				}
+			}
+			if(exit) {
+				Transition trans = new Transition(state.getId(), fsm.getExitState().getId());
+				fsm.addTransition(trans);
+			}
+		}
 	}
 	
 	/**
@@ -82,7 +103,7 @@ public class FSMRefiner extends Modeler {
 			state.addOriginNodes(abstManager.getAbstractedNode(node));
 			fsm.addState(state);
 		}
-
+		
 		for(Edge edge : graph.getEdgeList()) {
 			Node fromNode = graph.getNode(edge.getFromNodeId(), true);
 			Node toNode = graph.getNode(edge.getToNodeId(), true);
@@ -106,7 +127,6 @@ public class FSMRefiner extends Modeler {
 				StringUtils.printError(this, "Invalid abstracted call graph", edge.getDotLabel());
 			}
 		}
-
 		
 		// Breadth first search
 		for(Node node : graph.getAllNodeList()) {
@@ -115,9 +135,10 @@ public class FSMRefiner extends Modeler {
 		for(Edge edge : graph.getEdgeList()) {
 			Node fromNode = graph.getNode(edge.getFromNodeId(), true);
 			Node toNode = graph.getNode(edge.getToNodeId(), true);
+			
 			fromNode.addChild(toNode);
 		}
-		ArrayDeque<Node> queue = new ArrayDeque<Node>(); 
+		ArrayDeque<Node> queue = new ArrayDeque<Node>();
 		queue.offer(CallGraph.getInitNode());
 		while(!queue.isEmpty()) {
 			Node node = queue.poll();
@@ -126,17 +147,39 @@ public class FSMRefiner extends Modeler {
 			List<Interaction> interactionList = state.getInteractionList();
 			
 			for(Node childNode : node.getChildren()) {
-				// Propagates already-registered interactions to states
-				State childState = hashNodeState.get(childNode);
-				for(Interaction interaction : interactionList) {
-					State cbState = interaction.getCallback().getState();
-					
-					if(interaction.getEvent().isRepeatable() || !childState.equals(cbState)) {
-						childState.addInteraction(interaction);
-					}
-					
+				if(childNode.visited()) {
+					continue;
 				}
 				
+				// Propagates already-registered interactions to states
+				State childState = hashNodeState.get(childNode);
+				
+				// Gets current interaction that comes from "node" and goes to "childNode"
+				Interaction curInteraction = null;
+ 				for(Interaction interaction : interactionList) {
+					State cbState = interaction.getCallback().getState();
+					if(childState.equals(cbState)) { // node -(interaction)-> childNode
+						curInteraction = interaction;
+						break;
+					}
+ 				}
+				if(isMasked(curInteraction)) {
+					state.setMaskInteraction(curInteraction);
+				}
+				
+ 				for(Interaction interaction : interactionList) {
+					State cbState = interaction.getCallback().getState();
+					if(interaction.getEvent().isRepeatable() || !childState.equals(cbState)) {
+						
+						if(isExclusive(curInteraction, interaction)) {
+							continue;
+						}
+						
+						childState.addInteraction(interaction);
+					}
+				}
+
+				childNode.visit();
 				queue.offer(childNode);
 			}
 		}
@@ -167,6 +210,8 @@ public class FSMRefiner extends Modeler {
 		
 		return hashNodeState;
 	}
+	
+
 
 	/**
 	 * Sets enable/disable statements to each state
@@ -176,22 +221,7 @@ public class FSMRefiner extends Modeler {
 	 * @param edManager
 	 */
 	private void setEnDisables(FiniteStateMachine fsm, CallGraph graph, HashMap<Node, State> hashNodeState, EnDisableManager edManager) {
-		for(State state : fsm.getStateList()) {
-			ArrayList<EnDisable> edList = new ArrayList<EnDisable>();
-			for(Node node : state.getOriginNodeList()) {
-				List<EnDisable> _edList = edManager.getEnDisableList(node.getId());
-				edList.addAll(_edList);
-			}
-			
-			for(EnDisable ed : edList) {
-				state.addEnDisable(ed);
-			}
-		}
-	}
-	
-	
-	private void _setEnDisables(FiniteStateMachine fsm, CallGraph graph, HashMap<Node, State> hashNodeState, EnDisableManager edManager) {
-
+		
 		for(State state : fsm.getStateList()) {
 			ArrayList<EnDisable> edList = new ArrayList<EnDisable>();
 			for(Node node : state.getOriginNodeList()) {
@@ -205,6 +235,7 @@ public class FSMRefiner extends Modeler {
 		}
 		
 
+		/*
 		// Breadth first search
 		for(Node node : graph.getAllNodeList()) {
 			node.prepareSearch();
@@ -212,9 +243,10 @@ public class FSMRefiner extends Modeler {
 		for(Edge edge : graph.getEdgeList()) {
 			Node fromNode = graph.getNode(edge.getFromNodeId(), true);
 			Node toNode = graph.getNode(edge.getToNodeId(), true);
+			
 			fromNode.addChild(toNode);
 		}
-		ArrayDeque<Node> queue = new ArrayDeque<Node>(); 
+		ArrayDeque<Node> queue = new ArrayDeque<Node>();
 		queue.offer(CallGraph.getInitNode());
 		while(!queue.isEmpty()) {
 			Node node = queue.poll();
@@ -223,17 +255,30 @@ public class FSMRefiner extends Modeler {
 			List<EnDisable> edList = state.getEnDisableList();
 			
 			for(Node childNode : node.getChildren()) {
-				// Propagates already-registered interactions to states
-				State childState = hashNodeState.get(childNode);
-				for(EnDisable ed : edList) {
-					childState.addEnDisable(ed);
+				if(childNode.visited()) {
+					continue;
 				}
 				
+				// Propagates enable/disable statements
+				State childState = hashNodeState.get(childNode);
+				List<EnDisable> childEdList = childState.getEnDisableList();
+				
+				ArrayList<EnDisable> newEdList = new ArrayList<EnDisable>();
+				newEdList.addAll(edList);
+				newEdList.addAll(childEdList);
+				
+				childState.getEnDisableList().clear();
+				for(EnDisable ed : newEdList) {
+					childState.addEnDisable(ed);
+				}
+
+				childNode.visit();
 				queue.offer(childNode);
 			}
 		}
-		
+		*/
 	}
+	
 	
 	/**
 	 * Determines whether interactions at each state is enabled or disabled.
@@ -247,23 +292,46 @@ public class FSMRefiner extends Modeler {
 		ArrayList<Pair<State, Interaction>> disIntrList = new ArrayList<Pair<State, Interaction>>();
 		
 		for(State state : fsm.getStateList()) {
-			System.out.println(state.getId());
+			System.out.println(state.getId() + ": " + state.getDotLabel());
+			for(EnDisable ed : state.getEnDisableList()) {
+				System.out.println("\t" + ed.toString());
+				ed.setTargetId();
+				System.out.println("\t\t" + ed.getTargetId());
+			}
 
 			for(Interaction interaction: state.getInteractionList()) {
 				System.out.println("\t" + interaction.getEvent().getEvent());
 
+				interaction.setTargetId();
+				String targetId = interaction.getTargetId();
+				System.out.println("\t\t" + targetId);
+				
+				
+				/*
 				Object intr_target = interaction.getEvent().getTargetObj();
 				Object intr_ev = interaction.getEvent().getEventObj();
 				
 				ArrayList<Element> intr_targets = new ArrayList<Element>();
 				if(intr_target instanceof Element) {
 					Element target = (Element)intr_target;
+					System.out.println("\t\t" + target.attr("id"));
 					intr_targets.add(target);
 				} else if(intr_target == null &&
 						intr_ev instanceof AstNode &&
-						interaction.getEvent().getRule() instanceof Potential) {
+						interaction.getEvent().getRule() instanceof Trigger) {
+					AstNode parent = ((AstNode)intr_ev).getParent();
 					
-					Potential rule = (Potential)interaction.getEvent().getRule();
+					if(parent instanceof PropertyGet) {
+						AstNode target = ((PropertyGet)parent).getTarget();
+						System.out.println("aa: " + target.toSource());
+					}
+					System.out.println(parent.getClass());
+					
+				} else if(intr_target == null &&
+						intr_ev instanceof AstNode &&
+						interaction.getEvent().getRule() instanceof Function) {
+					
+					Function rule = (Function)interaction.getEvent().getRule();
 					AstNode eventAstNode = (AstNode)intr_ev;
 					
 					if(XMLAttr.RuleProp_PropTarget.equals(rule.getTarget())) {
@@ -279,6 +347,8 @@ public class FSMRefiner extends Modeler {
 						continue;
 					}
 					
+				} else {
+					System.out.println("kokokoko");
 				}
 				
 				// Determines whether this interactions is disabled or not
@@ -286,6 +356,16 @@ public class FSMRefiner extends Modeler {
 				for(Element intr_elm : intr_targets) {
 					disabled = this.isDisable(state, intr_elm, html);
 				}
+				*/
+				
+				boolean disabled = false;
+				for(EnDisable ed : state.getEnDisableList()) {
+					String edTargetId = ed.getTargetId();
+					if(targetId != null && targetId.equals(edTargetId)) {
+						disabled = ed.isDisabled();
+					}
+				}
+				
 				if(disabled) {
 					Pair<State, Interaction> disIntr = Pair.of(state, interaction);
 					disIntrList.add(disIntr);
@@ -300,6 +380,18 @@ public class FSMRefiner extends Modeler {
 			fsm.removeTransition(disIntr.getLeft(), disIntr.getRight());
 		}
 		
+		// to be debugged
+		// User click?
+		for(State state : fsm.getStateList()) {
+			if(state.isMasked()) {
+				Interaction maskIntr = state.getMaskInteraction();
+				for(Interaction interaction : state.getInteractionList()) {
+					if(!maskIntr.getId().equals(interaction.getId())) {
+						fsm.removeTransition(state, interaction);
+					}
+				}
+			}
+		}
 	}
 	
 	/**
@@ -314,7 +406,6 @@ public class FSMRefiner extends Modeler {
 		
 		boolean disabled =  false;
 		for(EnDisable ed : state.getEnDisableList()) {
-			
 			ArrayList<Element> edElementList = new ArrayList<Element>();
 			
 			// Solves targets of this enable/disable statements
@@ -391,7 +482,7 @@ public class FSMRefiner extends Modeler {
 	 */
 	public static class TargetSolver {
 		
-		public static List<Element> solve(AstNode astNode, Potential rule, HTMLParser html) {
+		public static List<Element> solve(AstNode astNode, Function rule, HTMLParser html) {
 			ArrayList<Element> ret = new ArrayList<Element>();
 
 			// To be debugged
@@ -461,6 +552,49 @@ public class FSMRefiner extends Modeler {
 			return ret;
 		}
 		
+
+		/**
+		 * Hard coding
+		 */
+		public static String getTargetId(AstNode astNode) {
+			if(astNode instanceof FunctionCall) {
+				// document.getElementById("ID").disable = true;
+				return getElementId((FunctionCall)astNode);
+			}
+			else if(astNode instanceof Name) {
+				return getElementId((Name)astNode);
+			}
+			return null;
+		}
+		public static String getElementId(FunctionCall funcCallAstNode) {
+			if("document.getElementById".equals(funcCallAstNode.getTarget().toSource())) {
+				AstNode argAstNode = funcCallAstNode.getArguments().get(0);
+				if(argAstNode instanceof StringLiteral) {
+					String id = StringUtils.removeQuote(argAstNode.toSource());
+					return id;
+				}
+				else {
+					System.out.println("Unknown argument: " + argAstNode.getClass() + ", src= " + argAstNode.toSource() + "; func is: " + funcCallAstNode.getTarget().toSource());
+				}
+			}
+			
+			else {
+				System.out.println("Unknown function: " + funcCallAstNode.getTarget().toSource());
+			}
+			return null;
+		}
+		public static String getElementId(Name nameAstNode) {
+			return nameAstNode.toSource();
+		}
+		public Scope getParentScope(AstNode astNode) {
+			AstNode parent = astNode.getParent();
+			if(parent instanceof Scope) {
+				return (Scope)parent;
+			} else {
+				return getParentScope(parent);
+			}
+		}
+		
 		/**
 		 * Try to get HTML id value from DOM manipulations via raw texts
 		 * @param raw_html_code
@@ -473,6 +607,67 @@ public class FSMRefiner extends Modeler {
 			index = tmp.indexOf("\"");
 			return tmp.substring(0, index);
 		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * !!TO BE DEBUGGED!!
+	 * HARD CODINGS
+	 */
+
+	/**
+	 * Hard coding. to be debugged.
+	 * Updates description capability of distinguishing rule: <Exclusive>...</Exclusive>
+	 * @param interaction_1
+	 * @param interaction_2
+	 * @return
+	 * @deprecated
+	 */
+	public static boolean isExclusive(Interaction interaction_1, Interaction interaction_2) {
+		if(interaction_1 == null || interaction_2 == null) {
+			return false;
+		}
+		if(interaction_1.getEvent() == null || interaction_2.getEvent() == null) {
+			return false;
+		}
+		
+		// Hard coding
+		if(interaction_1.getEvent().getEvent().equals("onSuccess") &&
+				interaction_2.getEvent().getEvent().equals("onFailure")) {
+			return true;
+		}
+		else if(interaction_1.getEvent().getEvent().equals("onFailure") &&
+				interaction_2.getEvent().getEvent().equals("onSuccess")) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Hard coding. to be debugged.
+	 * Updates description capability of distinguishing rule: 
+	 * @param interaction
+	 * @return
+	 * @deprecated
+	 */
+	public static boolean isMasked(Interaction interaction) {
+		if(interaction == null || interaction.getEvent() == null) {
+			return false;
+		}
+		
+		if(interaction.getEvent().getEvent().equals("User Click")) {
+			return true;
+		}
+		
+		return false;
 	}
 	
 }

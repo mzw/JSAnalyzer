@@ -1,5 +1,7 @@
 package jp.mzw.jsanalyzer.modeler.model;
 
+import java.io.Serializable;
+
 import jp.mzw.jsanalyzer.core.IdGen;
 
 /**
@@ -7,8 +9,13 @@ import jp.mzw.jsanalyzer.core.IdGen;
  * @author Yuta Maezawa
  *
  */
-public class Element {
+public class Element implements Serializable {
 	
+	/**
+	 * For Serializable
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Constructor. A model element should have id string.
 	 * @param id Identifies this element

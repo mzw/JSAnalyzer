@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Functions>
+	<Function func="alert"       event="User Click" event_modifier="user_click"  callback="ret" repeatable="false" masking="true" />
+	<Function func="setTimeout"  event="arg_1"  event_modifier="after_msec" callback="arg_0" />
+	
+	<Function func="addEventListener" event="arg_0" callback="arg_1" target="PropTarget" />
+</Functions>

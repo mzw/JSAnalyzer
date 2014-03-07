@@ -1,86 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Rules>
-	<Potentials>
+	<Functions>
 		<!--
 		In case of get/post(URL, callback), change callback="arg_1"
 		In case of get/post(URL, data, callback), change callback="arg_2"
 		-->
-		<Potential interact="Server" func="get"  target="jQuery" event="get" callback="arg_1" repeatable="false" />
-		<Potential interact="Server" func="post" target="jQuery" event="post" callback="arg_2" repeatable="false" />
+		<Function interact="Server" func="get"  target="jQuery" event="get" callback="arg_1" repeatable="false" />
+		<Function interact="Server" func="post" target="jQuery" event="post" callback="arg_2" repeatable="false" />
 		<!--
-		<Potential interact="Server" func="getJSON"   target="jQuery" event="getJSON" callback="arg_2" />
-		<Potential interact="Server" func="getScript" target="jQuery" event="getScript" callback="arg_2" />
+		<Function interact="Server" func="getJSON"   target="jQuery" event="getJSON" callback="arg_2" />
+		<Function interact="Server" func="getScript" target="jQuery" event="getScript" callback="arg_2" />
 		-->
 		
 		
 		<!-- The followings are not actually potential functions, but handle virtually callback mechanism -->
-		<Potential func="each" target="jQuery" callback="arg_1" /><!-- Change callback="arg_0" depending on your apps -->
+		<Function func="each" target="jQuery" callback="arg_1" /><!-- Change callback="arg_0" depending on your apps -->
 		
 		
 	
-		<Potential interact="User" via="mouse" func="on" target="PropTarget" event="arg_0" callback="arg_1"/>
-        <Potential interact="User" via="mouse" func="bind" target="PropTarget" event="arg_0" callback="arg_1"/>
+		<Function interact="User" via="mouse" func="on" target="PropTarget" event="arg_0" callback="arg_1"/>
+        <Function interact="User" via="mouse" func="bind" target="PropTarget" event="arg_0" callback="arg_1"/>
 
         <!-- mouse events -->
-		<Potential interact="User" via="mouse" func="click" target="PropTarget" event="click" callback="arg_0"/>
-		<Potential interact="User" via="mouse" func="dblclick" target="PropTarget" event="double click" callback="arg_0"/>
-		<Potential interact="User" via="mouse" func="hover" target="PropTarget" event="hover" callback="arg_0"/>
-		<Potential interact="User" via="mouse" func="mousedown" target="PropTarget" event="mouse down" callback="arg_0"/>
-		<Potential interact="User" via="mouse" func="mouseenter" target="PropTarget" event="mouse enter" callback="arg_0"/>
-		<Potential interact="User" via="mouse" func="mouseleave" target="PropTarget" event="mouse leave" callback="arg_0"/>
-		<Potential interact="User" via="mouse" func="mousemove" target="PropTarget" event="mouse move" callback="arg_0"/>
-		<Potential interact="User" via="mouse" func="mouseover" target="PropTarget" event="mouse over" callback="arg_0"/>
-		<Potential interact="User" via="mouse" func="mouseup" target="PropTarget" event="mouse up" callback="arg_0"/>
-		<Potential interact="User" via="mouse" func="focusin" target="PropTarget" event="focus in" callback="arg_0"/>
+		<Function interact="User" via="mouse" func="click" target="PropTarget" event="click" callback="arg_0"/>
+		<Function interact="User" via="mouse" func="dblclick" target="PropTarget" event="double click" callback="arg_0"/>
+		<Function interact="User" via="mouse" func="hover" target="PropTarget" event="hover" callback="arg_0"/>
+		<Function interact="User" via="mouse" func="mousedown" target="PropTarget" event="mouse down" callback="arg_0"/>
+		<Function interact="User" via="mouse" func="mouseenter" target="PropTarget" event="mouse enter" callback="arg_0"/>
+		<Function interact="User" via="mouse" func="mouseleave" target="PropTarget" event="mouse leave" callback="arg_0"/>
+		<Function interact="User" via="mouse" func="mousemove" target="PropTarget" event="mouse move" callback="arg_0"/>
+		<Function interact="User" via="mouse" func="mouseover" target="PropTarget" event="mouse over" callback="arg_0"/>
+		<Function interact="User" via="mouse" func="mouseup" target="PropTarget" event="mouse up" callback="arg_0"/>
+		<Function interact="User" via="mouse" func="focusin" target="PropTarget" event="focus in" callback="arg_0"/>
 		<!-- Limitation due to the same reason as pseudo classes in CSS
-			<Potential interact="User" func="toggle" target="PropTarget" event="toggle" callback="arg_N"/>
+			<Function interact="User" func="toggle" target="PropTarget" event="toggle" callback="arg_N"/>
 		-->
 		<!-- keyboard events -->
-		<Potential interact="User" via="keyboard" func="keydown" target="PropTarget" event="key down" callback="arg_0"/>
-		<Potential interact="User" via="keyboard" func="keypress" target="PropTarget" event="key press" callback="arg_0"/>
-		<Potential interact="User" via="keyboard" func="keyup" target="PropTarget" event="key up" callback="arg_0"/>
+		<Function interact="User" via="keyboard" func="keydown" target="PropTarget" event="key down" callback="arg_0"/>
+		<Function interact="User" via="keyboard" func="keypress" target="PropTarget" event="key press" callback="arg_0"/>
+		<Function interact="User" via="keyboard" func="keyup" target="PropTarget" event="key up" callback="arg_0"/>
 		<!-- mouse and keyboard events -->
-		<Potential interact="User" via="mouse_keyboard" func="focusin" target="PropTarget" event="focus in" callback="arg_0"/>
-		<Potential interact="User" via="mouse_keyboard" func="focusout" target="PropTarget" event="focus out" callback="arg_0"/>
+		<Function interact="User" via="mouse_keyboard" func="focusin" target="PropTarget" event="focus in" callback="arg_0"/>
+		<Function interact="User" via="mouse_keyboard" func="focusout" target="PropTarget" event="focus out" callback="arg_0"/>
 		<!-- form events -->
-		<Potential interact="User" via="form" func="blur" target="PropTarget" event="blur" callback="arg_0"/>
-		<Potential interact="User" via="form" func="change" target="PropTarget" event="change" callback="arg_0"/>
-		<Potential interact="User" via="form" func="focus" target="PropTarget" event="focus" callback="arg_0"/>
-		<Potential interact="User" via="form" func="focusin" target="PropTarget" event="focusin" callback="arg_0"/>
-		<Potential interact="User" via="form" func="select" target="PropTarget" event="select" callback="arg_0"/>
-		<Potential interact="User" via="form" func="submit" target="PropTarget" event="submit" callback="arg_0" />
+		<Function interact="User" via="form" func="blur" target="PropTarget" event="blur" callback="arg_0"/>
+		<Function interact="User" via="form" func="change" target="PropTarget" event="change" callback="arg_0"/>
+		<Function interact="User" via="form" func="focus" target="PropTarget" event="focus" callback="arg_0"/>
+		<Function interact="User" via="form" func="focusin" target="PropTarget" event="focusin" callback="arg_0"/>
+		<Function interact="User" via="form" func="select" target="PropTarget" event="select" callback="arg_0"/>
+		<Function interact="User" via="form" func="submit" target="PropTarget" event="submit" callback="arg_0" />
 		<!-- document loading events -->
-		<Potential interact="Self" via="window" func="load" target="jQuery" event="load" callback="arg_0"/> <!-- img? --> <!-- server event?? --> <!-- *1) 第1引数が関数ならば？ -->
-		<Potential interact="Self" via="document" func="ready" target="jQuery" event="ready" callback="arg_0" repeatable="false" />
-		<Potential interact="Self" via="window" func="unload" target="jQuery" event="unload" callback="arg_0"/>
+		<Function interact="Self" via="window" func="load" target="jQuery" event="load" callback="arg_0"/> <!-- img? --> <!-- server event?? --> <!-- *1) 第1引数が関数ならば？ -->
+		<Function interact="Self" via="document" func="ready" target="jQuery" event="ready" callback="arg_0" repeatable="false" />
+		<Function interact="Self" via="window" func="unload" target="jQuery" event="unload" callback="arg_0"/>
 		<!-- Browser events -->
-		<Potential interact="Self" via="browser" func="error" target="PropTarget" event="error" callback="arg_0"/>
-		<Potential interact="Self" via="browser" func="resize" target="PropTarget" event="resize" callback="arg_0"/>
-		<Potential interact="Self" via="browser" func="scroll" target="PropTarget" event="scroll" callback="arg_0"/>
+		<Function interact="Self" via="browser" func="error" target="PropTarget" event="error" callback="arg_0"/>
+		<Function interact="Self" via="browser" func="resize" target="PropTarget" event="resize" callback="arg_0"/>
+		<Function interact="Self" via="browser" func="scroll" target="PropTarget" event="scroll" callback="arg_0"/>
 		
 		<!-- Global Ajax -->
-		<Potential interact="Server" via="XMLHttpRequest" func="ajaxComplete" target="$(document)" event="ajax complete" callback="arg_0"/>
-		<Potential interact="Server" via="XMLHttpRequest" func="ajaxError" target="$(document)" event="ajax error" callback="arg_0"/>
-		<Potential interact="Server" via="XMLHttpRequest" func="ajaxSend" target="$(document)" event="ajax send" callback="arg_0"/>
-		<Potential interact="Server" via="XMLHttpRequest" func="ajaxStart" target="$(document)" event="ajax start" callback="arg_0"/>
-		<Potential interact="Server" via="XMLHttpRequest" func="ajaxStop" target="$(document)" event="ajax stop" callback="arg_0"/>
-		<Potential interact="Server" via="XMLHttpRequest" func="ajaxSuccess" target="$(document)" event="ajax success" callback="arg_0"/>
+		<Function interact="Server" via="XMLHttpRequest" func="ajaxComplete" target="$(document)" event="ajax complete" callback="arg_0"/>
+		<Function interact="Server" via="XMLHttpRequest" func="ajaxError" target="$(document)" event="ajax error" callback="arg_0"/>
+		<Function interact="Server" via="XMLHttpRequest" func="ajaxSend" target="$(document)" event="ajax send" callback="arg_0"/>
+		<Function interact="Server" via="XMLHttpRequest" func="ajaxStart" target="$(document)" event="ajax start" callback="arg_0"/>
+		<Function interact="Server" via="XMLHttpRequest" func="ajaxStop" target="$(document)" event="ajax stop" callback="arg_0"/>
+		<Function interact="Server" via="XMLHttpRequest" func="ajaxSuccess" target="$(document)" event="ajax success" callback="arg_0"/>
 		<!-- Helper functions: param, serialize, serializeArray は単なる処理なので対象外 -->
 		<!-- Low-level interfaces -->
-		<Potential interact="Server" via="XMLHttpRequest" func="ajax" target="$" event="ajax" callback="prop" unimplemented="true" />
-		<Potential interact="Server" via="XMLHttpRequest" func="ajaxPrefilter" target="$" event="ajax" callback="prop" unimplemented="true" />
-		<Potential interact="Server" via="XMLHttpRequest" func="ajaxSetup" target="$" event="ajax" callback="prop" unimplemented="true" />
-		<Potential interact="Server" via="XMLHttpRequest" func="ajaxTransport" target="$" event="ajax" callback="prop" unimplemented="true" />
+		<Function interact="Server" via="XMLHttpRequest" func="ajax" target="$" event="ajax" callback="prop" unimplemented="true" />
+		<Function interact="Server" via="XMLHttpRequest" func="ajaxPrefilter" target="$" event="ajax" callback="prop" unimplemented="true" />
+		<Function interact="Server" via="XMLHttpRequest" func="ajaxSetup" target="$" event="ajax" callback="prop" unimplemented="true" />
+		<Function interact="Server" via="XMLHttpRequest" func="ajaxTransport" target="$" event="ajax" callback="prop" unimplemented="true" />
 		<!-- shorthand -->
 		<!--
 		-- "success" is defined at the trigger rule
-		<Potential interact="Server" via="XMLHttpRequest" func="get" target="$" event="success" callback="arg_1||3" />
-		<Potential interact="Server" via="XMLHttpRequest" func="getJSON" target="$" event="success" callback="arg_1||3" />
-		<Potential interact="Server" via="XMLHttpRequest" func="getScript" target="$" event="success" callback="arg_1||3" />
-		<Potential interact="Server" via="XMLHttpRequest" func="post" target="$" event="success" callback="arg_1||3" />
+		<Function interact="Server" via="XMLHttpRequest" func="get" target="$" event="success" callback="arg_1||3" />
+		<Function interact="Server" via="XMLHttpRequest" func="getJSON" target="$" event="success" callback="arg_1||3" />
+		<Function interact="Server" via="XMLHttpRequest" func="getScript" target="$" event="success" callback="arg_1||3" />
+		<Function interact="Server" via="XMLHttpRequest" func="post" target="$" event="success" callback="arg_1||3" />
 		-->
-		<Potential interact="Server" via="XMLHttpRequest" func="load" target="PropTarget" event="complete" callback="arg_1||3" /> <!-- *1) 第2or3引数が関数ならば？ -->
-	</Potentials>
+		<Function interact="Server" via="XMLHttpRequest" func="load" target="PropTarget" event="complete" callback="arg_1||3" /> <!-- *1) 第2or3引数が関数ならば？ -->
+	</Functions>
 	
 	
 	
@@ -94,7 +94,7 @@
 	If the evaluation result is false, AST element which matchs by "func" is skipped.
 	Note that "disabled" is also evaluated, not deal it as raw string.
 	 -->
-		<Control lang="js" func="attr" target="PropTarget" prop="arg_0" value="arg_1" cond="<prop>=='disabled'" disabled="<value>=='disabled'" semantic="set" />
+		<Control func="attr" prop="arg_0" value="arg_1" cond="<prop>=='disabled'" disabled="<value>=='disabled'" />
 		<Control lang="js" func="removeAttr" target="PropTarget" prop="arg_0" cond="<prop>=='disabled'" disabled="false" semantic="set" />
 		
 		<!-- Manipulation -->

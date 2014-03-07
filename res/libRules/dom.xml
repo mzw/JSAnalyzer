@@ -2,8 +2,10 @@
 <Rules>
 	<Triggers>
 	</Triggers>
-	<Potentials>
-	</Potentials>
+	<Functions>
+	</Functions>
 	<Controls>
 	</Controls>
+	<Manipulates>
+	</Manipulates>
 </Rules>
