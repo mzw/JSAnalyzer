@@ -1,0 +1,68 @@
+starting claim 2
+spin: couldn't find claim 2 (ignored)
+using statement merging
+  2:	proc  1 (Interaction) FileDLerError.pml:424 (state 3)	[else]
+  4:	proc  1 (Interaction) FileDLerError.pml:426 (state 4)	[(1)]
+  6:	proc  0 (App) FileDLerError.pml:38 (state 4)	[Int_event = __empty__]
+		Int_event = __empty__
+  6:	proc  0 (App) FileDLerError.pml:40 (state 2)	[App_event = __empty__]
+		App_event = __empty__
+		Int_event = __empty__
+  6:	proc  0 (App) FileDLerError.pml:41 (state 3)	[App_state = JSAnalyzer_0000000010]
+		App_state = JSAnalyzer_0000000010
+		App_event = __empty__
+		Int_event = __empty__
+  8:	proc  1 (Interaction) FileDLerError.pml:426 Sent JSAnalyzer_0000000928	-> queue 1 (App_ch)
+  8:	proc  1 (Interaction) FileDLerError.pml:426 (state 5)	[App_ch!JSAnalyzer_0000000928]
+  9:	proc  0 (App) FileDLerError.pml:45 Recv JSAnalyzer_0000000928	<- queue 1 (App_ch)
+  9:	proc  0 (App) FileDLerError.pml:45 (state 5)	[App_ch?Int_event]
+		Int_event = JSAnalyzer_0000000928
+ 11:	proc  1 (Interaction) FileDLerError.pml:424 (state 3)	[else]
+ 13:	proc  1 (Interaction) FileDLerError.pml:426 (state 4)	[(1)]
+ 15:	proc  0 (App) FileDLerError.pml:47 (state 6)	[((Int_event==JSAnalyzer_0000000928))]
+ 17:	proc  0 (App) FileDLerError.pml:48 (state 7)	[App_event = JSAnalyzer_0000000928]
+		App_event = JSAnalyzer_0000000928
+ 19:	proc  0 (App) FileDLerError.pml:49 (state 11)	[Int_event = __empty__]
+		Int_event = __empty__
+ 19:	proc  0 (App) FileDLerError.pml:51 (state 9)	[App_event = __empty__]
+		App_event = __empty__
+		Int_event = __empty__
+ 19:	proc  0 (App) FileDLerError.pml:52 (state 10)	[App_state = JSAnalyzer_0000000119]
+		App_state = JSAnalyzer_0000000119
+		App_event = __empty__
+		Int_event = __empty__
+ 21:	proc  1 (Interaction) FileDLerError.pml:426 Sent JSAnalyzer_0000000928	-> queue 1 (App_ch)
+ 21:	proc  1 (Interaction) FileDLerError.pml:426 (state 5)	[App_ch!JSAnalyzer_0000000928]
+ 22:	proc  0 (App) FileDLerError.pml:56 Recv JSAnalyzer_0000000928	<- queue 1 (App_ch)
+ 22:	proc  0 (App) FileDLerError.pml:56 (state 12)	[App_ch?Int_event]
+		Int_event = JSAnalyzer_0000000928
+ 24:	proc  0 (App) FileDLerError.pml:58 (state 13)	[(1)]
+ 26:	proc  1 (Interaction) FileDLerError.pml:424 (state 3)	[else]
+ 28:	proc  1 (Interaction) FileDLerError.pml:426 (state 4)	[(1)]
+ 30:	proc  0 (App) FileDLerError.pml:59 (state 17)	[Int_event = __empty__]
+		Int_event = __empty__
+ 30:	proc  0 (App) FileDLerError.pml:61 (state 15)	[App_event = __empty__]
+		Int_event = __empty__
+ 30:	proc  0 (App) FileDLerError.pml:62 (state 16)	[App_state = JSAnalyzer_0000000126]
+		App_state = JSAnalyzer_0000000126
+		Int_event = __empty__
+  <<<<<START OF CYCLE>>>>>
+ 32:	proc  1 (Interaction) FileDLerError.pml:426 Sent JSAnalyzer_0000000928	-> queue 1 (App_ch)
+ 32:	proc  1 (Interaction) FileDLerError.pml:426 (state 5)	[App_ch!JSAnalyzer_0000000928]
+ 33:	proc  0 (App) FileDLerError.pml:66 Recv JSAnalyzer_0000000928	<- queue 1 (App_ch)
+ 33:	proc  0 (App) FileDLerError.pml:66 (state 18)	[App_ch?Int_event]
+		Int_event = JSAnalyzer_0000000928
+ 35:	proc  1 (Interaction) FileDLerError.pml:424 (state 3)	[else]
+ 37:	proc  1 (Interaction) FileDLerError.pml:426 (state 4)	[(1)]
+ 39:	proc  0 (App) FileDLerError.pml:386 (state 316)	[else]
+ 41:	proc  0 (App) FileDLerError.pml:386 (state 317)	[Int_event = __empty__]
+		Int_event = __empty__
+spin: trail ends after 41 steps
+#processes: 2
+		App_state = JSAnalyzer_0000000126
+		App_event = __empty__
+		Int_event = __empty__
+		flg_exit = 0
+ 41:	proc  1 (Interaction) FileDLerError.pml:426 (state 5)
+ 41:	proc  0 (App) FileDLerError.pml:65 (state 320)
+2 processes created
