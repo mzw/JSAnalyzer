@@ -48,7 +48,7 @@ public class Verifier {
 	/**
 	 * Verifies interaction invariants based on Ajax design patterns
 	 * @param fsm Extracted finite state machine
-	 * @param filename Contains information about implemented Ajax design patterns
+	 * @param filename Contains information about implemented Ajax design patterns (IADP Information)
 	 */
 	public void verifyIADP(FiniteStateMachine fsm, String filename) {
 		long start = System.currentTimeMillis();

@@ -15,11 +15,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 import jp.mzw.jsanalyzer.config.FileExtension;
 import jp.mzw.jsanalyzer.config.FilePath;
-import jp.mzw.jsanalyzer.core.IdGen;
 
 public class TextFileUtils {
 	/**
@@ -167,10 +165,10 @@ public class TextFileUtils {
 	 */
 	public static void serialize(String projDir, String objName, Object obj) {
 		try {
-			File dir = new File(projDir + FilePath.ExtractResult);
+			File dir = new File(projDir + FilePath.Serialized);
 			dir.mkdirs();
 			
-			File file = new File(projDir + FilePath.ExtractResult, objName);
+			File file = new File(projDir + FilePath.Serialized, objName);
 			FileOutputStream fos = new FileOutputStream(file);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			
@@ -182,6 +180,32 @@ public class TextFileUtils {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Deserializes an object
+	 * @param projDir Project directory
+	 * @param objName Serialized object name
+	 * @return
+	 */
+	public static Object deserialize(String projDir, String objName) {
+		try {
+			File file = new File(projDir + FilePath.Serialized, objName);
+			FileInputStream fis = new FileInputStream(file);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			
+			Object obj = ois.readObject();
+			ois.close();
+			return obj;
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	/**

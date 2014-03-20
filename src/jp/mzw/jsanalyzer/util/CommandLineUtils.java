@@ -7,12 +7,38 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class CommandLineUtils {
+
+	public static final long Timeout = 3000;
+	public static class TimeoutThread extends Thread {
+		private Thread mParent;
+		public TimeoutThread(Thread parent) {
+			mParent = parent;
+		}
+		public void run() {
+			try {
+				Thread.sleep(Timeout);
+				mParent.interrupt();
+			} catch (InterruptedException e) {
+				// NOP
+			}
+		}
+	}
+	
 	public static int exec(String dir, String[] cmd) throws IOException, InterruptedException {
+		Thread timeout = new TimeoutThread(Thread.currentThread());
+		timeout.start();
+		
 		Process proc = null;
 		int proc_result = 0;
 		try {
 			proc = Runtime.getRuntime().exec(cmd, null, new File(dir));
-			proc_result = proc.waitFor();
+			
+			try {
+				proc_result = proc.waitFor();
+				timeout.interrupt();
+			} catch (InterruptedException e) {
+				// NOP
+			}
 		} finally {
 			if(proc != null) {
 				System.out.print(readStdOut(proc));

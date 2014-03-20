@@ -13,5 +13,9 @@ public class FileExtension {
 	public static final String Path					= ".path.fsm";
 	//public static final String SpinResult_HTML	= ".result.html";
 	public static final String Dot					= ".dot";
+	
+
+	public static final String Serialized			= ".bin";
+	public static final String SMVModel				= ".smv";
 
 }

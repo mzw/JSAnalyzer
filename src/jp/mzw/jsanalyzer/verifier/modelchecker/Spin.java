@@ -2,6 +2,7 @@ package jp.mzw.jsanalyzer.verifier.modelchecker;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,15 +83,18 @@ public class Spin extends ModelChecker {
 //				System.out.println("---> satisfied");
 			}
 			
-		} catch(Exception e) {
+		} catch(InterruptedException e) {
+			System.out.println("Timeout");
+		} catch(IOException e) {
 			e.printStackTrace();
-			System.err.println("Cannot execute a spin: " + spec.getDescription());
-			System.exit(-1);
 		}
 	}
 
 	/////
 	private void execTranslateNeverClaim(Specification spec) throws IOException, InterruptedException {
+		Thread timeout = new CommandLineUtils.TimeoutThread(Thread.currentThread());
+		timeout.start();
+		
 		Process proc = null;
 		TextFileUtils.write(this.mBaseDir, this.getLTLFilename(spec), spec.getFormula());
 		String[] cmd = { Command.Spin, "-F", this.getLTLFilename(spec) };
@@ -98,6 +102,7 @@ public class Spin extends ModelChecker {
 			proc = Runtime.getRuntime().exec(cmd, null, new File(this.mBaseDir));
 			int proc_result = proc.waitFor();
 			spec.setGenNCResult(proc_result);
+			timeout.interrupt();
 		} finally {
 			if(proc != null) {
 				TextFileUtils.write(this.mBaseDir, this.getNCFilename(spec), CommandLineUtils.readStdOut(proc));
@@ -114,12 +119,16 @@ public class Spin extends ModelChecker {
 	
 	/////
 	private void execSpin(Specification spec) throws IOException, InterruptedException {
+		Thread timeout = new CommandLineUtils.TimeoutThread(Thread.currentThread());
+		timeout.start();
+		
 		Process proc = null;
 		String[] cmd = { Command.Spin, "-a", "-N", this.getNCFilename(spec), this.getPromelaFilename() };
 		try {
 			proc = Runtime.getRuntime().exec(cmd, null, new File(this.mBaseDir));
 			int proc_result = proc.waitFor();
 			spec.setSpinResult(proc_result);
+			timeout.interrupt();
 		} finally {
 			if(proc != null) {
 				//for(int i = 0; i < cmd.length; i++) System.out.print(cmd[i] + " "); System.out.println("");
@@ -137,13 +146,17 @@ public class Spin extends ModelChecker {
 	
 	/////
 	private void execGcc(Specification spec) throws IOException, InterruptedException {
+		Thread timeout = new CommandLineUtils.TimeoutThread(Thread.currentThread());
+		timeout.start();
+		
 		Process proc = null;
-		String[] cmd = { Command.Gcc, "-o", "pan", "pan.c" };
+		String[] cmd = { Command.Gcc,  "-o", "pan", "pan.c" };
 //		String[] cmd = { Command.Gcc, "-DSAFETY", "-DREACH", "-o", "pan", "pan.c" };
 		try {
 			proc = Runtime.getRuntime().exec(cmd, null, new File(this.mBaseDir));
 			int proc_result = proc.waitFor();
 			spec.setGccResult(proc_result);
+			timeout.interrupt();
 		} finally {
 			if(proc != null) {
 //				System.out.print(Static.readStdOut(proc));
@@ -159,6 +172,9 @@ public class Spin extends ModelChecker {
 	
 	/////
 	private void execPan(Specification spec) throws IOException, InterruptedException {
+		Thread timeout = new CommandLineUtils.TimeoutThread(Thread.currentThread());
+		timeout.start();
+		
 		Process proc = null;
 		String[] cmd = { "./pan", "-a" };
 //		String[] cmd = { "./pan", };
@@ -166,6 +182,7 @@ public class Spin extends ModelChecker {
 			proc = Runtime.getRuntime().exec(cmd, null, new File(this.mBaseDir));
 			int proc_result = proc.waitFor();
 			spec.setPanResult(proc_result);
+			timeout.interrupt();
 		} finally {
 			if(proc != null) {
 //				System.out.print(Util.readStdOut(proc));
@@ -351,7 +368,6 @@ public class Spin extends ModelChecker {
 			}
 		}
 		
-		
 //		fsm.abstractNoEventEdges();
 		
 		String ret = "";
@@ -375,7 +391,7 @@ public class Spin extends ModelChecker {
 		for(Event event : eventList) {
 			ret += "\t" + event.getId() + ",";
 			/// Event
-			ret += "/* ";
+			ret += " /* ";
 			ret += this.getEventInfo(event);
 			ret += " */";
 			///
@@ -509,6 +525,7 @@ public class Spin extends ModelChecker {
 		}		
 		return ret;
 	}
+	
 	
 	private String getEventInfo(Event event) {
 		String ret = "";

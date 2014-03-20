@@ -18,15 +18,15 @@ mtype = {
 };
 
 mtype = {
-	JSAnalyzer_0000001006,/* onload (@lineno=3, @position=7) */
-	JSAnalyzer_0000001010,/* onSuccess (@lineno=25, @position=0) */
-	JSAnalyzer_0000001012,/* onFailure (@lineno=30, @position=0) */
-	JSAnalyzer_0000001008,/* after(1000 msec) (@lineno=15, @position=22) */
-	JSAnalyzer_0000001016,/* onkeyup (@lineno=42, @position=6) */
-	JSAnalyzer_0000001014,/* User Click (@lineno=31, @position=0) */
-	JSAnalyzer_0000001018,/* onclick (@lineno=48, @position=8) */
-	JSAnalyzer_0000001022,/* onclick (@lineno=91, @position=7) */
-	JSAnalyzer_0000001020,/* User Click (@lineno=72, @position=0) */
+	JSAnalyzer_0000001006, /* onload (@lineno=3, @position=7) */
+	JSAnalyzer_0000001010, /* onSuccess (@lineno=25, @position=0) */
+	JSAnalyzer_0000001012, /* onFailure (@lineno=30, @position=0) */
+	JSAnalyzer_0000001008, /* after(1000 msec) (@lineno=15, @position=22) */
+	JSAnalyzer_0000001016, /* onkeyup (@lineno=42, @position=6) */
+	JSAnalyzer_0000001014, /* User Click (@lineno=31, @position=0) */
+	JSAnalyzer_0000001018, /* onclick (@lineno=48, @position=8) */
+	JSAnalyzer_0000001022, /* onclick (@lineno=91, @position=7) */
+	JSAnalyzer_0000001020, /* User Click (@lineno=72, @position=0) */
 	__empty__
 };
 
@@ -297,13 +297,9 @@ active proctype Interaction() {
 			:: skip -> App_ch!JSAnalyzer_0000001008;
 			:: skip -> App_ch!JSAnalyzer_0000001016;
 			:: skip -> App_ch!JSAnalyzer_0000001014;
-			:: skip -> App_ch!JSAnalyzer_0000001016;
 			:: skip -> App_ch!JSAnalyzer_0000001018;
-			:: skip -> App_ch!JSAnalyzer_0000001016;
 			:: skip -> App_ch!JSAnalyzer_0000001022;
 			:: skip -> App_ch!JSAnalyzer_0000001020;
-			:: skip -> App_ch!JSAnalyzer_0000001016;
-			:: skip -> App_ch!JSAnalyzer_0000001018;
 			fi;
 		fi;
 	od;

@@ -1,11 +1,17 @@
 package jp.mzw.jsanalyzer.core;
 
+import java.util.ArrayList;
 import java.util.Date;
 
+import org.mozilla.javascript.ast.AstNode;
+
+import jp.mzw.jsanalyzer.config.FileExtension;
 import jp.mzw.jsanalyzer.core.examples.*;
 import jp.mzw.jsanalyzer.modeler.FSMExtractor;
 import jp.mzw.jsanalyzer.modeler.model.fsm.FiniteStateMachine;
+import jp.mzw.jsanalyzer.modeler.model.interaction.Event;
 import jp.mzw.jsanalyzer.rule.RuleManager;
+import jp.mzw.jsanalyzer.serialize.Serializer;
 import jp.mzw.jsanalyzer.util.StringUtils;
 import jp.mzw.jsanalyzer.util.TextFileUtils;
 import jp.mzw.jsanalyzer.verifier.Verifier;
@@ -31,7 +37,7 @@ public class Analyzer {
 	 * Constructor
 	 * @param project An example project.
 	 */
-	protected Analyzer(Project project) {
+	public Analyzer(Project project) {
 		this.mProject = project;
 		this.mRuleManager = createRuleManager(this.mProject);
 	}
@@ -111,19 +117,20 @@ public class Analyzer {
 //		Analyzer analyzer = new Analyzer("projects/test2/project.xml");
 //		Analyzer analyzer = new Analyzer(new QAsite());
 //		Analyzer analyzer = new Analyzer(new FileDLerError());
-		Analyzer analyzer = new Analyzer(new FileDLerCorrect());
+//		Analyzer analyzer = new Analyzer(new FileDLerCorrect());
+		Analyzer analyzer = new Analyzer(new FileDLerRetry());
 //		Analyzer analyzer = new Analyzer(new SWSError());
 //		Analyzer analyzer = new Analyzer(new LoginDemo());
 //		Analyzer analyzer = new Analyzer(new LWA());
 		
 		FiniteStateMachine fsm = analyzer.extract();
 		
-//		TextFileUtils.serialize(analyzer.getProject().getDir(), "fsm.state.list.bin", fsm.getStateList());
-
+		Serializer.serialze(analyzer, fsm);
+		
 //		System.out.println("Writing snapshots...");
 //		TextFileUtils.writeSnapshots("/Users/yuta/Desktop/dots");
 		
-		analyzer.verify(fsm);
+//		analyzer.verify(fsm);
 		
 		
 //		for(Limitation l : LimitationManager.getLimitations()) {
@@ -134,35 +141,5 @@ public class Analyzer {
 		System.out.println("See you again!");
 		System.out.println("==============================");
 	}
-	
 
-//	public void verifyIADP(String filename, Analyzer analyzer, Graph graph) {
-//		
-//		long start = System.currentTimeMillis();
-//		
-//		StateMachine sm = StateMachine.construct(analyzer, graph);
-//		Util.write(this.getProject().getDir(), this.getProject().getName() + Config.EXT_StateMachine, sm.toString_xml());
-//		
-//		Spin spin = new Spin(sm, this);
-//		Util.write(
-//				this.getProject().getDir(),
-//				this.getProject().getName() + Config.EXT_Promela,
-//				spin.translate());
-//		
-//		// generate concrete formulas
-//		List<AjaxDesignProperty> specs = AjaxDesignProperty.parse(filename, analyzer, sm);
-//		for(AjaxDesignProperty spec : specs) {
-//			System.out.println("Veryfy: " + spec.getFormula());
-//			long vstart = System.currentTimeMillis();
-//			spin.verify(spec);
-//			long vend = System.currentTimeMillis();
-//			System.out.println(spec.getId() + ": Verification time is " + (vend - vstart) + " msec");
-//		}
-//		
-//		long end = System.currentTimeMillis();
-//		System.out.println("Verification time: " + (end - start));
-//		
-//		spin.saveVerifyIADPResults(this, specs);
-//	}
-	
 }

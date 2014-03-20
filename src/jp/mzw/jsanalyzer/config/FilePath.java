@@ -4,6 +4,7 @@ public class FilePath {
 	public static final String RawSrcDir 			= "/wget_raw_src";
 	public static final String ExtractResult 		= "/extract";
 	public static final String VerifyResult		 	= "/verify";
+	public static final String Serialized		 	= "/serialized";
 	
 	public static final String ModelDir							= "/model";
 	public static final String ExtendedCallGraphDot				= "xcg" + FileExtension.Dot;

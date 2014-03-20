@@ -20,4 +20,10 @@ public class Command {
 	 * A path where Graphviz is installed
 	 */
 	public static final String Dot				= "/usr/local/bin/dot";
+	
+	
+	/**
+	 * A path where NuSMV is installed
+	 */
+	public static final String NuSMV			= "/opt/local/bin/NuSMV";
 }
