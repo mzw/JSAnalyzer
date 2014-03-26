@@ -4,9 +4,9 @@ import jp.mzw.jsanalyzer.formulator.adp.UserAction;
 import jp.mzw.jsanalyzer.formulator.pp.PropertyPattern;
 import jp.mzw.jsanalyzer.formulator.pp.Response;
 
-public class AsynchronousCommunicationRetry extends Property {
+public class ACRetry extends Property {
 
-	public AsynchronousCommunicationRetry() {
+	public ACRetry() {
 
 		this.mPropertyName = "Asynchronous communication retry";
 		this.mPropertyNameAbbreviation = "ACRetry";

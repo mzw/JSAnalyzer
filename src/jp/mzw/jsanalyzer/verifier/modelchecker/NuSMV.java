@@ -29,6 +29,7 @@ public class NuSMV extends ModelChecker {
 		
 		
 		ArrayList<String> asyncCommFuncIdList = new ArrayList<String>();
+		ArrayList<String> waitFuncIdList = new ArrayList<String>();
 		for(jp.mzw.jsanalyzer.serialize.model.State state : fsm.getStateList()) {
 			for(jp.mzw.jsanalyzer.serialize.model.State.FuncElement func : state.getFuncElement()) {
 				
@@ -39,6 +40,12 @@ public class NuSMV extends ModelChecker {
 					asyncCommFuncIdList.add(state.getId());
 				}
 				
+				/// asynchronous communication states
+				/// To be modified
+				if("inputFormText".equals(func.getFuncName()) &&
+						!waitFuncIdList.contains(state.getId())) {
+					waitFuncIdList.add(state.getId());
+				}
 				
 			}
 
@@ -47,6 +54,7 @@ public class NuSMV extends ModelChecker {
 		
 		
 		ArrayList<String> userEventIdList = new ArrayList<String>();
+		ArrayList<String> successEventIdList = new ArrayList<String>();
 		ArrayList<String> failEventIdList = new ArrayList<String>();
 		for(jp.mzw.jsanalyzer.serialize.model.Transition trans : fsm.getTransList()) {
 			jp.mzw.jsanalyzer.serialize.model.Event event = trans.getEvent();
@@ -57,12 +65,20 @@ public class NuSMV extends ModelChecker {
 					!userEventIdList.contains(event.getId())) {
 				userEventIdList.add(event.getId());
 			}
+
+			// async comm success events
+			/// To be modified
+			if(event != null &&
+					"onSuccess".equals(event.getEvent()) &&
+					!successEventIdList.contains(event.getId())) {
+				successEventIdList.add(event.getId());
+			}
 			
 			// async comm failure events
 			/// To be modified
 			if(event != null &&
 					"onFailure".equals(event.getEvent()) &&
-					!userEventIdList.contains(event.getId())) {
+					!failEventIdList.contains(event.getId())) {
 				failEventIdList.add(event.getId());
 			}
 		}
@@ -71,11 +87,14 @@ public class NuSMV extends ModelChecker {
 		
 		
 //		Property p = new AsynchronousCommunication();
-		AsynchronousCommunication pAsyncComm = new AsynchronousCommunication();
+		AsyncComm pAsyncComm = new AsyncComm();
 		System.out.println("AsyncComm: " +  pAsyncComm.genCTLFormula(NuSMV.genOr(asyncCommFuncIdList), NuSMV.genOr(userEventIdList)));
 
-		AsynchronousCommunicationRetry pACRetry = new AsynchronousCommunicationRetry();
+		ACRetry pACRetry = new ACRetry();
 		System.out.println("ACRetry: " +  pACRetry.genCTLFormula(NuSMV.genOr(failEventIdList), NuSMV.genOr(asyncCommFuncIdList)));
+		
+		SRWait pSRWait = new SRWait();
+		System.out.println("SRWait: " +  pSRWait.genCTLFormula(NuSMV.genOr(waitFuncIdList), NuSMV.genOr(successEventIdList)));
 	}
 	
 	

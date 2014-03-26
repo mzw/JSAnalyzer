@@ -1,26 +1,26 @@
 package jp.mzw.jsanalyzer.formulator.property;
 
-import jp.mzw.jsanalyzer.formulator.adp.UserAction;
+import jp.mzw.jsanalyzer.formulator.adp.OnDemandJavaScript;
 import jp.mzw.jsanalyzer.formulator.pp.PropertyPattern;
-import jp.mzw.jsanalyzer.formulator.pp.Response;
+import jp.mzw.jsanalyzer.formulator.pp.Precedence;;
 
-public class AsynchronousCommunication extends Property {
-
-	public AsynchronousCommunication() {
+public class SRWait extends Property {
+	
+	public SRWait() {
 		this.mPropertyName = "Asynchronous communication";
 		this.mPropertyNameAbbreviation = "AsyncComm";
 		
 		this.mRequirement = "Ajax apps can handle user events during asynchronous communications";
-		this.mAjaxDesignPattern = new UserAction();
+		this.mAjaxDesignPattern = new OnDemandJavaScript();
 		
 		this.mPropertyPatternScope = PropertyPattern.Scope.Globally;
-		this.mPropertyPattern = new Response(this.mPropertyPatternScope);
+		this.mPropertyPattern = new Precedence(this.mPropertyPatternScope);
 	}
-	
+
 	/**
 	 * 
-	 * @param P Ajax request function
-	 * @param S User events
+	 * @param P Function to wait for
+	 * @param S Server response
 	 * @return
 	 */
 	public String genCTLFormula(String P, String S) {
@@ -28,8 +28,6 @@ public class AsynchronousCommunication extends Property {
 		
 		String formula = template.replace("$P", P).replace("$S", "EX " + S);
 		
-		
 		return formula;
 	}
-	
 }
