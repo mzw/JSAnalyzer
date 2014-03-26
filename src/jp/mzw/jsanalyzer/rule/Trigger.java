@@ -1,5 +1,7 @@
 package jp.mzw.jsanalyzer.rule;
 
+import jp.mzw.jsanalyzer.xml.XMLAttr;
+
 public class Trigger extends InteractionRule {
 	
 
@@ -12,4 +14,27 @@ public class Trigger extends InteractionRule {
 		super(event, interact);
 		this.mRepeatable = repeatable;
 	}
+	
+	/**
+	 * Determines whether this trigger represents a user interaction or not
+	 * @return Is a user interaction
+	 */
+	public boolean isUserInteraction() {
+		if(XMLAttr.RuleInteract_User.equals(this.mInteract)) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Determines whether this trigger represents a server interaction or not
+	 * @return Is a server interaction
+	 */
+	public boolean isServerInteraction() {
+		if(XMLAttr.RuleInteract_Server.equals(this.mInteract)) {
+			return true;
+		}
+		return false;
+	}
+	
 }

@@ -1,12 +1,17 @@
 package jp.mzw.jsanalyzer.formulator.adp;
 
-import jp.mzw.jsanalyzer.verifier.specification.Specification;
+public abstract class AjaxDesignPattern {
 
-public class AjaxDesignPattern extends Specification {
+	protected int mCategory;
+	
+//	public AjaxDesignPattern() {
+//	}
 
-	public AjaxDesignPattern(String description, String formula) {
-		super(description, formula);
-		// TODO Auto-generated constructor stub
+	public static class Category {
+		public static int
+			Fundamental = 1,
+			Programming = 2,
+			FunctionAndUsability = 3,
+			Development = 4;
 	}
-
 }

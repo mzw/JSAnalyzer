@@ -1,34 +1,24 @@
 package jp.mzw.jsanalyzer.formulator.pp;
 
-import java.util.List;
 
 public class PropertyPattern {
 	
-	public static final String BoundedExsistence_Between = "[]((Q & <>R) -> ((!P & !R) U (R | ((P & !R) U (R | ((!P & !R) U (R | ((P & !R) U (R | (!P U R))))))))))";;
+	protected int mScope;
 	
-	public static final String instantiate(String pattern, String p, String q, String r) {
-		String ret = "";
-		
-		
-		return ret;
+	public PropertyPattern(int scope) {
+		this.mScope = scope;
 	}
 	
-	
-	protected String mTemplate;
-	protected List<String> mArgs;
-
-	public PropertyPattern(String template) {
-		this.mTemplate = template;
+	public String getCTLTemplate() {
+		return null;
 	}
 	
-	public void setArgs(List<String> args) {
-		this.mArgs = args;
-	}
-	
-	public String generate() {
-		String ret = "";
-		
-		
-		return ret;
+	public static class Scope {
+		public static final int
+			Globally = 0,
+			Before = 1,
+			After = 2,
+			Between = 3,
+			AfterUntil = 4;
 	}
 }

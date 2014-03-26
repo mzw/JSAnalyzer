@@ -108,7 +108,8 @@ public class Verifier {
 	}
 	
 
-	public String saveVerifyIADPResults(Analyzer analyzer, List<AjaxDesignPattern> specs) {
+//	public String saveVerifyIADPResults(Analyzer analyzer, List<AjaxDesignPattern> specs) {
+	public String saveVerifyIADPResults(Analyzer analyzer, List<Specification> specs) {
 		String html_filename = analyzer.getProject().getName() + ".html";
 
 		String content = "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\">\n";

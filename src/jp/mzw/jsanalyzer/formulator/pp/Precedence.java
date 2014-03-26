@@ -1,13 +1,19 @@
 package jp.mzw.jsanalyzer.formulator.pp;
 
 public class Precedence extends Order {
-	public Precedence() {
-		super("");
+	
+	
+	public Precedence(int scope) {
+		super(scope);
 	}
 	
-	public static String getCTLTemplate() {
-		// A[!P W S] = !E[!S U (!!P & !S)] = !E[!S U (P & !S)]
-		return "!E[!S U (P & !S)]";
+	public String getCTLTemplate() {
+		switch(this.mScope) {
+		case Scope.Globally:
+			return "!E[!S U (P & !S)]"; // A[!P W S] = !E[!S U (!!P & !S)] = !E[!S U (P & !S)]
+		}
+		System.err.println("To be implemented: " + this.mScope + ", " + Precedence.class);
+		return null;
 	}
 	
 	public static String genCTLFormulaGloabally(String P, String S) {

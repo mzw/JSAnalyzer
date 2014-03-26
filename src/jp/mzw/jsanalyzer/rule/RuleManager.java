@@ -136,6 +136,15 @@ public class RuleManager {
 		return null;
 	}
 	
+	public boolean isUserInteraction(String event) {
+		for(Trigger trigger : this.mTriggerRuleList) {
+			if(trigger.match(event)) {
+				return trigger.isUserInteract();
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * Determines whether given property is control CSS property or not
 	 * @param prop Given CSS property
