@@ -64,6 +64,30 @@ public class TextFileUtils {
 		}	
 		return src;
 	}
+
+	/**
+	 * Retrieves target document via local host
+	 * @param dir 
+	 * @param filename is a file path of target document
+	 * @return Target document
+	 */
+	public static String cat(String dir, String filename) {
+		String src = "";
+		try {
+			File file = new File(dir, filename);
+			FileReader fr = new FileReader(file);
+			BufferedReader br = new BufferedReader(fr);
+			String tmp_str = "";
+			while((tmp_str = br.readLine()) != null) {
+				src += tmp_str + "\n";
+			}
+			br.close();
+		} catch(IOException e) {
+			e.printStackTrace();
+			System.exit(-1);
+		}	
+		return src;
+	}
 	
 	/**
 	 * Retrieves lines which matches given regular expression

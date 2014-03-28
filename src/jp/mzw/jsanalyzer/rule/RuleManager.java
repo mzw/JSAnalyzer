@@ -1,6 +1,7 @@
 package jp.mzw.jsanalyzer.rule;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -26,7 +27,7 @@ public class RuleManager {
 	 * Constructor
 	 * @param filenames filenames of rule files
 	 */
-	public RuleManager(ArrayList<String> filenames) {
+	public RuleManager(List<String> filenames) {
 		this.mRuleList = new ArrayList<Rule>();
 		this.mTriggerRuleList = new ArrayList<Trigger>();
 		this.mFunctionRuleList = new ArrayList<Function>();
@@ -140,6 +141,14 @@ public class RuleManager {
 		for(Trigger trigger : this.mTriggerRuleList) {
 			if(trigger.match(event)) {
 				return trigger.isUserInteract();
+			}
+		}
+		return false;
+	}
+	public boolean isServerInteraction(String event) {
+		for(Trigger trigger : this.mTriggerRuleList) {
+			if(trigger.match(event)) {
+				return trigger.isServerInteract();
 			}
 		}
 		return false;

@@ -6,6 +6,11 @@ import jp.mzw.jsanalyzer.modeler.model.graph.Node;
 
 public class Entry extends State {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Entry() {
 		super(new Node(new AstRoot(), null));
 	}

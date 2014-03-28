@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.mzw.jsanalyzer.modeler.AbstractionManager;
-import jp.mzw.jsanalyzer.modeler.EnDisableManager;
 import jp.mzw.jsanalyzer.modeler.model.graph.CallGraph;
 import jp.mzw.jsanalyzer.modeler.model.interaction.Event;
 import jp.mzw.jsanalyzer.modeler.model.interaction.Interaction;

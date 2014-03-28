@@ -1,19 +1,8 @@
 package jp.mzw.jsanalyzer.modeler.model.interaction;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import jp.mzw.jsanalyzer.core.LimitationManager;
-import jp.mzw.jsanalyzer.core.LimitationManager.Limitation;
-import jp.mzw.jsanalyzer.modeler.FSMRefiner.TargetSolver;
 import jp.mzw.jsanalyzer.modeler.model.Element;
-import jp.mzw.jsanalyzer.parser.HTMLParser;
-import jp.mzw.jsanalyzer.rule.Function;
 import jp.mzw.jsanalyzer.rule.InteractionRule;
-import jp.mzw.jsanalyzer.rule.JSControl;
 import jp.mzw.jsanalyzer.rule.Rule;
-import jp.mzw.jsanalyzer.rule.Trigger;
-import jp.mzw.jsanalyzer.util.StringUtils;
 import jp.mzw.jsanalyzer.xml.XMLAttr;
 
 import org.jsoup.nodes.Attribute;
@@ -21,6 +10,10 @@ import org.mozilla.javascript.ast.AstNode;
 
 public class Event extends Element {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected Object mTargetObj;
 	protected Object mEventObj;
 	protected Rule mRule;

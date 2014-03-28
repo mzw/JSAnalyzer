@@ -1,8 +1,51 @@
 package jp.mzw.jsanalyzer.verifier.specification;
 
+import java.util.List;
+
+import jp.mzw.jsanalyzer.formulator.property.Property;
 import jp.mzw.jsanalyzer.util.StringUtils;
 
 public class Specification {
+	
+	protected int mId;
+	protected Property mProperty;
+	protected boolean mSmvResult;
+	protected List<String> mCounterexample;
+	public Specification(Property prop) {
+		this.mId = IdGen.genId();
+		this.mProperty = prop;
+	}
+	
+	public void setCounterexmaple(List<String> counterexample) {
+		this.mCounterexample = counterexample;
+	}
+	public List<String> getCounterexample() {
+		return this.mCounterexample;
+	}
+	
+	public String getCtlFormula() {
+		return this.mProperty.getCTLFormula();
+	}
+	
+	public int getId() {
+		return this.mId;
+	}
+	
+	public void setSmvResult(boolean result) {
+		this.mSmvResult = result;
+	}
+	public boolean getSmvResult() {
+		return this.mSmvResult;
+	}
+
+	private static class IdGen {
+		private static int id_source = 0;
+		public static int genId() {
+			return id_source++;
+		}
+	}
+	
+	
 	private static int id_assign = 0;
 	protected int id;
 	protected String description;
@@ -24,9 +67,9 @@ public class Specification {
 		this.anti_example = "";
 	}
 	
-	public int getId() {
-		return this.id;
-	}
+//	public int getId() {
+//		return this.id;
+//	}
 	
 	public String getDescription() {
 		return this.description;

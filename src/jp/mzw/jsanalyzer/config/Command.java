@@ -26,4 +26,7 @@ public class Command {
 	 * A path where NuSMV is installed
 	 */
 	public static final String NuSMV			= "/opt/local/bin/NuSMV";
+	
+
+	public static final String Echo			= "/bin/echo";
 }

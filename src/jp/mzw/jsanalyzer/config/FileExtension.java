@@ -17,5 +17,6 @@ public class FileExtension {
 
 	public static final String Serialized			= ".bin";
 	public static final String SMVModel				= ".smv";
+	public static final String SMVResult			= ".smv.result";
 
 }

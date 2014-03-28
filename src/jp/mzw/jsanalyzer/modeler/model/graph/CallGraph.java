@@ -25,6 +25,10 @@ import org.mozilla.javascript.ast.NodeVisitor;
  */
 public class CallGraph extends Element {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * A dummy AST root node for this initial node
 	 */
 	protected static AstRoot mDummyAstRoot = new AstRoot();

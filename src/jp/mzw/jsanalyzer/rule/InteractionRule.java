@@ -39,6 +39,13 @@ public class InteractionRule extends Rule {
 		return false;
 	}
 
+	public boolean isServerInteract() {
+		if(XMLAttr.RuleInteract_Server.equals(this.mInteract)) {
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * 
 	 * @return

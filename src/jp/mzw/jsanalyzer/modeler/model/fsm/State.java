@@ -11,6 +11,10 @@ import jp.mzw.jsanalyzer.modeler.model.interaction.Interaction;
 public class State extends Node {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Represents this state
 	 */
 	protected Node mNode;

@@ -17,6 +17,11 @@ import org.mozilla.javascript.ast.AstNode;
  */
 public class Edge extends Element {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	protected Event mEvent;
 	
 	protected Object mCondObj;

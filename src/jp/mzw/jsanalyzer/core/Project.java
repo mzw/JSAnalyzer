@@ -2,6 +2,7 @@ package jp.mzw.jsanalyzer.core;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -32,7 +33,7 @@ public class Project {
 	/**
 	 * A list of rule filenames
 	 */
-	protected ArrayList<String> mRuleFilenames;
+	protected List<String> mRuleFilenames;
 	
 	/**
 	 * A constructor via a XML file
@@ -67,7 +68,7 @@ public class Project {
 	 * @param filenames A list of filenames containing rule information
 	 * @param dir A directory path where temporary files or stuffs are stored
 	 */
-	protected Project(String name, String url, ArrayList<String> filenames, String dir) {
+	protected Project(String name, String url, List<String> filenames, String dir) {
 		this.mProjectName = name;
 		this.mUrl = url;
 		this.mRuleFilenames = filenames;
@@ -85,7 +86,7 @@ public class Project {
 	 * A method for getting a list of filenames containing rule information
 	 * @return A list of filenames containing rule information
 	 */
-	public ArrayList<String> getRuleFilenames() {
+	public List<String> getRuleFilenames() {
 		return this.mRuleFilenames;
 	}
 
@@ -93,7 +94,7 @@ public class Project {
 	 * A static method for setting default rule files for example projects
 	 * @return A default list of filenames containing rule information
 	 */
-	protected static ArrayList<String> getDefaultRuleFilenames() {
+	protected static List<String> getDefaultRuleFilenames() {
 		ArrayList<String> ret = new ArrayList<String>();
 
 		ret.add("res/rules/trigger.xml");

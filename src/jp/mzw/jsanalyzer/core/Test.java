@@ -9,11 +9,88 @@ import java.util.HashMap;
 import jp.mzw.jsanalyzer.config.FileExtension;
 import jp.mzw.jsanalyzer.core.examples.*;
 import jp.mzw.jsanalyzer.util.CommandLineUtils;
+import jp.mzw.jsanalyzer.util.StringUtils;
 import jp.mzw.jsanalyzer.util.TextFileUtils;
 import jp.mzw.jsanalyzer.verifier.modelchecker.Spin;
 import jp.mzw.jsanalyzer.verifier.specification.Specification;
 
 public class Test {
+
+	
+	public static void main(String[] args) {
+		Analyzer analyzer = new Analyzer(new FileDLerCorrect());
+//		Analyzer analyzer = new Analyzer(new FileDLerError());
+//		Analyzer analyzer = new Analyzer(new FileDLerRetry());
+		
+		String objName = analyzer.getProject().getName() + ".fsm" + FileExtension.Serialized;
+		Object obj = TextFileUtils.deserialize(analyzer.getProject().getDir(), objName);
+		jp.mzw.jsanalyzer.serialize.model.FiniteStateMachine fsm = (jp.mzw.jsanalyzer.serialize.model.FiniteStateMachine)obj;
+		
+		
+		String fsmdata = "";
+		
+		/// Sets project data
+		fsmdata += "<Application name=\"" + analyzer.getProject().getName() + "\" url=\"" + analyzer.getProject().getUrl() + "\">";
+		fsmdata += "\n";
+		
+		fsmdata += "<FSMData>\n";
+		
+		/// States
+		for(jp.mzw.jsanalyzer.serialize.model.State state : fsm.getStateList()) {
+			fsmdata += "\t";
+			fsmdata += "<State ";
+			fsmdata += "id=\"" + state.getId() +"\"";
+			fsmdata += ">\n";
+			
+			for(jp.mzw.jsanalyzer.serialize.model.State.FuncElement func : state.getFuncElement()) {
+				fsmdata += "\t";
+				fsmdata += "\t";
+
+				fsmdata += "<Abstracted ";
+				if("".equals(func.getFuncName())) {
+					fsmdata += "func=\"" + "Nameless" + "\" ";
+				} else {
+					fsmdata += "func=\"" + StringUtils.esc_xml(func.getFuncName()) + "\" ";
+				}
+				fsmdata += "lineno=\"" + func.getLineNo() + "\" ";
+				fsmdata += "pos=\"" + func.getPosition() + "\" ";
+				fsmdata += "/>";
+				
+				fsmdata += "\n";
+			}
+
+			fsmdata += "\t";
+			fsmdata += "</State>\n";
+		}
+		
+		/// Events
+		for(jp.mzw.jsanalyzer.serialize.model.Transition trans : fsm.getTransList()) {
+			if(trans.getEvent() != null) {
+				fsmdata += "\t";
+				fsmdata += "<Event id=\"" + trans.getEvent().getId() + "\" name=\"" + trans.getEvent().getEvent() + "\" lineno=\"" + trans.getEvent().getLineNo() + "\" pos=\"" + trans.getEvent().getPosition() + "\" />\n";
+			}
+		}
+		
+
+		fsmdata += "</FSMData>\n";
+		
+		
+		fsmdata += "</Application>";
+		
+//		System.out.println(fsmdata);
+		
+		
+		String propListXML = jp.mzw.jsanalyzer.formulator.property.Property.getPropertyListXML();
+		System.out.println(propListXML);
+	}
+	
+	
+	
+	
+	
+	
+	
+	/////////////////////////////////////////
 	public static void _main(String[] args) {
 		System.out.println("==============================");
 		System.out.println("[Test] Running JSAnalyzer");
@@ -83,7 +160,7 @@ public class Test {
 		return null;
 	}
 
-	public static void main(String[] args) {
+	public static void __main(String[] args) {
 		System.out.println("==============================");
 		System.out.println("[Test] Running JSAnalyzer");
 		System.out.println((new Date()).toString());

@@ -13,6 +13,14 @@ public class Absence extends Occurrence {
 //		/// AG(!P)
 //		return "AG(!(" + P + "))";
 //	}
-	
+
+	public String getCTLTemplate() {
+		switch(this.mScope) {
+		case Scope.Globally:
+			return "AG(!$P)"; // AG(!P)
+		}
+		System.err.println("To be implemented: " + this.mScope + ", " + Absence.class);
+		return null;
+	}
 	
 }

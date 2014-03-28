@@ -1,8 +1,6 @@
 package jp.mzw.jsanalyzer.modeler.model.interaction;
 
 import jp.mzw.jsanalyzer.modeler.TargetSolver;
-import jp.mzw.jsanalyzer.rule.Function;
-import jp.mzw.jsanalyzer.rule.Trigger;
 
 import org.jsoup.nodes.Element;
 import org.mozilla.javascript.ast.AstNode;
@@ -13,6 +11,10 @@ import org.mozilla.javascript.ast.PropertyGet;
 
 public class Interaction extends jp.mzw.jsanalyzer.modeler.model.Element {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected Event mEvent;
 	protected Callback mCallback;
 	

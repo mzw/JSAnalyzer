@@ -5,6 +5,11 @@ import jp.mzw.jsanalyzer.modeler.model.interaction.Event;
 
 public class Transition extends Edge {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	protected Edge mEdge;
 	
 	protected String mFromStateId;

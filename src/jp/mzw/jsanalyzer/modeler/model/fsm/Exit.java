@@ -6,6 +6,11 @@ import jp.mzw.jsanalyzer.modeler.model.graph.Node;
 
 public class Exit extends State {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Exit() {
 		super(new Node(new AstRoot(), null));
 	}

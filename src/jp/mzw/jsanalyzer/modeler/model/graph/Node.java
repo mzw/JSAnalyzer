@@ -15,6 +15,11 @@ import org.mozilla.javascript.ast.Name;
 public class Node extends Element {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Represents this origin in AST
 	 */
 	protected AstNode mAstNode;
