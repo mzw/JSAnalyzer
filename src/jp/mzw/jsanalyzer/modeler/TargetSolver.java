@@ -9,6 +9,7 @@ import jp.mzw.jsanalyzer.util.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.mozilla.javascript.ast.Assignment;
 import org.mozilla.javascript.ast.AstNode;
+import org.mozilla.javascript.ast.AstRoot;
 import org.mozilla.javascript.ast.FunctionCall;
 import org.mozilla.javascript.ast.Name;
 import org.mozilla.javascript.ast.PropertyGet;
@@ -24,18 +25,33 @@ import org.mozilla.javascript.ast.VariableInitializer;
  */
 public class TargetSolver {
 	
+	/**
+	 * Has JavaScript assignments to HTML element ID attributes.
+	 * This key is a pair of the assignment scope and the variable name.
+	 * And this value is the ID value.
+	 */
 	private HashMap<Pair<Scope, String>, String> mVarSrc;
 	
+	/**
+	 * Constructor
+	 */
 	public TargetSolver() {
 		this.mVarSrc = new HashMap<Pair<Scope, String>, String>();
 	}
 	
+	/**
+	 * Finds the ID value that is assigned by using given variable name in given scope
+	 * @param scope A scope of the variable
+	 * @param varName A variable name
+	 * @return HTML element ID attribut value, or null when cannot find
+	 */
 	public String findElementId(Scope scope, String varName) {
 		
 		for(Pair<Scope, String> var : this.mVarSrc.keySet()) {
 			Scope _scope = var.getKey();
 			String _varName = var.getValue();
-			if(_scope == scope && _varName.equals(varName)) {
+			
+			if(TargetSolver.isChildScope(_scope, scope) && _varName.equals(varName)) {
 				return this.mVarSrc.get(var);
 			}
 		}
@@ -43,13 +59,23 @@ public class TargetSolver {
 		return null;
 	}
 	
+	/**
+	 * Should preliminarily obtains JavaScirpt statements that assing values to HTML element ID attributes
+	 * @param callGraph Has JavaScript code fragments
+	 */
 	public void findTargetCandidates(CallGraph callGraph) {
 		for(Node node : callGraph.getNodeList()) {
 			AstNode astNode = node.getAstNode();
 			
 			/// (var foo = ) document.getElementBy("ID");
 			if(astNode instanceof FunctionCall) {
-				String idString = TargetSolver.getElementIdBy((FunctionCall) astNode);
+				FunctionCall funcCallAstNode = (FunctionCall) astNode;
+				String idString = TargetSolver.getElementIdBy(funcCallAstNode);
+				
+				/// Cannot parse id value, then does not regist this candidate
+				if(idString == null) {
+					continue;
+				}
 				
 				/// Data flow
 				/// var foo = TARGET
@@ -62,6 +88,14 @@ public class TargetSolver {
 					this.mVarSrc.put(var, idString);
 				} else if(astNode.getParent() instanceof PropertyGet) {
 					// NOP
+				}
+				/// foo.setAttribute("id", "value");
+				else if(funcCallAstNode.getTarget() instanceof PropertyGet) {
+					PropertyGet propGetAstNode = (PropertyGet)(funcCallAstNode.getTarget());
+					String varName = propGetAstNode.getTarget().toSource();
+					Scope varScope = TargetSolver.getParentScope(propGetAstNode);
+					Pair<Scope, String> var = Pair.of(varScope, varName); // A variable can be identified by its name and scope
+					this.mVarSrc.put(var, idString);
 				} else {
 //					System.out.println(astNode.getParent().getClass());
 //					System.out.println("\t" + astNode.getParent().toSource());
@@ -139,20 +173,60 @@ public class TargetSolver {
 			}
 			System.out.println("Now: " + funcCallAstNode.getTarget().toSource());
 		}
+		/// element.setAttribute("id", "value");
+		else if(funcCallAstNode.getTarget() instanceof PropertyGet &&
+				"setAttribute".equals(((PropertyGet)funcCallAstNode.getTarget()).getProperty().toSource())) {
+			AstNode attrAstNode = funcCallAstNode.getArguments().get(0);
+			String attr = StringUtils.removeQuote(attrAstNode.toSource());
+			if("id".equals(attr)) {
+				AstNode valueAstNode = funcCallAstNode.getArguments().get(1);
+				String idString = StringUtils.removeQuote(valueAstNode.toSource());
+				return idString;
+			} else {
+//				System.out.println("Not ID assigning function call: " + funcCallAstNode.toSource());
+			}
+		}
 		else {
-//			System.out.println("Built-in or Library function?: " + funcCallAstNode.getTarget().toSource());
+//			System.out.println("Built-in or Library function?: " + funcCallAstNode.getTarget().toSource() + ", " + funcCallAstNode.getTarget().getClass());
 //			return funcCallAstNode.getTarget().toSource();
 		}
 		return null;
 	}
 	
+	
+	/**
+	 * Finds scope of given AST node
+	 * @param astNode Given AST node
+	 * @return Its Scope AST node
+	 */
 	public static Scope getParentScope(AstNode astNode) {
+		if(astNode == null) {
+			return null;
+		}
 		AstNode parent = astNode.getParent();
 		if(parent instanceof Scope) {
 			return (Scope)parent;
+		} else if(parent instanceof AstRoot) {
+			return null;
 		} else {
 			return getParentScope(parent);
 		}
+	}
+
+	/**
+	 * Determines whether given parent scope includes given child scope or not
+	 * @param prent Parent-candidate scope AST node
+	 * @param child Given scope node
+	 * @return True represents the given child is in the given parent, otherwise not
+	 */
+	public static boolean isChildScope(Scope prent, Scope child) {
+		if(child == null) {
+			return false;
+		}
+		if(prent == child) {
+			return true;
+		}
+		return TargetSolver.isChildScope(prent, TargetSolver.getParentScope(child));
 	}
 	
 }

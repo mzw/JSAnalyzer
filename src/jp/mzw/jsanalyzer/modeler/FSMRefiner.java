@@ -253,19 +253,24 @@ public class FSMRefiner extends Modeler {
 	}
 	
 	private void setTargetId(FiniteStateMachine fsm, EnDisableManager edManager) {
+		this.setTargetId(fsm, edManager, false);
+	}
+	
+	private void setTargetId(FiniteStateMachine fsm, EnDisableManager edManager, boolean print) {
 		for(State state : fsm.getStateList()) {
-//			System.out.println("StateId = " + state.getId());
 			
-//			System.out.println("\tEnable/Disable statements");
+			if(print) System.out.println("StateId = " + state.getId());
+				
+			if(print) System.out.println("\tEnable/Disable statements");
 			for(EnDisable ed : state.getEnDisableList()) {
 				ed.setTargetId(edManager);
-//				System.out.println("\t\t#" + ed.getTargetId() + " is disabled?: " + ed.isDisabled());
+				if(print) System.out.println("\t\t#" + ed.getTargetId() + " is disabled?: " + ed.isDisabled());
 			}
 
-//			System.out.println("\tInteractions");
+			if(print) System.out.println("\tInteractions");
 			for(Interaction interaction: state.getInteractionList()) {
 				interaction.setTargetId(edManager);
-//				System.out.println("\t\t#" + interaction.getTargetId() + " whose event is: " + interaction.getEvent().getEvent());
+				if(print) System.out.println("\t\t#" + interaction.getTargetId() + " whose event is: " + interaction.getEvent().getEvent());
 			}
 		}
 	}
@@ -278,6 +283,10 @@ public class FSMRefiner extends Modeler {
 	}
 	
 	private void findDisabledInteraction(String curStateId, FiniteStateMachine fsm, EnDisableManager edManager, List<EnDisable> context) {
+		this.findDisabledInteraction(curStateId, fsm, edManager, context, false);
+	}
+	
+	private void findDisabledInteraction(String curStateId, FiniteStateMachine fsm, EnDisableManager edManager, List<EnDisable> context, boolean print) {
 		State curState = fsm.getState(curStateId);
 
 		/// Prevents infinite loop
@@ -305,8 +314,11 @@ public class FSMRefiner extends Modeler {
 				/// Removes this intaraction
 				curState.removeInteraction(interaction.getId());
 				fsm.removeTransition(curState, interaction);
-//				System.out.println("@State.id = " + curStateId);
-//				System.out.println("\tDisabled interaction: " + interaction.getEvent().getEvent());
+				
+				if(print) {
+					System.out.println("@State.id = " + curStateId);
+					System.out.println("\tDisabled interaction: " + interaction.getEvent().getEvent());
+				}
 				
 				/// Recursively traverses
 				this.traverse(fsm, edManager);
@@ -316,7 +328,7 @@ public class FSMRefiner extends Modeler {
 		
 		/// Goes to next states if no disabled interactions at currect state
 		for(Transition trans : fsm.getTransListFrom(curState.getId())) {
-			this.findDisabledInteraction(trans.getToStateId(), fsm, edManager, curContext);
+			this.findDisabledInteraction(trans.getToStateId(), fsm, edManager, curContext, print);
 		}
 	}
 	
