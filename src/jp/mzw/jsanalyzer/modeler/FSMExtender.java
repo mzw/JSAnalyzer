@@ -1,19 +1,14 @@
 package jp.mzw.jsanalyzer.modeler;
 
-import java.util.List;
-import java.util.Stack;
-
 import org.apache.commons.lang3.tuple.Pair;
 import org.jsoup.nodes.Element;
 import org.mozilla.javascript.ast.Assignment;
 import org.mozilla.javascript.ast.AstNode;
-import org.mozilla.javascript.ast.AstRoot;
 import org.mozilla.javascript.ast.FunctionCall;
+import org.mozilla.javascript.ast.NewExpression;
+import org.mozilla.javascript.ast.ObjectLiteral;
 import org.mozilla.javascript.ast.ObjectProperty;
 import org.mozilla.javascript.ast.PropertyGet;
-import org.mozilla.javascript.ast.Scope;
-import org.mozilla.javascript.ast.VariableDeclaration;
-import org.mozilla.javascript.ast.VariableInitializer;
 import org.w3c.dom.css.CSSStyleDeclaration;
 import org.w3c.dom.css.CSSStyleRule;
 
@@ -34,7 +29,6 @@ import jp.mzw.jsanalyzer.rule.Rule;
 import jp.mzw.jsanalyzer.rule.RuleManager;
 import jp.mzw.jsanalyzer.rule.Trigger;
 import jp.mzw.jsanalyzer.util.StringUtils;
-import jp.mzw.jsanalyzer.util.TextFileUtils;
 import jp.mzw.jsanalyzer.xml.XMLAttr;
 import jp.mzw.jsanalyzer.modeler.EnDisableManager.EnDisable;
 
@@ -68,18 +62,15 @@ public class FSMExtender extends Modeler {
 	 */
 	public Pair<CallGraph, EnDisableManager> createExtendedCallGraph() {
 		System.out.println("Extends call graph...");
-		
+
 		this.mHTMLParser = this.parseHTMLCode();
 		
 		EnDisableManager edManager = new EnDisableManager();
+		this.mHTMLParser.setControledHTMLElementList(this.mAnalyzer.getRuleManager(), edManager);
 		this.setCSSControlProperty(this.mHTMLParser, edManager);
 		
 		RuleManager ruleManager = this.mAnalyzer.getRuleManager();
 		CallGraph callGraph = new CallGraph(this.mHTMLParser.getJSCodeList(ruleManager));
-		
-		// To be implemented
-//		DataFlowManager dfManager = new DataFlowManager();
-//		dfManager.analyze(callGraph);
 		
 		this.extend(callGraph, ruleManager, edManager);
 		
@@ -112,6 +103,9 @@ public class FSMExtender extends Modeler {
 			}
 			
 		}
+		
+		/// Additionally, finds target candidates
+		edManager.findTargetCandidates(callGraph);
 	}
 	
 	/**
@@ -140,7 +134,7 @@ public class FSMExtender extends Modeler {
 			
 			edManager.add(assignNode.getId(), ed);
 			node.setNodeType(Node.Control);
-			TextFileUtils.registSnapchot(callGraph.toDot());
+//			TextFileUtils.registSnapchot(callGraph.toDot());
 		}
 		// Object.function(prop, value), e.g. $("id").attr("disabled", "disabled");
 		// Object.function(prop), e.g. $("id").removeAttr("disabled");
@@ -178,7 +172,7 @@ public class FSMExtender extends Modeler {
 				
 				edManager.add(callGraph.getNode(funcCall).getId(), ed);
 				node.setNodeType(Node.Control);
-				TextFileUtils.registSnapchot(callGraph.toDot());
+//				TextFileUtils.registSnapchot(callGraph.toDot());
 			}
 		}
 		// Parent.appendChild(object) or Object.prependTo(parent)
@@ -199,7 +193,7 @@ public class FSMExtender extends Modeler {
 				
 				edManager.add(callGraph.getNode(funcCall).getId(), ed);
 				node.setNodeType(Node.Control);
-				TextFileUtils.registSnapchot(callGraph.toDot());
+//				TextFileUtils.registSnapchot(callGraph.toDot());
 				
 			} else {
 				StringUtils.printError(this, "Unknown JSControl.getTarget for identifying enable/disable statement", node.getAstNode().toSource());
@@ -248,7 +242,7 @@ public class FSMExtender extends Modeler {
 			edge.setEvent(eventAstNode, rule);
 			node.setNodeType(Node.Potential);
 			callGraph.addEdge(edge);
-			TextFileUtils.registSnapchot(callGraph.toDot());
+//			TextFileUtils.registSnapchot(callGraph.toDot());
 		}
 		// Object.potential_function(..., callback, ...)
 		else if(node.getAstNode().getParent() instanceof PropertyGet &&
@@ -272,7 +266,7 @@ public class FSMExtender extends Modeler {
 						node.setNodeType(Node.Potential);
 					}
 					callGraph.addEdge(edge);
-					TextFileUtils.registSnapchot(callGraph.toDot());
+//					TextFileUtils.registSnapchot(callGraph.toDot());
 				}
 				
 				// e.g. jQuery.error(callback) is an potential function
@@ -317,11 +311,13 @@ public class FSMExtender extends Modeler {
 			
 			node.setNodeType(Node.Trigger);
 			callGraph.addEdge(edge);
-			TextFileUtils.registSnapchot(callGraph.toDot());
+//			TextFileUtils.registSnapchot(callGraph.toDot());
 		}
 		// new Target(..., {..., trigger: callback, ...}, ...)
 		else if(node.getAstNode().getParent() instanceof ObjectProperty &&
-				((ObjectProperty)node.getAstNode().getParent()).getLeft() == node.getAstNode()) {
+				((ObjectProperty)node.getAstNode().getParent()).getLeft() == node.getAstNode() &&
+				node.getAstNode().getParent().getParent() instanceof ObjectLiteral &&
+				node.getAstNode().getParent().getParent().getParent() instanceof NewExpression) {
 			
 			AstNode cbAstNode = ((ObjectProperty)node.getAstNode().getParent()).getRight();
 			Node fromNode = callGraph.getNode((ObjectProperty)node.getAstNode().getParent());
@@ -329,10 +325,12 @@ public class FSMExtender extends Modeler {
 
 			Edge edge = new Edge(fromNode.getId(), toNode.getId());
 			
-			edge.setEvent(null, node.getAstNode(), rule); // to be debugged: determines this target
+			NewExpression target = (NewExpression)node.getAstNode().getParent().getParent().getParent();
+			edge.setEvent(target, node.getAstNode(), rule);
+			
 			node.setNodeType(Node.Trigger);
 			callGraph.addEdge(edge);
-			TextFileUtils.registSnapchot(callGraph.toDot());
+//			TextFileUtils.registSnapchot(callGraph.toDot());
 		}
 		
 		else {

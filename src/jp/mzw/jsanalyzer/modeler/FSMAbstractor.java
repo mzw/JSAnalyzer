@@ -90,7 +90,7 @@ public class FSMAbstractor extends Modeler {
 						graph.removeNode(node);
 						graph.removeEdge(toEdge);
 						
-						TextFileUtils.registSnapchot(graph.toDot());
+//						TextFileUtils.registSnapchot(graph.toDot());
 					}
 				} else if(fromEdges.size() == 1 && toEdges.size() == 1) {
 					// (this node) ---(one edge)--->
@@ -107,7 +107,7 @@ public class FSMAbstractor extends Modeler {
 						graph.removeNode(node);
 						graph.removeEdge(toEdge);
 
-						TextFileUtils.registSnapchot(graph.toDot());
+//						TextFileUtils.registSnapchot(graph.toDot());
 						
 						fromEdge.setFromNodeId(fromNode.getId());
 					}
@@ -177,12 +177,12 @@ public class FSMAbstractor extends Modeler {
 		for(Node node : improperNodes) {
 			graph.removeNode(node);
 
-			TextFileUtils.registSnapchot(graph.toDot());
+//			TextFileUtils.registSnapchot(graph.toDot());
 		}
 		for(Edge edge : improperEdges) {
 			graph.removeEdge(edge);
 
-			TextFileUtils.registSnapchot(graph.toDot());
+//			TextFileUtils.registSnapchot(graph.toDot());
 		}
 		
 		// Over abstraction
@@ -234,7 +234,7 @@ public class FSMAbstractor extends Modeler {
 					}
 				}
 				
-				TextFileUtils.registSnapchot(graph.toDot());
+//				TextFileUtils.registSnapchot(graph.toDot());
 			}
 		}
 		
@@ -255,11 +255,11 @@ public class FSMAbstractor extends Modeler {
 		// remove
 		for(Node node : removeNodes) {
 			graph.removeNode(node);
-			TextFileUtils.registSnapchot(graph.toDot());
+//			TextFileUtils.registSnapchot(graph.toDot());
 		}
 		for(Edge edge : removeEdges) {
 			graph.removeEdge(edge);
-			TextFileUtils.registSnapchot(graph.toDot());
+//			TextFileUtils.registSnapchot(graph.toDot());
 		}
 	}
 }

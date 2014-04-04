@@ -172,20 +172,20 @@ public class Node extends Element {
 	public String getDotLabel() {
 		String ret = "[label=\"" + StringUtils.esc_dot(this.getNodeLabel()) + ":" + IdGen.getIdNum(this.getId()) + "\"";
 		
-		switch(this.mNodeType) {
-		case Node.Trigger:
-			ret += ", style=\"filled\", fillcolor=\"yellow\"";
-			break;
-		case Node.Potential:
-			ret += ", style=\"filled\", fillcolor=\"blue\"";
-			break;
-		case Node.Control:
-			ret += ", style=\"filled\", fillcolor=\"red\"";
-			break;
-		case Node.Normal:
-		default:
-			break;
-		}
+//		switch(this.mNodeType) {
+//		case Node.Trigger:
+//			ret += ", style=\"filled\", fillcolor=\"yellow\"";
+//			break;
+//		case Node.Potential:
+//			ret += ", style=\"filled\", fillcolor=\"blue\"";
+//			break;
+//		case Node.Control:
+//			ret += ", style=\"filled\", fillcolor=\"red\"";
+//			break;
+//		case Node.Normal:
+//		default:
+//			break;
+//		}
 		
 		ret += "]";
 		return ret;

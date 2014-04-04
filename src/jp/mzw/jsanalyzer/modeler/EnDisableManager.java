@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.jsoup.nodes.Element;
 import org.mozilla.javascript.ast.AstNode;
 import org.mozilla.javascript.ast.FunctionCall;
@@ -11,6 +12,7 @@ import org.mozilla.javascript.ast.Name;
 import org.mozilla.javascript.ast.Scope;
 import org.mozilla.javascript.ast.StringLiteral;
 
+import jp.mzw.jsanalyzer.modeler.model.graph.CallGraph;
 import jp.mzw.jsanalyzer.rule.Control;
 import jp.mzw.jsanalyzer.rule.JSControl;
 import jp.mzw.jsanalyzer.util.StringUtils;
@@ -29,11 +31,24 @@ public class EnDisableManager {
 	 */
 	HashMap<String, List<EnDisable>> mEnDisableInfo;
 	
+	TargetSolver mTargetSolver;
+	
 	/**
 	 * Constructor
 	 */
 	public EnDisableManager() {
 		this.mEnDisableInfo = new HashMap<String, List<EnDisable>>();
+		this.mTargetSolver = new TargetSolver();
+	}
+	
+	public TargetSolver getTargetSolver() {
+		return this.mTargetSolver;
+	}
+	public void findTargetCandidates(CallGraph callGraph) {
+		this.mTargetSolver.findTargetCandidates(callGraph);
+	}
+	public String findElementId(Scope scope, String varName) {
+		return this.mTargetSolver.findElementId(scope, varName);
 	}
 	
 	/**
@@ -124,16 +139,17 @@ public class EnDisableManager {
 		/**
 		 * Hard coding
 		 */
-		public void setTargetId() {
+		public void setTargetId(EnDisableManager edManager) {
 			if(this.mHTMLElement != null) {
 				this.mTargetId = this.mHTMLElement.attr("id");
 			} else if(this.mJSTargetNode != null) {
 				if(this.mJSTargetNode instanceof FunctionCall) {
 					// document.getElementById("ID").disable = true;
-					this.mTargetId = TargetSolver.getElementId((FunctionCall)this.mJSTargetNode);
+					this.mTargetId = TargetSolver.getElementIdBy((FunctionCall)this.mJSTargetNode);
 				}
 				else if(this.mJSTargetNode instanceof Name) {
-					this.mTargetId = TargetSolver.getElementId((Name)this.mJSTargetNode);
+//					this.mTargetId = TargetSolver.getElementId((Name)this.mJSTargetNode);
+					this.mTargetId = edManager.findElementId(TargetSolver.getParentScope(this.mJSTargetNode), this.mJSTargetNode.toSource());
 				}
 				else {
 					System.out.println("Unknown JS element class: " + this.mJSTargetNode.getClass() + ", src= " + this.mJSTargetNode.toSource());

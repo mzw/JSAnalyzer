@@ -1,23 +1,45 @@
-package jp.mzw.jsanalyzer.core;
+package jp.mzw.jsanalyzer.test;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import jp.mzw.jsanalyzer.config.FileExtension;
+import jp.mzw.jsanalyzer.core.Analyzer;
 import jp.mzw.jsanalyzer.core.examples.*;
+import jp.mzw.jsanalyzer.formulator.IADPFormulator;
+import jp.mzw.jsanalyzer.formulator.property.Property;
 import jp.mzw.jsanalyzer.util.CommandLineUtils;
 import jp.mzw.jsanalyzer.util.StringUtils;
 import jp.mzw.jsanalyzer.util.TextFileUtils;
+import jp.mzw.jsanalyzer.verifier.modelchecker.NuSMV;
 import jp.mzw.jsanalyzer.verifier.modelchecker.Spin;
 import jp.mzw.jsanalyzer.verifier.specification.Specification;
 
 public class Test {
 
-	
 	public static void main(String[] args) {
+//		Analyzer analyzer = new Analyzer(new FileDLerCorrect());
+		Analyzer analyzer = new Analyzer(new FileDLerError());
+//		Analyzer analyzer = new Analyzer(new FileDLerRetry());
+		
+		String objName = analyzer.getProject().getName() + ".fsm" + FileExtension.Serialized;
+		Object obj = TextFileUtils.deserialize(analyzer.getProject().getDir(), objName);
+		jp.mzw.jsanalyzer.serialize.model.FiniteStateMachine fsm = (jp.mzw.jsanalyzer.serialize.model.FiniteStateMachine)obj;
+		
+		NuSMV nusmv = new NuSMV(fsm, analyzer);
+		for(Specification spec : IADPFormulator.getSpecList4FileDLer(analyzer)) {
+			nusmv.verify(spec);
+		}
+	}
+	
+	
+	/////
+	
+	public static void ___main(String[] args) {
 		Analyzer analyzer = new Analyzer(new FileDLerCorrect());
 //		Analyzer analyzer = new Analyzer(new FileDLerError());
 //		Analyzer analyzer = new Analyzer(new FileDLerRetry());
@@ -83,11 +105,6 @@ public class Test {
 		String propListXML = jp.mzw.jsanalyzer.formulator.property.Property.getPropertyListXML();
 		System.out.println(propListXML);
 	}
-	
-	
-	
-	
-	
 	
 	
 	/////////////////////////////////////////

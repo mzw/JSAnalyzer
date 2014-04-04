@@ -67,6 +67,19 @@ public class State extends Node {
 		this.mInteractionList.add(interaction);
 	}
 	
+	public void removeInteraction(String id) {
+		Interaction remove = null;
+		for(Interaction interaction : this.mInteractionList) {
+			if(interaction.getId().equals(id)) {
+				remove = interaction;
+				break;
+			}
+		}
+		if(remove != null) {
+			this.mInteractionList.remove(remove);
+		}
+	}
+	
 	public void removeAllInteractions() {
 		this.mInteractionList = new ArrayList<Interaction>();
 	}

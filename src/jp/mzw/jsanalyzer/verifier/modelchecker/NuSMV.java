@@ -1,7 +1,6 @@
 package jp.mzw.jsanalyzer.verifier.modelchecker;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,14 +9,9 @@ import jp.mzw.jsanalyzer.config.Command;
 import jp.mzw.jsanalyzer.config.FileExtension;
 import jp.mzw.jsanalyzer.config.FilePath;
 import jp.mzw.jsanalyzer.core.Analyzer;
-import jp.mzw.jsanalyzer.core.examples.*;
-import jp.mzw.jsanalyzer.formulator.adp.*;
-import jp.mzw.jsanalyzer.formulator.pp.*;
-import jp.mzw.jsanalyzer.formulator.property.*;
 import jp.mzw.jsanalyzer.serialize.model.Event;
 import jp.mzw.jsanalyzer.serialize.model.FiniteStateMachine;
 import jp.mzw.jsanalyzer.serialize.model.State;
-import jp.mzw.jsanalyzer.serialize.model.State.FuncElement;
 import jp.mzw.jsanalyzer.serialize.model.Transition;
 import jp.mzw.jsanalyzer.util.CommandLineUtils;
 import jp.mzw.jsanalyzer.util.TextFileUtils;
@@ -25,68 +19,46 @@ import jp.mzw.jsanalyzer.verifier.specification.Specification;
 
 public class NuSMV extends ModelChecker {
 	
-	public static void main(String[] args) {
-		Analyzer analyzer = new Analyzer(new FileDLerCorrect());
-//		Analyzer analyzer = new Analyzer(new FileDLerError());
-//		Analyzer analyzer = new Analyzer(new FileDLerRetry());
+	/**
+	 * Extracted (and serialized) finite state machine
+	 * These (non-serialized and serialized) models should be uniformed.
+	 */
+	protected FiniteStateMachine mFSM;
+	
+	/**
+	 * Translated SMV model in String
+	 */
+	protected String mSmvModel;
+	
+	/**
+	 * Constructor
+	 * @param fsm Extracted (and serialized) finite state machine
+	 * @param analyzer Containts this project information
+	 */
+	public NuSMV(FiniteStateMachine fsm, Analyzer analyzer) {
+		super(null, analyzer); // Should accept non-serialized FSM in future
+		this.mFSM = fsm;
 		
-		String objName = analyzer.getProject().getName() + ".fsm" + FileExtension.Serialized;
-		Object obj = TextFileUtils.deserialize(analyzer.getProject().getDir(), objName);
-		jp.mzw.jsanalyzer.serialize.model.FiniteStateMachine fsm = (jp.mzw.jsanalyzer.serialize.model.FiniteStateMachine)obj;
+		this.mSmvModel = this.translate();
 		
-
-		// For FileDLer only
-		List<Property> propList = NuSMV.getFileDLerPropList(analyzer);
-		
-		NuSMV nusmv = new NuSMV(fsm, analyzer);
-		String smvmodel = nusmv.translate();
-		nusmv.setSmvModel(smvmodel);
-		
+		/// Saves SMV model
 		TextFileUtils.write(
-				analyzer.getProject().getDir() + FilePath.VerifyResult,
-				analyzer.getProject().getName() + FileExtension.SMVModel,
-				smvmodel);
-		
-		/// Verifies
-		for(Property prop : propList) {
-			try {
-				Specification spec = new Specification(prop);			
-				nusmv.runNuSMV(spec);
-				nusmv.parseSmvResult(spec);
-
-				if(!spec.getSmvResult()) {
-					System.out.print("Counterexample: " );
-					int step = 0;
-					String sh = "#!/bin/sh\n";
-					for(String elmId : spec.getCounterexample()) {
-						System.out.print(elmId + " -> ");
-						String dot = nusmv.visualizeCounterexample(elmId);
-						String filename = spec.getId() + ".counteremaple." + (step++) + ".dot";
-						TextFileUtils.write("/Users/yuta/Desktop/test2", filename, dot);
-						
-						sh += "dot -Tpng " + filename + " -o " + filename + ".png\n";
-					}
-					System.out.println("");
-					
-					TextFileUtils.write("/Users/yuta/Desktop/test2", spec.getId() + ".dot.sh", sh);
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		
+				this.mAnalyzer.getProject().getDir() + FilePath.VerifyResult,
+				this.mAnalyzer.getProject().getName() + FileExtension.SMVModel,
+				this.mSmvModel);
 	}
 	
-	
-	public String visualizeCounterexample(String elementId) {
+	/**
+	 * Generates a DOT source where a given state is highlighted
+	 * @param stateId Represents a state to be highlighted
+	 * @return The DOT source
+	 */
+	public String visualizeCounterexample(String stateId) {
 		String ret = "";
 		ret += "digraph FSM {\n";
 		for(State state : this.mFSM.getStateList()) {
 			ret += state.getId() + " [";
-			if(elementId.equals("  app.state = " + state.getId())) {
+			if(stateId.equals(state.getId())) {
 				ret += "style=filled,fillcolor=red";
 			}
 			ret += "];\n";
@@ -97,7 +69,34 @@ public class NuSMV extends ModelChecker {
 			ret += " [";
 			if(trans.getEvent() != null) {
 				ret += "label=\"" + trans.getEvent().getEvent() + "\"";
-				if(elementId.equals("  app.state = " + trans.getEvent().getId())) {
+			}
+			ret += "]\n";
+		}
+		
+		ret += "}\n";
+		
+		return ret;
+	}
+
+	/**
+	 * Generates a DOT source where a given event is highlighted
+	 * @param eventId Represents a event to be highlighted
+	 * @param fromStateId Specifies its from state because 1..many edge(s) has the event identified by the same event ID
+	 * @return The DOT source
+	 */
+	public String visualizeCounterexample(String eventId, String fromStateId) {
+		String ret = "";
+		ret += "digraph FSM {\n";
+		for(State state : this.mFSM.getStateList()) {
+			ret += state.getId() + ";\n";
+		}
+		
+		for(Transition trans : this.mFSM.getTransList()) {
+			ret += trans.getFromStateId() + " -> " + trans.getToStateId();
+			ret += " [";
+			if(trans.getEvent() != null) {
+				ret += "label=\"" + trans.getEvent().getEvent() + "\"";
+				if(eventId.equals(trans.getEvent().getId()) && trans.getFromStateId().equals(fromStateId)) {
 					ret += ",style=bold,color=red";
 				}
 			}
@@ -109,25 +108,60 @@ public class NuSMV extends ModelChecker {
 		return ret;
 	}
 	
-	protected FiniteStateMachine mFSM;
-	protected String mSmvModel;
-	public NuSMV(FiniteStateMachine fsm, Analyzer analyzer) {
-		super(null, analyzer);
-		this.mFSM = fsm;
-	}
 	
-	public void setSmvModel(String smv) {
-		this.mSmvModel = smv;
-	}
-	public String getSmvModel() {
-		return this.mSmvModel;
-	}
-	
+	/**
+	 * Executes NuSMV
+	 * @param spec Given specication (based on Ajax design patterns)
+	 */
 	public void verify(Specification spec) {
 		if(this.mSmvModel == null || "".equals(this.mSmvModel)) {
 			return;
 		}
 		
+		try {
+			this.runNuSMV(spec);
+			this.parseSmvResult(spec);
+
+			if(!spec.getSmvResult()) {
+				String dir = this.mAnalyzer.getProject().getDir() + FilePath.VerifyResult + FilePath.Counterexample;
+//				System.out.print("Counterexample: " );
+				int step = 0;
+				String sh = "#!" + Command.Bin + "\n";
+				
+				String fromStateId = this.mFSM.getRootStateId();
+				for(String elmId : spec.getCounterexample()) {
+//					System.out.print(elmId + " -> ");
+					
+					boolean isState = false;
+					for(State state : this.mFSM.getStateList()) {
+						if(state.getId().equals(elmId)) {
+							fromStateId = state.getId();
+							isState = true;
+							break;
+						}
+					}
+					
+					String dot = "";
+					if(isState) {
+						dot = this.visualizeCounterexample(elmId);
+					} else {
+						dot = this.visualizeCounterexample(elmId, fromStateId);
+					}
+					
+					String filename = this.mAnalyzer.getProject().getName() + ".spec." + spec.getId() + ".step." + (step++) + FileExtension.Dot;
+					TextFileUtils.write(dir, filename, dot);
+					
+					sh += Command.Dot + " -Tpng " + filename + " -o " + filename + ".png\n";
+				}
+//				System.out.println("");
+				
+				TextFileUtils.write(dir, this.mAnalyzer.getProject().getName() + ".spec." + spec.getId() + ".sh", sh);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public String getSmvFilename(Specification spec) {
@@ -136,11 +170,13 @@ public class NuSMV extends ModelChecker {
 	public String getSmvResultFilename(Specification spec) {
 		return this.mAnalyzer.getProject().getName() + "." + spec.getId() + FileExtension.SMVResult;
 	}
+	
+
 	/**
-	 * 
-	 * @param spec
-	 * @throws IOException
-	 * @throws InterruptedException
+	 * Executes NuSMV
+	 * @param spec Given specication (based on Ajax design patterns)
+	 * @throws IOException Writes SMV model with this specification in local file syste
+	 * @throws InterruptedException For timeout
 	 */
 	private void runNuSMV(Specification spec) throws IOException, InterruptedException {
 		Thread timeout = new CommandLineUtils.TimeoutThread(Thread.currentThread());
@@ -179,6 +215,10 @@ public class NuSMV extends ModelChecker {
 		}
 	}
 	
+	/**
+	 * Parses outputs of the verification results
+	 * @param spec Used for identifying the verification results
+	 */
 	public void parseSmvResult(Specification spec) {
 		String dir = this.mAnalyzer.getProject().getDir() + FilePath.VerifyResult;
 		String output = TextFileUtils.cat(dir, this.getSmvResultFilename(spec));
@@ -205,7 +245,9 @@ public class NuSMV extends ModelChecker {
 			}
 			for(String _tmp : tmp.split("\n")) {
 				if(_tmp.contains("app.state = ")) {
-					counterexample.add(_tmp);
+					/// "  app.state = JSAnalyzerID"
+					String elmId = _tmp.split(" = ")[1];
+					counterexample.add(elmId);
 				}
 			}
 		}
@@ -403,117 +445,8 @@ public class NuSMV extends ModelChecker {
 		return ret;
 	}
 
-	public static List<Property> getFileDLerPropList(Analyzer analyzer) {
-		ArrayList<Property> ret = new ArrayList<Property>();
-		
-		String objName = analyzer.getProject().getName() + ".fsm" + FileExtension.Serialized;
-		Object obj = TextFileUtils.deserialize(analyzer.getProject().getDir(), objName);
-		jp.mzw.jsanalyzer.serialize.model.FiniteStateMachine fsm = (jp.mzw.jsanalyzer.serialize.model.FiniteStateMachine)obj;
-		
-		AsyncComm pAsyncComm = new AsyncComm();
-		pAsyncComm.setTemplateVariables(NuSMV.genOr(getFuncIdList(fsm, "Ajax.Request")), NuSMV.genOr(getUserEventIdList(fsm, analyzer)));
-		ret.add(pAsyncComm);
-
-		ACRetry pACRetry = new ACRetry();
-		pACRetry.setTemplateVariables(NuSMV.genOr(getEventIdList(fsm, "onFailure")), NuSMV.genOr(getFuncIdList(fsm, "Ajax.Request")));
-		ret.add(pACRetry);
-		
-		SRWait pSRWait = new SRWait();
-		pSRWait.setTemplateVariables(NuSMV.genOr(getFuncIdList(fsm, "inputFormText")), NuSMV.genOr(getEventIdList(fsm, "onSuccess")));
-		ret.add(pSRWait);
-		
-		UEHRegist pUEHRegist = new UEHRegist();
-		pUEHRegist.setTemplateVariables(NuSMV.genOr(getUserEventIdList(fsm, analyzer)), NuSMV.genOr(getEventIdList(fsm, "onload")));
-		ret.add(pUEHRegist);
-		
-//		UEHSingle pUEHSingle = new UEHSingle();
-//		pUEHSingle.setTemplateVariables(NuSMV.genOr(getFuncIdList(fsm, "addCart")), NuSMV.genOr(getEventIdList(fsm, "onclick")), true);
-//		ret.add(pUEHSingle);
-		
-		Property pUESubmit = new Property(
-				"User event and submit",
-				"UESubmit",
-				"Ajax apps should require explicit user operations before form data is submitted",
-				new AjaxDesignPattern(AjaxDesignPattern.Category.Programming, "Explicit Submittion"),
-				new Existence(PropertyPattern.Scope.Before),
-				PropertyPattern.Scope.Before);
-		pUESubmit.setTemplateVariables(NuSMV.genOr(getUserEventIdList(fsm, analyzer)), null, null, NuSMV.genOr(getFuncIdList(fsm, "doSubmit")));
-		ret.add(pUESubmit);
-		
-		return ret;
-	}
 	
 	
-	/**
-	 * Gets state ID corresponding to guided funtion name
-	 * @param fsm Extracted finite state machine that has all states
-	 * @param guide Given function name
-	 * @return State ID list
-	 */
-	public static List<String> getFuncIdList(FiniteStateMachine fsm, String guide) {
-		ArrayList<String> ret = new ArrayList<String>();
-		
-		for(State state : fsm.getStateList()) {
-			for(FuncElement func : state.getFuncElement()) {
-
-				/// Requiring user's guide information
-				if(guide.equals(func.getFuncName()) &&
-						!ret.contains(state.getId())) {
-					ret.add(state.getId());
-				}
-				
-			}
-		}
-		
-		return ret;
-	}
-	
-
-	/**
-	 * Gets event ID corresponding to guided event name
-	 * @param fsm Extracted finite state machine that has all events
-	 * @param guide Given event name
-	 * @return Event ID list
-	 */
-	public static List<String> getEventIdList(FiniteStateMachine fsm, String guide) {
-		ArrayList<String> ret = new ArrayList<String>();
-		for(Transition trans : fsm.getTransList()) {
-			Event event = trans.getEvent();
-			
-			/// Requiring user's guide information
-			if(event != null &&
-					guide.equals(event.getEvent()) &&
-					!ret.contains(event.getId())) {
-				ret.add(event.getId());
-			}
-			
-		}
-		
-		return ret;
-	}
-	
-	/**
-	 * Gets user event IDs
-	 * @param fsm Extracted finite state machine
-	 * @param analyzer Provides the rule manager that determines whether an event is user's one or not
-	 * @return User event ID list
-	 */
-	public static List<String> getUserEventIdList(FiniteStateMachine fsm, Analyzer analyzer) {
-		ArrayList<String> ret = new ArrayList<String>();
-		for(Transition trans : fsm.getTransList()) {
-			Event event = trans.getEvent();
-			
-			/// Requiring user's guide information
-			if(event != null &&
-					analyzer.getRuleManager().isUserInteraction(event.getEvent()) &&
-					!ret.contains(event.getId())) {
-				ret.add(event.getId());
-			}
-			
-		}
-		
-		return ret;
-	}
 	
 	/**
 	 * Generates an OR expression by using given element IDs

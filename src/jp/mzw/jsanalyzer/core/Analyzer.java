@@ -115,10 +115,11 @@ public class Analyzer {
 
 		System.out.println("Preparing your project...");
 //		Analyzer analyzer = new Analyzer("projects/test2/project.xml");
-//		Analyzer analyzer = new Analyzer(new QAsite());
+//		Analyzer analyzer = new Analyzer(new QAsiteError());
+		Analyzer analyzer = new Analyzer(new QAsiteCorrect());
 //		Analyzer analyzer = new Analyzer(new FileDLerError());
 //		Analyzer analyzer = new Analyzer(new FileDLerCorrect());
-		Analyzer analyzer = new Analyzer(new FileDLerRetry());
+//		Analyzer analyzer = new Analyzer(new FileDLerRetry());
 //		Analyzer analyzer = new Analyzer(new SWSError());
 //		Analyzer analyzer = new Analyzer(new LoginDemo());
 //		Analyzer analyzer = new Analyzer(new LWA());

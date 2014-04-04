@@ -8,7 +8,6 @@ import jp.mzw.jsanalyzer.modeler.model.Element;
 import jp.mzw.jsanalyzer.parser.JSCode;
 import jp.mzw.jsanalyzer.parser.JSParser;
 import jp.mzw.jsanalyzer.util.StringUtils;
-import jp.mzw.jsanalyzer.util.TextFileUtils;
 
 import org.mozilla.javascript.ast.AstNode;
 import org.mozilla.javascript.ast.AstRoot;
@@ -94,7 +93,7 @@ public class CallGraph extends Element {
 				Node node = new Node(astNode, jsCode);
 				newNodes.add(node);
 				mNodeList.add(node);
-				TextFileUtils.registSnapchot(toDot());
+//				TextFileUtils.registSnapchot(toDot());
 				return true;
 			}
 		});
@@ -105,7 +104,7 @@ public class CallGraph extends Element {
 				Edge edge = new Edge(CallGraph.mInitNode.getId(), node.getId());
 				edge.setEvent(jsCode.getHTMLElement(), jsCode.getEventAttr(), jsCode.getTriggerRule());
 				this.mEdgeList.add(edge);
-				TextFileUtils.registSnapchot(toDot());
+//				TextFileUtils.registSnapchot(toDot());
 			} else if(node.getAstNode() instanceof FunctionNode) {
 				// Will add at this.addCallerCallee()
 			} else {
@@ -113,7 +112,7 @@ public class CallGraph extends Element {
 				Node parent = this.getNode(parentAstNode);
 				Edge edge = new Edge(parent.getId(), node.getId());
 				this.mEdgeList.add(edge);
-				TextFileUtils.registSnapchot(toDot());
+//				TextFileUtils.registSnapchot(toDot());
 			}
 		}
 	}
@@ -139,7 +138,7 @@ public class CallGraph extends Element {
 					if(funcNode.getName().equals(funcCall.getTarget().toSource())) {
 						Edge edge = new Edge(this.getNode(funcCall).getId(), this.getNode(funcNode).getId());
 						this.mEdgeList.add(edge);
-						TextFileUtils.registSnapchot(toDot());
+//						TextFileUtils.registSnapchot(toDot());
 						found = true;
 					}
 				}
@@ -163,7 +162,7 @@ public class CallGraph extends Element {
 				Edge edge = this.getEdge(node.getId(), toNode.getId());
 				if(edge != null) {
 					edge.setCond(cond, false);
-					TextFileUtils.registSnapchot(toDot());
+//					TextFileUtils.registSnapchot(toDot());
 				}
 				
 				AstNode elsePart = ifStatement.getElsePart();
@@ -171,7 +170,7 @@ public class CallGraph extends Element {
 					Node elseNode = this.getNode(elsePart);
 					Edge elseEdge = this.getEdge(node.getId(), elseNode.getId());
 					elseEdge.setCond(cond, true);
-					TextFileUtils.registSnapchot(toDot());
+//					TextFileUtils.registSnapchot(toDot());
 				}
 				
 			}

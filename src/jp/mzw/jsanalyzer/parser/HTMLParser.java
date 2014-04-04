@@ -3,6 +3,7 @@ package jp.mzw.jsanalyzer.parser;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Attribute;
@@ -11,6 +12,11 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 
 import jp.mzw.jsanalyzer.core.IdGen;
+import jp.mzw.jsanalyzer.modeler.EnDisableManager;
+import jp.mzw.jsanalyzer.modeler.EnDisableManager.EnDisable;
+import jp.mzw.jsanalyzer.modeler.model.graph.CallGraph;
+import jp.mzw.jsanalyzer.rule.Control;
+import jp.mzw.jsanalyzer.rule.HTMLControl;
 import jp.mzw.jsanalyzer.rule.Library;
 import jp.mzw.jsanalyzer.rule.RuleManager;
 import jp.mzw.jsanalyzer.rule.Trigger;
@@ -114,7 +120,7 @@ public class HTMLParser extends Parser {
 	 * Gets CSS codes in HTML code
 	 * @return CSS codes
 	 */
-	public ArrayList<CSSCode> getCSSCodeList() {
+	public List<CSSCode> getCSSCodeList() {
 		if(this.mCSSCodeList == null) {
 			this.mCSSCodeList = new ArrayList<CSSCode>();
 		} else {
@@ -201,7 +207,7 @@ public class HTMLParser extends Parser {
 	 * Because values of the event attributes are JavaScript codes.
 	 * @return JavaScript codes
 	 */
-	public ArrayList<JSCode> getJSCodeList(RuleManager ruleManager) {
+	public List<JSCode> getJSCodeList(RuleManager ruleManager) {
 		if(this.mJSCodeList == null) {
 			this.mJSCodeList = new ArrayList<JSCode>();
 		} else {
@@ -269,6 +275,24 @@ public class HTMLParser extends Parser {
 		return this.mJSCodeList;
 	}
 	
+	/**
+	 * Sets enable/disable statements at HTML code
+	 * @param ruleManager Is used for distinguishing HTML control and hidden attributes
+	 * @param edManager Manages enable/disable statements
+	 */
+	public void setControledHTMLElementList(RuleManager ruleManager, EnDisableManager edManager) {
+		for (Element elm : this.mCode.getHTMLElement().getAllElements()) {
+			// In-line
+			for (Attribute attr : elm.attributes()) {
+				String key = attr.getKey();
+				HTMLControl rule = ruleManager.isHTMLControl(key);
+				if(rule != null) {
+					EnDisable ed = new EnDisable(elm, key, attr.getValue(), Code.Inline, rule);
+					edManager.add(CallGraph.getInitNode().getId(), ed);
+				}
+			}
+		}
+	}
 
 	/**
 	 * Sets id values to elements whose id attributes are empty

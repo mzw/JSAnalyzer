@@ -28,5 +28,5 @@ public class Command {
 	public static final String NuSMV			= "/opt/local/bin/NuSMV";
 	
 
-	public static final String Echo			= "/bin/echo";
+	public static final String Bin				= "/bin/sh";
 }

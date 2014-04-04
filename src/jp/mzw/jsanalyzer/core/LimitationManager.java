@@ -61,7 +61,8 @@ public class LimitationManager {
 		 */
 		public static final int
 			CSS_Pseudo_Class = 1,
-			JS_Infix_Node = 2;
+			JS_Infix_Node = 2,
+			JS_NonDeterministic = 3;
 		
 		public static String getType(int type) {
 			switch(type) {

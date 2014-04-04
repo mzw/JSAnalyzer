@@ -3,6 +3,7 @@ package jp.mzw.jsanalyzer.serialize.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.mzw.jsanalyzer.core.Analyzer;
 import jp.mzw.jsanalyzer.serialize.model.State;
 import jp.mzw.jsanalyzer.serialize.model.State.FuncElement;
 import jp.mzw.jsanalyzer.serialize.model.Transition;
@@ -78,6 +79,81 @@ public class FiniteStateMachine extends SerializableElement {
 		return null;
 	}
 	
+	
+	/////
+
+	/**
+	 * Gets state ID corresponding to guided funtion name
+	 * @param fsm Extracted finite state machine that has all states
+	 * @param guide Given function name
+	 * @return State ID list
+	 */
+	public List<String> getFuncIdList(String guide) {
+		ArrayList<String> ret = new ArrayList<String>();
+		
+		for(State state : this.getStateList()) {
+			for(FuncElement func : state.getFuncElement()) {
+
+				/// Requiring user's guide information
+				if(guide.equals(func.getFuncName()) &&
+						!ret.contains(state.getId())) {
+					ret.add(state.getId());
+				}
+				
+			}
+		}
+		
+		return ret;
+	}
+	
+
+	/**
+	 * Gets event ID corresponding to guided event name
+	 * @param fsm Extracted finite state machine that has all events
+	 * @param guide Given event name
+	 * @return Event ID list
+	 */
+	public List<String> getEventIdList(String guide) {
+		ArrayList<String> ret = new ArrayList<String>();
+		for(Transition trans : this.getTransList()) {
+			Event event = trans.getEvent();
+			
+			/// Requiring user's guide information
+			if(event != null &&
+					guide.equals(event.getEvent()) &&
+					!ret.contains(event.getId())) {
+				ret.add(event.getId());
+			}
+			
+		}
+		
+		return ret;
+	}
+	
+	/**
+	 * Gets user event IDs
+	 * @param fsm Extracted finite state machine
+	 * @param analyzer Provides the rule manager that determines whether an event is user's one or not
+	 * @return User event ID list
+	 */
+	public List<String> getUserEventIdList(Analyzer analyzer) {
+		ArrayList<String> ret = new ArrayList<String>();
+		for(Transition trans : this.getTransList()) {
+			Event event = trans.getEvent();
+			
+			/// Requiring user's guide information
+			if(event != null &&
+					analyzer.getRuleManager().isUserInteraction(event.getEvent()) &&
+					!ret.contains(event.getId())) {
+				ret.add(event.getId());
+			}
+			
+		}
+		
+		return ret;
+	}
+	
+	/////
 	public void show() {
 		System.out.println("=== Serialized/Deserialized finite state machine ===");
 		System.out.println("[States]");
@@ -94,6 +170,5 @@ public class FiniteStateMachine extends SerializableElement {
 				System.out.println("\t" + trans.getEvent().getEvent());
 			}
 		}
-		
 	}
 }
