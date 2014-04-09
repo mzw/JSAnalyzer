@@ -10,7 +10,7 @@ public class FileDLerRetry extends Project {
 		super("FileDLerRetry",
 				"http://mzw.jp/research/ex/fd/motivatingExample.retry.html",
 				FileDLerCorrect.setRuleFilenames(),
-				"projects/test2");
+				"projects/project");
 	}
 	
 	public static List<String> setRuleFilenames() {

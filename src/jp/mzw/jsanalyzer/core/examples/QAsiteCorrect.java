@@ -10,7 +10,7 @@ public class QAsiteCorrect extends Project {
 		super("QAsiteCorrect",
 				"http://mzw.jp/research/ex/QAsite/correct/index.html",
 				setRuleFilenames(),
-				"projects/test2");
+				"projects/project");
 	}
 
 	public static List<String> setRuleFilenames() {

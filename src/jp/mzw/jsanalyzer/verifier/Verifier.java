@@ -34,7 +34,9 @@ public class Verifier {
 	
 	public static void main(String[] args) {
 		System.out.println("==============================");
-		System.out.println("Running JSAnalyzer (Verifier)");
+		System.out.println("Running JSAnalyzer (Formulator and Verifier)");
+		System.out.println("These modules are also called as <JSVerifier>");
+		System.out.println("Visit: http://jsanalyzer.mzw.jp/about/jsverifier/");
 		System.out.println((new Date()).toString());
 		System.out.println("==============================");
 		
@@ -54,9 +56,9 @@ public class Verifier {
 		Verifier verifier = new Verifier(analyzer);
 		/// 1: Setup
 		/// 2: Enter IADP info
-		verifier.setup(); // Gives URL where users enter IADP info
+//		verifier.setup(); // Gives URL where users enter IADP info
 		/// 3: Verify
-//		verifier.verifyIADP();
+		verifier.verifyIADP();
 
 		System.out.println("==============================");
 		System.out.println("See you again!");

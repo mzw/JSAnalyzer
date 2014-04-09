@@ -10,7 +10,7 @@ public class FileDLerError extends Project {
 		super("FileDLerError",
 				"http://mzw.jp/research/ex/fd/motivatingExample_fault.html",
 				FileDLerCorrect.setRuleFilenames(),
-				"projects/test2");
+				"projects/project");
 	}
 	
 	public static List<String> setRuleFilenames() {

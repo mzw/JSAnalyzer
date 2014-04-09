@@ -8,6 +8,6 @@ public class SWSError extends Project {
 		super("SWSError",
 				"http://mzw.jp/research/ex/sws/fault_quick.html",
 				Project.getDefaultRuleFilenames(),
-				"projects/test2");
+				"projects/project");
 	}
 }

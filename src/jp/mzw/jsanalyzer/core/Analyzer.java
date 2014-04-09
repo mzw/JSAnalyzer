@@ -4,10 +4,12 @@ import java.util.Date;
 
 import jp.mzw.jsanalyzer.core.examples.*;
 import jp.mzw.jsanalyzer.modeler.FSMExtractor;
+import jp.mzw.jsanalyzer.modeler.Modeler;
 import jp.mzw.jsanalyzer.modeler.model.fsm.FiniteStateMachine;
 import jp.mzw.jsanalyzer.rule.RuleManager;
 import jp.mzw.jsanalyzer.serialize.Serializer;
 import jp.mzw.jsanalyzer.util.StringUtils;
+import jp.mzw.jsanalyzer.verifier.Verifier;
 
 /**
  * Contains main method
@@ -74,25 +76,12 @@ public class Analyzer {
 	}
 	
 	/**
-	 * Starts our analysis method with given project information
-	 */
-	public FiniteStateMachine extract() {
-		System.out.println("Starts to analyze!");
-		
-		System.out.println("Extracting finite state machine...");
-		FSMExtractor extractor = new FSMExtractor(this);
-		FiniteStateMachine fsm = extractor.extracts();
-		
-		return fsm;
-	}
-	
-	/**
 	 * An example main method. Set the argument of the Analyzer instance
 	 * @param args Gives a filename of your project in JSAnalyzer at first argument (to be determined)
 	 */
 	public static void main(String[] args) {
 		System.out.println("==============================");
-		System.out.println("Running JSAnalyzer (Extractor)");
+		System.out.println("Running JSAnalyzer");
 		System.out.println((new Date()).toString());
 		System.out.println("==============================");
 
@@ -107,10 +96,15 @@ public class Analyzer {
 //		Analyzer analyzer = new Analyzer(new LoginDemo());
 //		Analyzer analyzer = new Analyzer(new LWA());
 		
-		FiniteStateMachine fsm = analyzer.extract();
-		Serializer.serialze(analyzer, fsm);
+		/// JSModeler
+//		Modeler modeler = new Modeler(analyzer);
+//		FiniteStateMachine fsm = modeler.extract();
+//		Serializer.serialze(analyzer, fsm);
 		
-//		analyzer.verify(fsm);
+		/// JSVerifier
+//		Verifier verifier = new Verifier(analyzer);
+//		verifier.setup();
+//		verifier.verifyIADP();
 		
 //		for(Limitation l : LimitationManager.getLimitations()) {
 //			System.out.println(l.toString());

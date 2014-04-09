@@ -10,7 +10,7 @@ public class QAsiteError extends Project {
 		super("QAsiteError",
 				"http://localhost/~yuta/research/ex/QAsite/error/index.html",
 				setRuleFilenames(),
-				"projects/test2");
+				"projects/project");
 	}
 
 	public static List<String> setRuleFilenames() {

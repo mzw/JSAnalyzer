@@ -10,7 +10,7 @@ public class FileDLerCorrect extends Project {
 		super("FileDLerCorrect",
 				"http://mzw.jp/research/ex/fd/motivatingExample.html",
 				FileDLerCorrect.setRuleFilenames(),
-				"projects/test2");
+				"projects/project");
 	}
 	
 	public static List<String> setRuleFilenames() {
