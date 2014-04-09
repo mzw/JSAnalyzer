@@ -1,9 +1,5 @@
 package jp.mzw.jsanalyzer.formulator.property;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import jp.mzw.jsanalyzer.core.IdGen;
 import jp.mzw.jsanalyzer.formulator.adp.UserAction;
 import jp.mzw.jsanalyzer.formulator.pp.Absence;
 import jp.mzw.jsanalyzer.formulator.pp.PropertyPattern;
@@ -23,6 +19,10 @@ public class UEHSingle extends Property {
 		
 		this.mPropertyPatternScope = PropertyPattern.Scope.Globally;
 		this.mPropertyPattern = new Absence(this.mPropertyPatternScope);
+		
+
+		this.addVeriables("$P1", "Prevent function", "func");
+		this.addVeriables("$P2", "UserEvents", "event");
 	}
 	
 
@@ -75,19 +75,6 @@ public class UEHSingle extends Property {
 		this.setTemplateVariables(P1, P2, isBranch);
 
 		return this.mP;
-	}
-	
-	@Override
-	public List<String> getVariablesXML() {
-		ArrayList<String> ret = new ArrayList<String>();
-
-		String P1 = "<Variable id=\"$P1\" semantic=\"prevent function\" source=\"func\" />";
-		String P2 = "<Variable id=\"$P2\" semantic=\"user events\" source=\"event\" />";
-		
-		ret.add(P1);
-		ret.add(P2);
-		
-		return ret;
 	}
 
 	@Override

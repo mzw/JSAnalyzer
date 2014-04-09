@@ -32,18 +32,18 @@ public class ACRetry extends Property {
 		this.mS = S;
 	}
 	
-	@Override
-	public List<String> getVariablesXML() {
-		ArrayList<String> ret = new ArrayList<String>();
-
-		String P = "<Variable id=\"$P\" semantic=\"async comm failure event\" source=\"event\" />";
-		String S = "<Variable id=\"$S\" semantic=\"async comm call function\" source=\"func\" />";
-		
-		ret.add(P);
-		ret.add(S);
-		
-		return ret;
-	}
+//	@Override
+//	public List<String> getVariablesXML() {
+//		ArrayList<String> ret = new ArrayList<String>();
+//
+//		String P = "<Variable id=\"$P\" semantic=\"async comm failure event\" source=\"event\" />";
+//		String S = "<Variable id=\"$S\" semantic=\"async comm call function\" source=\"func\" />";
+//		
+//		ret.add(P);
+//		ret.add(S);
+//		
+//		return ret;
+//	}
 	
 	@Override
 	public String getCTLFormula() {

@@ -11,6 +11,10 @@ public class PropertyPattern {
 		this.mScope = scope;
 	}
 	
+	public int getScope() {
+		return this.mScope;
+	}
+	
 	public String getCTLTemplate() {
 		return null;
 	}

@@ -1,8 +1,5 @@
 package jp.mzw.jsanalyzer.formulator.property;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import jp.mzw.jsanalyzer.formulator.adp.UserAction;
 import jp.mzw.jsanalyzer.formulator.pp.Precedence;
 import jp.mzw.jsanalyzer.formulator.pp.PropertyPattern;
@@ -18,6 +15,9 @@ public class UEHRegist extends Property {
 		
 		this.mPropertyPatternScope = PropertyPattern.Scope.Globally;
 		this.mPropertyPattern = new Precedence(this.mPropertyPatternScope);
+
+		this.addVeriables("$P", "UserEvents", "event");
+		this.addVeriables("$S", "Page load event", "event");
 	}
 	
 
@@ -29,19 +29,6 @@ public class UEHRegist extends Property {
 	public void setTemplateVariables(String P, String S) {
 		this.mP = P;
 		this.mS = S;
-	}
-
-	@Override
-	public List<String> getVariablesXML() {
-		ArrayList<String> ret = new ArrayList<String>();
-
-		String P = "<Variable id=\"$P\" semantic=\"user events\" source=\"event\" />";
-		String S = "<Variable id=\"$S\" semantic=\"page load event\" source=\"event\" />";
-		
-		ret.add(P);
-		ret.add(S);
-		
-		return ret;
 	}
 
 	@Override

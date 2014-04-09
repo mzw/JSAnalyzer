@@ -5,11 +5,8 @@ import java.util.List;
 
 import org.jsoup.nodes.Element;
 
-import jp.mzw.jsanalyzer.core.IdGen;
-import jp.mzw.jsanalyzer.formulator.adp.AjaxDesignPattern;
-import jp.mzw.jsanalyzer.formulator.adp.AjaxDesignPattern.Category;
-import jp.mzw.jsanalyzer.formulator.pp.Existence;
-import jp.mzw.jsanalyzer.formulator.pp.PropertyPattern;
+import jp.mzw.jsanalyzer.formulator.adp.*;
+import jp.mzw.jsanalyzer.formulator.pp.*;
 import jp.mzw.jsanalyzer.serialize.model.FiniteStateMachine;
 import jp.mzw.jsanalyzer.util.StringUtils;
 
@@ -36,8 +33,14 @@ public class Property implements Cloneable {
 	 * Constructor for fundamental properties
 	 */
 	protected Property() {
+		init();
+	}
+	
+	private void init() {
 		this.mPropertyIdNum = ++Property.property_id_source;
 		this.mPropertyId = Property.property_id_prefix + Integer.toString(mPropertyIdNum);
+		
+		this.mVarsXML = new ArrayList<String>();
 	}
 	
 	public String getId() {
@@ -96,16 +99,15 @@ public class Property implements Cloneable {
 	 */
 	public Property(String propName, String propNameAbbr,
 			String requirement, AjaxDesignPattern adp,
-			PropertyPattern pp, int ppScope) {
+			PropertyPattern pp) {
 		this.mPropertyName = propName;
 		this.mPropertyNameAbbreviation = propNameAbbr;
 		this.mRequirement = requirement;
 		this.mAjaxDesignPattern = adp;
 		this.mPropertyPattern = pp;
-		this.mPropertyPatternScope = ppScope;
+		this.mPropertyPatternScope = pp.getScope();
 
-		this.mPropertyIdNum = ++Property.property_id_source;
-		this.mPropertyId = Property.property_id_prefix + Integer.toString(mPropertyIdNum);
+		init();
 	}
 
 	protected String mP;
@@ -133,7 +135,6 @@ public class Property implements Cloneable {
 	
 	public String getCTLFormula() {
 		String template = this.mPropertyPattern.getCTLTemplate();
-		
 		String formula = template;
 		if(this.mP != null) {
 			formula = formula.replace("$P", this.mP);
@@ -147,7 +148,6 @@ public class Property implements Cloneable {
 		if(this.mR != null) {
 			formula = formula.replace("$R", this.mR);
 		}
-		
 		return formula;
 	}
 
@@ -181,21 +181,50 @@ public class Property implements Cloneable {
 				"UESubmit",
 				"Ajax apps should require explicit user operations before form data is submitted",
 				new AjaxDesignPattern(AjaxDesignPattern.Category.Programming, "Explicit Submission"),
-				new Existence(PropertyPattern.Scope.Before),
-				PropertyPattern.Scope.Before);
+				new Existence(PropertyPattern.Scope.Before)
+				);
 		/// 2. Set variables in XML
-		ArrayList<String> varsXML = new ArrayList<String>();
-		String P = "<Variable id=\"$P\" semantic=\"User event\" source=\"event\" />";
-		String S = "<Variable id=\"$R\" semantic=\"Submit function\" source=\"func\" />";
-		varsXML.add(P);
-		varsXML.add(S);
-		pUESubmit.setVeriablesXML(varsXML);
+		pUESubmit.addVeriables("$P", "UserEvents", "event");
+		pUESubmit.addVeriables("$R", "Submit function", "func");
 		/// 3: Adds property list
 		Property.mOriginalPropertyList.add(pUESubmit);
 
 		/**
 		 * Here you can add your original properties
 		 */
+		/// Form data validation
+		Property pFSValid = new Property (
+				"Form data validation",
+				"FDValid",
+				"Ajax apps should validate form data before submission",
+				new AjaxDesignPattern(AjaxDesignPattern.Category.FunctionAndUsability, "Live Form"),
+				new Precedence(PropertyPattern.Scope.Globally)
+				);
+		pFSValid.addVeriables("$P", "UserEvents", "event");
+		pFSValid.addVeriables("$S", "Submit function", "func");
+		Property.mOriginalPropertyList.add(pFSValid);
+		/// Seed retrieval
+		Property pSeedRetreival = new Property (
+				"Seed retrieval",
+				"SeedRetrieval",
+				"Ajax apps should retrieve seed data before login attempt",
+				new AjaxDesignPattern(AjaxDesignPattern.Category.FunctionAndUsability, "Direct Login"),
+				new Precedence(PropertyPattern.Scope.Globally)
+				);
+		pSeedRetreival.addVeriables("$P", "Login function", "func");
+		pSeedRetreival.addVeriables("$S", "Retrieve function", "func");
+		Property.mOriginalPropertyList.add(pSeedRetreival);
+		/// Login form disable
+		Property pLFDisable = new Property (
+				"Login form disable",
+				"LFDisable",
+				"Ajax apps should disable login form after successful login",
+				new AjaxDesignPattern(AjaxDesignPattern.Category.FunctionAndUsability, "Direct Login"),
+				new Absence(PropertyPattern.Scope.Globally)
+				);
+		pLFDisable.addVeriables("$P1", "Successful login callback function", "func");
+		pLFDisable.addVeriables("$P2", "Login attempt event", "event");
+		Property.mOriginalPropertyList.add(pLFDisable);
 		
 	}
 	
@@ -234,14 +263,13 @@ public class Property implements Cloneable {
 		return ret;
 	}
 	
-	
-
 	private List<String> mVarsXML;
-	public List<String> getVariablesXML() {
-		return mVarsXML;
-	}
-	public void setVeriablesXML(List<String> varsXML) {
-		this.mVarsXML = varsXML;
+	public void addVeriables(String var, String semantic, String src) {
+		String xml = "<Variable id=\"" + var + "\" semantic=\"" + semantic + "\" source=\"" + src + "\" />";
+		if(this.mVarsXML == null) {
+			this.mVarsXML = new ArrayList<String>();
+		}
+		this.mVarsXML.add(xml);
 	}
 	
 	public String toXML() {
@@ -256,7 +284,7 @@ public class Property implements Cloneable {
 		ret += "\t" + "<PropertyPatternScope>" + PropertyPattern.Scope.getScopeName(this.mPropertyPatternScope) + "</PropertyPatternScope>\n";
 		ret += "\t" + "<CTLTemplate>" + StringUtils.esc_xml(this.mPropertyPattern.getCTLTemplate()) + "</CTLTemplate>\n";
 		ret += "\t" + "<Variables>\n";
-		for(String var : this.getVariablesXML()) {
+		for(String var : this.mVarsXML) {
 			ret += "\t\t" + var + "\n";
 		}
 		ret += "\t" + "</Variables>\n";

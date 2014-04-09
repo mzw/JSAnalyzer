@@ -54,9 +54,9 @@ public class Verifier {
 		Verifier verifier = new Verifier(analyzer);
 		/// 1: Setup
 		/// 2: Enter IADP info
-//		verifier.setup(); // Gives URL where users enter IADP info
+		verifier.setup(); // Gives URL where users enter IADP info
 		/// 3: Verify
-		verifier.verifyIADP();
+//		verifier.verifyIADP();
 
 		System.out.println("==============================");
 		System.out.println("See you again!");

@@ -1,8 +1,5 @@
 package jp.mzw.jsanalyzer.formulator.property;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import jp.mzw.jsanalyzer.formulator.adp.OnDemandJavaScript;
 import jp.mzw.jsanalyzer.formulator.pp.PropertyPattern;
 import jp.mzw.jsanalyzer.formulator.pp.Precedence;;
@@ -18,6 +15,9 @@ public class SRWait extends Property {
 		
 		this.mPropertyPatternScope = PropertyPattern.Scope.Globally;
 		this.mPropertyPattern = new Precedence(this.mPropertyPatternScope);
+
+		this.addVeriables("$P", "Wait function", "func");
+		this.addVeriables("$S", "Server response event", "event");
 	}
 
 	/**
@@ -31,19 +31,6 @@ public class SRWait extends Property {
 		this.mS = S;
 	}
 
-	@Override
-	public List<String> getVariablesXML() {
-		ArrayList<String> ret = new ArrayList<String>();
-
-		String P = "<Variable id=\"$P\" semantic=\"wait function\" source=\"func\" />";
-		String S = "<Variable id=\"$S\" semantic=\"server response event\" source=\"event\" />";
-		
-		ret.add(P);
-		ret.add(S);
-		
-		return ret;
-	}
-	
 	@Override
 	public String getCTLFormula() {
 		if(this.mP == null || this.mS == null) {

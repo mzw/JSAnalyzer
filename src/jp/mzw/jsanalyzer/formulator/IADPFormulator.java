@@ -77,8 +77,8 @@ public class IADPFormulator extends Formulator {
 				"UESubmit",
 				"Ajax apps should require explicit user operations before form data is submitted",
 				new AjaxDesignPattern(AjaxDesignPattern.Category.Programming, "Explicit Submittion"),
-				new Existence(PropertyPattern.Scope.Before),
-				PropertyPattern.Scope.Before);
+				new Existence(PropertyPattern.Scope.Before)
+				);
 		pUESubmit.setTemplateVariables(NuSMV.genOr(fsm.getUserEventIdList(analyzer)), null, null, NuSMV.genOr(fsm.getFuncIdList("doSubmit")));
 		ret.add(new Specification(pUESubmit));
 		
