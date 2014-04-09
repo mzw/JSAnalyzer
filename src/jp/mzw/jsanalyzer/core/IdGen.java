@@ -16,7 +16,7 @@ public class IdGen {
 	/**
 	 * A prefix string attached to id strings
 	 */
-	private static final String ID_PREFIX = "JSAnalyzer_";
+	public static final String ID_PREFIX = "JSAnalyzer_";
 	
 	/**
 	 * Generates unique id strings

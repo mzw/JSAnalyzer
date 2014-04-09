@@ -8,7 +8,7 @@ public class QAsiteError extends Project {
 	
 	public QAsiteError() {
 		super("QAsiteError",
-				"http://mzw.jp/research/ex/QAsite/error/index.html",
+				"http://localhost/~yuta/research/ex/QAsite/error/index.html",
 				setRuleFilenames(),
 				"projects/test2");
 	}

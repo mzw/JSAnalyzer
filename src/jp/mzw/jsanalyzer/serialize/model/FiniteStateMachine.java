@@ -7,6 +7,7 @@ import jp.mzw.jsanalyzer.core.Analyzer;
 import jp.mzw.jsanalyzer.serialize.model.State;
 import jp.mzw.jsanalyzer.serialize.model.State.FuncElement;
 import jp.mzw.jsanalyzer.serialize.model.Transition;
+import jp.mzw.jsanalyzer.util.StringUtils;
 
 public class FiniteStateMachine extends SerializableElement {
 
@@ -79,6 +80,31 @@ public class FiniteStateMachine extends SerializableElement {
 		return null;
 	}
 	
+	
+	public String getFSMData() {
+		String ret = "";
+		
+		ret += "<FSMData>\n";
+		
+		for(State state : this.mStateList) {
+			ret += "\t<State id=\"" + state.getId() + "\">\n";
+			for(FuncElement func : state.getFuncElement()) {
+				ret += "\t\t<Abstracted func=\"" + StringUtils.esc_xml(func.getFuncName()) + "\" lineno=\"" + func.getLineNo() + "\" pos=\"" + func.getPosition() + "\" />\n";
+			}
+			ret += "\t</State>\n";
+		}
+		
+		for(Transition trans : this.mTransList) {
+			if(trans.getEvent() != null) {
+				ret += "\t<Event id=\"" + trans.getEvent().getId() + "\" name=\"" + trans.getEvent().getEvent() +
+						"\" lineno=\"" + trans.getEvent().getLineNo() + "\" pos=\"" + trans.getEvent().getPosition() + "\" />\n";
+			}
+		}
+		
+		ret += "</FSMData>\n";
+		
+		return ret;
+	}
 	
 	/////
 

@@ -1,9 +1,21 @@
 package jp.mzw.jsanalyzer.verifier.specification;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import org.jsoup.nodes.Element;
+
+import jp.mzw.jsanalyzer.config.Command;
+import jp.mzw.jsanalyzer.config.FileExtension;
+import jp.mzw.jsanalyzer.config.FilePath;
+import jp.mzw.jsanalyzer.core.Analyzer;
 import jp.mzw.jsanalyzer.formulator.property.Property;
+import jp.mzw.jsanalyzer.serialize.model.State;
+import jp.mzw.jsanalyzer.util.CommandLineUtils;
 import jp.mzw.jsanalyzer.util.StringUtils;
+import jp.mzw.jsanalyzer.util.TextFileUtils;
+import jp.mzw.jsanalyzer.xml.XMLTag;
 
 public class Specification {
 	
@@ -23,14 +35,16 @@ public class Specification {
 		return this.mCounterexample;
 	}
 	
-	public String getCtlFormula() {
-		return this.mProperty.getCTLFormula();
-	}
-	
+
 	public int getId() {
 		return this.mId;
 	}
-	
+	public Property getProperty() {
+		return this.mProperty;
+	}
+	public String getCtlFormula() {
+		return this.mProperty.getCTLFormula();
+	}
 	public void setSmvResult(boolean result) {
 		this.mSmvResult = result;
 	}
@@ -45,7 +59,79 @@ public class Specification {
 		}
 	}
 	
+	public String getResultTableBody(Analyzer analyzer) {
+		String ret = "";
+
+		ret += "\t<tr>\n";
+
+		/// Property name
+		ret += "\t\t<td>" + StringUtils.esc_xml(this.mProperty.getNameAbbr()) + "</td>\n";
+		/// Requirement
+		ret += "\t\t<td>" + StringUtils.esc_xml(this.mProperty.getRequirement()) + "</td>\n";
+		/// Ajax Design Pattern
+		ret += "\t\t<td>" + StringUtils.esc_xml(this.mProperty.getAjaxDesignPattern().getName()) + "</td>\n";
+		/// Property Pattern
+		ret += "\t\t<td>" + StringUtils.esc_xml(this.mProperty.getPropertyPattern().getClass().getSimpleName()) + "</td>\n";
+		/// CTL Template
+		ret += "\t\t<td>" + StringUtils.esc_xml(this.mProperty.getPropertyPattern().getCTLTemplate()) + "</td>\n";
+		/// Guided Variables
+		ret += "\t\t<td>";
+		for(Element var_elm : this.mProperty.getIADPInfo().getElementsByTag(XMLTag.IADPVeriable)) {
+			String var_id = var_elm.attr(XMLTag.IADPAttrVarId);
+			String var_value = var_elm.text();
+			
+			ret += var_value + " (" + var_id + ")<br />";
+			
+		}
+		ret +=  "</td>\n";
+
+		/// Result
+		if(this.mSmvResult) { // Correct
+			ret += "\t\t<td style=\"background-color:#7FFFD4;\">Correct</td>\n";
+		} else { // Fault
+			this.genCounterexampleDots(analyzer);
+			ret += "\t\t<td style=\"background-color:#FA8072;\"><a target=\"_blank\" href=\"" + 
+					FilePath.IADPRepositoryHttp + "/viewer.counterexample.php?projname=" + analyzer.getProject().getName() + "&specid=" + this.getId() + "&stepnum=" + this.getCounterexample().size() +
+					"\">Fault</a></td>\n";
+		}
+		
+		ret += "\t</tr>\n";
+		return ret;
+	}
 	
+	private void genCounterexampleDots(Analyzer analyzer) {
+
+		String dir = analyzer.getProject().getDir() + FilePath.VerifyResult + FilePath.Counterexample;
+		
+		for(int step = 0; step < this.getCounterexample().size(); step++) {
+			String filename = analyzer.getProject().getName() + ".spec." + this.getId() + ".step." + (step) + FileExtension.Dot;
+			String output = filename + ".png";
+			
+			String[] cmd_dot = { Command.Dot, "-Tpng", filename, "-o", output };
+			try {
+				CommandLineUtils.exec(dir, cmd_dot);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+			File _output_dir = new File(FilePath.IADPResult, analyzer.getProject().getName());
+			File output_dir = new File(_output_dir.getPath(), FilePath.Counterexample);
+			String[] cmd_cp = { "cp", output, output_dir.getPath() };
+			try {
+				CommandLineUtils.exec(dir, cmd_cp);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+
+	//////////
 	private static int id_assign = 0;
 	protected int id;
 	protected String description;
@@ -156,6 +242,7 @@ public class Specification {
 		
 		return ret;
 	}
+	
 	
 }
 

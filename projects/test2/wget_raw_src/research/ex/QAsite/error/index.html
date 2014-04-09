@@ -74,7 +74,8 @@ function tryLogin(res) {
 	if(isSuccess(res)) {
 		successLogin(res);
 	} else {
-		alert("Invalid account");
+		alert(res.responseText);
+		//alert("Invalid account");
 	}
 }
 function isSuccess(res) {
@@ -177,13 +178,13 @@ function makeAnswerMasked() {
 
 <h2>Question</h2>
 <div id="question">
-<span id="question_title">What is ICSE 2014?</span>
+<span id="question_title">What is ISSTA 2014?</span>
 <div id="questioner_property">
 <label>Questioner: </label><span id="questioner">Yuta Maezawa</span><br />
-<label>Date: </label><span id="question_date">Sep 13, 2013 12:00 GMT</span>
+<label>Date: </label><span id="question_date">Jan 24, 2014 12:00 GMT</span>
 </div>
 <div id="question_content">
-<p>What is ICSE 2014? As you all know that ICSE is one of the greatest conferences on software engieering, I would like to know details of the conference this year.</p>
+<p>What is ISSTA 2014? As you all know that ISSTA is the greatest symposium on software testing and analysis, I would like to know details of the conference this year.</p>
 </div>
 </div>
 
@@ -193,14 +194,16 @@ function makeAnswerMasked() {
 
 <div id="answer">
 <div id="answerer_property">
-<label>Answerer: </label><span id="questioner">ICSE2014 conference website</span><br />
-<label>Date: </label><span id="question_date">Sep 13, 2013 13:00 GMT</span>
+<label>Answerer: </label><span id="questioner">ISSTA 2014 conference website</span><br />
+<label>Date: </label><span id="question_date">Jan 24, 2014 13:00 GMT</span>
 </div>
 <div id="answer_content">
-<img id="icse2014_banner" src="img/icse2014-banner.jpg" />
-<p>ICSE, the International Conference on Software Engineering,(R) is the premier software engineering conference,
-providing a forum for researchers, practitioners and educators to present and discuss the most recent innovations, trends, experiences and concerns in the field of software engineering.
-Note that ICSE: International Conference on Software Engineering(R) is a registered trademark. <a href="http://www.icse-conferences.org/" >Learn more...</a> </p>
+<img id="issta-header" src="img/issta-header.jpg" />
+<p>ISSTA is the leading research symposium on software testing and analysis,
+bringing together academics, industrial researchers, and practitioners to exchange new ideas, problems, and experience on how to analyze and test software systems. 
+ISSTA 2014 will be held in Hilton San Jose, Bay Area, California on July 21-25, 2014.
+</p>
+<p>Visit the ISSTA 2014 Website, <a href="http://issta2014.org/">http://issta2014.org/</a></p> 
 </div>
 <div id="answer_footer">
 <button id="good">Good!</button>

@@ -17,7 +17,7 @@ div#footer {
 }
 
 /* Question and Answer */
-img#icse2014_banner {
+img#issta-header {
 	width: 700px;
 }
 
@@ -63,8 +63,9 @@ div#answer {
 #mask {
 	position: absolute;
 	width: 750px;
-	height: 440px;
-	top: 370px;
+	height: 395px;
+	top: 385px;
+	left: 10px;
 	background-image: url(../img/mask.png);
 }
 

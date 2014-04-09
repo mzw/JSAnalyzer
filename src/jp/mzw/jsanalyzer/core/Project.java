@@ -12,6 +12,7 @@ import org.jsoup.parser.Parser;
 import jp.mzw.jsanalyzer.xml.XMLTag;
 import jp.mzw.jsanalyzer.util.StringUtils;
 import jp.mzw.jsanalyzer.util.TextFileUtils;
+import jp.mzw.jsanalyzer.verifier.specification.Specification;
 
 /**
  * Manages project information
@@ -34,6 +35,11 @@ public class Project {
 	 * A list of rule filenames
 	 */
 	protected List<String> mRuleFilenames;
+	
+	/**
+	 * A list of specifications based on Ajax design patterns
+	 */
+	protected List<Specification> mSpecList;
 	
 	/**
 	 * A constructor via a XML file
@@ -73,6 +79,8 @@ public class Project {
 		this.mUrl = url;
 		this.mRuleFilenames = filenames;
 		this.mDir = dir;
+		
+		this.mSpecList = new ArrayList<Specification>();
 	}
 	
 	/**
@@ -135,5 +143,36 @@ public class Project {
 	 */
 	public String getName() {
 		return this.mProjectName;
+	}
+	
+	public String toXML4IADPInfoRep() {
+		String ret = "";
+		
+		ret += "<Project name=\"" + this.mProjectName + "\" url=\"" + this.mUrl + "\" />\n";
+
+		ret += "<IADPInfo>\n";
+		ret += "<Properties>\n";
+		for(Specification spec : this.mSpecList) {
+			ret += "\t<Property id=\"" + spec.getId() + "\">\n";
+			ret += "\t<Name>" + "</Name>\n";
+			ret += "\t<NameAbbr>" + "</NameAbbr>\n";
+			ret += "\t<Requirement>" + "</Requirement>\n";
+			ret += "\t<AjaxDesignPattern>" + "</AjaxDesignPattern>\n";
+			ret += "\t<AjaxDesignPatternCategory>" + "</AjaxDesignPatternCategory>\n";
+			ret += "\t<PropertyPatternScope>" + "</PropertyPatternScope>\n";
+			ret += "\t<PropertyPatternScope>" + "</PropertyPatternScope>\n";
+			ret += "\t<CTLTemplate>" + "</CTLTemplate>\n";
+			ret += "\t<Variables>\n";
+//			for(String var : spec.getVariableList()) {
+//				ret += "\t\t<Variable id=\"" + "var>";
+//			}
+			ret += "\t</Variables>\n";
+			
+			ret += "\t</Property>\n";
+		}
+		ret += "</Properties>\n";
+		ret += "</IADPInfo>\n";
+		
+		return ret;
 	}
 }

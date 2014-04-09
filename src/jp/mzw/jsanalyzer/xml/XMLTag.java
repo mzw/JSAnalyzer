@@ -29,4 +29,21 @@ public class XMLTag {
 	public static final String FSMTrans	 			= "Transition";
 	public static final String FSMEntry				= "Entry";
 	public static final String FSMExit 				= "Exit";
+	
+	/**
+	 * IADP Repository
+	 */
+	public static final String IADPProperty				= "Property";
+	public static final String IADPVeriable				= "Variable";
+	public static final String IADPAttrVarId			= "id";
+	public static final String IADPAttrVarId_P			= "$P";
+	public static final String IADPAttrVarId_P1			= "$P1";
+	public static final String IADPAttrVarId_P2			= "$P2";
+	public static final String IADPAttrVarId_S			= "$S";
+	public static final String IADPAttrVarId_Q			= "$Q";
+	public static final String IADPAttrVarId_R			= "$R";
+	public static final String IADPAttrSrc				= "source";
+	public static final String IADPAttrSrc_Func			= "func";
+	public static final String IADPAttrSrc_Event		= "event";
+	public static final String IADPAttrVar_UserEvents	= "UserEvents";
 }

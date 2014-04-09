@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Properties>
+<Property id="JSAnalyzerPropID_1">
+	<Name>Asynchronous communication</Name>
+	<NameAbbr>AsyncComm</NameAbbr>
+	<Requirement>Ajax apps can handle user events during asynchronous communications</Requirement>
+	<AjaxDesignPattern>XMLHttpRequest Call</AjaxDesignPattern>
+	<AjaxDesignPatternCategory>Fundamental</AjaxDesignPatternCategory>
+	<PropertyPattern>Response</PropertyPattern>
+	<PropertyPatternScope>Globally</PropertyPatternScope>
+	<CTLTemplate>AG($P -&gt; AF($S))</CTLTemplate>
+	<Variables>
+		<Variable id="$P" semantic="async comm call function" source="func" />
+		<Variable id="$S" semantic="user events" source="event" />
+	</Variables>
+</Property>
+<Property id="JSAnalyzerPropID_2">
+	<Name>Asynchronous communication retry</Name>
+	<NameAbbr>ACRetry</NameAbbr>
+	<Requirement>Ajax apps can retry an asychronous communication when it fails</Requirement>
+	<AjaxDesignPattern>XMLHttpRequest Call</AjaxDesignPattern>
+	<AjaxDesignPatternCategory>Fundamental</AjaxDesignPatternCategory>
+	<PropertyPattern>Response</PropertyPattern>
+	<PropertyPatternScope>Globally</PropertyPatternScope>
+	<CTLTemplate>AG($P -&gt; AF($S))</CTLTemplate>
+	<Variables>
+		<Variable id="$P" semantic="async comm failure event" source="event" />
+		<Variable id="$S" semantic="async comm call function" source="func" />
+	</Variables>
+</Property>
+<Property id="JSAnalyzerPropID_3">
+	<Name>Wait for server response</Name>
+	<NameAbbr>SRWait</NameAbbr>
+	<Requirement>Ajax apps should reveive a server response before calling reposen-dependent functions</Requirement>
+	<AjaxDesignPattern>On-Demand JavaScript</AjaxDesignPattern>
+	<AjaxDesignPatternCategory>Fundamental</AjaxDesignPatternCategory>
+	<PropertyPattern>Precedence</PropertyPattern>
+	<PropertyPatternScope>Globally</PropertyPatternScope>
+	<CTLTemplate>!E[!$S U ($P &amp; !$S)]</CTLTemplate>
+	<Variables>
+		<Variable id="$P" semantic="wait function" source="func" />
+		<Variable id="$S" semantic="server response event" source="event" />
+	</Variables>
+</Property>
+<Property id="JSAnalyzerPropID_4">
+	<Name>User event handler registration</Name>
+	<NameAbbr>UEHRegist</NameAbbr>
+	<Requirement>Ajax apps should register user event handlers at page load</Requirement>
+	<AjaxDesignPattern>User Action</AjaxDesignPattern>
+	<AjaxDesignPatternCategory>Fundamental</AjaxDesignPatternCategory>
+	<PropertyPattern>Precedence</PropertyPattern>
+	<PropertyPatternScope>Globally</PropertyPatternScope>
+	<CTLTemplate>!E[!$S U ($P &amp; !$S)]</CTLTemplate>
+	<Variables>
+		<Variable id="$P" semantic="user events" source="event" />
+		<Variable id="$S" semantic="page load event" source="event" />
+	</Variables>
+</Property>
+<Property id="JSAnalyzerPropID_5">
+	<Name>User event handler singleton</Name>
+	<NameAbbr>UEHSingle</NameAbbr>
+	<Requirement>Ajax apps can prevent multiple calls of specific functions</Requirement>
+	<AjaxDesignPattern>User Action</AjaxDesignPattern>
+	<AjaxDesignPatternCategory>Fundamental</AjaxDesignPatternCategory>
+	<PropertyPattern>Absence</PropertyPattern>
+	<PropertyPatternScope>Globally</PropertyPatternScope>
+	<CTLTemplate>AG(!$P)</CTLTemplate>
+	<Variables>
+		<Variable id="$P1" semantic="prevent function" source="func" />
+		<Variable id="$P2" semantic="user events" source="event" />
+	</Variables>
+</Property>
+<Property id="JSAnalyzerPropID_6">
+	<Name>User event and submit</Name>
+	<NameAbbr>UESubmit</NameAbbr>
+	<Requirement>Ajax apps should require explicit user operations before form data is submitted</Requirement>
+	<AjaxDesignPattern>Explicit Submission</AjaxDesignPattern>
+	<AjaxDesignPatternCategory>Programming</AjaxDesignPatternCategory>
+	<PropertyPattern>Existence</PropertyPattern>
+	<PropertyPatternScope>Before</PropertyPatternScope>
+	<CTLTemplate>!E[!($P &amp; !$R) U ($R &amp; !($P &amp; !$R))]</CTLTemplate>
+	<Variables>
+		<Variable id="$P" semantic="User event" source="event" />
+		<Variable id="$R" semantic="Submit function" source="func" />
+	</Variables>
+</Property>
+</Properties>

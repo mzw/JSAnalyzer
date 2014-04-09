@@ -1,0 +1,83 @@
+body {
+	/* width: 750px; */
+	font-family: Georgia, Century, Times New Roman, serif;
+	margin: 0px;
+	padding: 0px;
+}
+
+h1 {
+	background-color: lightblue;
+	margin: 0px;
+	padding: 5px;
+}
+div#footer {
+	background-color: lightblue;
+	margin: 0px;
+	padding: 5px;
+}
+
+span.error {
+	color: red;
+}
+
+div#content {
+	margin: 10px;
+}
+
+h2.iadp {
+	border-bottom: solid 1px black;
+	width: 400px;
+	font-size: large;
+}
+
+
+
+div#thumbnail_field {
+	margin: 25px;
+	border: 1px gray solid;
+	width: 300px;
+}
+div#description {
+	width: 375px;
+}
+p#item_name {
+	border: 3px;
+	border-bottom: 1px gray solid;
+}
+div#description,#selection {
+	border-bottom: 1px gray solid;
+}
+img#thumbnail {
+	width: 300px;
+}
+h2.idp {
+	border-bottom: solid 1px black;
+	width: 500px;
+	font-size: large;
+}
+
+table {
+	border-collapse: separate;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #A0A0A0;
+	background-color: #A0A0A0;
+}
+
+th {
+	color: #FFFFFF;
+	border-style: solid;
+	border-width: 1px 0 0 0;
+	border-color: #A0A0A0;
+	background-color: #00C0C0;
+	padding: 2px;
+}
+
+td {
+	color: #000000;
+	border-style: solid;
+	border-width: 1px 0 0 0;
+	border-color: #A0A0A0;
+	background-color: #E8F8FF;
+	padding: 2px;
+}

@@ -3,9 +3,14 @@ package jp.mzw.jsanalyzer.formulator.property;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.mzw.jsanalyzer.core.IdGen;
 import jp.mzw.jsanalyzer.formulator.adp.UserAction;
 import jp.mzw.jsanalyzer.formulator.pp.Absence;
 import jp.mzw.jsanalyzer.formulator.pp.PropertyPattern;
+import jp.mzw.jsanalyzer.serialize.model.FiniteStateMachine;
+import jp.mzw.jsanalyzer.serialize.model.State;
+import jp.mzw.jsanalyzer.serialize.model.Transition;
+import jp.mzw.jsanalyzer.verifier.modelchecker.NuSMV;
 
 public class UEHSingle extends Property {
 	
@@ -28,12 +33,48 @@ public class UEHSingle extends Property {
 	 * @param isBranch Represents whether the prevent function at P1 is branch node or not
 	 */
 	public void setTemplateVariables(String P1, String P2, boolean isBranch) {
-		this.mP = P1 + " & ";
+		String p = P1 + " & ";
 		if(isBranch) {
-			this.mP += "EX EX " + P2;
+			p += "EX EX " + P2;
 		} else {
-			this.mP += "EX " + P2;
+			p += "EX " + P2;
 		}
+		this.mP = "(" + p + ")";
+	}
+	
+	
+	@Override
+	/**
+	 * 
+	 * @param P1
+	 * @param P2
+	 * @param fsm
+	 * @deprecated
+	 */
+	public String getTemplateVariableP(String P1, String P2, FiniteStateMachine fsm) {
+		/// Determines whether the state representing P1 is a branch state or not
+		boolean isBranch = true;
+		
+		String stateIdByP1 = NuSMV.rev_genOr(P1);
+		for(State state : fsm.getStateList()) {
+			if(state.getId().equals(stateIdByP1)) {
+				
+				for(Transition trans : fsm.getTransList()) {
+					if(trans.getFromStateId().equals(state.getId())) {
+						/// If the state has event transitions, NOT branch state
+						if(trans.getEvent() != null) {
+							isBranch = false;
+						}
+					}
+				}
+				
+				break;
+			}
+		}
+		
+		this.setTemplateVariables(P1, P2, isBranch);
+
+		return this.mP;
 	}
 	
 	@Override

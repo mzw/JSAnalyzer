@@ -9,6 +9,7 @@ import jp.mzw.jsanalyzer.config.Command;
 import jp.mzw.jsanalyzer.config.FileExtension;
 import jp.mzw.jsanalyzer.config.FilePath;
 import jp.mzw.jsanalyzer.core.Analyzer;
+import jp.mzw.jsanalyzer.core.IdGen;
 import jp.mzw.jsanalyzer.serialize.model.Event;
 import jp.mzw.jsanalyzer.serialize.model.FiniteStateMachine;
 import jp.mzw.jsanalyzer.serialize.model.State;
@@ -53,7 +54,7 @@ public class NuSMV extends ModelChecker {
 	 * @param stateId Represents a state to be highlighted
 	 * @return The DOT source
 	 */
-	public String visualizeCounterexample(String stateId) {
+	private String visualizeCounterexample(String stateId) {
 		String ret = "";
 		ret += "digraph FSM {\n";
 		for(State state : this.mFSM.getStateList()) {
@@ -84,7 +85,7 @@ public class NuSMV extends ModelChecker {
 	 * @param fromStateId Specifies its from state because 1..many edge(s) has the event identified by the same event ID
 	 * @return The DOT source
 	 */
-	public String visualizeCounterexample(String eventId, String fromStateId) {
+	private String visualizeCounterexample(String eventId, String fromStateId) {
 		String ret = "";
 		ret += "digraph FSM {\n";
 		for(State state : this.mFSM.getStateList()) {
@@ -155,7 +156,8 @@ public class NuSMV extends ModelChecker {
 				}
 //				System.out.println("");
 				
-				TextFileUtils.write(dir, this.mAnalyzer.getProject().getName() + ".spec." + spec.getId() + ".sh", sh);
+				String dotFilename = this.mAnalyzer.getProject().getName() + ".spec." + spec.getId() + ".sh";
+				TextFileUtils.write(dir, dotFilename, sh);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -164,10 +166,10 @@ public class NuSMV extends ModelChecker {
 		}
 	}
 
-	public String getSmvFilename(Specification spec) {
+	private String getSmvFilename(Specification spec) {
 		return this.mAnalyzer.getProject().getName() + "." + spec.getId() + FileExtension.SMVModel;
 	}
-	public String getSmvResultFilename(Specification spec) {
+	private String getSmvResultFilename(Specification spec) {
 		return this.mAnalyzer.getProject().getName() + "." + spec.getId() + FileExtension.SMVResult;
 	}
 	
@@ -219,7 +221,7 @@ public class NuSMV extends ModelChecker {
 	 * Parses outputs of the verification results
 	 * @param spec Used for identifying the verification results
 	 */
-	public void parseSmvResult(Specification spec) {
+	private void parseSmvResult(Specification spec) {
 		String dir = this.mAnalyzer.getProject().getDir() + FilePath.VerifyResult;
 		String output = TextFileUtils.cat(dir, this.getSmvResultFilename(spec));
 		
@@ -255,7 +257,105 @@ public class NuSMV extends ModelChecker {
 	}
 	
 	@Override
+	/**
+	 * Translates the extracted finite state machine to its SMV model
+	 */
 	public String translate() {
+		String ret = "";
+		
+
+		ArrayList<String> eventIdList = new ArrayList<String>();
+		for(Transition trans : this.mFSM.getTransList()) {
+			if(trans.getEvent() != null) {
+				Event event = trans.getEvent();
+				if(!eventIdList.contains(event.getId())) {
+					eventIdList.add(event.getId());
+				}
+			}
+		}
+		
+		
+		/// Generates App module
+		ret += "MODULE App\n";
+		ret += "VAR\n";
+		ret += "\tstate : {";
+		///// States
+		ret += "\n";
+		ret += "\t\t-- States\n";
+		ret += "\t\t";
+		for(State state : this.mFSM.getStateList()) {
+			ret += state.getId() + ", ";
+		}
+		ret += "\n";
+		ret += "\t\t" + this.mFSM.getExitStateId() + ", -- Exit state ID\n";
+		///// Virtual events
+		ret += "\t\t-- Virtual events\n";
+		ret += "\t\t";
+		for(String event : eventIdList) {
+			ret += event + ", ";
+		}
+		ret += "\n";
+		ret += "\t\t__empty__};\n";
+		/// State transitions
+		ret += "ASSIGN\n";
+		ret += "\tinit(state) := " + this.mFSM.getRootStateId() + ";\n";
+		ret += "\tnext(state) := case\n";
+		
+		for(State state : this.mFSM.getStateList()) {
+			ArrayList<Transition> fromTransList = new ArrayList<Transition>();
+			boolean isBranch = false;
+			for(Transition trans : this.mFSM.getTransList()) {
+				if(trans.getFromStateId().equals(state.getId())) {
+					fromTransList.add(trans);
+					
+					if(trans.getEvent() == null) {
+						isBranch = true;
+					}
+				}
+			}
+			
+			if(isBranch) {
+				ret += "\t\tstate = " + state.getId() + " : {";
+				int size = fromTransList.size();
+				for(int i = 0; i < fromTransList.size()-1; i++) {
+					ret += fromTransList.get(i).getToStateId() + ", ";
+				}
+				ret += fromTransList.get(size-1).getToStateId();
+				ret += "};\n";
+			} else {
+				ret += "\t\tstate = " + state.getId() + " : {";
+				for(Transition trans : fromTransList) {
+					ret += trans.getEvent().getId() + ", ";
+				}
+				ret += state.getId() + "};\n";
+				for(Transition trans : fromTransList) {
+					ret += "\t\tstate = " + trans.getEvent().getId() + " : " + trans.getToStateId() + ";\n";
+				}
+			}
+		}
+
+		ret += "\t\tTRUE : state;\n";
+		ret += "\t\tesac;\n";
+		
+		
+		/// Generates Main module
+		ret += "MODULE main\n";
+		ret += "VAR\n";
+		ret += "\tapp : App;\n";		
+
+		ret += "\n";
+		ret += "----- Specifications are below -----\n";
+		
+		return ret;
+	}
+	
+	/**
+	 * Impropert implementation
+	 * @param tbd To be debugged
+	 * @return
+	 * @deprecated
+	 */
+	public String translate(int tbd) {
 		String ret = "";
 
 		ArrayList<String> userEventIdList = new ArrayList<String>();
@@ -467,6 +567,26 @@ public class NuSMV extends ModelChecker {
 		ret += "app.state = " + elmIdList.get(elmIdList.size()-1);
 		ret += ")";
 		
+		return ret;
+	}
+	
+	/**
+	 * 
+	 * @param expr
+	 * @return
+	 * @deprecated
+	 */
+	public static String rev_genOr(String expr) {
+		String ret = IdGen.ID_PREFIX;
+		int index = expr.indexOf(IdGen.ID_PREFIX);
+		for(int i = index + IdGen.ID_PREFIX.length(); i < expr.length(); i++) {
+			char c = expr.charAt(i);
+			if(Character.isDigit(c)) {
+				ret += expr.charAt(i);
+			} else {
+				break;
+			}
+		}
 		return ret;
 	}
 	

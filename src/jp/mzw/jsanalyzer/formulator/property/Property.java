@@ -3,12 +3,17 @@ package jp.mzw.jsanalyzer.formulator.property;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jsoup.nodes.Element;
+
+import jp.mzw.jsanalyzer.core.IdGen;
 import jp.mzw.jsanalyzer.formulator.adp.AjaxDesignPattern;
 import jp.mzw.jsanalyzer.formulator.adp.AjaxDesignPattern.Category;
+import jp.mzw.jsanalyzer.formulator.pp.Existence;
 import jp.mzw.jsanalyzer.formulator.pp.PropertyPattern;
+import jp.mzw.jsanalyzer.serialize.model.FiniteStateMachine;
 import jp.mzw.jsanalyzer.util.StringUtils;
 
-public class Property {
+public class Property implements Cloneable {
 
 	protected String mPropertyName;
 	protected String mPropertyNameAbbreviation;
@@ -18,16 +23,66 @@ public class Property {
 	
 	protected PropertyPattern mPropertyPattern;
 	protected int mPropertyPatternScope;
+
+	private static int property_id_source = 0;
+	private static final String property_id_prefix = "JSAnalyzerPropID_";
+	
+	private int mPropertyIdNum;
+	protected String mPropertyId;
+	
+	protected Element mIADPInfo;
 	
 	/**
 	 * Constructor for fundamental properties
 	 */
 	protected Property() {
-		// NOP
+		this.mPropertyIdNum = ++Property.property_id_source;
+		this.mPropertyId = Property.property_id_prefix + Integer.toString(mPropertyIdNum);
+	}
+	
+	public String getId() {
+		return this.mPropertyId;
+	}
+	public int getIdNum() {
+		return this.mPropertyIdNum;
+	}
+	public boolean equals(Property prop) {
+		if(this.mPropertyId.equals(prop.getId())) {
+			return true;
+		}
+		return false;
 	}
 	
 	public String getNameAbbr() {
 		return this.mPropertyNameAbbreviation;
+	}
+	
+	public String getRequirement() {
+		return this.mRequirement;
+	}
+	
+	public AjaxDesignPattern getAjaxDesignPattern() {
+		return this.mAjaxDesignPattern;
+	}
+	public PropertyPattern getPropertyPattern() {
+		return this.mPropertyPattern;
+	}
+	
+	public void setIADPInfo(Element iadp) {
+		this.mIADPInfo = iadp;
+	}
+	public Element getIADPInfo() {
+		return this.mIADPInfo;
+	}
+	
+	@Override
+	public Property clone() {
+		try {
+			return (Property) super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	/**
@@ -48,7 +103,9 @@ public class Property {
 		this.mAjaxDesignPattern = adp;
 		this.mPropertyPattern = pp;
 		this.mPropertyPatternScope = ppScope;
-		
+
+		this.mPropertyIdNum = ++Property.property_id_source;
+		this.mPropertyId = Property.property_id_prefix + Integer.toString(mPropertyIdNum);
 	}
 
 	protected String mP;
@@ -61,6 +118,17 @@ public class Property {
 		this.mS = S;
 		this.mQ = Q;
 		this.mR = R;
+	}
+	
+	/**
+	 * To be implemented
+	 * @param P1
+	 * @param P2
+	 * @param fsm
+	 * @deprecated
+	 */
+	public String getTemplateVariableP(String P1, String P2, FiniteStateMachine fsm) {
+		return P1 + " | " + P2;
 	}
 	
 	public String getCTLFormula() {
@@ -82,23 +150,90 @@ public class Property {
 		
 		return formula;
 	}
+
+	/**
+	 * Fundamemtal properties
+	 */
+	public static Property[] mFundamentalPropertyList = {
+		new AsyncComm(),
+		new ACRetry(),
+		new SRWait(),
+		new UEHRegist(),
+		new UEHSingle(),
+	};
 	
+	/**
+	 * Constains original properties
+	 */
+	public static List<Property> mOriginalPropertyList = new ArrayList<Property>();
+
+	/**
+	 * To add your original properties in the following three steps:
+	 * 1: Instantiates Property class
+	 * 2: Sets variables in XML
+	 * 3: Adds property list
+	 * Note that fundamental properties have been already registered
+	 */
+	public static void setOriginalPropertyList() {
+		/// 1. Instantiate
+		Property pUESubmit = new Property(
+				"User event and submit",
+				"UESubmit",
+				"Ajax apps should require explicit user operations before form data is submitted",
+				new AjaxDesignPattern(AjaxDesignPattern.Category.Programming, "Explicit Submission"),
+				new Existence(PropertyPattern.Scope.Before),
+				PropertyPattern.Scope.Before);
+		/// 2. Set variables in XML
+		ArrayList<String> varsXML = new ArrayList<String>();
+		String P = "<Variable id=\"$P\" semantic=\"User event\" source=\"event\" />";
+		String S = "<Variable id=\"$R\" semantic=\"Submit function\" source=\"func\" />";
+		varsXML.add(P);
+		varsXML.add(S);
+		pUESubmit.setVeriablesXML(varsXML);
+		/// 3: Adds property list
+		Property.mOriginalPropertyList.add(pUESubmit);
+
+		/**
+		 * Here you can add your original properties
+		 */
+		
+	}
+	
+	public static Property getProperty(String id) {
+		for(Property prop : Property.mFundamentalPropertyList) {
+			if(prop.getId().equals(id)) {
+				return prop;
+			}
+		}
+		for(Property prop : Property.mOriginalPropertyList) {
+			if(prop.getId().equals(id)) {
+				return prop;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Gets property list in XML
+	 * @return Property list in XML
+	 */
 	public static String getPropertyListXML() {
 		String ret = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
 		
-		int id = 0;
 		ret += "<Properties>\n";
-		ret += (new AsyncComm()).toXML(id++);
-		ret += (new ACRetry()).toXML(id++);
-		ret += (new SRWait()).toXML(id++);
-		ret += (new UEHRegist()).toXML(id++);
-		ret += (new UEHSingle()).toXML(id++);
-//		ret += (new AsyncComm()).toXML(id++);
-//		ret += (new AsyncComm()).toXML(id++);
+		/// Fundamentals
+		for(Property prop : Property.mFundamentalPropertyList) {
+			ret += prop.toXML();
+		}
+		/// Originals
+		for(Property prop : Property.mOriginalPropertyList) {
+			ret += prop.toXML();
+		}
 		ret += "</Properties>\n";
 		
 		return ret;
 	}
+	
 	
 
 	private List<String> mVarsXML;
@@ -109,9 +244,9 @@ public class Property {
 		this.mVarsXML = varsXML;
 	}
 	
-	public String toXML(int id) {
+	public String toXML() {
 		String ret = "";
-		ret += "<Property id=\"" + id + "\">\n";
+		ret += "<Property id=\"" + this.mPropertyId + "\">\n";
 		ret += "\t" + "<Name>" + this.mPropertyName + "</Name>\n";
 		ret += "\t" + "<NameAbbr>" + this.mPropertyNameAbbreviation + "</NameAbbr>\n";
 		ret += "\t" + "<Requirement>" + this.mRequirement + "</Requirement>\n";
@@ -127,15 +262,6 @@ public class Property {
 		ret += "\t" + "</Variables>\n";
 		ret += "</Property>\n";
 		return ret;
-	}
-	
-	/**
-	 * To be implemented
-	 * @param filename Contains properties to be verified
-	 * @deprecated
-	 */
-	public static void read(String filename) {
-		// NOP
 	}
 	
 }

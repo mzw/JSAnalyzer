@@ -48,15 +48,15 @@
 			ftext.setAttribute("id", "ftext");
 			ftext.setAttribute("type" ,"text");
 			ftext.onkeyup = inputFormText;
-			var fsubmit = document.createElement("input");
-			fsubmit.setAttribute("id", "fsubmit");
-			fsubmit.setAttribute("type", "submit");
-			fsubmit.setAttribute("value", "submit");
-			fsubmit.disabled = true;
-			fsubmit.onclick = doSubmit;
+			var _fsubmit = document.createElement("input");
+			_fsubmit.setAttribute("id", "fsubmit");
+			_fsubmit.setAttribute("type", "submit");
+			_fsubmit.setAttribute("value", "submit");
+			_fsubmit.disabled = true;
+			_fsubmit.onclick = doSubmit;
 
 			formField.appendChild(ftext);
-			formField.appendChild(fsubmit);
+			formField.appendChild(_fsubmit);
 		};
 
 		function inputFormText() {

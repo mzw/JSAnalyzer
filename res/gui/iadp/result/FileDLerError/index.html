@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- 
+FileDLerError: A name of your project name 
+http://mzw.jp/research/ex/fd/motivatingExample_fault.html: A URL of your target Ajax app
+	<tr>
+		<td>AsyncComm</td>
+		<td>Ajax apps can handle user events during asynchronous communications</td>
+		<td>XMLHttpRequest Call</td>
+		<td>Response</td>
+		<td>AG($P -&gt; AF($S))</td>
+		<td>Ajax.Request ($P)<br />UserEvents ($S)<br /></td>
+		<td style="background-color:#7FFFD4;">Correct</td>
+	</tr>
+	<tr>
+		<td>ACRetry</td>
+		<td>Ajax apps can retry an asychronous communication when it fails</td>
+		<td>XMLHttpRequest Call</td>
+		<td>Response</td>
+		<td>AG($P -&gt; AF($S))</td>
+		<td>onFailure ($P)<br />Ajax.Request ($S)<br /></td>
+		<td style="background-color:#FA8072;"><a target="_blank" href="http://localhost/~yuta/research/ex/iadp/viewer.counterexample.php?projname=FileDLerError&specid=1&stepnum=12">Fault</a></td>
+	</tr>
+	<tr>
+		<td>SRWait</td>
+		<td>Ajax apps should reveive a server response before calling reposen-dependent functions</td>
+		<td>On-Demand JavaScript</td>
+		<td>Precedence</td>
+		<td>!E[!$S U ($P &amp; !$S)]</td>
+		<td>inputFormText ($P)<br />onSuccess ($S)<br /></td>
+		<td style="background-color:#7FFFD4;">Correct</td>
+	</tr>
+	<tr>
+		<td>UEHRegist</td>
+		<td>Ajax apps should register user event handlers at page load</td>
+		<td>User Action</td>
+		<td>Precedence</td>
+		<td>!E[!$S U ($P &amp; !$S)]</td>
+		<td>UserEvents ($P)<br />onload ($S)<br /></td>
+		<td style="background-color:#7FFFD4;">Correct</td>
+	</tr>
+	<tr>
+		<td>UESubmit</td>
+		<td>Ajax apps should require explicit user operations before form data is submitted</td>
+		<td>Explicit Submission</td>
+		<td>Existence</td>
+		<td>!E[!($P &amp; !$R) U ($R &amp; !($P &amp; !$R))]</td>
+		<td>UserEvents ($P)<br />doSubmit ($R)<br /></td>
+		<td style="background-color:#7FFFD4;">Correct</td>
+	</tr>
+: A table body containing the verification results
+-->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Verification Results</title>
+<link rel="stylesheet" href="../../css/base.css" type="text/css" />
+</head>
+
+<body>
+<div id="header">
+<h1>Verification Results</h1>
+</div>
+
+<div id="content">
+
+<h2 class="iadp">Project Information</h2>
+<dl>
+<dt>Name</dt>
+<dd>FileDLerError</dd>
+<dt>URL</dt>
+<dd><a href="http://mzw.jp/research/ex/fd/motivatingExample_fault.html">http://mzw.jp/research/ex/fd/motivatingExample_fault.html</a></dd>
+</dl>
+
+<h2 class="iadp">Implemented Ajax Desing Patterns</h2>
+<table cellspacing=1>
+<thead>
+	<th>Property</th><th>Requirement</th>
+	<th>Ajax Design Pattern</th><th>Property Pattern</th>
+	<th>CTL Template</th><th>Variables (keys)</th><!-- <th>Variable (key)</th><th>Variable (key)</th> -->
+	<th>Result</th>
+</thead>
+<tbody>
+	<tr>
+		<td>AsyncComm</td>
+		<td>Ajax apps can handle user events during asynchronous communications</td>
+		<td>XMLHttpRequest Call</td>
+		<td>Response</td>
+		<td>AG($P -&gt; AF($S))</td>
+		<td>Ajax.Request ($P)<br />UserEvents ($S)<br /></td>
+		<td style="background-color:#7FFFD4;">Correct</td>
+	</tr>
+	<tr>
+		<td>ACRetry</td>
+		<td>Ajax apps can retry an asychronous communication when it fails</td>
+		<td>XMLHttpRequest Call</td>
+		<td>Response</td>
+		<td>AG($P -&gt; AF($S))</td>
+		<td>onFailure ($P)<br />Ajax.Request ($S)<br /></td>
+		<td style="background-color:#FA8072;"><a target="_blank" href="http://localhost/~yuta/research/ex/iadp/viewer.counterexample.php?projname=FileDLerError&specid=1&stepnum=12">Fault</a></td>
+	</tr>
+	<tr>
+		<td>SRWait</td>
+		<td>Ajax apps should reveive a server response before calling reposen-dependent functions</td>
+		<td>On-Demand JavaScript</td>
+		<td>Precedence</td>
+		<td>!E[!$S U ($P &amp; !$S)]</td>
+		<td>inputFormText ($P)<br />onSuccess ($S)<br /></td>
+		<td style="background-color:#7FFFD4;">Correct</td>
+	</tr>
+	<tr>
+		<td>UEHRegist</td>
+		<td>Ajax apps should register user event handlers at page load</td>
+		<td>User Action</td>
+		<td>Precedence</td>
+		<td>!E[!$S U ($P &amp; !$S)]</td>
+		<td>UserEvents ($P)<br />onload ($S)<br /></td>
+		<td style="background-color:#7FFFD4;">Correct</td>
+	</tr>
+	<tr>
+		<td>UESubmit</td>
+		<td>Ajax apps should require explicit user operations before form data is submitted</td>
+		<td>Explicit Submission</td>
+		<td>Existence</td>
+		<td>!E[!($P &amp; !$R) U ($R &amp; !($P &amp; !$R))]</td>
+		<td>UserEvents ($P)<br />doSubmit ($R)<br /></td>
+		<td style="background-color:#7FFFD4;">Correct</td>
+	</tr>
+
+</tbody>
+</table>
+</div>
+
+<div id="footer">
+<label>JSVerifier, 2013.</label>
+</div>
+
+</body>
+</html>

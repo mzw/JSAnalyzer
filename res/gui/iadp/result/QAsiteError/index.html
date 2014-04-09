@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- 
+QAsiteError: A name of your project name 
+http://localhost/~yuta/research/ex/QAsite/error/index.html: A URL of your target Ajax app
+	<tr>
+		<td>UEHRegist</td>
+		<td>Ajax apps should register user event handlers at page load</td>
+		<td>User Action</td>
+		<td>Precedence</td>
+		<td>!E[!$S U ($P &amp; !$S)]</td>
+		<td>UserEvents ($P)<br />onload ($S)<br /></td>
+		<td style="background-color:#7FFFD4;">Correct</td>
+	</tr>
+	<tr>
+		<td>UEHSingle</td>
+		<td>Ajax apps can prevent multiple calls of specific functions</td>
+		<td>User Action</td>
+		<td>Absence</td>
+		<td>AG(!$P)</td>
+		<td>validateLogin ($P1)<br />onmousedown ($P2)<br /></td>
+		<td style="background-color:#FA8072;"><a target="_blank" href="http://localhost/~yuta/research/ex/iadp/viewer.counterexample.php?projname=QAsiteError&specid=1&stepnum=6">Fault</a></td>
+	</tr>
+: A table body containing the verification results
+-->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Verification Results</title>
+<link rel="stylesheet" href="../../css/base.css" type="text/css" />
+</head>
+
+<body>
+<div id="header">
+<h1>Verification Results</h1>
+</div>
+
+<div id="content">
+
+<h2 class="iadp">Project Information</h2>
+<dl>
+<dt>Name</dt>
+<dd>QAsiteError</dd>
+<dt>URL</dt>
+<dd><a href="http://localhost/~yuta/research/ex/QAsite/error/index.html">http://localhost/~yuta/research/ex/QAsite/error/index.html</a></dd>
+</dl>
+
+<h2 class="iadp">Implemented Ajax Desing Patterns</h2>
+<table cellspacing=1>
+<thead>
+	<th>Property</th><th>Requirement</th>
+	<th>Ajax Design Pattern</th><th>Property Pattern</th>
+	<th>CTL Template</th><th>Variables (keys)</th><!-- <th>Variable (key)</th><th>Variable (key)</th> -->
+	<th>Result</th>
+</thead>
+<tbody>
+	<tr>
+		<td>UEHRegist</td>
+		<td>Ajax apps should register user event handlers at page load</td>
+		<td>User Action</td>
+		<td>Precedence</td>
+		<td>!E[!$S U ($P &amp; !$S)]</td>
+		<td>UserEvents ($P)<br />onload ($S)<br /></td>
+		<td style="background-color:#7FFFD4;">Correct</td>
+	</tr>
+	<tr>
+		<td>UEHSingle</td>
+		<td>Ajax apps can prevent multiple calls of specific functions</td>
+		<td>User Action</td>
+		<td>Absence</td>
+		<td>AG(!$P)</td>
+		<td>validateLogin ($P1)<br />onmousedown ($P2)<br /></td>
+		<td style="background-color:#FA8072;"><a target="_blank" href="http://localhost/~yuta/research/ex/iadp/viewer.counterexample.php?projname=QAsiteError&specid=1&stepnum=6">Fault</a></td>
+	</tr>
+
+</tbody>
+</table>
+</div>
+
+<div id="footer">
+<label>JSVerifier, 2013.</label>
+</div>
+
+</body>
+</html>

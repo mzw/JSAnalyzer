@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- 
+@ProjectName: A name of your project name 
+@ProjectUrl: A URL of your target Ajax app
+@ResultTableBody: A table body containing the verification results
+-->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Verification Results</title>
+<link rel="stylesheet" href="../../css/base.css" type="text/css" />
+</head>
+
+<body>
+<div id="header">
+<h1>Verification Results</h1>
+</div>
+
+<div id="content">
+
+<h2 class="iadp">Project Information</h2>
+<dl>
+<dt>Name</dt>
+<dd>@ProjectName</dd>
+<dt>URL</dt>
+<dd><a href="@ProjectUrl">@ProjectUrl</a></dd>
+</dl>
+
+<h2 class="iadp">Implemented Ajax Desing Patterns</h2>
+<table cellspacing=1>
+<thead>
+	<th>Property</th><th>Requirement</th>
+	<th>Ajax Design Pattern</th><th>Property Pattern</th>
+	<th>CTL Template</th><th>Variables (keys)</th><!-- <th>Variable (key)</th><th>Variable (key)</th> -->
+	<th>Result</th>
+</thead>
+<tbody>
+@ResultTableBody
+</tbody>
+</table>
+</div>
+
+<div id="footer">
+<label>JSVerifier, 2013.</label>
+</div>
+
+</body>
+</html>

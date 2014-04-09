@@ -1,5 +1,5 @@
 
-.PHONY: clean rm
+.PHONY: clean rm smvclean
 
 clean:
 	rm *.prp *.ltl *.nvc  *.spin.result *.trail *.trail.result
@@ -7,4 +7,6 @@ clean:
 rm:
 	rm pan pan.b pan.c pan.h pan.m pan.p pan.t
 
+smvclean:
+	rm *.smv *.smv.result
 
