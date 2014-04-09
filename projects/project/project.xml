@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+
+	<!--
+	Name to use for naming the temporal files
+	eg, "Test" -> Test.pml.ID.trail
+	-->
+	<Name>Test</Name>
+	
+	
+	<!-- FileDLer: File Downloader -->
+	<Setting type="URL" value="http://mzw.jp/yuta/research/ex/fd/motivatingExample.html" />
+	<Setting type="URL" value="http://mzw.jp/yuta/research/ex/fd/motivatingExample_fault.html" />
+		
+	<!-- SWS: Shopping Website -->
+	<Setting type="URL" value="http://mzw.jp/yuta/research/ex/sws/fault_quick.html" />
+	<Setting type="URL" value="http://mzw.jp/yuta/research/ex/sws/correct.html" />
+		
+	<!-- QAsite: Question & Answer Website -->
+	<Setting type="URL" value="http://mzw.jp/yuta/research/ex/QAsite/correct/index.html" />
+	<Setting type="URL" value="http://mzw.jp/yuta/research/ex/QAsite/error/index.html" />
+	
+		
+	<!--
+	Real-world Ajax applications 
+	-->
+		
+	<!-- sForm: Ajax Form Validator -->
+	<Setting type="URL" value="http://mzw.jp/yuta/research/cs/sForm_submit/sForm_fault.html" />
+	<Setting type="URL" value="http://mzw.jp/yuta/research/cs/sForm_correct/sForm_correct.html" />
+		
+	<!-- LWL: Ajax Login Form -->
+	<Setting type="URL" value="http://mzw.jp/yuta/test/wp_debug/index.php" /> <!-- Sorry, this wrong version is needed to modify server-side PHP code -->
+	<Setting type="URL" value="http://mzw.jp/yuta/test/wp/index.php" />
+		
+	<!-- UCDChina: Search Form using Live Form -->
+		
+	<!-- 2020m: Login Form using Direct Login Pattern -->
+	
+	
+
+	<!--
+	Copy & paste target application below because JSVerifier uses "the last one"
+	URL to be analyzed
+	-->
+	<Setting type="URL" value="http://mzw.jp/yuta/research/ex/fd/motivatingExample.html" />
+
+	<!--
+	Distinguishing rules
+	-->
+	<Rules>
+		<Rule>res/rules/trigger.xml</Rule>
+		<Rule>res/rules/function.xml</Rule>
+		<Rule>res/rules/control.xml</Rule>
+		<Rule>res/rules/ruledJS.xml</Rule>
+	</Rules>
+</Project>
