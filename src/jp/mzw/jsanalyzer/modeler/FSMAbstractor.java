@@ -1,6 +1,6 @@
 package jp.mzw.jsanalyzer.modeler;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
@@ -50,9 +50,13 @@ public class FSMAbstractor extends Modeler {
 				parent.addChild(node);
 			}
 		}
-		
+
 		this.search(acg, abstManager);
+		
+		/// Heuristic processes (to be refactorred)
 		this.removeIsolateNodes(acg, abstManager);
+		this.removeNotCalledFunctions(acg);
+		this.removeImproperRelationships(acg, abstManager);
 		
 		return Pair.of(acg, abstManager);
 	}
@@ -120,8 +124,8 @@ public class FSMAbstractor extends Modeler {
 		}
 
 		/// abstract improper node
-		List<Node> improperNodes = new LinkedList<Node>();
-		List<Edge> improperEdges = new LinkedList<Edge>();
+		List<Node> improperNodes = new ArrayList<Node>();
+		List<Edge> improperEdges = new ArrayList<Edge>();
 		for(Node node : graph.getNodeList()) {
 			List<Edge> fromEdges = graph.getEdgesFrom(node);
 //			if(!node.isAbstractedControl() && fromEdges.size() == 0) {
@@ -215,8 +219,8 @@ public class FSMAbstractor extends Modeler {
 	 * @param graph An extended call graph to be abstracted
 	 */
 	private void removeIsolateNodes(CallGraph graph, AbstractionManager abstManager) {
-		List<Node> removeNodes = new LinkedList<Node>();
-		List<Edge> removeEdges = new LinkedList<Edge>();
+		List<Node> removeNodes = new ArrayList<Node>();
+		List<Edge> removeEdges = new ArrayList<Edge>();
 		
 		// (Root node) --(no event/cond)-->
 		// to be debugged
@@ -260,6 +264,94 @@ public class FSMAbstractor extends Modeler {
 		for(Edge edge : removeEdges) {
 			graph.removeEdge(edge);
 //			TextFileUtils.registSnapchot(graph.toDot());
+		}
+		
+	}
+	
+	private void removeImproperRelationships(CallGraph graph, AbstractionManager abstManager) {
+		List<Node> improperNodes = new ArrayList<Node>();
+		List<Edge> improperEdges = new ArrayList<Edge>();
+
+		// abstract improper edge
+		for(Node node : graph.getNodeList()) {
+			if(node.getId().equals(CallGraph.getInitNode().getId())) {
+				continue;
+			}
+			List<Edge> fromEdgeList = graph.getEdgesFrom(node);
+			List<Edge> toEdgeList = graph.getEdgesTo(node);
+			
+			boolean no_event_cond = true;
+			for(Edge toEdge : toEdgeList) {
+				if(toEdge.hasEvent() || toEdge.hasCond()) {
+					no_event_cond = false;
+					break;
+				}
+			}
+			
+			/// --(multi and no event/cond)--> (node) --(no edge)-->
+			if(fromEdgeList.size() == 0 && 1 < toEdgeList.size() && no_event_cond) {
+				// Adds removal targets
+				improperNodes.add(node);
+				improperEdges.addAll(toEdgeList);
+				
+				// Sets abstraction information
+				for(Edge toEdge : toEdgeList) {
+					abstManager.add(graph.getNode(toEdge.getFromNodeId()), node, toEdge);
+				}
+			}
+		}
+		
+		// remove
+		for(Node node : improperNodes) {
+			graph.removeNode(node);
+
+//			TextFileUtils.registSnapchot(graph.toDot());
+		}
+		for(Edge edge : improperEdges) {
+			graph.removeEdge(edge);
+
+//			TextFileUtils.registSnapchot(graph.toDot());
+		}
+		if(improperNodes.size() != 0 && improperEdges.size() != 0) {
+			removeImproperRelationships(graph, abstManager);
+		}
+	}
+	
+	private void removeNotCalledFunctions(CallGraph graph) {
+		
+		ArrayList<Node> removeNodeList = new ArrayList<Node>();
+		ArrayList<Edge> removeEdgeList = new ArrayList<Edge>();
+		for(Node node : graph.getNodeList()) {
+			if(node.getId().equals(CallGraph.getInitNode().getId())) {
+				continue;
+			}
+			ArrayList<Edge> fromEdgeList = new ArrayList<Edge>();
+			ArrayList<Edge> toEdgeList = new ArrayList<Edge>();
+			for(Edge edge : graph.getEdgeList()) {
+				if(edge.getFromNodeId().equals(node.getId())) {
+					fromEdgeList.add(edge);
+				}
+				if(edge.getToNodeId().equals(node.getId())) {
+					toEdgeList.add(edge);
+				}
+			}
+
+			/// --(NO edge)--> (Not root node) --(regardless)-->
+			/// Remove the (Not root node) and the (regardless) edges
+			/// Recursively remove
+			if(toEdgeList.size() == 0) {
+				removeNodeList.add(node);
+				removeEdgeList.addAll(fromEdgeList);
+			}
+		}
+		if(removeNodeList.size() != 0) {
+			for(Node node : removeNodeList) {
+				graph.removeNode(node);
+			}
+			for(Edge edge : removeEdgeList) {
+				graph.removeEdge(edge);
+			}
+			removeNotCalledFunctions(graph);
 		}
 	}
 }

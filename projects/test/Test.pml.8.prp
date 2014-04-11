@@ -1,1 +1,0 @@
-(App_state != loginAsSuperUser) U (App_state == readPremierDoc)

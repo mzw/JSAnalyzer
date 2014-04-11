@@ -51,7 +51,6 @@ public class Rule {
 	 * Determines whether given rule string has arg_*
 	 * @param rule Given rule string
 	 * @return The number of the argument. If not contains, return -1.
-	 * @deprecated
 	 */
 	public static int hasArgNum(String rule) {
 		String arg_str = XMLAttr.RuleArgNum;

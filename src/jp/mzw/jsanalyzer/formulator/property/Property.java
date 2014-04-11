@@ -241,6 +241,20 @@ public class Property implements Cloneable {
 		}
 		return null;
 	}
+
+	public static Property getPropertyByNameAbbr(String abbr) {
+		for(Property prop : Property.mFundamentalPropertyList) {
+			if(prop.getNameAbbr().equals(abbr)) {
+				return prop;
+			}
+		}
+		for(Property prop : Property.mOriginalPropertyList) {
+			if(prop.getNameAbbr().equals(abbr)) {
+				return prop;
+			}
+		}
+		return null;
+	}
 	
 	/**
 	 * Gets property list in XML

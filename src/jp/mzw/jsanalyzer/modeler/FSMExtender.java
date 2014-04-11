@@ -1,5 +1,7 @@
 package jp.mzw.jsanalyzer.modeler;
 
+import java.util.List;
+
 import org.apache.commons.lang3.tuple.Pair;
 import org.jsoup.nodes.Element;
 import org.mozilla.javascript.ast.Assignment;
@@ -14,6 +16,8 @@ import org.w3c.dom.css.CSSStyleRule;
 
 import jp.mzw.jsanalyzer.core.Analyzer;
 import jp.mzw.jsanalyzer.core.IdGen;
+import jp.mzw.jsanalyzer.core.LimitationManager;
+import jp.mzw.jsanalyzer.core.LimitationManager.Limitation;
 import jp.mzw.jsanalyzer.modeler.model.graph.CallGraph;
 import jp.mzw.jsanalyzer.modeler.model.graph.Edge;
 import jp.mzw.jsanalyzer.modeler.model.graph.Node;
@@ -105,7 +109,7 @@ public class FSMExtender extends Modeler {
 		}
 		
 		/// Additionally, finds target candidates
-		edManager.findTargetCandidates(callGraph);
+		edManager.findTargetCandidates(callGraph, this.mAnalyzer);
 	}
 	
 	/**
@@ -244,15 +248,28 @@ public class FSMExtender extends Modeler {
 			callGraph.addEdge(edge);
 //			TextFileUtils.registSnapchot(callGraph.toDot());
 		}
-		// Object.potential_function(..., callback, ...)
+		// TargetObject.potential_function(..., callback, ...)
 		else if(node.getAstNode().getParent() instanceof PropertyGet &&
 				node.getAstNode().getParent().getParent() instanceof FunctionCall
 				) {
+			PropertyGet propAstNode = (PropertyGet)node.getAstNode().getParent();
+			AstNode targetAstNode = propAstNode.getTarget();
 			
 			int cbArgNum = Rule.hasArgNum(rule.getCallback());
 			if(cbArgNum != -1) {
 				FunctionCall funcCall = (FunctionCall)node.getAstNode().getParent().getParent();
-				AstNode argAstNode = funcCall.getArguments().get(cbArgNum);
+				List<AstNode> argListAstNode = funcCall.getArguments();
+				if(argListAstNode.size() == 0 || argListAstNode.get(cbArgNum) == null) {
+					// This is not an interaction or an ivalid one, e.g., no callback
+					LimitationManager.addLimitation(new Limitation(
+							funcCall.toSource(),
+							Limitation.JS_No_Callback,
+							"[May cause false positives] Developer can dynamically change interaction callbacks.\n"
+							+ "Ex) $('#id').event(cb); // Previously manipulates something in cb\n"
+							+ "$('#id').event(); // Now do nothing\n"));
+					return;
+				}
+				AstNode argAstNode = argListAstNode.get(cbArgNum);
 				AstNode cbAstNode = callGraph.getFunctionNode(argAstNode);
 				
 				if(cbAstNode != null) {
@@ -260,10 +277,22 @@ public class FSMExtender extends Modeler {
 					Node toNode = callGraph.getNode(cbAstNode);
 					
 					Edge edge = new Edge(fromNode.getId(), toNode.getId());
-					
+
 					if(!"".equals(rule.getEvent())) { // Due to just callback functions, e.g. jQuery.each
-						edge.setEvent(node.getAstNode(), rule);
-						node.setNodeType(Node.Potential);
+
+						int evArgNum = Rule.hasArgNum(rule.getEvent());
+						/// Ex. $("#ID").bind("event", callback);
+						if(evArgNum != -1 && argListAstNode.size() != 0 && argListAstNode.get(evArgNum) != null) {
+							AstNode evAstNode = argListAstNode.get(evArgNum);
+							edge.setEvent(targetAstNode, evAstNode, rule);
+							node.setNodeType(Node.Potential);
+						}
+						/// Ex. $("#ID").event(callback);
+						else {
+							edge.setEvent(targetAstNode, node.getAstNode(), rule);
+							node.setNodeType(Node.Potential);
+						}
+						
 					}
 					callGraph.addEdge(edge);
 //					TextFileUtils.registSnapchot(callGraph.toDot());

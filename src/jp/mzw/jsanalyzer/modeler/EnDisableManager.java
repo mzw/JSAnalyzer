@@ -12,6 +12,7 @@ import org.mozilla.javascript.ast.Name;
 import org.mozilla.javascript.ast.Scope;
 import org.mozilla.javascript.ast.StringLiteral;
 
+import jp.mzw.jsanalyzer.core.Analyzer;
 import jp.mzw.jsanalyzer.modeler.model.graph.CallGraph;
 import jp.mzw.jsanalyzer.rule.Control;
 import jp.mzw.jsanalyzer.rule.JSControl;
@@ -44,8 +45,8 @@ public class EnDisableManager {
 	public TargetSolver getTargetSolver() {
 		return this.mTargetSolver;
 	}
-	public void findTargetCandidates(CallGraph callGraph) {
-		this.mTargetSolver.findTargetCandidates(callGraph);
+	public void findTargetCandidates(CallGraph callGraph, Analyzer analyzer) {
+		this.mTargetSolver.findTargetCandidates(callGraph, analyzer);
 	}
 	public String findElementId(Scope scope, String varName) {
 		return this.mTargetSolver.findElementId(scope, varName);
@@ -139,13 +140,13 @@ public class EnDisableManager {
 		/**
 		 * Hard coding
 		 */
-		public void setTargetId(EnDisableManager edManager) {
+		public void setTargetId(Analyzer analyzer, EnDisableManager edManager) {
 			if(this.mHTMLElement != null) {
 				this.mTargetId = this.mHTMLElement.attr("id");
 			} else if(this.mJSTargetNode != null) {
 				if(this.mJSTargetNode instanceof FunctionCall) {
 					// document.getElementById("ID").disable = true;
-					this.mTargetId = TargetSolver.getElementIdBy((FunctionCall)this.mJSTargetNode);
+					this.mTargetId = TargetSolver.getElementIdBy((FunctionCall)this.mJSTargetNode, analyzer);
 				}
 				else if(this.mJSTargetNode instanceof Name) {
 //					this.mTargetId = TargetSolver.getElementId((Name)this.mJSTargetNode);

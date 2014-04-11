@@ -76,12 +76,17 @@ public class Specification {
 		ret += "\t\t<td>" + StringUtils.esc_xml(this.mProperty.getPropertyPattern().getCTLTemplate()) + "</td>\n";
 		/// Guided Variables
 		ret += "\t\t<td>";
-		for(Element var_elm : this.mProperty.getIADPInfo().getElementsByTag(XMLTag.IADPVeriable)) {
-			String var_id = var_elm.attr(XMLTag.IADPAttrVarId);
-			String var_value = var_elm.text();
-			
-			ret += var_value + " (" + var_id + ")<br />";
-			
+		
+		/// When use Web app GUI
+		if(this.mProperty.getIADPInfo() != null) {
+			for(Element var_elm : this.mProperty.getIADPInfo().getElementsByTag(XMLTag.IADPVeriable)) {
+				String var_id = var_elm.attr(XMLTag.IADPAttrVarId);
+				String var_value = var_elm.text();
+				
+				ret += var_value + " (" + var_id + ")<br />";
+			}
+		} else {
+			ret += "See your program or use Web app GUI";
 		}
 		ret +=  "</td>\n";
 

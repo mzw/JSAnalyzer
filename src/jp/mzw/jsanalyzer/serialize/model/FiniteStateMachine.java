@@ -94,11 +94,28 @@ public class FiniteStateMachine extends SerializableElement {
 			ret += "\t</State>\n";
 		}
 		
+		/// Prevent duplication
+		ArrayList<Event> eventList = new ArrayList<Event>();
 		for(Transition trans : this.mTransList) {
 			if(trans.getEvent() != null) {
-				ret += "\t<Event id=\"" + trans.getEvent().getId() + "\" name=\"" + trans.getEvent().getEvent() +
-						"\" lineno=\"" + trans.getEvent().getLineNo() + "\" pos=\"" + trans.getEvent().getPosition() + "\" />\n";
+				Event event = trans.getEvent();
+				boolean exist = false;
+				for(Event _event : eventList) {
+					if(event.getEvent().equals(_event.getEvent()) &&
+							event.getLineNo() == _event.getLineNo() &&
+							event.getPosition() == _event.getPosition()) {
+						exist = true;
+						break;
+					}
+				}
+				if(!exist) {
+					eventList.add(event);
+				}
 			}
+		}
+		for(Event event : eventList) {
+			ret += "\t<Event id=\"" + event.getId() + "\" name=\"" + event.getEvent() +
+			"\" lineno=\"" + event.getLineNo() + "\" pos=\"" + event.getPosition() + "\" />\n";
 		}
 		
 		ret += "</FSMData>\n";

@@ -2,6 +2,9 @@ package jp.mzw.jsanalyzer.modeler;
 
 import java.util.HashMap;
 
+import jp.mzw.jsanalyzer.core.Analyzer;
+import jp.mzw.jsanalyzer.core.LimitationManager;
+import jp.mzw.jsanalyzer.core.LimitationManager.Limitation;
 import jp.mzw.jsanalyzer.modeler.model.graph.CallGraph;
 import jp.mzw.jsanalyzer.modeler.model.graph.Node;
 import jp.mzw.jsanalyzer.util.StringUtils;
@@ -11,6 +14,8 @@ import org.mozilla.javascript.ast.Assignment;
 import org.mozilla.javascript.ast.AstNode;
 import org.mozilla.javascript.ast.AstRoot;
 import org.mozilla.javascript.ast.FunctionCall;
+import org.mozilla.javascript.ast.InfixExpression;
+import org.mozilla.javascript.ast.KeywordLiteral;
 import org.mozilla.javascript.ast.Name;
 import org.mozilla.javascript.ast.PropertyGet;
 import org.mozilla.javascript.ast.Scope;
@@ -63,14 +68,14 @@ public class TargetSolver {
 	 * Should preliminarily obtains JavaScirpt statements that assing values to HTML element ID attributes
 	 * @param callGraph Has JavaScript code fragments
 	 */
-	public void findTargetCandidates(CallGraph callGraph) {
+	public void findTargetCandidates(CallGraph callGraph, Analyzer analyzer) {
 		for(Node node : callGraph.getNodeList()) {
 			AstNode astNode = node.getAstNode();
 			
 			/// (var foo = ) document.getElementBy("ID");
 			if(astNode instanceof FunctionCall) {
 				FunctionCall funcCallAstNode = (FunctionCall) astNode;
-				String idString = TargetSolver.getElementIdBy(funcCallAstNode);
+				String idString = TargetSolver.getElementIdBy(funcCallAstNode, analyzer);
 				
 				/// Cannot parse id value, then does not regist this candidate
 				if(idString == null) {
@@ -137,7 +142,7 @@ public class TargetSolver {
 	 * @return Element ID value
 	 * @deprecated
 	 */
-	public static String getElementIdBy(FunctionCall funcCallAstNode) {
+	public static String getElementIdBy(FunctionCall funcCallAstNode, Analyzer analyzer) {
 		String funcName = funcCallAstNode.getTarget().toSource();
 		/// document.getElementById("ID").onclick = function() {...}
 		if("document.getElementById".equals(funcName)) {
@@ -155,23 +160,59 @@ public class TargetSolver {
 		/// $("CSS Query") in jQuery
 		/// Or $("ID") in Prototype
 		else if("$".equals(funcName)) {
-			boolean isJQuery = false; // when Prototype, false
 			AstNode idAstNode = funcCallAstNode.getArguments().get(0);
 			String idString = "";
-			if(idAstNode instanceof StringLiteral) { // "ID"
-				if(isJQuery) {
-					idString = StringUtils.removeQuote(idAstNode.toSource()).substring(1);
-				} else { // Prototype
+			
+			boolean is_prototype_true_jquery_false = true;
+			for(String rulefiles : analyzer.getProject().getRuleFilenames()) {
+				if(rulefiles.contains("prototype.xml")) {
+					is_prototype_true_jquery_false = true;
+				} else if(rulefiles.contains("jquery.xml")) {
+					is_prototype_true_jquery_false = false;
+				}
+			}
+			
+			/// Prototype
+			if(idAstNode instanceof StringLiteral) {
+				/// $("ID")
+				if(is_prototype_true_jquery_false) {
 					idString = StringUtils.removeQuote(idAstNode.toSource());
+				}
+				/// $("#ID"): Note that "#ID" can be css query, such as ".CLASS"
+				else {
+					idString = StringUtils.removeQuote(idAstNode.toSource()).substring(1);
 				}
 //				System.out.println("TargetSolver#getElementIdBy: " + idString);
 				return idString;
+			}
+			/// jQuery
+			/// Ex. $(this).attr('action'); @2020m
+			else if(idAstNode instanceof KeywordLiteral) {
+				LimitationManager.addLimitation(new Limitation(
+						funcCallAstNode.toSource(),
+						Limitation.JS_CANNOT_DETERMINE_INTERACTION_TARGET,
+						"'this' instance cannot be determined"));
+			}
+			/// Infix expression: difficult to determine these in a static manner
+			/// Ex. $('#' + ename + 'Btn') @include.js
+			else if(idAstNode instanceof InfixExpression) {
+				LimitationManager.addLimitation(new Limitation(
+						funcCallAstNode.toSource(),
+						Limitation.JS_Infix_Node,
+						"This is one of the challenges in static analysis methods"));
+			}
+			/// Ex. $(window).width() @include.js
+			/// window or user-defined variables: out of our current ananlysis scope
+			else if(idAstNode instanceof Name) {
+				LimitationManager.addLimitation(new Limitation(
+						funcCallAstNode.toSource(),
+						Limitation.JS_Dataflow,
+						"Currently ignore to analyze dataflow"));
 			}
 			else {
 				System.err.println("idAstNode is NOT StringLiteral@TargetSolver#getElementId: " +
 						idAstNode.getClass() + ", src= " + idAstNode.toSource() + "; func is: " + funcName);
 			}
-			System.out.println("Now: " + funcCallAstNode.getTarget().toSource());
 		}
 		/// element.setAttribute("id", "value");
 		else if(funcCallAstNode.getTarget() instanceof PropertyGet &&

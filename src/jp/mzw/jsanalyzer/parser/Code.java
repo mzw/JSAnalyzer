@@ -90,4 +90,19 @@ public class Code {
 	public String getUrl() {
 		return this.mURL;
 	}
+	
+	public int getLoC() {
+		if(this.mCode == null) {
+			return 0;
+		}
+		/// Calculates lines of code
+		int loc = 0;
+		for(int pos = 0; pos < this.mCode.length(); pos++) {
+			char c = this.mCode.charAt(pos);
+			if(c == '\n') {
+				loc++;
+			}
+		}
+		return loc;
+	}
 }

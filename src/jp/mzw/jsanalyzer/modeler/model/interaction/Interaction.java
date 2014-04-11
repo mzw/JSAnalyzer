@@ -1,5 +1,6 @@
 package jp.mzw.jsanalyzer.modeler.model.interaction;
 
+import jp.mzw.jsanalyzer.core.Analyzer;
 import jp.mzw.jsanalyzer.modeler.EnDisableManager;
 import jp.mzw.jsanalyzer.modeler.TargetSolver;
 import jp.mzw.jsanalyzer.util.StringUtils;
@@ -34,9 +35,9 @@ public class Interaction extends jp.mzw.jsanalyzer.modeler.model.Element {
 	
 	
 	String mTargetId;
-	public void setTargetId(EnDisableManager edManager) {
+	public void setTargetId(Analyzer analyzer, EnDisableManager edManager) {
 		/// From HTML code
-		if(this.mEvent.getEventObj() instanceof Element) {
+		if(this.mEvent.getTargetObj() instanceof Element) {
 			Element target = (Element)this.mEvent.getTargetObj();
 			this.mTargetId = target.attr("id");
 		}
@@ -47,7 +48,7 @@ public class Interaction extends jp.mzw.jsanalyzer.modeler.model.Element {
 			if(this.mEvent.getTargetObj() != null) {
 				AstNode target = (AstNode)this.mEvent.getTargetObj();
 				if(target instanceof FunctionCall) {
-					this.mTargetId = TargetSolver.getElementIdBy((FunctionCall)target);
+					this.mTargetId = TargetSolver.getElementIdBy((FunctionCall)target, analyzer);
 				} else if(target instanceof Name) {
 //					this.mTargetId = TargetSolver.getElementId((Name)target);
 					this.mTargetId = edManager.findElementId(TargetSolver.getParentScope(target), target.toSource());
@@ -64,7 +65,7 @@ public class Interaction extends jp.mzw.jsanalyzer.modeler.model.Element {
 			}
 		}
 		else {
-			StringUtils.printError(this, "#setTargetId, Cannot parse element ID", this.getId());
+			StringUtils.printError(this, "#setTargetId, Cannot parse element ID", this.getId() + ", event obj: " + this.mEvent.getEventObj() + ", " + this.mEvent.getEventObj().getClass().getName());
 		}
 		
 	}

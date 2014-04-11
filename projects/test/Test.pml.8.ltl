@@ -1,9 +1,0 @@
-never  {    /* (App_state != loginAsSuperUser) U (App_state == readPremierDoc) */
-T0_init:
-	if
-	:: ((App_state == readPremierDoc)) -> goto accept_all
-	:: ((App_state != loginAsSuperUser)) -> goto T0_init
-	fi;
-accept_all:
-	skip
-}

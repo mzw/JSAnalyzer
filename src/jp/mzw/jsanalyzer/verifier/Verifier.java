@@ -13,6 +13,7 @@ import org.jsoup.parser.Parser;
 import jp.mzw.jsanalyzer.config.FileExtension;
 import jp.mzw.jsanalyzer.config.FilePath;
 import jp.mzw.jsanalyzer.core.Analyzer;
+import jp.mzw.jsanalyzer.core.Project;
 import jp.mzw.jsanalyzer.core.examples.*;
 import jp.mzw.jsanalyzer.formulator.IADPFormulator;
 import jp.mzw.jsanalyzer.formulator.adp.AjaxDesignPattern;
@@ -35,7 +36,7 @@ public class Verifier {
 	public static void main(String[] args) {
 		System.out.println("==============================");
 		System.out.println("Running JSAnalyzer (Formulator and Verifier)");
-		System.out.println("These modules are also called as <JSVerifier>");
+		System.out.println("These implementations are also called as <JSVerifier>");
 		System.out.println("Visit: http://jsanalyzer.mzw.jp/about/jsverifier/");
 		System.out.println((new Date()).toString());
 		System.out.println("==============================");
@@ -43,7 +44,7 @@ public class Verifier {
 
 		System.out.println("Preparing your project...");
 //		Analyzer analyzer = new Analyzer("projects/test2/project.xml");
-		Analyzer analyzer = new Analyzer(new QAsiteError());
+//		Analyzer analyzer = new Analyzer(new QAsiteError());
 //		Analyzer analyzer = new Analyzer(new QAsiteCorrect());
 //		Analyzer analyzer = new Analyzer(new FileDLerError());
 //		Analyzer analyzer = new Analyzer(new FileDLerCorrect());
@@ -51,7 +52,9 @@ public class Verifier {
 //		Analyzer analyzer = new Analyzer(new SWSError());
 //		Analyzer analyzer = new Analyzer(new LoginDemo());
 //		Analyzer analyzer = new Analyzer(new LWA());
-
+		
+		Project project = CS2020m.getProject(CS2020m.INIT);
+		Analyzer analyzer = new Analyzer(project);
 		
 		Verifier verifier = new Verifier(analyzer);
 		/// 1: Setup
@@ -79,6 +82,24 @@ public class Verifier {
 			Specification spec = new Specification(prop);
 			specList.add(spec);
 		}
+		/// Verifies
+		for(Specification spec : specList) {
+			nusmv.verify(spec);
+		}
+		
+		/// end
+		long end = System.currentTimeMillis();
+		this.mVerifyTime = end - start;
+
+		this.writeReults(specList);
+	}
+	
+	public void verifyIADP(List<Specification> specList) {
+		System.out.println("Verifying...");
+		long start = System.currentTimeMillis();
+		/// start
+
+		NuSMV nusmv = new NuSMV(this.mFSM, this.mAnalyzer);
 		/// Verifies
 		for(Specification spec : specList) {
 			nusmv.verify(spec);
@@ -345,19 +366,8 @@ public class Verifier {
 		skeleton = skeleton.replace("@ResultTableBody", body);
 		TextFileUtils.write(dir.getPath(), "index.html", skeleton);
 
-//		String viewer = TextFileUtils.cat(FilePath.ViewCounterexampleSkeletonPHP);
-//		TextFileUtils.write(dir.getPath(), "viewer.php", viewer);
-		
-		
+		/// Gives viewer URL
 		System.out.println("--> [Success] Verification time: " + this.mVerifyTime);
-//		System.out.println("To view verification results, follow the instructions below (to be automated):");
-//		String curDir = (new File(".")).getAbsolutePath();
-//		curDir = curDir.substring(0, curDir.length()-2); // remove /path/to/. <- last "/."
-//		System.out.println("user@host:~$: cd " + curDir + "/" + this.mAnalyzer.getProject().getDir() + FilePath.VerifyResult + FilePath.Counterexample);
-//		System.out.println("user@host:counterexample$: chmod +x " + this.mAnalyzer.getProject().getName() + ".spec.<#>.sh");
-//		System.out.println("user@host:counterexample$: ./" + this.mAnalyzer.getProject().getName() + ".spec.<#>.sh");
-//		System.out.println("user@host:counterexample$: cp " + this.mAnalyzer.getProject().getName() + ".spec.*.dot.png " + FilePath.IADPResult);
-//		System.out.println(FilePath.IADPRepositoryHttp + "/view_verification_results.php?filename=" + this.mAnalyzer.getProject().getName() + FileExtension.XML);
 		System.out.println(FilePath.IADPRepositoryHttp + "/result/" + this.mAnalyzer.getProject().getName() + "/");
 	}
 	

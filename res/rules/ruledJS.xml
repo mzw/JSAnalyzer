@@ -17,5 +17,12 @@
 	<!-- startsWith -->
 	<Library method="startsWith" name="jquery"  path="res/libRules/jquery.xml" skip="true" />
 	
+	<!-- Ignorable JS libs -->
+	<Library method="startsWith" name="flashembed"  path="res/libRules/empty.xml" skip="true" />
+	<Library name="g.js"  path="res/libRules/empty.xml" skip="true" />
+	<Library name="inpage_linkid.js"  path="res/libRules/empty.xml" skip="true" />
+	<Library method="startsWith" name="google_" path="res/libRules/empty.xml" skip="true" />
+	
+	
 </Libraries>
 

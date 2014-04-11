@@ -1,0 +1,17 @@
+DOT := /usr/local/bin/dot
+
+.PHONY: png pdf clean
+
+png:
+	$(DOT) -Tpng xcg.dot -o xcg.png
+	$(DOT) -Tpng acg.dot -o acg.png
+	$(DOT) -Tpng fsm.dot -o fsm.png
+
+pdf:
+	$(DOT) -Tpdf xcg.dot -o xcg.pdf
+	$(DOT) -Tpdf acg.dot -o acg.pdf
+	$(DOT) -Tpdf fsm.dot -o fsm.pdf
+
+clean:
+	rm *.png *.pdf
+

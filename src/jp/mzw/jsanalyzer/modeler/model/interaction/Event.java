@@ -3,6 +3,7 @@ package jp.mzw.jsanalyzer.modeler.model.interaction;
 import jp.mzw.jsanalyzer.modeler.model.Element;
 import jp.mzw.jsanalyzer.rule.InteractionRule;
 import jp.mzw.jsanalyzer.rule.Rule;
+import jp.mzw.jsanalyzer.util.StringUtils;
 import jp.mzw.jsanalyzer.xml.XMLAttr;
 
 import org.jsoup.nodes.Attribute;
@@ -99,7 +100,7 @@ public class Event extends Element {
 		if(this.mEventObj instanceof Attribute) {
 			return ((Attribute)this.mEventObj).getKey();
 		} else if(this.mEventObj instanceof AstNode) {
-			return ((AstNode)this.mEventObj).toSource();
+			return StringUtils.removeQuote(((AstNode)this.mEventObj).toSource());
 		}
 		
 		return "";

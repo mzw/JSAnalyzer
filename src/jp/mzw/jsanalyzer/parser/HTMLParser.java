@@ -40,6 +40,10 @@ public class HTMLParser extends Parser {
 		super(code);
 	}
 	
+	public HTMLCode getHTMLCode() {
+		return (HTMLCode)this.mCode;
+	}
+	
 	/**
 	 * A base URL
 	 */
@@ -200,6 +204,14 @@ public class HTMLParser extends Parser {
 	 * Represents a list of JavaScript codes in HTML code
 	 */
 	protected ArrayList<JSCode> mJSCodeList;
+	
+	/**
+	 * Gets JavaScript codes in HTML code
+	 * @return List of JavaScript codes
+	 */
+	public List<JSCode> getJSCodeList() {
+		return this.mJSCodeList;
+	}
 	
 	/**
 	 * Gets JavaScript codes in HTML code

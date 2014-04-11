@@ -10,10 +10,12 @@ public class Preventer {
 	public static void main(String[] args) {
 		System.out.println("==============================");
 		System.out.println("Running JSAnalyzer (Revealer)");
-		System.out.println("This module is also called as <JSPreventer>");
+		System.out.println("This implementation is also called as <JSPreventer>");
 		System.out.println("Visit: http://jsanalyzer.mzw.jp/about/jspreventer/");
 		System.out.println((new Date()).toString());
 		System.out.println("==============================");
+		
+		
 		
 
 		System.out.println("==============================");

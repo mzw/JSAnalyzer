@@ -10,6 +10,7 @@ import jp.mzw.jsanalyzer.modeler.model.fsm.State;
 import jp.mzw.jsanalyzer.modeler.model.fsm.Transition;
 import jp.mzw.jsanalyzer.modeler.model.graph.Node;
 import jp.mzw.jsanalyzer.modeler.model.interaction.Event;
+import jp.mzw.jsanalyzer.util.StringUtils;
 import jp.mzw.jsanalyzer.util.TextFileUtils;
 
 import org.mozilla.javascript.ast.AstNode;
@@ -68,12 +69,17 @@ public class Serializer {
 				Event event = trans.getEvent();
 				
 				jp.mzw.jsanalyzer.serialize.model.Event sEvent = null;
-				if (event.getEventObj() instanceof org.jsoup.nodes.Element) {
-					org.jsoup.nodes.Element elm = (org.jsoup.nodes.Element)event.getEventObj();
-					sEvent = new jp.mzw.jsanalyzer.serialize.model.Event(event.getId(), event.getEvent(), elm.attr("id"));
+				if (event.getEventObj() instanceof org.jsoup.nodes.Attribute &&
+						event.getTargetObj() instanceof org.jsoup.nodes.Element) {
+					org.jsoup.nodes.Attribute eventAttr = (org.jsoup.nodes.Attribute)event.getEventObj();
+					org.jsoup.nodes.Element targetElm = (org.jsoup.nodes.Element)event.getTargetObj();
+					sEvent = new jp.mzw.jsanalyzer.serialize.model.Event(event.getId(), event.getEvent(), targetElm.attr("id"));
 				} else if (event.getEventObj() instanceof AstNode) {
 					AstNode astNode = (AstNode)event.getEventObj();
 					sEvent = new jp.mzw.jsanalyzer.serialize.model.Event(event.getId(), event.getEvent(), astNode.getLineno(), astNode.getPosition());
+				} else {
+					StringUtils.printError(Serializer.class, "Unknown event object to be serialized",
+							"(event, target) = " + event.getEventObj().getClass().getName() + ", " + event.getTargetObj().getClass().getName());
 				}
 				
 				sTrans.setEvent(sEvent);

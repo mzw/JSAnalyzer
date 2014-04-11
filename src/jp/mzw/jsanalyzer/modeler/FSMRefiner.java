@@ -113,7 +113,7 @@ public class FSMRefiner extends Modeler {
 				
 				fsm.addTransition(trans);
 			} else {
-				StringUtils.printError(this, "Invalid abstracted call graph", edge.getDotLabel());
+				StringUtils.printError(this, "Invalid abstracted call graph", edge.getDotLabel() + ", from-to: " + fromNode.getId() + "-" + toNode.getId());
 			}
 		}
 		
@@ -263,13 +263,13 @@ public class FSMRefiner extends Modeler {
 				
 			if(print) System.out.println("\tEnable/Disable statements");
 			for(EnDisable ed : state.getEnDisableList()) {
-				ed.setTargetId(edManager);
+				ed.setTargetId(this.mAnalyzer, edManager);
 				if(print) System.out.println("\t\t#" + ed.getTargetId() + " is disabled?: " + ed.isDisabled());
 			}
 
 			if(print) System.out.println("\tInteractions");
 			for(Interaction interaction: state.getInteractionList()) {
-				interaction.setTargetId(edManager);
+				interaction.setTargetId(this.mAnalyzer, edManager);
 				if(print) System.out.println("\t\t#" + interaction.getTargetId() + " whose event is: " + interaction.getEvent().getEvent());
 			}
 		}
@@ -283,7 +283,7 @@ public class FSMRefiner extends Modeler {
 	}
 	
 	private void findDisabledInteraction(String curStateId, FiniteStateMachine fsm, EnDisableManager edManager, List<EnDisable> context) {
-		this.findDisabledInteraction(curStateId, fsm, edManager, context, false);
+		this.findDisabledInteraction(curStateId, fsm, edManager, context, true);
 	}
 	
 	private void findDisabledInteraction(String curStateId, FiniteStateMachine fsm, EnDisableManager edManager, List<EnDisable> context, boolean print) {

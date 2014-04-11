@@ -92,16 +92,16 @@ public class RuleManager {
 			String func = elm.attr(XMLAttr.RuleFunc);
 			String prop = elm.attr(XMLAttr.RuleProp);
 			
-			if(attr != null) {
+			if(attr != null && !"".equals(attr)) {
 				String value = elm.attr(XMLAttr.RuleDisabled);
 				control = new HTMLControl(attr, value);
-			} else if(func != null) {
+			} else if(func != null && !"".equals(func)) {
 				String value = elm.attr(XMLAttr.RuleValue);
 				String cond = elm.attr(XMLAttr.RuleCond);
 				String disabled = elm.attr(XMLAttr.RuleDisabled);
 
 				control = new JSControl(func, "PropTarget", prop, value, cond, "set", disabled);
-			} else if (prop != null) {
+			} else if (prop != null && !"".equals(prop)) {
 				String value = elm.attr(XMLAttr.RuleDisabled);
 				control = new CSSControl(prop, value);
 			} else {

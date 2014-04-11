@@ -62,7 +62,9 @@ public class LimitationManager {
 		public static final int
 			CSS_Pseudo_Class = 1,
 			JS_Infix_Node = 2,
-			JS_NonDeterministic = 3;
+			JS_CANNOT_DETERMINE_INTERACTION_TARGET = 3,
+			JS_No_Callback = 4,
+			JS_Dataflow = 5;
 		
 		public static String getType(int type) {
 			switch(type) {
@@ -70,6 +72,12 @@ public class LimitationManager {
 				return "CSS pseudo class";
 			case JS_Infix_Node:
 				return "JavaScript infix node";
+			case JS_CANNOT_DETERMINE_INTERACTION_TARGET:
+				return "Cannot determine interaction target";
+			case JS_No_Callback:
+				return "Cannot find callback node in spite of existing event node";
+			case JS_Dataflow:
+				return "Cannot analyze dataflow currently";
 			default:
 				return "No match limitation type";
 			}

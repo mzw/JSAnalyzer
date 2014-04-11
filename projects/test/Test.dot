@@ -1,8 +1,0 @@
-digraph G {
-4 [id="4",label="",shape=circle,style=filled,color=black,fixedsize=true,width=0.3]
-5 [id="5",label="",shape=doublecircle,style=filled,color=black,fixedsize=true,width=0.3];
-
-
-4 -> 3 [label=""]
-
-}

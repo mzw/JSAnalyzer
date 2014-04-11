@@ -1,12 +1,17 @@
 package jp.mzw.jsanalyzer.modeler;
 
+import java.util.List;
+
 import org.apache.commons.lang3.tuple.Pair;
 
 import jp.mzw.jsanalyzer.config.FilePath;
 import jp.mzw.jsanalyzer.core.Analyzer;
 import jp.mzw.jsanalyzer.modeler.model.graph.CallGraph;
 import jp.mzw.jsanalyzer.modeler.model.fsm.FiniteStateMachine;
+import jp.mzw.jsanalyzer.parser.CSSCode;
+import jp.mzw.jsanalyzer.parser.HTMLCode;
 import jp.mzw.jsanalyzer.parser.HTMLParser;
+import jp.mzw.jsanalyzer.parser.JSCode;
 import jp.mzw.jsanalyzer.util.TextFileUtils;
 
 /**
@@ -29,6 +34,19 @@ public class FSMExtractor extends Modeler {
 	 * A elapsed time for extracting finite state machine
 	 */
 	protected long mExtractTime;
+
+	protected HTMLCode mHTMLCode;
+	public HTMLCode getHTMLCode() {
+		return this.mHTMLCode;
+	}
+	protected List<JSCode> mJSCodeList;
+	public List<JSCode> getJSCodeList() {
+		return this.mJSCodeList;
+	}
+	protected List<CSSCode> mCSSCodeList;
+	public List<CSSCode> getCSSCodeList() {
+		return this.mCSSCodeList;
+	}
 	
 	/**
 	 * Extracts a finite state machine
@@ -42,6 +60,10 @@ public class FSMExtractor extends Modeler {
 		FSMExtender extender = new FSMExtender(this.mAnalyzer);
 		Pair<CallGraph, EnDisableManager> xcg_ed = extender.createExtendedCallGraph();
 		HTMLParser html = extender.getHTMLParser();
+		
+		this.mHTMLCode = html.getHTMLCode();
+		this.mJSCodeList = html.getJSCodeList();
+		this.mCSSCodeList = html.getCSSCodeList();
 		
 		TextFileUtils.write(this.mAnalyzer.getProject().getDir() + FilePath.ModelDir, FilePath.ExtendedCallGraphDot, xcg_ed.getLeft().toDot());
 		

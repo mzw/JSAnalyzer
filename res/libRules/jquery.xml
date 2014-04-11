@@ -13,13 +13,15 @@
 		-->
 		
 		
+        <Function interact="User" func="bind" target="PropTarget" event="arg_0" callback="arg_1"/>
+		
 		<!-- The followings are not actually potential functions, but handle virtually callback mechanism -->
 		<Function func="each" target="jQuery" callback="arg_1" /><!-- Change callback="arg_0" depending on your apps -->
 		
 		
 	
 		<Function interact="User" via="mouse" func="on" target="PropTarget" event="arg_0" callback="arg_1"/>
-        <Function interact="User" via="mouse" func="bind" target="PropTarget" event="arg_0" callback="arg_1"/>
+        <!--<Function interact="User" via="mouse" func="bind" target="PropTarget" event="arg_0" callback="arg_1"/>-->
 
         <!-- mouse events -->
 		<Function interact="User" via="mouse" func="click" target="PropTarget" event="click" callback="arg_0"/>
