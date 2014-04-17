@@ -96,7 +96,6 @@ public class Verifier {
 			System.out.println("--> Result: " + spec.getSmvResult() + " (" + (v_end - v_start) + " msec)");
 		}
 		
-		this.writeReults(specList);
 		
 		/// end
 		long end = System.currentTimeMillis();
@@ -105,6 +104,8 @@ public class Verifier {
 		/// Gives viewer URL
 		System.out.println("--> [Success] Verification time: " + this.mVerifyTime);
 		System.out.println(FilePath.IADPRepositoryHttp + "/result/" + this.mAnalyzer.getProject().getName() + "/");
+
+		this.writeReults(specList);
 
 	}
 	

@@ -7,6 +7,7 @@ import jp.mzw.jsanalyzer.core.Analyzer;
 import jp.mzw.jsanalyzer.core.Project;
 import jp.mzw.jsanalyzer.formulator.property.Property;
 import jp.mzw.jsanalyzer.modeler.Modeler;
+import jp.mzw.jsanalyzer.preventer.Preventer;
 import jp.mzw.jsanalyzer.serialize.Serializer;
 import jp.mzw.jsanalyzer.serialize.model.FiniteStateMachine;
 import jp.mzw.jsanalyzer.verifier.Verifier;
@@ -19,14 +20,16 @@ public class CS2020m extends Project {
 		Project project = CS2020m.getProject(CS2020m.Original);
 		Analyzer analyzer = new Analyzer(project);
 		
-//		Modeler modeler = new Modeler(analyzer);
-//		jp.mzw.jsanalyzer.modeler.model.fsm.FiniteStateMachine fsm = modeler.extract();
-//		Serializer.serialze(analyzer, fsm);
+		Modeler modeler = new Modeler(analyzer);
+		jp.mzw.jsanalyzer.modeler.model.fsm.FiniteStateMachine fsm = modeler.extract();
+		Serializer.serialze(analyzer, fsm);
 		
 		Verifier verifier = new Verifier(analyzer);
-//		verifier.setup();
+////		verifier.setup();
 		List<Specification> specList = CS2020m.getSpecList(analyzer, verifier.getExtractedFSM());
 		verifier.verifyIADP(specList);
+		
+		Preventer preventer = new Preventer(analyzer);
 	}
 	
 	private CS2020m(String projName, String projUrl) {
@@ -37,12 +40,17 @@ public class CS2020m extends Project {
 
 	public static final int
 		Original = 0,
-		Mutated_Original = 1;
+		UEHRegist = 1,
+		SeedRetrieve = 2;
 	
 	public static CS2020m getProject(int ver) {
 		switch(ver) {
 		case CS2020m.Original:
 			return new CS2020m("2020m.Original", "http://localhost/~yuta/research/cs/2020m/0.origin/2020m.html");
+		case CS2020m.UEHRegist:
+			return new CS2020m("2020m.UEHRegist", "http://localhost/~yuta/research/cs/2020m/1.uehregist/2020m.html");
+		case CS2020m.SeedRetrieve:
+			return new CS2020m("2020m.SeedRetrieve", "http://localhost/~yuta/research/cs/2020m/2.seedretrieve/2020m.html");
 		}
 		return null;
 	}
@@ -105,7 +113,6 @@ public class CS2020m extends Project {
 		/// LFDisable
 		String loginEventId = fsm.getEventId("submit", 21, 15);
 		String succLoginStateId = fsm.getFuncId("window.location.replace", 34, 0);
-		System.out.println(succLoginStateId);
 		String P = Property.genTemplateVariableP(NuSMV.genExpr(succLoginStateId), NuSMV.genExpr(loginEventId), fsm);
 		
 		Property pLFDisable = Property.getPropertyByNameAbbr("LFDisable").clone();

@@ -2,6 +2,7 @@ package jp.mzw.jsanalyzer.preventer;
 
 import java.util.Date;
 
+import jp.mzw.jsanalyzer.core.Analyzer;
 import jp.mzw.jsanalyzer.preventer.insert_delay_ajax.JavaScriptLocation;
 import jp.mzw.jsanalyzer.preventer.insert_delay_ajax.MutatedCodeGenerator;
 import jp.mzw.jsanalyzer.util.TextFileUtils;
@@ -26,11 +27,14 @@ public class Preventer {
 		System.out.println("==============================");
 	}
 	
+	protected Analyzer mAnalyzer;
 
 	/**
-	 * Delayed time in millisec
+	 * Delayed time in millisecond
+	 * Default value: 1000 msec
+	 * b/c of "Time Scales in User Experience", http://www.nngroup.com/articles/powers-of-10-time-scales-in-ux/
 	 */
-	protected int mDelayTime;
+	protected static final int mDelayTime = 1000;
 	
 	/**
 	 * Server-side script for emulating network latency
@@ -42,8 +46,8 @@ public class Preventer {
 	/**
 	 * Constructor
 	 */
-	public Preventer() {
-		this.mDelayTime = 1000; // 1 sec
+	public Preventer(Analyzer analyzer) {
+		this.mAnalyzer = analyzer;
 	}
 	
 

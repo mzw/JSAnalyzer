@@ -27,6 +27,13 @@ public class Command {
 	 */
 	public static final String NuSMV			= "/opt/local/bin/NuSMV";
 	
-
+	/**
+	 * For bash file to generate graphs by using Graphviz
+	 */
 	public static final String Bin				= "/bin/sh";
+	
+	/**
+	 * To execute and test Ajax apps by using Selenium WebDriver
+	 */
+	public static final String Firefox			= "/Users/yuta/Applications/Firefox.3.6.app/Contents/MacOS/firefox-bin";
 }

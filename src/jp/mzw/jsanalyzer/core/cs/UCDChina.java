@@ -37,12 +37,17 @@ public class UCDChina extends Project {
 
 	public static final int
 		Original = 0,
-		Mutated_Original = 1;
+		UEHRegist = 1,
+		FDValid = 2;
 	
 	public static UCDChina getProject(int ver) {
 		switch(ver) {
 		case UCDChina.Original:
 			return new UCDChina("UCDChina.Original", "http://localhost/~yuta/research/cs/ucdchina/0.origin/cdchina.html");
+		case UCDChina.UEHRegist:
+			return new UCDChina("UCDChina.Original", "http://localhost/~yuta/research/cs/ucdchina/1.uehregist/cdchina.html");
+		case UCDChina.FDValid:
+//			return new UCDChina("UCDChina.Original", "http://localhost/~yuta/research/cs/ucdchina/2.fdvalid/cdchina.html");
 		}
 		return null;
 	}
