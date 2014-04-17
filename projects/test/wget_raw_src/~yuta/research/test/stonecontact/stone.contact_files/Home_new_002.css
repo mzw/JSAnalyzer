@@ -1,0 +1,205 @@
+﻿
+.cb{ clear: both;}
+/*left*/
+.HomeLeft {
+    float: left;
+    width: 220px;
+}
+/*middle*/
+.HomeMiddle {
+    float: right;
+    width: 1007px;
+}
+/*left info*/
+.HomeMiddleLeft{ width: 770px;float: left;}
+.BannerBox{position: relative; width: 770px;height: 220px;}
+.BannerBox2{position: relative; width: 950px;height: 100px;margin-left: 30px;}
+.BannerBox2 img{  width: 950px;height: 100px;}
+.BannerBox Img,.BannerBox2 img{ vertical-align: middle}
+.TabImgBox {
+    position: absolute;
+    text-align: right;
+    right: 10px;
+    bottom: 1px;
+}
+.TabImg1{ width: 10px;height: 10px;display: inline-block; background: url("../../Images/TabImg2.png") center center no-repeat;}
+.TabImgSelect{ width: 10px;height: 10px;display: inline-block; background: url("../../Images/TabImg1.png") center center no-repeat;}
+.HomeMProductShow{ margin: 26px 0 20px;}
+ .HomeShowImgLeft {
+    margin-top: 60px;
+    float: left;
+    width: 23px;
+    height: 31px;
+    display: inline-block;
+    background: url("../../Images/HomeBanner/LeftIco.gif") no-repeat;
+}
+.HomeShowImgRight {
+    margin-top: 60px;
+    float: right;
+    width: 23px;
+    height: 31px;
+    display: inline-block;
+    background: url("../../Images/HomeBanner/RightIco.gif") no-repeat;
+}
+.HomeMProductBox{ float: left;}
+.HomeMProductBox ul li{ float: left;margin-left: 50px;display: inline;}
+
+.HomeShowImgBox{ width: 122px;height: 122px;vertical-align: middle;display: table-cell;overflow: hidden;text-align: center;}
+.HomeShowImgBox img{ max-width: 122px;max-height: 122px;_width: 122px;    vertical-align: middle; }
+.HomeShowImgTitle{ width: 122px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;font-weight: bold;}
+.HomeShowImgInfo{width: 122px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; color: #565656;}
+.HomeShowImgInfo1{width: 122px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; color: #919191;}
+.HomeShowImgInfoPrice{ color: #b60000;}
+/*right info*/
+.HomeMiddleRight{float: right; width: 220px;/*height: 400px;*/}
+.HServiceInfoB{ border: 1px solid #dedede;}
+.HServiceSpace{ margin-bottom: 10px;}
+.HServiceSpace1{ margin-top: 10px;}
+.HServiceInfoMenu {
+    height: 32px;
+    background-color: #fafafa;
+       background-image: url("../../Images/line.png");
+        background-repeat: no-repeat;
+        background-position: center;
+    color: #555555;
+    border-bottom: 1px solid #dedede;
+}
+.HServiceInfoMenu li{ float: left;width: 50%; height: 32px;line-height: 32px;text-align: center;font-weight: bold;}
+    .HServiceInfoMenu li.HSIMenuSelect {
+        border-top: 2px solid #7995ae;
+        background-color: #fff;
+     
+
+        position: relative;
+        margin-top: -1px;
+    }
+.HServiceInfoBox{ padding: 10px;}
+.HServiceInfoBox li{ margin-top: 5px;}
+.HServiceInfoTitle{padding-left: 10px; background-color: #fafafa;font-weight: bold;font-size: 12px;line-height: 25px;border-bottom: 1px solid #dedede;text-align: left;}
+.HServiceInfoBox1{ padding: 5px 10px;line-height: 15px;}
+.HServiceInfoA{ display: block;text-align: right;color: #003399;text-decoration: underline;margin-top: 5px;}
+.HServiceInfoB1{ border-bottom: 1px dotted #dedede;}
+.HomeMemberBottom{ border: 1px solid #dedede;display: block;font-size: 14px;font-weight: bold;text-align: center;color: #000;height: 35px;line-height: 35px;background: url("../../Images/buttonbg.png") bottom repeat-x;}
+.HomeMemberBottom1{ color: #003399;text-decoration: underline;}
+/**/
+.HomeBlockShow{ margin-bottom: 20px;margin-top: 10px;}
+.HomeBlockMenu ul li {
+    float: left;
+    width: 20%;
+    font-weight: bold;
+    border-bottom: 1px solid #dedede;
+    text-align: center;
+    font-size: 14px;
+    height: 32px;
+    line-height: 32px;
+    color: black;
+    
+}
+.HomeBlockMenu ul li.SelectBlockMenu{color: #2d4963; border-bottom: 2px solid #7995ae;position: relative;margin-bottom: -2px;}
+.ArrowDown {
+    background: url(../../images/New/arrow_down.jpg) no-repeat;
+    width: 24px;
+    height: 13px;
+    position: absolute;
+    bottom: -13px;
+    _bottom: -15px;
+    left: 88px;
+}
+.HomeBlockInfo ul li{ float: left;margin-top: 26px;margin-left: 30px;margin-right: 2px; display: inline; height: 235px;}
+.HomeBlockImgBox{ width: 164px;height: 164px;vertical-align: middle;display: table-cell;overflow: hidden;text-align: center;border: 1px solid #dedede;}
+.HomeBlockImgBox img{max-width: 164px;max-height: 164px;width: 164px\0; vertical-align: middle;}
+.HomeBlockImgTitle{font-size: 14px; width: 164px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;font-weight: bold;margin: 5px 0;}
+.HomeBlockImgInfo{width: 164px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; color: #878787;}
+.HomeBlockImgInfo img{ vertical-align: middle;margin-right: 3px;margin-bottom: 3px;}
+/***/
+.HomeInfoBox{ margin-top: 15px;}
+.HomeInfoLeft{ width: 612px;float: left;}
+.HomeInfoTitle{ border-bottom: 2px solid #7995ae;height: 33px;line-height: 33px;font-weight: bold;font-size: 14px;padding-left: 15px;margin-bottom: 5px;}
+.HomeInfoLeft ul li,.HomeInfoRight ul li{ padding: 0 14px;height: 24px;}
+.HomeInfoPart1{float: left;margin-right: 10px;height: 15px; width: 159px;display: inline-block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap; }
+.HomeInfoPart1 img,.HomeInfoPart4 img{ vertical-align: middle;margin-bottom: 3px;margin-right: 10px;}
+.HomeInfoPart2{ float: left;height: 15px; width: 348px;display: inline-block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.HomeInfoPart3{ float: right;height: 15px; color:#878787;}
+.HomeInfoRight{width: 612px;float: right;}
+.HomeInfoPart4{float: left;margin-right: 10px; width: 256px;display: inline-block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap; }
+.HomeInfoPart5{float: left;margin-right: 10px; width: 64px;display: inline-block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap; }
+.HomeInfoPart6{float: left;margin-right: 10px; width: 180px;display: inline-block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap; }
+.fontcolor6{ color: red;}
+.fonttdltc{ text-decoration: line-through;color: #878787; }
+.BannerBox3{ margin-top: 30px;}
+    .BannerBox3 ul li {
+        float: left;
+        margin-right: 8px;
+        margin-bottom: 8px;
+    }
+ .MainHomeServiceBox{  background-color: #f5f5f5;border-bottom: 1px solid #ebebef;}
+.HomeServiceBox{width: 1242px;margin: 0 auto;padding: 20px 0 15px; }
+.HomeServiceBox dl{ float: left;margin-left: 80px;text-align: left;}
+.HomeServiceBox dl.FistM{ margin-left: 0;}
+.HomeServiceBox dl dt{ border-bottom: 1px solid #d3d3d4;line-height: 35px;font-weight: bold;font-size: 13px;color: #333333;margin-bottom: 10px;}
+.HomeServiceBox dl dd{ color: #878787;}
+.BottomBox{ color: #878787;padding: 20px 0;border-top: 1px solid #ffffff;}
+
+.iPhone{display: inline-block; width: 24px;height: 24px; background: url(../../images/app.png) no-repeat;vertical-align: middle;}
+.Android{display: inline-block; width: 24px;height: 24px;  background: url(../../images/app.png) -30px 0 no-repeat;vertical-align: middle;}
+.Google{ display: inline-block; width: 24px;height: 24px;  background: url(../../images/TVico.png) no-repeat;vertical-align: middle;}
+.Twitter{ display: inline-block; width: 24px;height: 24px;  background: url(../../images/TVico.png) -26px 0 no-repeat;vertical-align: middle;}
+.Facebook{ display: inline-block; width: 24px;height: 24px;  background: url(../../images/TVico.png) -52px 0 no-repeat;vertical-align: middle;}
+.BInputStyle{ width: 171px;height: 25px; background-color: #fff;border: 1px solid #d3d3d4;color: #b2b2b2;margin-top: 10px;}
+.HButtonstyle {
+    border: 1px solid #d8d8d8;
+    padding: 5px 25px;
+    display: inline-block;
+    margin-top: 10px;
+    font-weight: bold;
+    background: #fff;
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 1), rgba(232, 232, 232, 1));
+    background: -webkit-gradient(linear,top,from(rgba(255, 255, 255, 1)),to(rgba(232, 232, 232, 1)));
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 1), rgba(232, 232, 232, 1));
+    background: -o-linear-gradient(top, rgba(255, 255, 255, 1), rgba(232, 232, 232, 1));
+
+}
+.Bqq,.Bmsn,.BSkype,.BYahoo{padding-left: 24px;margin-right: 10px;display:  inline-block;margin-bottom: 5px; height: 24px;vertical-align: middle;line-height: 24px;font-weight: bold;width: 40px;}
+.Bqq{  /*background: url(../../images/Chat.png)  no-repeat;*/
+    background-image: url(../../images/Chat.png);
+	background-repeat: no-repeat;
+	background-position:left 1px;
+	background-size: auto 450% ; 
+}
+.Bmsn{ /*background: url(../../images/Chat.png) 0 -31px no-repeat;*/
+          background-image: url(../../images/Chat.png);
+	background-repeat: no-repeat;
+	background-position:0 -29px;
+	background-size: auto 440% ; 
+}
+.BSkype{  /*background: url(../../images/Chat.png) 0 -66px no-repeat;*/
+    background-image: url(../../images/Chat.png);
+	background-repeat: no-repeat;
+	background-position:0 -55px;
+    background-size: auto 440%;
+
+}
+.BYahoo{  /*background: url(../../images/Chat.png) 0 -94px no-repeat;*/
+            background-image: url(../../images/Chat.png);
+	background-repeat: no-repeat;
+	background-position:0 -79px;
+    background-size: auto 440%;
+}
+.HomePartners a{ margin-right: 5px; }
+.PriceCurveTableTitle{ color: #2d4963;font-size: 14px;font-weight: bold;padding: 10px 0px 5px;}
+.PriceCurveTable{ border: 1px solid #dedede;border-top: 2px solid #7995ae;}
+.HomeMProductBox{ width: 700px;}
+.Homeconditionsearch{ border: 1px solid #dedede;  position: relative}
+.HomeconditionsearchTitle{ border-bottom: 1px solid #dedede;background-color: #fafafa;color: #1f1f1f;font-weight: bold;height: 32px;line-height: 32px;padding-left: 18px;}
+.HomeconditionsearchTitle1 {
+    display: block;
+    font-weight: bold;
+    padding-left: 17px;
+    line-height: 30px;
+    margin-top: 5px;
+}
+.HomeconditionsearchTitle1 :hover{ text-decoration: underline;}
+.HomeMore{ float: right;margin-top: 10px;
+margin-right: 14px }
+.HomeMore a{ color: #878787;}
+.HomeMore a:hover{ text-decoration: underline}

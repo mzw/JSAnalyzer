@@ -149,7 +149,28 @@ public class FiniteStateMachine extends SerializableElement {
 		return ret;
 	}
 	
-
+	/**
+	 * Gets state ID by using function name, #line, and #position
+	 * @param funcname Function name
+	 * @param lineno Line number
+	 * @param pos Position
+	 * @return State ID
+	 */
+	public String getFuncId(String funcname, int lineno, int pos) {
+		for(State state : this.getStateList()) {
+			for(FuncElement func : state.getFuncElement()) {
+				if(funcname.equals(func.getFuncName()) &&
+						lineno == func.getLineNo() &&
+						pos == func.getPosition()) {
+					return state.getId();
+				}
+			}
+		}
+		
+		return null;
+	}
+	
+	
 	/**
 	 * Gets event ID corresponding to guided event name
 	 * @param fsm Extracted finite state machine that has all events

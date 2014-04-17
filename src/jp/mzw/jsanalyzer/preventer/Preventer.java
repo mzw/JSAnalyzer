@@ -4,8 +4,11 @@ import java.util.Date;
 
 import jp.mzw.jsanalyzer.preventer.insert_delay_ajax.JavaScriptLocation;
 import jp.mzw.jsanalyzer.preventer.insert_delay_ajax.MutatedCodeGenerator;
+import jp.mzw.jsanalyzer.util.TextFileUtils;
 
 public class Preventer {
+	
+	
 
 	public static void main(String[] args) {
 		System.out.println("==============================");
@@ -30,12 +33,33 @@ public class Preventer {
 	protected int mDelayTime;
 	
 	/**
+	 * Server-side script for emulating network latency
+	 * This program sends empty response after receiving request from Ajax app and elapsed given time
+	 * !! Should deploy this program in your environment
+	 */
+	protected static final String RESPONSE_AFTER_DELAY = "http://localhost/~yuta/research/cs/response_after_delay.js.php?millisecond=";
+	
+	/**
 	 * Constructor
 	 */
 	public Preventer() {
-		this.mDelayTime = 3000; // 3 sec
+		this.mDelayTime = 1000; // 1 sec
 	}
 	
+
+	public String getMutatedHTMLCode(String filename, int offset) {
+		String html = TextFileUtils.cat(filename);
+		
+		String insersion = "<!-- start of delay insersion -->\n";
+		insersion += "<script type=\"text/javascript\" src=\"" + Preventer.RESPONSE_AFTER_DELAY + this.mDelayTime + "\"></script>\n";
+		insersion += "<!-- end of delay insersion -->\n";
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(html);
+		sb.insert(offset, insersion);
+		
+		return new String(sb); 
+	}
 	
 	public String getMutatedJSCode(String filename, int pos) {
 		JavaScriptLocation jsloc = JavaScriptLocation.jsFile(filename);
@@ -45,4 +69,5 @@ public class Preventer {
 		
 		return code;
 	}
+	
 }

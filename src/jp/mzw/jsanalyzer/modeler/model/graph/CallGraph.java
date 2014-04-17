@@ -86,6 +86,11 @@ public class CallGraph extends Element {
 	 */
 	private void addNodes(AstRoot astRoot, final JSCode jsCode) {
 		final ArrayList<Node> newNodes = new ArrayList<Node>();
+		
+		if(astRoot == null) {
+			System.out.println(jsCode);
+		}
+		
 		// Adds nodes
 		astRoot.visitAll(new NodeVisitor() {
 			@Override
@@ -327,7 +332,7 @@ public class CallGraph extends Element {
 				}
 			}
 		} else {
-			StringUtils.printError(this, "Cannot find callback function node", cbNode.getClass().toString());
+			StringUtils.printError(this, "Cannot find callback function node", "[" + cbNode.getClass().getName() + "] " + cbNode.toSource());
 		}
 		
 		return null;

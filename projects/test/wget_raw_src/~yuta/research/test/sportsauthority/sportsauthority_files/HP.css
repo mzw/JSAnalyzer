@@ -1,0 +1,419 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+#slider
+{
+	width: 780px;
+	height: 436px;
+	display: block;
+	overflow: hidden;
+	position: relative;
+	border-top: solid 2px #ffffff;
+}
+
+ #slider #topNav
+{
+	position:absolute;
+	z-index: 10000;
+	top: 50px;
+}
+
+#topNav
+{
+	display: none;
+}
+
+#nav1, #nav2, #nav3, #nav4
+{
+	position: relative;
+	overflow: hidden;
+	color: #aaa;
+	height: 80px;
+	overflow: hidden;
+	display: block;
+	cursor: pointer;
+	margin-bottom: 7px;
+	text-align: left;
+	width: 143px;
+	background-image:  url(http://tsa.imageg.net/graphics/media/tsa/hp/template/buttonBkg.png);
+	background-position: right bottom; 
+}
+
+
+#nav1.over, #nav2.over, #nav3.over,  #nav4.over
+{
+	max-width: 155px; 
+	background-position: right top;
+
+}
+
+
+.navTitle
+{
+	font-size: 18px;
+	font-weight: bold;
+	color: #ccc;
+	font-family:Arial, Helvetica, sans-serif;
+	width: 130px;
+	display: block;
+	overflow: hidden;
+	height: 23px;
+	margin: 5px 0px;
+	margin-top: 7px;
+	margin-left: 10px;
+	
+	
+}
+
+.navSubTitle
+{
+	margin-left: 11px;
+	width: 130px;
+	font-size: 12px;
+	font-weight: bold;
+	color: #ccc;
+	font-family:Arial, Helvetica, sans-serif;
+
+}
+
+.sectionHeader{
+	display:block;
+	float:left;
+	width:100%;
+
+	background-color:#464647;
+	padding:7px 0px;
+	margin:2px 0px;
+	
+}
+
+.sectionHeader p{
+	font-family:'Montserrat', Arial, Helvetica, sans-serif !important;
+	font-size:18px;
+	font-weight:400;
+	color:#FFF;
+	background-color:#464647;
+	padding:0px 0px 0px 10px;
+	margin:0px;
+}
+
+/* TIMER */
+
+#timerAnim
+{
+	display: block;
+	position:absolute;
+	height: 2px;
+	width: 100%;
+	background-color: #000;
+	z-index: 100000;
+	overflow: hidden;
+
+}
+
+#timerAnim #progBar
+{
+	height: 2px;
+	display: block;
+	overflow: hidden;
+	width: 0px;
+	background-color: #e70000;
+
+}
+
+/* SLIDES */
+
+#slide1, #slide2, #slide3, #slide4
+{
+	width: 780px;
+	height: 440px;
+	position: absolute;
+	background-color: #FFF;
+}
+
+#slide1
+{	z-index: 2;}
+
+/* MINORS */
+
+#minors, #certonaDiv
+{
+	width: 780px;
+}
+
+#minors .box
+{
+	width: 258px;
+	height: 139px;
+	display: block;
+	float: left;
+	cursor:pointer;
+	position: relative;
+	margin:0px;
+	padding-right:3px;
+	//padding-right:0px;
+}
+
+#m3, #m6
+{
+	padding:0px !important;
+}
+
+#minors .box .overlay
+{
+	position: absolute;
+	height: 139px;
+	width: 260px;
+	display:block;
+	top: 0;
+	left: 0;
+}
+
+#minors .box .overlay.over
+{
+	background-image: url(http://tsa.imageg.net/graphics/media/tsa/hp/template/overlay.png);
+	background-repeat: no-repeat;
+}
+
+#m1.over, #m3.over, #m3.over
+{
+	background-color: #966;
+}
+
+
+
+
+/* BRAND BAR */
+#bbar
+{
+	width: 780px;
+	height: 49px;
+	cursor:pointer;
+	background-color:#464647;
+	display:block;
+	padding: 0;
+	margin: 0;
+	border-bottom: 0px solid #fff;
+	border-top: 2px solid #fff;
+	overflow: hidden;
+		
+}
+
+
+#bbar div
+{
+	padding: 0;
+	margin: 0;
+	display: block;
+	float:left;
+	overflow:hidden;
+}
+
+
+#bbar .nike {width: 85px;}
+#bbar .adidas {width: 85px;}
+#bbar .tnf {width: 82px;}
+#bbar .ua {width: 82px;}
+#bbar .nb {width: 82px;}
+#bbar .starter {width: 82px;}
+#bbar .asics {width: 81px;}
+#bbar .brooks {width: 81px;}
+#bbar .hellyhansen {width: 81px;}
+#bbar .columbia {width: 93px;}
+
+#bbar img
+{
+border:0;
+display:block;
+}
+
+#bbar a
+{
+	height: 49px;
+	display:block;
+	margin:0;
+	padding:0;	
+}
+
+#bbar a:hover
+{
+	background-color: #333;
+}
+
+
+#bbar .shopAllBrands
+{
+	display:block;
+	height: 49px;
+    width: 100px;
+	float:left;
+}
+
+#bbar .shopAllBrands a
+{
+	display:block;
+	height: 49px;
+	width: 100px;
+	padding-top: 11px;
+
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 15px;
+	color: #fff;
+	text-decoration:none;
+	text-transform:uppercase;
+	overflow:hidden;
+	background-color: #e91800;
+	background:linear-gradient(top, #e91800 0%, #c40a00 100%);
+	background:-moz-linear-gradient(top, #e91800 0%, #c40a00 100%);
+	background:-o-linear-gradient(top, #e91800 0%, #c40a00 100%);
+	background:-webkit-linear-gradient(top, #e91800 0%, #c40a00 100%);
+	background:-ms-linear-gradient(top, #e91800 0%, #c40a00 100%);
+
+}
+
+#bbar .shopAllBrands a:hover
+{
+	background-color: #c40a00;
+	
+	background:linear-gradient(top, #c40a00 0%, #c40a00 100%);
+	background:-moz-linear-gradient(top, #c40a00 0%, #c40a00 100%);
+	background:-o-linear-gradient(top, #c40a00 0%, #c40a00 100%);
+	background:-webkit-linear-gradient(top, #c40a00 0%, #c40a00 100%);
+	background:-ms-linear-gradient(top, #c40a00 0%, #c40a00 100%);
+}
+
+
+
+#bbar div.filler
+{
+	width: 1px;
+	display:block;
+	height: 49px;
+	background-image: url(http://tsa.imageg.net/graphics/media/tsa/hp/template/bbar/filler.png);
+}
+
+
+/* POWER PLAY DEALS */
+
+
+#bottomBanner
+{
+	clear:both;
+}
+
+
+#dotw
+{
+	height: 46px;
+	width: 780px;
+	display:block;
+	clear:both;
+	color: #FFF;
+	cursor:pointer;
+}
+
+
+/*CERTONA */
+
+#home_rr{	
+	width:760px;
+	margin:15px auto;
+	//width:auto;
+}
+
+#home_rr h2{margin-bottom:8px;}
+
+#home_rr ul{list-style:none;margin:0;padding-left:0;}
+
+#home_rr li{
+	border-left:1px dashed #c1c0bc;
+	float:left;
+	height:339px;
+	padding:0 10px 0 10px;
+	position:relative;
+	width:105px;
+	//padding-right:9px;
+}
+
+#home_rr li.first{border:none;}
+
+#home_rr .image{margin-top:9px;text-align:center;}
+
+#home_rr .image img{border:none; width:110px;}
+
+#home_rr .price{color:#404040;font-size:18px;font-weight:bold;margin:6px 0 14px;min-height:50px;text-align:center;}
+
+#home_rr .in-cart{font-size:10px;}
+
+#home_rr .title a{color:#3f3f3f;font-size:12px;line-height:1.2;text-decoration:none;}
+}
+
+#home_rr .orig-price,#recently-viewed .you-save,#home_rr .you-save{display:none;}
+
+#review_snippet{overflow:hidden;position:relative;}
+
+.pr-contents,.pr-snapshot-body-wrapper,.pr-snapshot-body,.pr-snapshot-head{background:none;border:none;}.ie8 .pr-snippet{display:inline-block;}
+
+.sr_gProduct{width:auto;}.sr_productMessage{width:300px;}
+
+#home_rr h2 {
+	font-family:Arial, Helvetica, sans-serif; 
+	font-weight:bold;
+	font-size:12px;
+	
+	border-bottom: 1px dashed #9f9f9f;
+	color: #3f3f3f;
+	font-size: 28px;
+	font-weight: bold;
+	margin: 15px 0px 8px 0px;
+	padding-bottom: 8px;
+}
+
+
+#home_rr .buy-now{
+	position:absolute;
+	bottom:10px;
+	left:11px;
+	
+	width:100px;
+	height:25px;
+	border:solid #FFF 1px;
+	background-position:center right;
+	background-repeat:no-repeat;
+	background-image:url(http://www.sportsauthority.com/graphics/media/tsa/hp/template/bbar/arrow.png);
+
+	background-color:#e91800;
+	/*
+	background:linear-gradient(top, #e91800 0%, #c40a00 100%);
+	background:-moz-linear-gradient(top, #e91800 0%, #c40a00 100%);
+	background:-o-linear-gradient(top, #e91800 0%, #c40a00 100%);
+	background:-webkit-linear-gradient(top, #e91800 0%, #c40a00 100%);
+	background:-ms-linear-gradient(top, #e91800 0%, #c40a00 100%);
+	*/
+	
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;	
+	
+}
+#home_rr .buy-now:hover{
+	background-color:#c40a00;
+}
+
+#home_rr .buy-now a{
+	display:block;
+	float:left;	
+	padding:5px 20px;	
+	
+	white-space:nowrap;
+	text-decoration:none;
+	font-family:Arial, Helvetica, sans-serif; 
+	font-weight:bold;
+	font-size:12px;
+	color:#FFF;	
+	text-transform:uppercase;
+}

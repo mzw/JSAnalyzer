@@ -18,11 +18,49 @@
 	<Library method="startsWith" name="jquery"  path="res/libRules/jquery.xml" skip="true" />
 	
 	<!-- Ignorable JS libs -->
-	<Library method="startsWith" name="flashembed"  path="res/libRules/empty.xml" skip="true" />
 	<Library name="g.js"  path="res/libRules/empty.xml" skip="true" />
 	<Library name="inpage_linkid.js"  path="res/libRules/empty.xml" skip="true" />
+	<Library name="cookiesemin.js"  path="res/libRules/empty.xml" skip="true" />
+	
+	<Library name="show_ads.js"  path="res/libRules/empty.xml" skip="true" />
+	<Library name="loopedslider.js"  path="res/libRules/empty.xml" skip="true" />
+	
+	
+	
+	<!--for embedded Flash -->
+	<Library method="startsWith" name="flashembed"  path="res/libRules/empty.xml" skip="true" />
+	<Library name="swfobject.js"  path="res/libRules/empty.xml" skip="true" />
+	
+	<!-- Google -->
+	<Library name="plusone.js"  path="res/libRules/empty.xml" skip="true" />
+	<Library method="startsWith" name="cbgapi"  path="res/libRules/empty.xml" skip="true" />
+	<!-- Analytics -->
+	<Library name="ga.js"  path="res/libRules/empty.xml" skip="true" />
+	<!-- Ads -->
+	<Library name="adsbygoogle.js"  path="res/libRules/empty.xml" skip="true" />
+	<!-- Others -->
 	<Library method="startsWith" name="google_" path="res/libRules/empty.xml" skip="true" />
 	
+	<!-- Twitter -->
+	<Library name="client.js"  path="res/libRules/empty.xml" skip="true" />
+	<Library name="widgets.js"  path="res/libRules/empty.xml" skip="true" />
+	
+	<!-- Add this -->
+	<Library name="core128.js"  path="res/libRules/empty.xml" skip="true" />
+	<Library name="core129.js"  path="res/libRules/empty.xml" skip="true" />
+	<Library name="addthis_widget.js"  path="res/libRules/empty.xml" skip="true" />
+	<Library name="auth016.js"  path="res/libRules/empty.xml" skip="true" />
+	<Library name="counter017.js"  path="res/libRules/empty.xml" skip="true" />
+	<Library name="shares.json"  path="res/libRules/empty.xml" skip="true" />
+	
+	<!-- Facebook -->
+	<Library name="all.js"  path="res/libRules/empty.xml" skip="true" />
+	
+	<!-- HugHerd: bug tracker -->
+	<Library method="startsWith" name="sidebarv2" path="res/libRules/empty.xml" skip="true" />
+	
+	<!-- To be consider -->
+	<Library name="c_main.js"  path="res/libRules/empty.xml" skip="true" />
 	
 </Libraries>
 

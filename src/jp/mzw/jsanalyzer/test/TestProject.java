@@ -26,7 +26,12 @@ public class TestProject extends Project {
 //	public static final String url = "http://localhost/~yuta/research/test/ffd8/ffd8.org.html";
 //	public static final String url = "http://localhost/~yuta/research/test/stonecontact/stone.contact.html";
 //	public static final String url = "http://localhost/~yuta/research/test/stadtmelder/stadtmelder.html";
-	public static final String url = "http://localhost/~yuta/research/test/sportsauthority/sportsauthority.html";
+//	public static final String url = "http://localhost/~yuta/research/test/sportsauthority/sportsauthority.html";
+	public static final String url 
+//	= "http://localhost/~yuta/research/test/correiois/correios.html";
+//	= "http://localhost/~yuta/research/test/amware/amware.html";
+//	= "http://localhost/~yuta/research/test/vmi/vmi.html";
+	= "http://localhost/~yuta/research/test/esa/esa.html";
 
 	public static void main(String[] args) {
 		Project project = new TestProject();

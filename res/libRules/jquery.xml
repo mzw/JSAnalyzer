@@ -4,9 +4,12 @@
 		<!--
 		In case of get/post(URL, callback), change callback="arg_1"
 		In case of get/post(URL, data, callback), change callback="arg_2"
+
 		-->
-		<Function interact="Server" func="get"  target="jQuery" event="get" callback="arg_1" repeatable="false" />
+		<Function interact="Server" func="get"  target="jQuery" event="get" callback="arg_2" repeatable="false" />
 		<Function interact="Server" func="post" target="jQuery" event="post" callback="arg_2" repeatable="false" />
+		
+		
 		<!--
 		<Function interact="Server" func="getJSON"   target="jQuery" event="getJSON" callback="arg_2" />
 		<Function interact="Server" func="getScript" target="jQuery" event="getScript" callback="arg_2" />

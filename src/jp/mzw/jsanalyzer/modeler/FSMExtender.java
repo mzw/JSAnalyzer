@@ -242,6 +242,12 @@ public class FSMExtender extends Modeler {
 			
 			Node fromNode = callGraph.getNode((FunctionCall)node.getAstNode().getParent());
 			Node toNode = callGraph.getNode(cbAstNode);
+			
+			if(fromNode == null || toNode == null) {
+				StringUtils.printError(this, "Make sure interaction or not", "[Rule: " + rule.getKeyword() + "] " + node.getAstNode().toSource());
+				return;
+			}
+			
 			Edge edge = new Edge(fromNode.getId(), toNode.getId());
 			edge.setEvent(eventAstNode, rule);
 			node.setNodeType(Node.Potential);
@@ -259,7 +265,8 @@ public class FSMExtender extends Modeler {
 			if(cbArgNum != -1) {
 				FunctionCall funcCall = (FunctionCall)node.getAstNode().getParent().getParent();
 				List<AstNode> argListAstNode = funcCall.getArguments();
-				if(argListAstNode.size() == 0 || argListAstNode.get(cbArgNum) == null) {
+//				if(argListAstNode.size() == 0 || argListAstNode.get(cbArgNum) == null) {
+				if(argListAstNode.size() == 0 || argListAstNode.size() < cbArgNum + 1) {
 					// This is not an interaction or an ivalid one, e.g., no callback
 					LimitationManager.addLimitation(new Limitation(
 							funcCall.toSource(),
@@ -310,9 +317,10 @@ public class FSMExtender extends Modeler {
 		}
 		
 		else {
-			StringUtils.printError(this, "Cannot identify interaction", 
+			StringUtils.printError(this, "1: Cannot identify interaction", 
 					"[Class: " + node.getAstNode().getClass().toString() + "] " + node.getAstNode().toSource() + "\n" +
-					node.getAstNode().toSource() + " (" + node.getAstNode().getLineno() + "," + node.getAstNode().getPosition() + ")"
+					node.getAstNode().toSource() + " (" + node.getAstNode().getLineno() + "," + node.getAstNode().getPosition() + ")\n" +
+					"parent: " + node.getAstNode().getParent().toSource()
 					);
 		}
 	}

@@ -1,0 +1,67 @@
+.ac_results {
+    padding: 0px;
+    border: 1px solid black;
+    background-color: white;
+    overflow: hidden;
+    z-index: 2000;
+}
+
+    .ac_results ul {
+        list-style-position: outside;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        /*overflow-y: scroll;width: 100%; overflow:auto;*/
+        max-height: 200px;
+    }
+
+        .ac_results ul li table {
+            margin: 0px;
+            padding: 0px;
+        }
+
+    .ac_results li {
+        margin: 0px;
+        /*padding: 2px 5px;*/
+        padding-left: 5px;
+        padding-right: 5px;
+        cursor: default;
+        display: block;
+        /* 
+	if width will be 100% horizontal scrollbar will apear 
+	when scroll mode will be used
+	*/
+        /*width: 100%;overflow: hidden;*/
+        font: menu;
+        font-size: 12px;
+        /* 
+	it is very important, if line-height not setted or setted 
+	in relative units scroll will be broken in firefox
+	*/
+        line-height: 16px;
+        width: 565px;
+    }
+
+    .ac_results .item {
+        text-align: left;
+        float: left;
+    }
+
+    .ac_results .num {
+        text-align: right;
+        float: right;
+        color: Green;
+    }
+
+.ac_loading {
+    background: white url('indicator.gif') right center no-repeat;
+}
+
+.ac_odd {
+    background-color: #eee;
+}
+
+.ac_over {
+    background-color: #3399ff;
+    color: white;
+}

@@ -1,0 +1,127 @@
+.search-container{
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
+   border: 1px solid #FFFFFF;
+   padding:10px 5px;
+	width:700px;
+	margin: 0 auto;
+}
+.menu-search .search-container, .menu-search-home .search-container {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
+    border: 1px solid #FFFFFF;
+    float: left;
+    padding: 10px;
+    width: 936px;
+}
+.search-input {float: left;height: 36px;}
+.search-select {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: url("../images/select-bg.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-color: #000000 0 #000000 #000000;
+    border-image: none;
+    border-style: solid none solid solid;
+    border-width: 1px 0 1px 1px;
+    float: left;
+    height: 34px;
+    width: 101px;
+	margin-left:50px;
+}
+.search-select span {
+    margin-left: 11px;
+    padding-top: 9px;
+    position: absolute;
+    z-index: 0;
+}
+.search-select select {
+    cursor: pointer;
+    z-index: 1;
+}
+.select-hidden-opaque {
+    border: 0 none;
+    cursor: pointer;
+    font-size: 12px;
+    height: 100%;
+    line-height: 37px;
+    opacity: 0;
+    filter:alpha(opacity=0); /* For IE7 and earlier */
+    /* Next 2 lines IE8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
+    padding-left: 0;
+    padding-top: 15px;
+    width: 100%;
+}
+.select-hidden-opaque option {
+   /* height: 37px;
+    line-height: 37px;
+    padding-top: 10px;*/
+}
+.search-text{float: left;}
+.menu-search-home .search-input .search-text, .menu-search .search-input .search-text {
+    margin-left: 0;
+    position: relative;
+}
+.search-container .search-input div, .search-container .search-options div {float:left;}
+.input-search {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #000000;
+    border-image: none;
+    border-style: solid solid solid none;
+    border-width: 1px 1px 1px 0;
+    color: #B2ACAB;
+    font-size: 17px;
+    height: 34px;
+    line-height: 34px;
+    padding: 0 10px;
+    width: 440px;
+}
+#autocomplete-suggestions {
+    background-color: #FFFFFF;
+    border: 1px solid #AAAAAA;
+    display: none;
+    position: absolute;
+    width: 459px;
+    z-index: 99999999;
+}
+#autocomplete-suggestions ul {margin: 0;padding: 0;}
+.menu-search .search-input .search-submit, .menu-search-home .search-submit-home {
+    float: left;
+    height: 36px;
+    margin-left: 0;
+    width: 59px;
+}
+.search-submit-homes input {
+	height: 34px;
+	line-height: 34px;
+	cursor: pointer;
+	vertical-align: middle;
+	position: relative;
+	top:-2px;
+}
+.search-submit-home input {
+    background: #08990A;
+    border: 1px solid #222222;
+    color: #FFF;
+    cursor: pointer;
+    display: block;
+    font-family: "Arial";
+    font-size: 21px;
+    font-weight: bold;
+    height: 34px;
+    line-height: 34px;
+    border-radius: 5px;
+	-moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+	margin-left: 5px;
+}

@@ -1,0 +1,67 @@
+#calendar_popup{display:none;position:absolute;z-index:8888}
+#calendar_popup table{width:100%;border-spacing:0;clear:both;position:relative;z-index:9999}
+#calendar_popup table tbody{width:100%}
+.newcalendar table{width:210px!important}
+.newcalendar{background:#fff;border-radius:10px;-moz-border-radius:10px;float:left;display:block;clear:both;padding:8px}
+#calendar_popup{box-shadow:5px 5px 5px #333;-moz-box-shadow:5px 5px 5px #333;-webkit-box-shadow:5px 5px 5px #333}
+.b_msie_6 #calendar_popup .bg_wrapper{position:absolute}
+.b_msie_6 #calendar_popup .browseCalendar{position:absolute;top:5px;left:10px}
+.b_msie_6 #calendar_popup table{position:absolute;top:40px;left:10px}
+.b_msie_6 #calendar_popup .calendar_close{position:absolute;top:210px;left:10px}
+.doubleCalendar{display:block;clear:both;width:451px;height:244px}
+.insideForm{width:751px}
+.b_msie_6 .singleCalendar{width:221px;height:228px;background:0;z-index:9}
+select{z-index:-1!important;}
+.b_msie_6 .singleCalendar .bg_wrapper{display:block;width:221px;height:228px;border:0;top:0;position:absolute;left:0;border:0;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true', sizingMethod='fixed', src='//q.bstatic.com/static/img/calendar_shadow.png')}
+.b_msie_7 .singleCalendar, .b_msie_8 .singleCalendar, .b_firefox_2 .singleCalendar, .b_firefox_1 .singleCalendar{width:221px;height:228px;background:transparent url("//q.bstatic.com/static/img/calendar_shadow.png") left top no-repeat}
+.calendarTill{border-left:1px dotted #779bca}
+.singleCalendar{border-left:0!important}
+.doubleCalendar .calendarTill .browseCalendar{border-left:0!important}
+.doubleCalendar .calendarTill table{border-left:0!important}
+.doubleCalendar .calendarFrom, .doubleCalendar .calendarTill{display:block;width:212px;float:left}
+.insideForm .calendarFrom, .insideForm .calendarTill{width:362px}
+.doubleCalendar .calendarFrom{padding:5px 8px 5px 5px}
+.doubleCalendar .calendarTill{padding:5px 5px 5px 8px}
+.b_msie_6 .doubleCalendar .calendarFrom, .b_msie_6 .doubleCalendar .calendarTill{padding-bottom:0;padding-top:0}
+.newcalendar table, .newcalendar tbody, .newcalendar tr, .newcalendar td, .newcalendar th{border:0 none;border-spacing:0;margin:0;padding:0;text-align:left;vertical-align:top;border-collapse:collapse;}
+.newcalendar h2{padding:0;margin:0 0 4px 0;color:#000;font-size:29px;font-weight:normal;height:30px;display:block}
+.b_msie_6 .newcalendar h2{padding:5px 0 0 0;height:25px}
+.b_msie_6 .newcalendar tr{height:20px!important;overflow:hidden;border-spacing:0}
+.b_msie_6 .dayamount{padding-top:5px;display:block;height:25px;margin-top:-22px}
+.newcalendar td{text-align:center;height:25px}
+.newcalendar th{color:#000;text-align:center;font-weight:bold;background:#f1f1f1;padding:2px;border-radius:5px;margin:5px;}
+.newcalendar td a{font-weight:bold;color:#333!important;text-decoration:none!important;display:block;height:17px;padding:2px 0 0 0;border:2px solid #fff;overflow:hidden;margin-right:2px}
+.newcalendar td span{text-decoration:line-through;color:#666;background:#f1f1f1;border-color:#f1f1f1;border-radius:5px;display:block;height:17px;padding:2px 0 0 0;border:2px solid #fff;margin-right:2px}
+.newcalendar select{float:left;display:block;width:11em;margin:3px 0 0 3px;border:1px solid #dcdcdc;padding:3px;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
+.b_msie_6 .newcalendar select{width:10em!important;color:#fff;}
+.calendar_close{display:block;position:relative;z-index:9999;float:left;clear:both;width:210px;text-align:center;font-weight:bold;color:#b41117!important;cursor:pointer}
+.doubleCalendar .calendar_close{width:451px}
+.prevmonth, .nextmonth{display:block!important;height:24px;width:24px;overflow:hidden;position:relative}
+.prevmonth{float:left;background:transparent url(../images/right-arrow.png) 0 0 no-repeat}
+.nextmonth{float:right;background:transparent url(../images/left-arrow.png) 0 0 no-repeat}
+a.disabled, a.disabled:hover{background-position:0 -72px!important;cursor:default;color:#fff}
+.prevmonth span, .nextmonth span{display:block;padding-top:30px;position:relative}
+.newcalendar td span, .newcalendar td a{border-radius:4px;-moz-border-radius:4px}
+.newcalendar td.wk a{color:#006600!important}
+.newcalendar td a:hover{color:#fff!important;border-color:#b41117!important;background:#b41117!important}
+.browseCalendar{display:block;float:left;clear:both;width:200px;padding:5px;position:relative;z-index:9999}
+.b_msie_6 .browseCalendar{height:24px!important;overflow-y:hidden}
+.newcalendar td span.grayed, .newcalendar td a.grayed:hover, .newcalendar a.grayed{color:#ddd!important;border-color:#fff;background:#fff;text-decoration:none;cursor:default}
+.newcalendar td.wk a.grayed{color:#006600!important;}
+.newcalendar td a.today:hover, .newcalendar td span.today, .newcalendar a.today{border-color:#333;background:#333;color:#fff;font-weight:bold;}
+.newcalendar td a.selected{color:#fff!important;border-color:#b41117!important;background-color:#b41117}
+.newcalendar td a.endsel{border-color:#9a9a9a;background-color:#9A9A9A;color:#fff;}
+.newcalendar td a.inbetween{border-color:#dcdcdc;background-color:f1f1f1;}
+.calendarTarget{display:block;float:left;clear:left;width:140px;height:130px;margin-top:32px}
+.b_msie_6 .calendarTarget{height:100px}
+.calendarTarget .ct_month{display:block;color:#0003580}
+.calendarTarget .ct_day{display:block;font-size:120px;color:#779bca;margin-top:0;width:140px;height:110px;padding-top:50px}
+.b_msie_6 .calendarTarget .ct_day{height:70px}
+.dayamount{color:#779bca;float:right}
+.display_dates{width:100%}
+.display_dates div{display:block;float:left;width:30px;font-size:18px;color:#f00;padding-top:8px;background:#fff}
+.display_dates .date_start{width:355px;padding-left:10px}
+.display_dates .date_end{width:330px;padding-left:0}
+.datepicker a.calendar img, #change_dates a.calendar img, .availForm a.calendar img, #searchboxInc a.calendar img{background-color:#feba02;background-image:url("//s.bstatic.com/static/img/calendar_sprite.gif")}
+.datepicker a.calendar:hover img, #change_dates a.calendar:hover img, .availForm a.calendar:hover img, #searchboxInc a.calendar:hover img{background-position:0 -23px}
+.b_msie_6 #homeout{width:220px}

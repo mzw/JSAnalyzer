@@ -1,5 +1,6 @@
 package jp.mzw.jsanalyzer.formulator.property;
 
+import jp.mzw.jsanalyzer.formulator.adp.AjaxDesignPattern;
 import jp.mzw.jsanalyzer.formulator.adp.UserAction;
 import jp.mzw.jsanalyzer.formulator.pp.Absence;
 import jp.mzw.jsanalyzer.formulator.pp.PropertyPattern;
@@ -24,7 +25,6 @@ public class UEHSingle extends Property {
 		this.addVeriables("$P1", "Prevent function", "func");
 		this.addVeriables("$P2", "UserEvents", "event");
 	}
-	
 
 	/**
 	 * Sets variables for generating CTL formulas

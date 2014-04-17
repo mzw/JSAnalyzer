@@ -1,0 +1,113 @@
+﻿#head {
+    margin: 0px auto;
+    width: 1242px;
+    /*padding:0px 10px;*/
+    min-height:170px;
+   _height:170px;
+}
+#main {
+    margin: 0px auto;
+    width: 1242px;
+    padding:0px 10px;
+}
+.beacon-box{ background:url(../../images/New/beacon_bg.jpg) repeat-x; height:24px; line-height:23px;}
+.beacon-left-user{ float:left; display:inline; display:table;}
+.beacon-left-user li{ float:left; line-height:23px; display:inline; margin:0px 10px 0px 5px; }
+.beacon-rigth-contact{ float:right; margin-right:5px; display:inline; margin-top:2px;}
+.beacon-rigth-contact img {
+        vertical-align:middle;
+    }
+#imglivechat {
+    margin-bottom:3px;
+    margin-right:5px;
+}
+.head-midlle{ padding:5px 0px; height:53px;}
+.head-midlle a{ float:left;}
+.head-midlle-banner{ float:right;}
+.menu-box{height:26px; *height:24px; }
+.menu-box ul{ float:left; display:inline; margin-left:215px;background:url(../../images/New/Menu_bg.jpg) repeat-x; border:1px solid #e0e0e0; border-bottom:none; }
+.menu-box ul li{ float:left; display:inline; height:25px; line-height:25px;}
+.menu-box ul li a{ color:#373737; background:url(../../images/New/line1.gif) repeat-y right; padding-right:15px; padding-left:15px;font-weight: bold;}
+.menu-box ul li a:hover{color:#f19856}
+.menu-box ul li.select-menu {
+    border: 1px solid #607884;
+    border-bottom: none;
+    position: relative;
+    margin-bottom: -1px;
+    background: url(../../images/New/Menu_select_bg.jpg) repeat-x;
+    height: 25px;
+    /*padding: 0px 15px;*/
+    *height: 23px;
+}
+.menu-box ul li a.line-no{ background:none;}  
+.head-search-box{ height:39px;background:url(../../images/New/search_bg.jpg) repeat-x; border:1px solid #607884; padding-left:50px; padding-top:4px;}
+.head-searchbar{ float:left; height:33px; border:1px solid #607884; background-color:#FFFFFF; color:#172e54;}
+.head-searchbar span{ display:inline-block; float:left;}
+.head-searchbar-selinfo{position:relative; float:left;z-index:200;}
+.head-searchbar-select {
+    height: 33px;
+    background: url(../../images/New/down.gif) 100px 15px no-repeat;
+    padding-left: 5px;
+    border-right: 1px solid #607884;
+    width: 100px;
+    padding-right: 14px;
+    line-height: 33px;
+    white-space:nowrap;
+    
+}
+.head-searchbar-select-Content{display:none; position:absolute; background-color:#FFFFFF;border:1px solid #607884; width:119px; left:-1px;top:33px;z-index:100; }
+.head-searchbar-select-Content a{ padding:2px 5px; display:block; color:#000000;}
+.head-searchbar-select-Content a:hover{ background-color:#ebf6fa;}
+.head-searchbar-enter input{ width:563px; height:33px;*height:27px; line-height:29px; border:none; margin:0px; padding:0px 5px 0px 5px; color:#666666;outline:0; background-color:white;}
+.head-search-control{ float:left; display:inline; margin-left:8px;  *width:410px;}
+.head-search-control span{ font-size:14px; font-weight:bold; margin:0px 5px;}
+.head-search-submit,.head-post-submit{height:35px;  font-size:14px; font-weight:bold;}
+.head-search-submit{cursor: pointer; width:111px; border:1px solid #a5905e; background:url(../../images/New/search_btn.jpg) repeat-x;   color:#f19856; margin-bottom:2px;}
+.head-post-submit,.head-post-submit1{ padding:0px 10px; border:1px solid #9f9f9f; background:url(../../images/New/post_bg.jpg) repeat-x; color:#000000; font-weight:bold; height:34px; display:inline-block; line-height:34px; }
+.head-post-submit1 {
+    position:relative;
+}
+.head-post-submit1-new {
+    position: absolute;
+    top:-3px;
+    right: -10px;
+}
+
+.head-keyword{ font-size:11px; border-bottom:1px dotted #cccccc; text-align:left; width:1242px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+ .head-keyword h3 {
+        font-size:11px;
+    }
+.head-Subclass {
+    font-size:11px;
+}
+    .head-Subclass a, .head-Subclass a:visited {
+        /*color:#3f3f3f;*/
+        color:#003399;
+    }
+        .head-Subclass a:hover {
+            text-decoration:underline;
+            color:#f68428;
+        }
+.head-SubclassFont {
+    color:#003399;
+}
+.stonebanner {
+   
+    height: 54px;
+    float: right;
+  
+}
+.PardWidth {
+    width:1175px;
+}
+.PardWidth {
+    width:903px;
+}
+
+
+
+
+
+
+
+

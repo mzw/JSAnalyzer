@@ -9,6 +9,7 @@ import org.jsoup.nodes.Element;
 import org.mozilla.javascript.ast.AstNode;
 import org.mozilla.javascript.ast.FunctionCall;
 import org.mozilla.javascript.ast.Name;
+import org.mozilla.javascript.ast.PropertyGet;
 import org.mozilla.javascript.ast.Scope;
 import org.mozilla.javascript.ast.StringLiteral;
 
@@ -151,6 +152,19 @@ public class EnDisableManager {
 				else if(this.mJSTargetNode instanceof Name) {
 //					this.mTargetId = TargetSolver.getElementId((Name)this.mJSTargetNode);
 					this.mTargetId = edManager.findElementId(TargetSolver.getParentScope(this.mJSTargetNode), this.mJSTargetNode.toSource());
+				}
+				/// 
+				else if(this.mJSTargetNode instanceof PropertyGet) {
+					PropertyGet propAstNode = (PropertyGet)this.mJSTargetNode;
+					
+					/// CSS: document.getElementById("ID").style.css_prop = value;
+					if("style".equals(propAstNode.getProperty().toSource()) &&
+							propAstNode.getTarget() instanceof FunctionCall) {
+						this.mTargetId = TargetSolver.getElementIdBy((FunctionCall)propAstNode.getTarget(), analyzer);
+					}
+
+					/// TBI: get element by NAME
+					/// Ex. document.form1.quote @Visitor Medical Insurance
 				}
 				else {
 					System.out.println("Unknown JS element class: " + this.mJSTargetNode.getClass() + ", src= " + this.mJSTargetNode.toSource());

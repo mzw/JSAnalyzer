@@ -8,7 +8,10 @@ import org.jsoup.nodes.Element;
 import jp.mzw.jsanalyzer.formulator.adp.*;
 import jp.mzw.jsanalyzer.formulator.pp.*;
 import jp.mzw.jsanalyzer.serialize.model.FiniteStateMachine;
+import jp.mzw.jsanalyzer.serialize.model.State;
+import jp.mzw.jsanalyzer.serialize.model.Transition;
 import jp.mzw.jsanalyzer.util.StringUtils;
+import jp.mzw.jsanalyzer.verifier.modelchecker.NuSMV;
 
 public class Property implements Cloneable {
 
@@ -304,6 +307,44 @@ public class Property implements Cloneable {
 		ret += "\t" + "</Variables>\n";
 		ret += "</Property>\n";
 		return ret;
+	}
+
+
+	/**
+	 * 
+	 * @param P1
+	 * @param P2
+	 * @param fsm
+	 * @deprecated
+	 */
+	public static String genTemplateVariableP(String P1, String P2, FiniteStateMachine fsm) {
+		/// Determines whether the state representing P1 is a branch state or not
+		boolean isBranch = true;
+		
+		String stateIdByP1 = NuSMV.rev_genOr(P1);
+		for(State state : fsm.getStateList()) {
+			if(state.getId().equals(stateIdByP1)) {
+				
+				for(Transition trans : fsm.getTransList()) {
+					if(trans.getFromStateId().equals(state.getId())) {
+						/// If the state has event transitions, NOT branch state
+						if(trans.getEvent() != null) {
+							isBranch = false;
+						}
+					}
+				}
+				
+				break;
+			}
+		}
+		
+		String p = P1 + " & ";
+		if(isBranch) {
+			p += "EX EX " + P2;
+		} else {
+			p += "EX " + P2;
+		}
+		return "(" + p + ")";
 	}
 	
 }

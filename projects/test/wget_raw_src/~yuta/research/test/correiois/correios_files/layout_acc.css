@@ -1,0 +1,3808 @@
+﻿@charset "utf-8";
+
+/* CSS Document */
+* {
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+html,body {
+	height: 100%;
+	/*Mecanismo necessário para a implementação do layout 100%*/
+	font-family: Arial;
+	/*font-family: "Palatino","Helvetica Neue Light","HelveticaNeue-Light",Helvetica,Verdana,Arial,sans-serif;*/
+	font-size: 10px;
+}
+
+.back {
+	background-color: #F0F0F0;
+	height: auto !important; /* real browsers */
+	height: 100%; /* IE6: treaded as min-height*/
+	min-height: 100%; /* real browsers */
+}
+
+hr {
+	background-color: #bbbbbb;
+	height: 1px;
+	border: none;
+}
+
+b,p,i,em,strong,u {
+	font-size: 1em;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
+ul li {
+	list-style: none;
+}
+
+a:link {
+	
+}
+
+a:visited {
+	color: inherit;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:active {
+	
+}
+
+input[type=text] {
+	padding-left: 3px;
+}
+
+.form input.readOnly {
+	background-color: #E8E8E8;
+	border: 1px solid #E8E8E8;
+}
+
+abbr,acronym {
+	font-size: inherit;
+}
+
+/***** Global Classes *****/
+.hundredp{
+	width:98% !important;
+	min-width: 98% !important;
+}
+.copy {
+	font-size: 1em;
+	padding-top: 3px;
+}
+
+.clr {
+	clear: both;
+	margin-bottom: -5px;
+}
+
+.float-left {
+	float: left;
+}
+
+.float-right {
+	float: right;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-justify {
+	text-align: justify;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.italic {
+	font-style: italic;
+}
+
+.underline {
+	border-bottom: 1px solid;
+}
+
+.highlight {
+	background: #ffc;
+}
+
+.wrap {
+	width: 980px;
+	margin: 0 auto;
+	padding: 15px 0 30px 0;
+	background-image: url("../img/backnav.png");
+	background-repeat: repeat-y;
+	background-position: -25px;
+}
+/*
+Remover quando barra de acesso rápido retornar
+*/
+.internacional .tabs{margin-top:-10px;}
+
+.img-left {
+	float: left;
+	margin: 4px 10px 8px 0;
+}
+
+.img-leftlegenda{
+	margin: 3px 8px 5px 5px;
+	width: 150px;
+	text-align: right;
+}
+
+
+.img-right {
+	float: right;
+	margin: 4px 0 4px 10px;
+}
+
+.content .nobkcolor {
+	background-color: #fff;
+	position:relative;
+}
+
+.nopadding {
+	padding: 0;
+}
+
+.noindent {
+	margin-left: 0;
+	padding-left: 0;
+}
+
+.nobullet {
+	list-style: none;
+	list-style-image: none;
+}
+
+.noimage,span.noimage,div.noimage {
+	background-image: none;
+}
+
+.nomargin {
+	margin: 0;
+}
+
+.margin-right8 {
+	margin-right: 8px;
+}
+
+/***** Global Classes ICONS *****/
+
+.ajuda{
+	position: absolute;
+	top: -2px;
+}
+
+
+/***** Global Classes fonts *****/
+.contentform label.error {
+	color: red;
+}
+
+/* 
+    ColorBox example user style
+    The following rules are ordered and tabbed in a way that represents the
+    order/nesting of the generated HTML, so that the structure easier to understand.
+*/
+/*
+    ColorBox Core Style:
+    The following CSS is consistent between example themes and should not be altered.
+*/
+#colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; overflow:hidden;}
+#cboxOverlay{position:fixed; width:100%; height:100%;}
+#cboxMiddleLeft, #cboxBottomLeft{clear:left;}
+#cboxContent{position:relative;}
+#cboxLoadedContent{overflow:auto;}
+#cboxTitle{margin:0;}
+#cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%; height:100%;}
+#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow{cursor:pointer;}
+.cboxPhoto{float:left; margin:auto; border:0; display:block;}
+.cboxIframe{width:100%; height:100%; display:block; border:0;}
+
+#cboxContent h1{font-size:1.8em;}
+#cboxContent h2{color:#0071BB; margin-bottom:7px; font-size:1.7em;}
+#cboxContent fieldset{margin-top:15px;}
+#cboxContent .form{width:96%; min-width: 0px; font-size:10px;}
+#cboxContent .form{width:280px;}
+#cboxContent label{font-size:1.1em; margin-bottom:5px; float:left;}
+#cboxContent label span{font-size:0.9em; color:#696969;}
+#cboxContent label a{color:#1874CD;}
+/* 
+    User Style:
+    Change the following styles to modify the appearance of ColorBox.  They are
+    ordered & tabbed in a way that represents the nesting of the generated HTML.
+*/
+#cboxOverlay{background:#000;}
+#colorbox{}
+    #cboxContent{margin-top:20px;}
+        .cboxIframe{background:#fff;}
+        #cboxError{padding:50px; border:1px solid #ccc;}
+        #cboxLoadedContent{background:#fff;}
+        #cboxTitle{position:absolute; top:-20px; left:0; color:#ccc;}
+        #cboxCurrent{position:absolute; top:-20px; right:0px; color:#ccc;}
+        #cboxSlideshow{position:absolute; top:-20px; right:90px; color:#fff;}
+        #cboxPrevious{position:relative; top:50%; left:5px; margin-top:-32px; background:url(../img/cbox/controls.png) no-repeat top left; width:28px; height:65px; text-indent:-9999px;}
+        #cboxPrevious:hover{background-position:bottom left;}
+        #cboxNext{position:absolute; top:50%; right:5px; margin-top:-32px; background:url(../img/cbox/controls.png) no-repeat top right; width:28px; height:65px; text-indent:-9999px;}
+        #cboxNext:hover{background-position:bottom right;}
+        #cboxLoadingOverlay{background:#000;}
+        #cboxLoadingGraphic{background:url(../img/cbox/loading.gif) no-repeat center center;}
+        #cboxClose{position:absolute; top:10px; right:10px; display:block; background:url(../img/cbox/cboxclose.png) no-repeat top left; width:21px; height:21px; text-indent:-9999px;}
+        #cboxClose:hover{background-position:top center;}
+
+
+/*################################################*/
+/*######              HEADER                ######*/
+/*################################################*/
+.header {
+	margin-bottom: 9px;
+	width: 923px; /*menos dois pixel do padrão 908px*/
+	margin: 0 auto 0 auto;
+}
+
+h1.logo {
+	position: relative;
+	top: 3px;
+	left: 17px;
+}
+
+.acesso_rapido {
+	float: right;
+	text-align: left;
+	margin-right: 14px;
+	margin-bottom: 10px;
+	width: 425px;
+}
+
+.acesso_rapido a {
+	font-size: 1.3em;
+}
+
+.acesso_rapido input {
+	border: 1px solid #CACAC9;
+	height: 20px;
+	width: 180px;
+	line-height: 20px;
+	font-size: 1.3em;
+	margin-bottom: -1px;
+	margin-top:0px;
+}
+
+.acesso_rapido div {
+	margin-bottom: 9px;
+}
+
+.btnbuscar {
+	background-image: url("../img/btn_buscar.png");
+	height: 22px;
+	width: 20px;
+	display: inline-block;
+	margin: 0 0 -6px -4px;
+	position:absolute;
+}
+
+/* Produtos de AaZ */
+.produtosaz {
+	height: 21px;
+	width: 210px;
+	border: 1px solid #CACAC9;
+	background-color: #fff;
+	background-image: url("../img/btn_select.png");
+	background-repeat: no-repeat;
+	background-position: right 0;
+	line-height: 20px;
+	padding-left: 4px;
+	float: left;
+}
+
+.produtosaz div.expo {
+	margin-bottom: 0px;
+	font-size: 1.2em;
+}
+
+/****Combo simulada com div****/
+.cbDiv {
+	height: 21px;
+	width: 290px;
+	border: 1px solid #CACAC9;
+	background-color: #fff;
+	background-image: url("../img/btn_select.png");
+	background-repeat: no-repeat;
+	background-position: right 0;
+	line-height: 20px;
+	padding-left: 4px;
+	float: left;
+}
+
+.cbDiv div.expo {
+	margin-bottom: 0px;
+	font-size: 1.2em;
+}
+
+.optDiv {
+	margin-left: -5px;
+	padding: 7px;
+	background-color: #FFF;
+	border: 1px solid #d3d3d3;
+	line-height: 1em;
+	z-index: 1001;
+	float: left;
+	position: relative;
+}
+
+.optDiv a {
+	line-height: 2em;
+	font-size: 1.1em;
+	margin-bottom: 4px;
+	padding-left: 15px;
+	color: #6CA6CD;
+	background-image: url("../img/bullet.gif");
+	background-repeat: no-repeat;
+	background-position: 0 1px;
+}
+
+/**********/
+.parCbContratos {
+	width: 280px;
+	min-height: 110px;
+	display:table;
+	height: auto;
+}
+
+/**********/
+.expo {
+	cursor: pointer;
+}
+
+.dados {
+	
+}
+
+.expandAll {
+	font-size: 12px;
+	line-height: 25px;
+	padding-right: 30px;
+	background-color: #ECEBEB;
+}
+
+.icoJumpto {
+	background: #FFF url('../img/jumpRight.gif') right 50%;
+	background-repeat: no-repeat;
+}
+
+.icoExpand {
+	background: #FFF url('../img/expand.gif') right 50%;
+	background-repeat: no-repeat;
+}
+
+.icoJumpto a h2 {
+	width: 95%;
+	/*Correção para sobreposição da setinha icoJumpto e o texto.*/
+}
+
+.abaaz {
+	height: 205px;
+	margin-left: -5px;
+	padding-left: 7px;
+	background-color: #FFF;
+	border: 1px solid #d3d3d3;
+	line-height: 1em;
+	width: 206px;
+	z-index: 1001;
+	float: left;
+	position: relative;
+}
+
+.dadosaz {
+	height: 200px;
+	width: 206px;
+	overflow: auto;
+}
+
+.dadosaz span.dica {
+	background-color: #ECEBEB;
+	margin: 15px 8px 5px 0px;
+	padding: 8px;
+	display: block;
+	font-size: 1.1em;
+	line-height: 1.1em;
+}
+
+.dadosaz a {
+	line-height: 2em;
+	margin-bottom: 4px;
+	padding-left: 15px;
+	color: #6CA6CD;
+	background-image: url("../img/bullet.gif");
+	background-repeat: no-repeat;
+	background-position: 0 1px;
+}
+
+/*################################################*/
+/*######               MENUS                ######*/
+/*################################################*/
+/*################################################*/
+/*######      MENU PRINCIPAL HORIZONTAL     ######*/
+/*################################################*/
+.mnav {
+	width: 920px;
+	margin: 0;
+	font-family: tahoma;
+}
+
+.itemnav {
+	text-align: center;
+	text-decoration: none;
+	display: inline;
+	margin-right: -4px;
+}
+
+.itemnav a {
+	color: #ffffff;
+	font-weight: bold;
+	width: 150px;
+	height: 20px;
+	line-height: 18px;
+	display: inline-block;
+	background-image: url("../img/mglobal.png");
+	background-repeat: no-repeat;
+	font-size: 1.1em;
+}
+.int .itemnav a {
+	width: 229px;
+	background-image: url("../img/mglobalLarge.png");
+}
+
+.itemnav a:visited {
+	color: #FFFFFF;
+}
+
+.itemnav a:hover {
+	background-image: url("../img/mglobalhover.png");
+	color: #333333;
+	text-decoration: none;
+}
+.int .itemnav a:hover {
+	background-image: url("../img/mglobalhoverLarge.png");
+	color: #333333;
+	text-decoration: none;
+}
+
+.itemnav a:active {
+	color: #FFFFFF;
+}
+
+/*################################################*/
+/*######              FOOTER                ######*/
+/*################################################*/
+.rsociais {
+	margin: 25px 15px 15px 15px;
+}
+
+.rsociais a {
+	height: 20px;
+	width: 17px;
+	line-height: 20px;
+	background-image: url("../img/rsociais.png");
+	background-repeat: no-repeat;
+	display: inline-block;
+	font-size: 1.1em;
+	margin-bottom: 5px;
+	margin: 0 auto 0 auto;
+}
+
+a.twitter {
+	background-position: 0 1px;
+}
+
+a.digg {
+	background-position: -25px 1px;
+}
+
+a.delicious {
+	background-position: -50px 1px;
+}
+
+a.youtube {
+	background-position: -75px 1px;
+}
+
+a.gbookmarks {
+	background-position: -100px 1px;
+}
+
+a.rss {
+	background-position: -125px 1px;
+}
+
+a.blogcorreios {
+	background-position: -146px 1px;
+	width: 100px;
+	padding-left: 10px;
+}
+
+.mfooter {
+	height: 20px;
+	line-height: 20px;
+	display:inline;
+	background-color: #ECEBEB;
+	font-size: 1.1em;
+	margin-bottom: 5px;
+	width: 921px; /*menos dois pixel do padrão 908px*/
+	margin: 3px auto 0 auto;
+}
+
+.mfooter ul li {
+	font-size: 1em;
+	display: inline;
+	border-right: 1px solid black;
+	padding: 0 4px 0 4px;
+}
+
+.mfooter ul li.end {
+	border: none;
+	padding-right: 0px;
+}
+
+/*################################################*/
+/*######            MENU WIZARD             ######*/
+/*################################################*/
+#wizard a {
+	margin-right: -7px;
+	height: 20px;
+	line-height: 19px;
+	color: #FFF;
+	cursor: pointer;
+}
+
+.btn_wizard {
+	background-image: url("../img/abaw.png");
+	background-repeat: repeat-x;
+	height: 20px;
+	display: inline-block;
+	padding: 0 6px 0 7px;
+	font-size: 1.1em !important;
+	color: #FFF;
+}
+
+.abawi {
+	background-image: url("../img/abawi.png");
+	background-repeat: repeat-x;
+	height: 20px;
+	width: 8px;
+	display: inline-block;
+	margin-right: -3px;
+}
+
+.abawf {
+	background-image: url("../img/abawf.png");
+	background-repeat: repeat-x;
+	height: 20px;
+	width: 8px;
+	display: inline-block;
+	margin-left: -3px;
+}
+
+.btnform a.anterior {
+	/*Correção de posicionamamento para o botão anterior do formulário wizard. Só utilizar nesta situação*/
+	margin-left: 9px;
+}
+
+/*################################################*/
+/*######             BOTÕES                 ######*/
+/*################################################*/
+.btn-home {
+	background-image: url("../img/btn_home.gif");
+	height: 22px;
+	width: 144px;
+	color: #000;
+	border: 1px solid #ccc;
+	display: inline-block;
+	line-height: 22px;
+	text-align: center;
+	font-size: 1.2em;
+	text-decoration: none;
+	margin: 0 0 0 1px;
+}
+
+/*a.btn-home:visited {
+	text-decoration:underline;
+	background-image:url("../img/btn_box_active.gif");
+}*/
+a.btn-home:hover { /*text-decoration:underline;*/
+	background-image: url("../img/btn_home_hover.gif");
+	text-decoration: none;
+}
+
+a.btn-home:active { /*text-decoration:underline;*/
+	background-image: none;
+	background-color: #DEDEDE;
+}
+
+/*Botões com o nível de importância número 1 (Salvar, Enviar, Próximo... - sempre relacionados a principal função da página)*/
+.btn1 {
+	background: #104E8B url("../img/btn_1.png");
+	height: 20px;
+	min-width: 75px;
+	color: #FFFFFF;
+	display: inline-block;
+	line-height: 19px;
+	text-align: center;
+	font-size: 1.1em;
+	text-decoration: none;
+	margin: 0 0 0 1px;
+	cursor: pointer;
+	padding: 0 10px 0 10px;
+}
+
+.contentform div.btnform a.btn1 {
+	color: #fff;
+}
+
+a.btn1:visited { /*text-decoration:underline;*/
+	background: #104E8B url("../img/btn_1.png");
+}
+
+a.btn1:hover { /*text-decoration:underline;*/
+	height: 18px;
+	width: 73px;
+	border: 1px solid #FBB117;
+	background: #104E8B url("../img/btn_hover_1.png");
+	text-decoration: none;
+}
+
+a.btn1:active { /*text-decoration:underline;*/
+	background: red url("../img/btn_hover_1.png");
+}
+
+/*Botões com o nível de importância número 2 (Qualquer botão que esteja posicionado ao lado dos botões de importância número 1 - barra de botões)*/
+.btn2 {
+	background: #104E8B url("../img/btn_2.png");
+	height: 20px;
+	/*min-width: 75px;*/
+	color: #FFFFFF;
+	display: inline-block;
+	line-height: 19px;
+	text-align: center;
+	font-size: 1.1em;
+	text-decoration: none;
+	margin: 0 0 0 1px;
+	cursor: pointer;
+	padding: 0 10px 0 10px;
+}
+
+.contentform div.btnform a.btn2 {
+	color: #fff;
+}
+
+.btn2:visited { /*text-decoration:underline;*/
+	background: #104E8B url("../img/btn_2.png");
+}
+
+.btn2:hover { /*text-decoration:underline;*/
+	height: 20px;
+	border: 1px solid #FBB117;
+	background: #104E8B url("../img/btn_hover_2.png");
+	text-decoration: none;
+}
+
+.btn2:active { /*text-decoration:underline;*/
+	background: #104E8B url("../img/btn_hover_2.png");
+}
+
+/*Botões com o nível de importância número 3 (Botões posicionados dentro dos formulários, ao lado dos campos.)*/
+.btn3 {
+	background: #104E8B url("../img/btn_3.png");
+	height: 20px;
+	width: 75px;
+	color: #FFFFFF;
+	display: inline-block;
+	line-height: 19px;
+	text-align: center;
+	font-size: 1.1em;
+	text-decoration: none;
+	margin: 0 0 0 1px;
+	cursor: pointer;
+}
+
+.contentform div.btnform a.btn3 {
+	color: #fff;
+}
+
+a.btn3:visited { /*text-decoration:underline;*/
+	background: #104E8B url("../img/btn_3.png");
+	color: #fff;
+}
+
+a.btn3:hover { /*text-decoration:underline;*/
+	height: 18px;
+	width: 73px;
+	line-height: 17px;
+	border: 1px solid #FBB117;
+	background: #104E8B url("../img/btn_hover_3.png");
+	text-decoration: none;
+}
+
+a.btn3:active { /*text-decoration:underline;*/
+	background: #104E8B url("../img/btn_hover_3.png");
+}
+
+/*################################################*/
+/*######          ABAS E LAMINAS            ######*/
+/*################################################*/
+.laminas {
+	width: 909px; /*menos dois pixel do padrão 908px*/
+	border: 1px solid #CACAC9;
+	margin-bottom: 15px;
+	padding: 5px;
+	margin: 0 auto 0 auto;
+}
+
+.voce {
+	background-image: url("../img/bkvoce.png");
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+
+.empresas {
+	background-image: url("../img/bkempresa.png");
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+
+.fornecedores {
+	background-image: url("../img/bkfornecedores.png");
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+
+.correios {
+	background-image: url("../img/bkcorreios.png");
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+
+/*.iconeaba:first-child{
+	margin-left:2px;
+}*/
+.iconeaba {
+	padding-left: 2px;
+}
+
+.iconeaba li.abarotulo {
+	text-align: center;
+	display: inline-block;
+	margin-right: 7px;
+	float: left;
+	width: 145px;
+	height: 105px;
+	color: #424242;
+	/*link text is indented 8px*/
+}
+
+ul.iconeaba li#last {
+	margin-right: 0px;
+}
+
+ul.iconeaba li.abarotulo a.icone {
+	height: 95px;
+	font-size: 1.2em;
+	color: #424242;
+	display: block;
+	padding: 5px 0 5px 0;
+	text-decoration: none;
+	background-repeat: no-repeat;
+}
+
+.correios ul.iconeaba li.abarotulo a.icone {
+	color: #fff;
+}
+
+li.abarotulo a:visited {
+	color: #424242;
+}
+
+/*######### FUNDO ÍCONES ABAROTULO  ##########*/
+.voce ul li.abarotulo a:hover { /*hover state CSS*/
+	color: #696969;
+	background-color: #FFEC8B;
+	text-decoration: none;
+}
+
+.voce ul li.abarotulo.selected {
+	width: 145px;
+	color: #696969;
+	background-color: #FFEC8B;
+}
+
+.empresas ul li.abarotulo:hover { /*hover state CSS*/
+	color: #696969;
+	background-color: #ADD8E6;
+	text-decoration: none;
+}
+
+.empresas ul li.abarotulo.selected {
+	width: 145px;
+	color: #696969;
+	background-color: #ADD8E6;
+}
+
+.fornecedores ul li.abarotulo:hover { /*hover state CSS*/
+	color: #696969;
+	background-color: #D0E6AC;
+	text-decoration: none;
+}
+
+.fornecedores ul li.abarotulo.selected {
+	width: 145px;
+	color: #696969;
+	background-color: #D0E6AC;
+}
+
+.correios ul li.abarotulo a {
+	color: #fff;
+}
+
+.correios ul li.abarotulo:hover { /*hover state CSS*/
+	color: #fff;
+	background-color: #6699CC;
+	text-decoration: none;
+}
+
+.correios ul li.abarotulo:visited {
+	color: #fff;
+}
+
+.correios ul li.abarotulo.selected {
+	width: 145px;
+	color: #fff;
+	background-color: #6699CC;
+}
+
+/*#########   ÍCONES ABAROTULO  ##########*/
+.voce .ico1 a {
+	background-image: url("../img/enviar.png");
+}
+
+.voce li.ico2 a {
+	background-image: url("../img/acompanhar.png");
+}
+
+.voce li.ico3 a {
+	background-image: url("../img/receber.png");
+}
+
+.voce .ico4 a {
+	background-image: url("../img/comprar.png");
+}
+
+.voce li.ico5 a {
+	background-image: url("../img/solicitar.png");
+}
+
+.voce li.ico6 a {
+	background-image: url("../img/financial.png");
+}
+
+.empresas li.ico1 a {
+	background-image: url("../img/comunicacao.png");
+}
+
+.empresas li.ico2 a {
+	background-image: url("../img/encomendas.png");
+}
+
+.empresas li.ico3 a {
+	background-image: url("../img/marketing.png");
+}
+
+.empresas li.ico4 a {
+	background-image: url("../img/exportaimporta.png");
+}
+
+.empresas li.ico5 a {
+	background-image: url("../img/logistica.png");
+}
+
+.empresas li.ico6 a {
+	background-image: url("../img/comercio.png");
+}
+
+.fornecedores li.ico1 a {
+	background-image: url("../img/licitacoes.png");
+}
+
+.fornecedores li.ico2 a {
+	background-image: url("../img/contratos.png");
+}
+
+.fornecedores li.ico3 a {
+	background-image: url("../img/fornecedores.png");
+}
+
+.fornecedores li.ico4 a {
+	background-image: url("../img/pagamentos.png");
+}
+
+.fornecedores li.ico5 a {
+	background-image: url("../img/cartfornecedor.png");
+}
+
+.fornecedores li.ico6 a {
+	background-image: url("../img/cartfornecedor.png");
+}
+
+.correios li.ico1 a {
+	background-image: url("../img/aempresa.png");
+}
+
+.correios li.ico2 a {
+	background-image: url("../img/sustenta.png");
+}
+
+.correios li.ico3 a {
+	background-image: url("../img/cultura.png");
+}
+
+.correios li.ico4 a {
+	background-image: url("../img/patrocinio.png");
+}
+
+.correios li.ico5 a {
+	background-image: url("../img/trabalhe.png");
+}
+
+.correios li.ico6 a {
+	background-image: url("../img/imprensa.png");
+}
+/*Internacionalização*/
+.services .ico1 a {
+	background-image: url("../img/documents.png");
+}
+
+.services li.ico2 a {
+	background-image: url("../img/parcels.png");
+}
+
+.services li.ico3 a {
+	background-image: url("../img/exportImport.png");
+}
+
+.services .ico4 a {
+	background-image: url("../img/direct.png");
+}
+
+.services li.ico5 a {
+	background-image: url("../img/financial.png");
+}
+
+.services li.ico6 a {
+	background-image: url("../img/philately.png");
+}
+
+.aboutUs li.ico1 a {
+	background-image: url("../img/aempresa.png");
+}
+
+.aboutUs li.ico2 a {
+	background-image: url("../img/sustenta.png");
+}
+
+.aboutUS li.ico3 a {
+	background-image: url("../img/cultura.png");
+}
+
+.aboutUS li.ico4 a {
+	background-image: url("../img/patrocinio.png");
+}
+
+.aboutUs li.ico5 a {
+	background-image: url("../img/imprensa.png");
+}
+
+.aboutUs li.ico6 a {
+	background-image: url("../img/brazil.png");
+}
+
+.submenu {
+	position: relative;
+	width: 145px;
+	list-style-type: none;
+	margin: 0;
+	padding: 0 0 0 0;
+	margin-bottom: 0;
+	/*bottom spacing between each UL and rest of content*/
+	text-align: left;
+	z-index: 1000;
+	/*	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	background-color:#FFCC00;*/
+}
+
+ul li.abarotulo ul.submenu li a {
+	display: block;
+	padding: 7px 5px 5px 10px;
+	font-size: 1.2em;
+	width: 128px;
+	background-image: none;
+}
+
+.voce ul li ul.submenu a {
+	color: #696969;
+	background-color: #FFEC8B;
+	border-left: 2px solid #FFCC00;
+}
+
+.empresas ul li ul.submenu a {
+	color: #696969;
+	background-color: #ADD8E6;
+	border-left: 2px solid #7EC0EE;
+}
+
+.fornecedores ul li ul.submenu a {
+	color: #696969;
+	background-color: #D0E6AC;
+	border-left: 2px solid #8FBC8F;
+}
+
+.correios ul li ul.submenu a {
+	color: #FFF;
+	background-color: #6699CC;
+	border-left: 2px solid #336699;
+}
+
+.submenu a:visited {
+	color: #696969;
+}
+
+.voce ul.submenu li a:hover {
+	color: #696969;
+	background-color: #FFCC00;
+	text-decoration: none;
+}
+
+.empresas ul.submenu li a:hover {
+	color: #696969;
+	background-color: #7EC0EE;
+	text-decoration: none;
+}
+
+.fornecedores ul.submenu li a:hover {
+	color: #696969;
+	background-color: #8FBC8F;
+	text-decoration: none;
+}
+
+.correios ul.submenu li a:hover {
+	color: #FFF;
+	background-color: #336699;
+	text-decoration: none;
+}
+
+.correios ul.submenu li:visited {
+	color: #fff;
+}
+
+.bannerh {
+	width: 595px;
+	height: 190px;
+	float: left;
+	display: inline;
+	margin-right: 5px;
+}
+
+.bannerh2 {
+	width: 595px;
+	height: 190px;
+	float: left;
+	display: inline;
+	margin-right: 5px;
+}
+
+.bannerh3 {
+	width: 595px;
+	height: 190px;
+	float: left;
+	display: inline;
+	margin-right: 5px;
+}
+
+.bannerh4 {
+	width: 595px;
+	height: 190px;
+	float: left;
+	display: inline;
+	margin-right: 5px;
+}
+
+/*### TABS ###*/
+.tabs ul.tabs-list {
+	list-style: none outside none;
+}
+
+.tabs ul.tabs-list li {
+	float: left;
+}
+
+.tabs ul.tabs-list a {
+	text-decoration: none;
+}
+
+.tabs ul.tabs-list a {
+	float: none;
+}
+
+.tabs ul.tabs-list a:hover {
+	color: #333333;
+}
+
+.tabs ul.tabs-list .current {
+	
+}
+
+.tabs ul.tabs-list .current a h2 {
+	height: 32px;
+	line-height: 32px;
+	margin-top: 5px;
+	border-bottom: none;
+	background: #FAFAD2;
+	color: #696969;
+	text-decoration: none;
+	outline: none;
+	font-size: 1.6em;
+	font-weight: bold;
+}
+
+.js .tabs .current-info,.js .tabs .accessibletabsanchor,.js .tabs .tabhead
+	{
+	left: -999em;
+	/*Elemento que permite acessar os títulos por leitores de telas, mas impede a redundância dos títulos para os videntes.*/
+	position: absolute;
+}
+
+.js .tabs .content {
+	clear: both;
+}
+
+.tabs {
+	width: 909px; /*menos dois pixel do padrão 908px*/
+	margin: 15px auto 20px 29px;
+}
+
+.tabs a h2 {
+	width: 215px;
+	height: 24px;
+	margin: 12px 0 -1px 5px;
+	display: block;
+	float: left;
+	background-image: url("../img/orelha.gif");
+	background-repeat: repeat-x;
+	border: 1px solid #CACAC9;
+	color: #999999;
+	text-decoration: none;
+	outline: none;
+	line-height: 24px;
+	font-size: 1.5em;
+	font-weight: normal;
+	text-align: center;
+	cursor: pointer;
+}
+.tabs h2{
+	width: 215px;
+	height: 24px;
+	margin: 12px 0 -1px 5px;
+	display: block;
+	float: left;
+	background-image: url("../img/orelha.gif");
+	background-repeat: repeat-x;
+	border: 1px solid #CACAC9;
+	color: #999999;
+	text-decoration: none;
+	outline: none;
+	line-height: 24px;
+	font-size: 1.5em;
+	font-weight: normal;
+	text-align: center;
+	cursor: pointer;
+}
+
+.tabs li.current a#orelhavoce h2 {
+	background-color: #FFE957;
+	z-index: 99;
+	position: relative;
+	color: #696969;
+}  /*FAFAD2*/
+.tabs li.current a#orelhaempresas h2 {
+	background-color: #8CB5CC;
+	z-index: 99;
+	position: relative;
+}  /*E0EEEE*/
+.tabs li.current a#orelhafornecedores h2 {
+	background-color: #CFE0AA;
+	z-index: 99;
+	position: relative;
+}  /*E8E8E8*/
+.tabs li.current a#orelhacorreios h2 {
+	background-color: #336699;
+	z-index: 99;
+	position: relative;
+	color: #FFF;
+} 
+/*################################################*/
+/*######              TABELAS               ######*/
+/*################################################*/
+.form table.tmptabela {
+	width: 452px;
+	margin-bottom: 9px;
+}
+
+table.tmptabela {
+	width: 100%;
+	margin-bottom: 9px;
+}
+
+table.tmptabela tr td {
+	height: 20px;
+	border: 1px solid #CFCFCF;
+	color: black;
+	padding: 3px;
+	font-size: 1.1em;
+}
+
+table.tmptabela tr th {
+	padding: 4px;
+}
+
+.thleft tr th {
+	text-align: left;
+	padding-left: 4px;
+}
+
+.thright tr th {
+	text-align: right;
+	padding-right: 4px;
+}
+
+table tr td.label-tabela {
+	background-color: #E0EEEE;
+}
+
+table.tmptabela tr th {
+	font-size: 1.1em;
+	font-family: arial;
+	height: 20px;
+	background-color: #6699CC;
+	border: none;
+	color: #fff;
+}
+
+/*################################################*/
+/*######              SECOES                ######*/
+/*################################################*/
+.secoes {
+	width: 898px;
+	display: table;
+	height: auto;
+	min-height: 167px;
+	padding: 5px;
+	margin: 10px auto 7px auto;
+}
+
+.secoes h1 {
+	font-weight: bold;
+	height: 20px;
+	font-size: 1.2em;
+	line-height: 22px;
+}
+
+.secoes hr {
+	border: 1px solid #6699CC;
+	margin-bottom: 9px;
+}
+
+.divisor {
+	background-image: url("../img/divisor.gif");
+	width: 2px;
+	height: 150px;
+	float: left;
+	margin: 0 10px 0 10px;
+}
+
+a.btn {
+	color: #FFF;
+	margin-left: 4px;
+}
+
+.secoes a.btn {
+	background: #104E8B url("../img/btn_1.png");
+	height: 20px;
+	width: 75px;
+	color: #FFFFFF;
+	display: inline-block;
+	line-height: 19px;
+	text-align: center;
+	font-size: 1.1em;
+	text-decoration: none;
+	margin: 0 0 0 1px;
+}
+
+/*.secoes a.btn:visited {
+	text-decoration:underline;
+	background-image:url("btn_box_active.gif");
+}*/
+.secoes a.btn:hover { /*text-decoration:underline;*/
+	background: #104E8B url("../img/btn_hover_1.png");
+	text-decoration: none;
+}
+
+.secoes a.btn:active { /*text-decoration:underline;*/
+	background: #104E8B url("../img/btn_box_active.gif");
+}
+
+.tpublica {
+	
+}
+
+/*################################################*/
+/*######            BOX-MINI                ######*/
+/*################################################*/
+.box-mini {
+	background-color: #FFFFFF;
+	border: 1px solid #CCC;
+	padding: 4px;
+	margin: 0 0 5px 0;
+	float: left;
+}
+
+.box-mini h3 {
+	background-color: #6CA6CD;
+	font-size: 1.2em;
+	color: #FFFFFF;
+	margin: 0px;
+	height: 20px;
+	line-height: 20px;
+	padding-left: 5.5px;
+}
+
+.box-mini h3 .btnh1_ajuda {
+	background-image: url("../img/btn-ajuda.gif");
+	background-repeat: no-repeat;
+	width: 20px;
+	height: 16px;
+	float: right;
+	margin-top: 2px;
+}
+
+.box-mini h3 .btnh1_expandir {
+	background-image: url("../img/btn-expandir.gif");
+	background-repeat: no-repeat;
+	width: 20px;
+	height: 16px;
+	float: right;
+	margin-top: 2px;
+}
+
+.box-mini div.content {
+	padding: 10px 0 0 5px;
+}
+
+.dica {
+	color: #1874CD;
+	font-size: 1em;
+}
+
+.box-mini a.btn {
+	width: 75px;
+	margin: 0 0 0 1px;
+}
+
+.text-input {
+	width: 211px;
+	height: 14px;
+	border: 1px solid #999999;
+	padding: 2px;
+	float: left;
+	margin: 0 2px 0 0;
+	display: inline;
+}
+
+/*################################################*/
+/*######  PARAMETRIZAÇÃO BOX-MINI / SECOES  ######*/
+/*################################################*/
+/* Parametrização dos componentes box-mini. Utilizar estes componentes para dimensionamentos específicos e outras necessidades relacionadas*/
+.cep {
+	/*Dimensões da caixa de rastreamento de objetos e busca CEP da tela inicial*/
+	width: 298px;
+	height: 82px;
+}
+
+.licitacoes {
+	/*Dimensões da caixa de rastreamento de objetos e busca CEP da tela inicial*/
+	width: 298px;
+	height: 179px;
+}
+
+.eventos {
+	/*Dimensões da caixa de rastreamento de objetos e busca CEP da tela inicial*/
+	width: 298px;
+	height: 179px;
+}
+
+.eventos p {
+	margin: 10px 0 9px 6px;
+	font-size:1.1em;
+}
+.eventos p strong {
+	font-weight:bold;
+}
+.eventos p a {
+	color: #1874CD;
+	margin-bottom: 9px;
+	font-size: 1.1em;
+}
+
+.eventos p span {
+	color: #1874CD;
+	font-size: 1em;
+}
+
+.news {
+	width: 280px;
+	display: table;
+	height: auto;
+	min-height: 150px;
+}
+
+.news h2 {
+	background-image: url("../img/mais_news.gif");
+	background-repeat: no-repeat;
+	background-position: 280px 0;
+	font-size: 1.3em;
+}
+
+.news p {
+	margin-bottom: 8px;
+}
+
+.news p a {
+	margin-bottom: 8px;
+	font-size: 1.1em;
+}
+
+.news p span {
+	color: #1874CD;
+	font-size: 1em;
+}
+
+.cep p,.licitacoes p {
+	font-size: 1.1em;
+}
+
+.cep p.dica {
+	font-size: 1em;
+}
+
+.loginmail {
+	width: 130px;
+	font-size: 1em;
+}
+
+.loginmail h2 {
+	font-size: 1.3em;
+}
+
+.loginmail p {
+	font-size: 1.1em;
+}
+
+.loginmail input {
+	margin-top: 12px;
+	border: 1px solid #999;
+	width: 100%;
+	height: 20px;
+	padding: 2px 0 0 3px;
+	font-size: 1.1em;
+}
+
+.enquete {
+	width: 130px;
+	height: 150px;
+}
+
+.enquete p {
+	font-size: 1.1em;
+	margin-bottom: 9px;
+}
+
+.avisos {
+	width: 130px;
+	height: 110px;
+}
+
+.avisos hr {
+	border: 1px solid #CC3333;
+}
+
+.avisos p {
+	margin-bottom: 4px;
+}
+
+.avisos p a {
+	font-size: 1.1em;
+	color: #1874CD;
+}
+
+a.avisoslink {
+	background-image: url("../img/interrog.gif");
+	background-repeat: no-repeat;
+	background-position: 8px 0;
+	display: inline-block;
+	height: 18px;
+	line-height: 18px;
+	font-size: 1.1em;
+	color: #1874CD;
+	padding-left: 35px;
+}
+
+.avisosimg { /*Sem uso a imagem foi inserida dentro da página*/
+	background-image: url("../img/interrog.gif");
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	background-color: red;
+	height: 18px;
+	width: 18px;
+	position: relative;
+	top: 10px;
+}
+
+.avisos h2 {
+	font-weight: bold;
+	background-image: url("../img/avisos.gif");
+	background-repeat: no-repeat;
+	background-position: 2px 0;
+	padding-left: 25px;
+	font-size: 1.3em;
+	/*color:#000000;*/
+}
+
+.secoes div{
+	margin-right:16px;
+}
+.rio2016 {
+	width: 185px;
+	height: 200px;
+	/*background-image:url("../img/bpostal.png");*/
+}
+.outros-servicos {
+	width: 232px;
+	height: 200px;
+	/*background-image:url("../img/bpostal.png");*/
+}
+.outros-servicos a{
+	float:left;
+}
+.outros-servicos img {
+	margin-left: 5px;
+	margin-bottom: 10px;
+}
+.materias{
+	width: 362px;
+	height: 150px;
+}
+.materias h2{
+	font-size:1.3em;
+	font-weight: bold;
+	margin-bottom:15px;
+}
+.materias p{
+	font-size:1.2em;
+}
+.materias a{
+	color:#1874CD;
+}
+.universidade-materiais p a{
+	font-size:1em;
+}
+/*################################################*/
+/*######           TELAS INTERNAS           ######*/
+/*################################################*/
+.column1 {
+	width: 229px;
+	float: left;
+}
+
+.halfbannerh {
+	width: 234px;
+	height: 60px;
+	background-color: #D3D3D3;
+	display: block;
+	margin-top: 5px;
+	text-align: center;
+	line-height: 60px;
+	font-size: 1.3em;
+	color: gray;
+}
+
+.column2 {
+	border: 1px dotted #D3D3D3;
+	width: 661px;
+	min-height: 550px;
+	display: inline-block;
+	margin-left: 5px;
+	padding: 6px 5px 30px 5px;
+}
+
+.breadcrumb {
+	font-size: 1.1em;
+	height: 50px;
+}
+
+.breadcrumb strong {
+	color: #1874CD;
+	font-size: 1.1em;
+}
+
+.breadcrumb a {
+	font-size: 1.1em;
+	cursor: pointer;
+}
+
+.breadcrumb a:hover b {
+	font-size: 1.1em;
+	text-decoration: underline;
+}
+
+.column2 div.content {
+	margin-left: 7px;
+	margin-right: 7px;
+	display: block;
+}
+
+.column2 div.content a {
+	font-size: 1em;
+	color: #1874CD;
+}
+
+.column2 div.content a:visited {
+	color: #1874CD;
+	font-size: 1em;
+}
+
+.column2 div.tituloimagem {
+	border-bottom: 1px solid #000000;
+	margin-bottom: 12px;
+	padding-bottom: 3px;
+}
+
+.column2 .trescolunas div.tituloimagem {
+	width: 480px;
+	margin-bottom: 12px;
+	padding-bottom: 3px;
+}
+
+.column2 h3 {
+	position: relative;
+	font-size: 1.8em;
+	color: #336699;
+}
+
+.column2 h4 {
+	font-size: 1.5em;
+	margin-top: 12px;
+	margin-bottom: 0;
+}
+
+.column2 h5 {
+	font-size: 1.3em;
+	margin-top: 12px;
+	margin-bottom: 0;
+}
+
+.column2 p {
+	font-size: 1.2em;
+	line-height: 1.4em;
+	margin-bottom: 15px;
+}
+
+.column2 .imagem150right {
+	float: right;
+	margin: 3px 0 5px 5px;
+	width: 150px;
+	text-align: right;
+}
+
+.column2 .imagem150right img {
+	width: 150px;
+}
+
+.column2 .imagem315right {
+	float: right;
+	margin: 3px 0 5px 5px;
+	width: 315px;
+	text-align: right;
+}
+
+.column2 .imagem315right img {
+	width: 315px;
+}
+
+.column2 .imagem480right {
+	float: right;
+	width: 480px;
+	text-align: right;
+	margin-bottom: 10px;
+}
+
+.column2 .imagem480right img {
+	width: 480px;
+}
+
+.column2 div.quadroavisos {
+	margin-top: -13px;
+	border: 1px solid #CD0000;
+	padding: 10px;
+	width: 129px;
+	float: right;
+}
+
+.column2 div.quadroavisos p {
+	margin: 0 0 8px 0;
+	font-size: 1.1em;
+	line-height: 1.2em;
+}
+
+.column2 div.quadroavisos a {
+	color: #6CA6CD;
+	font-size: 1em;
+}
+
+.column2 div.quadroavisos h3 {
+	color: #000;
+	font-size: 1.2em;
+	margin-bottom: 10px;
+	position: relative;
+	top: 0;
+}
+.column2 div.quadroavisos h4 {
+	color: #000;
+	font-size: 1.1em;
+	margin-bottom: 3px;
+	position: relative;
+	top: 0;
+}
+.column2 div.quadrodicas {
+	margin-top: -13px;
+	border: 1px solid #6CA6CD;
+	padding: 10px;
+	width: 129px;
+	float: right;
+}
+
+.column2 div.quadrodicas p {
+	margin: 0 0 8px 0;
+	font-size: 1.1em;
+	line-height: 1.2em;
+}
+
+.column2 div.quadrodicas a {
+	color: #6CA6CD;
+	font-size: 1em;
+}
+
+.column2 div.quadrodicas h3 {
+	font-size: 1.3em;
+	margin-bottom: 10px;
+	position: relative;
+	top: 0;
+}
+
+.column2 div.quadrodicas h4 {
+	color: #6CA6CD;
+	padding: 0px;
+	line-height: 1.1em;
+	font-weight: normal;
+	font-size: 1.2em;
+	top: 0;
+}
+
+.comlumn2 div.umacoluna {
+	width: 150px;
+	float: left;
+}
+
+.column2 .trescolunas div.ctrlcontent {
+	width: 480px;
+	margin-right: 15px;
+	float: left;
+}
+
+.btnDestaque {
+	height: 24px;
+	background-image: url("../img/bannercadastro.png");
+	background-repeat: repeat-x;
+	display: block;
+	margin-bottom: 15px;
+	margin-left: 7px;
+	color: #FFFFFF;
+	line-height: 24px;
+	text-align: center;
+	font-weight: bold;
+	right: 8px;
+	font-size: 1.3em;
+	position: relative;
+	width: 100%;
+	cursor: pointer;
+}
+
+/*################################################*/
+/*######            MENU VERTICAL           ######*/
+/*################################################*/
+.mver {
+	width: 220px;
+	min-height: 350px;
+	/*height:332px;    Retornar com esta medida após a criação dos banner internos*/
+	display: block;
+	padding: 8px 4px 24px 4px;
+	overflow: auto;
+}
+
+.mver .dominio {
+	font-size: 1.1em;
+	color: gray;
+	margin-left: 3px;
+	margin-top: 3px;
+}
+
+.mver h3 {
+	font-size: 1.6em;
+	border-bottom: 2px solid #FFCC00;
+	text-transform: none;
+	padding: 1px 5px 5px 5px;
+	margin: -3px;
+}
+
+.mver ul {
+	margin-top: 6px;
+}
+
+.mver ul li {
+	padding: 7px 0 7px 2px;
+	border-bottom: 1px solid #99CCCC;
+}
+
+.mver ul li a {
+	font-size: 1.3em;
+	width: 100%;
+	display: list-item;
+}
+
+.mver ul li a:hover {
+	text-decoration: none;
+}
+
+.mver ul li:hover {
+	font-size: 1em;
+	background-color: #F0F0F0;
+}
+
+ul .submver li a {
+	color: #3399cc;
+	width: 190px;
+}
+
+ul .submver li {
+	padding-left: 10px;
+	font-size: 1em;
+	border-bottom: none;
+}
+
+ul .submver li:hover {
+	padding-left: 18px;
+	font-size: 1em;
+	margin-left: -8px;
+	width: 95%;
+	background-color: #FFF;
+	background-image: url("../img/bullet.gif");
+	background-repeat: no-repeat;
+	background-position: 1px 8px;
+	text-decoration: none;
+}
+
+/*################################################*/
+/*######          Lista Eventos             ######*/
+/*################################################*/
+	/*Formação de lista de eventos. Estas listas deverão ser utilizadas nos resultados das consultas do SRO, Agências e etc.
+As classes específicas para cada situação de apresentação deverão ser criadas nas seções correspondente desta folha de estilo. 
+ */
+table.listEvent {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 15px;
+}
+
+table.listEvent tr td {
+	padding: 9px 0 9px 12px;
+	font-size:1.1em;
+}
+
+table.listEvent tr td span {
+	color:#8A8A8A;
+}
+
+table.listEvent tr th {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+table.listEvent tr:last-child {
+	border-bottom: 1px dotted #8A8A8A;
+}
+
+table.listEvent tr td.bullet {
+	background: url("../img/bullet.png");
+	background-repeat: no-repeat;
+	background-position: 0px 8px;
+}
+/*################################################*/
+/*######            FORMULÁRIOS             ######*/
+/*################################################*/
+.form {
+	border: 1px solid #99CCCC;
+	background-color: #E0EEEE;
+	padding: 5px 5px 5px 5px;
+	margin-bottom: 15px;
+	display: table;
+	height: auto;
+	min-width:469px;
+}
+body.ie7 .form{
+	width:469px;
+}
+.form h4 {
+	font-size: 1.2em; /*olhar*/
+	margin: 9px 0 9px 8px;
+	top: 0;
+}
+
+.form h5 {
+	font-size: 1.1em; /*olhar*/
+	margin: -9px 0 11px 8px;
+	top: 0;
+	font-weight: normal;
+}
+
+.form div.contentform h4,.form div.contentform h5,.form div.contentform h6{
+	margin: 0 0 8px 0;
+	font-size: 1.3em;
+	color: #336699;
+}
+.form div.contentform h5,.form div.contentform h6{
+	margin-top:20px;
+}
+.form span label {
+	font-size: 1.1em;
+	position:relative;
+}
+
+.form div.contentform div label,  div.cboxContent div div fieldset label {
+	font-size: 1.2em;
+}
+
+.form div.contentform {
+	background-color: #fff;
+	padding: 10px 5px 1px 7px;
+	width: 456px;
+	font-size: 1.1em;
+	display: table;
+	height: auto;
+	position:relative;
+}
+
+.form.hundredp div.contentform {
+	width: 98%;
+}
+
+.form .contentform span {
+	float:left;
+	font-size: 1em;
+	display:inline-block;
+	margin-bottom: 10px;
+	margin-right: 3px;
+	background-color: #fff;/*Faz o ie6 apresentar a disposição dos campos corretamente*/
+}
+
+.form .contentform div{
+	display: table;
+	height: auto;
+}
+
+div.form div.duascolunas div p{
+	
+}
+body.ie6 div.form div.duascolunas div{
+	display:inline-block;
+}
+
+body.ie7 div.form div.duascolunas div{
+	display:inline-block;
+}
+
+div.form div.duascolunas{
+
+}
+
+body.ie8 div.form div.duascolunas div{
+	display:inline-block;
+}
+
+body.ie9 div.form div.duascolunas div{
+	display:inline-block;
+}
+
+.form label span {
+	color: #6CA6CD;
+	font-size: 0.8em;
+}
+
+.form p.dica {
+	margin-top: -3px;
+	font-size: 1.1em;
+}
+
+.form .defproduto ul {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.form .defproduto ul li {
+	margin-top: 0px;
+	margin-bottom: 2px;
+}
+
+.lista {
+	margin-left: 10px;
+	border-left: 5px solid #E0EEEE;
+	padding-left: 5px;
+	margin-bottom: 25px;
+}
+
+.lista span.dica {
+	font-size: 1.1em;
+}
+
+.lista p {
+	margin-bottom: 5px;
+}
+.content div.msg{
+	margin-bottom:15px;
+}
+
+.content div.msg div fieldset{
+	margin:0;
+	float:right;
+}
+body.ie7 .content div.msg div fieldset{
+	position:absolute;
+	right:0;
+	width:200px;
+}
+.content div.msg div fieldset button, .content div.msg div fieldset input{
+	margin:0;
+}
+
+.content div.info{
+	background-color:#DFECF2;
+	background-repeat:no-repeat;
+	padding:13px 19px 13px 45px;
+	font-size:1.3em;
+	margin-right:9px;
+	margin-bottom:3px;
+	position:relative;
+}
+.content div.info img{
+	width:26px;
+	height:26px;
+	background-image: url(../img/icons.png);
+	margin-right:10px;
+	position:absolute;
+	left:10px;
+	top:10px;
+}
+body.ie6 .content div.info img{
+	left:-35px;
+	top:13px;
+}
+.content div.success img{
+	background-position: -15px -14px;
+}
+div.alert img{
+	background-position: -15px -48px;
+}
+div.error img{
+	background-position: -15px -83px;
+}
+div.information img{
+	background-position: -50px -234px;
+}
+
+.content div.error{
+	color:#CC3333;
+}
+
+
+div.informativo {
+	background-image: url("../img/avisos.gif");
+	background-repeat: no-repeat;
+	background-position: 5px;
+	background-color: #FFF0F5;
+	padding: 5px 1px 5px 30px;
+	line-height: 15px;
+	min-height: 20px;
+	font-size: 1.2em;
+	margin-bottom: 15px;
+	border: 1px solid #99CCCC;
+}
+
+.informativo-negativo {
+	color: #A31313;
+	background: #fff0f5 url("../img/avisos.gif");
+	background-repeat: no-repeat;
+	background-position: 5px;
+	padding: 5px 1px 5px 30px;
+	line-height: 15px;
+	min-height: 20px;
+	font-size: 1.3em;
+	margin-bottom: 15px;
+}
+
+.informativo-positivo {
+	color: #2F5E05;
+	background: #e3f9d8 url("../img/avisos_pos.gif");
+	background-repeat: no-repeat;
+	background-position: 5px;
+	padding: 5px 1px 5px 30px;
+	line-height: 20px;
+	min-height: 20px;
+	font-size: 1.3em;
+	margin-bottom: 9px;
+}
+
+.form span.inline {
+	margin-bottom: 0px;
+}
+
+.form span.captchar {
+	border: gray 1px solid;
+	width: 112px;
+	height: 36px;
+	position: relative;
+	top: -19px;
+}
+
+.form .contentform div.separator {
+	clear: both;
+	margin-bottom:0px;
+}
+
+.form div.separator-line {
+	clear: both;
+	border-bottom: 1px dotted #BBBBBB;
+	margin-bottom: 15px;
+}
+
+.form div.btnform {
+	margin-left: 5px;
+	position: relative;
+	width: 98%;
+	border-top: 1px dotted #bbbbbb;
+	padding-top: 5px;
+	margin-top:0px;
+	margin-bottom:6px;
+}
+.form div.btnform button {
+	background: #104E8B url("../img/btn_2.png");
+	filter: none; /* IE6-8 */
+	color:#fff;
+	margin-top:0px;
+	float:right;
+	margin-left:3px;
+}
+.form span.result {
+	color: #336699;
+	font-size: 1.2em;
+}
+
+.ctrlcontent ul,.ctrlcontent li {
+	margin-left: 5px;
+	font-size: 1.2em;
+	/*list-style: disc;*/
+}
+
+.ctrlcontent ul,.ctrlcontent ol {
+	margin-bottom: 10px;
+	margin-left: 15px;
+}
+
+.ctrlcontent li {
+	margin-bottom: 12px;
+}
+
+/*f1col, f2col... para definir a largura dos elementos na grade dos formulários  */
+.f1col {
+	width: 48px !important;
+}
+
+select.f1col {
+	width: 53px !important;
+}
+
+span.f1col,button.f1col {
+	width: 53px !important;
+}
+
+.c1col {
+	width: 48px !important;
+}
+
+.f2col {
+	width: 105px !important;
+}
+
+select.f2col {
+	width: 110px !important;
+}
+
+span.f2col,button.f2col {
+	width: 111px !important;
+}
+
+.c2col {
+	width: 105px !important;
+}
+
+.f3col {
+	width: 162px !important;
+}
+
+select.f3col {
+	width: 167px !important;
+}
+
+span.f3col,button.f3col {
+	width: 168px !important;
+}
+
+.c3col {
+	width: 162px !important;
+}
+
+.f4col {
+	width: 219px !important;
+}
+
+select.f4col {
+	width: 224px !important;
+}
+
+span.f4col,button.f4col {
+	width: 225px !important;
+}
+
+.c4col {
+	width: 219px !important;
+}
+
+.f5col {
+	width: 276px !important;
+}
+
+select.f5col {
+	width: 281px !important;
+}
+
+span.f5col,button.f5col {
+	width: 282px !important;
+}
+
+.c5col {
+	width: 276px !important;
+}
+
+.f6col {
+	width: 333px !important;
+}
+
+select.f6col {
+	width: 338px !important;
+}
+
+span.f6col,button.f6col {
+	width: 339px !important;
+}
+
+.c6col {
+	width: 333px !important;
+}
+
+.f7col {
+	width: 390px !important;
+}
+
+select.f7col {
+	width: 395px !important;
+}
+
+span.f7col,button.f7col {
+	width: 396px !important;
+}
+
+.c7col {
+	width: 390px !important;
+}
+
+.f8col {
+	width: 447px !important;
+}
+
+select.f8col {
+	width: 452px !important;
+}
+
+span.f8col,button.f8col {
+	width: 453px !important;
+}
+
+.c8col {
+	width: 447px !important;
+}
+
+/*f1row, f2row... utilizado para definir a altura, em linhas, dos componentes dos formulários*/
+.f1row, f2row {
+	height: 68px;
+}
+
+.f3row {
+	height: 117px;
+}
+
+.f4row {
+	height: 166px;
+}
+
+.f5row {
+	height: 215px;
+}
+
+.f6row {
+	height: 264px;
+}
+
+/*div1col, div2col... utilizado para definir pequenos containers nas grades dos formulário.
+Estas classes são necessárias para controlar o posicionamento de elementos que não possuem 
+largura definível, como: labels em geral, elementos que possuem labels obrigatórios como radios, chekboxes*/
+.div1col {
+	width: 57px;
+	float: left;
+}
+
+.div2col {
+	width: 114px;
+	float: left;
+}
+
+.div3col {
+	width: 171px;
+	float: left;
+}
+
+.div4col {
+	width: 228px;
+	float: left;
+}
+
+.div5col {
+	width: 284px;
+	float: left;
+}
+
+.div6col {
+	width: 342px;
+	float: left;
+}
+
+.div7col {
+	width: 399px;
+	float: left;
+}
+
+.div8col {
+	width: 455px;
+	float: left;
+}
+
+.form input.check {
+	border: none;
+	height: inherit;
+}
+
+ input{
+	height: 19px;
+	line-height: 18px;
+	border: 1px solid #696969;
+	margin-top: 3px;
+	margin-right: 1px;
+	padding-left: 3px;
+	font-size: 1em;
+}
+
+.form input[type="radio"], .form input[type="checkbox"] {
+	height: 10px;
+	margin-left:3px;
+	*height: 20px;
+	/*border:1px solid gray;*/
+
+}
+.form select {
+	height: 21px;
+	border: 1px solid #696969;
+	margin-top: 4px;
+	margin-right: 1px;
+	top: -1px;
+	position: relative;
+	font-size: 1em;
+}
+
+.form select option {
+	font-size: 1em;
+}
+
+.form button {
+	height: 21px;
+	font-size: 1em;
+	color: #FFF;
+	-webkit-border-radius: 3px;
+	border-radius: 3px; 
+	padding-bottom: 3px;
+	top: -1px;
+	position: relative;
+	background: #ffffff; /* Old browsers */
+	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlY2VjZWQiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -moz-linear-gradient(top,  #ffffff 0%, #ececed 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#ececed)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #ffffff 0%,#ececed 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #ffffff 0%,#ececed 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #ffffff 0%,#ececed 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #ffffff 0%,#ececed 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ececed',GradientType=0 ); /* IE6-8 */
+	border:1px solid #D8D9DA;
+	color:#1A171B;
+	cursor: pointer;
+}
+
+.form span button {
+	margin-top: 19px;
+}
+
+.form button:hover {
+	border: 1px solid #FBB117;
+	text-decoration: none;
+	text-decoration: none;
+}
+
+.form textarea {
+	line-height: 18px;
+	border: 1px solid #696969;
+	margin-top: 3px;
+	padding-left: 3px;
+	font-size: 1em;
+	font-family: tahoma, sans-serif;
+}
+/*################################################*/
+/*######       FORMULÁRIOS  VALIDACAO       ######*/
+/*################################################*/
+
+
+.form .contentform input.errodado, .form .contentform select.errodado{
+	border-color:#fa3200;
+}
+
+
+
+/*Accordion formulários dados*/ /*DIV*/
+div.expodados {
+	background-image: url("../img/expand.gif");
+	background-repeat: no-repeat;
+	background-position: right;
+	background-color: #FFF;
+	padding: 5px 1px 5px 5px;
+	line-height: 20px;
+	height: 20px;
+	font-size: 1.1em;
+	margin-bottom: 9px;
+	border: 1px solid #99CCCC;
+	cursor: pointer;
+}
+
+div.expodados b {
+	font-size: 1.1em;
+	color: #336699;
+}
+
+/*div.expodados.selected{
+	background-image:url("../img/collapse.gif");
+	background-repeat:no-repeat;
+	background-position:right 10px;
+	border-top: 1px solid #99CCCC;
+	border-left: 1px solid #99CCCC;
+	border-right: 1px solid #99CCCC;
+	border-bottom:none;
+}*/
+div.contentexpodados {
+	margin-top: -9px;
+	background-color: #FFF;
+	padding: 5px;
+	margin-bottom: 9px;
+	border-left: 1px solid #99CCCC;
+	border-right: 1px solid #99CCCC;
+	border-bottom: 1px solid #99CCCC;
+}
+
+div.contentexpodados p,div.contentexpodados h1,div.contentexpodados h2,div.contentexpodados h3 {
+	padding: 8px;
+}
+
+.expose {
+	background-image: url("../img/expand.gif");
+	background-repeat: no-repeat;
+	background-position: right;
+	height: 24px;
+	border: 1px solid #99CCCC;
+	display: block;
+	margin-left: 7px;
+	color: #336699;
+	line-height: 24px;
+	text-align: left;
+	font-weight: bold;
+	right: 8px;
+	font-size: 1.3em;
+	padding-left: 12px;
+	position: relative;
+	width: 468px;
+	cursor: pointer;
+}
+
+.expose.selected {
+	/*background-image: url("../img/collapse.gif");*/
+	background-repeat: no-repeat;
+	background-position: right 3px;
+}
+
+/*SPAN*/ /*span.expodados{
+	background-image:url("../img/expand.gif");
+	background-repeat:no-repeat;
+	background-position:right;
+	background-color:#FFF;
+	padding:5px 1px 5px 5px;
+	line-height:20px;
+	height:20px;
+	font-size:1.1em;
+	margin-bottom:9px;
+	border:1px solid #99CCCC;
+}*/
+span.expodados b {
+	font-size: 1.1em;
+	color: #336699;
+}
+
+span.expodados.selected {
+	background-image: url("../img/collapse.gif");
+	background-repeat: no-repeat;
+	background-position: right 10px;
+	border-top: 1px solid #99CCCC;
+	border-left: 1px solid #99CCCC;
+	border-right: 1px solid #99CCCC;
+	border-bottom: none;
+}
+
+span.contentexpodados {
+	margin-top: -9px;
+	background-color: #FFF;
+	padding: 5px;
+	margin-bottom: 9px;
+	border-left: 1px solid #99CCCC;
+	border-right: 1px solid #99CCCC;
+	border-bottom: 1px solid #99CCCC;
+}
+
+span.contentexpodados p,span.contentexpodados h1,span.contentexpodados h2,span.contentexpodados h3
+	{
+	padding: 8px;
+}
+
+.conteudoOculto h1 {
+	line-height: 25px;
+}
+
+/*formulário agencias*/
+.agencias-servicos {
+	margin-right: 30px;
+	float: right;
+}
+
+.icon-servico {
+	border: 1px solid #E0EEEE;
+	height: 19px;
+	width: 19px;
+	margin-right: 3px;
+}
+
+.correcao-icon-servicos {
+	/*Esta classe deve aperecer como correção de exibição nas dives das agências que tiverem serviços cadastrados*/
+	clear: both;
+}
+
+.dadosagencia {
+	width: 455px;
+	padding-bottom: 6px;
+}
+
+.dadosagencia table,.hfuncagencia table {
+	width: 100%;
+}
+
+.dadosagencia td,.hfuncagencia td {
+	font-size: 1.1em;
+	padding: 2px;
+}
+
+.dadosagencia td label,.hfuncagencia td label {
+	font-size: 1em;
+	color: #696969;
+}
+
+.hfuncagencia {
+	background-color: #E0EEEE;
+}
+
+a.gmaps {
+	margin: 0 auto;
+	width: 180px;
+	height: 25px;
+	display: block;
+	margin-top: 10px;
+	line-height: 25px;
+	background-color: #F5F5F5;
+	border: 1px solid #99CCCC;
+	padding: 0 30px 0 40px;
+	background-image: url("../img/ancora.gif");
+	background-repeat: no-repeat;
+	background-position: 20px;
+}
+
+.paginacao {
+	height: 16px;
+	font-size: 1.2em;
+	margin-bottom: 7px;
+	text-align: center;
+}
+
+.paginacao span a {
+	font-size: 1em;
+}
+
+.paginacao img {
+	margin-bottom: -3px;
+}
+
+.paginacao span {
+	
+}
+
+.paginacao span.paginas {
+	padding: 0 15px 0 15px;
+}
+
+.paginacao span.left {
+	background-image: url("../img/left.gif");
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 16px;
+	margin-bottom: 0;
+}
+
+.paginacao span.right {
+	background-image: url("../img/right.gif");
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 16px;
+	margin-bottom: 0;
+}
+
+/*formulário Telegrama*/
+ul.ulli-option {
+	margin-bottom: 6px;
+	margin-left: 0;
+	padding: 10px 0 0 0;
+	margin-right: 7px;
+}
+
+.ulli-option li {
+	margin-left: 0;
+	padding: 5px 0 5px 10px;
+	min-height: 40px;
+	background-color: #fff;
+	border: 1px solid #9CC;
+	margin-bottom: 6px;
+	padding: 5px 0 5px 10px;
+}
+
+.ulli-option li input {
+	float: left;
+}
+
+.ulli-option div {
+	margin-bottom: 0px;
+	margin-left: 10px;
+	width: 330px;
+	float: left;
+	font-size: 0.9em;
+	width: 329px;
+}
+
+.ulli-option strong {
+	color: #1874CD;
+	font-size: 1em;
+}
+
+div.valor {
+	border: 1px solid #9cc;
+	height: 25px;
+	margin-left: 3px;
+	font-size: 1em;
+	line-height: 25px;
+	color: #009EE0;
+	width: 75px;
+	text-align: center;
+	position: relative;
+	top: 2px;
+}
+
+/*Encomendas*/
+.defproduto {
+	width: 265px;
+	padding: 10px;
+}
+
+/*Comentários - blog*/
+.form div.comentarios h1.h1-comentario {
+	font-size: 1.5em;
+	border-bottom: 1px solid #696969;
+	margin-bottom: 25px;
+	font-weight: normal;
+	text-align: right;
+}
+
+.comentarios span.nome {
+	font-weight: normal;
+	color: #1874CD;
+	font-size: 1.3em;
+	margin-bottom: 0;
+}
+
+.comentarios div.txt-comentario {
+	font-size: 1.1em;
+	line-height: 1.3em;
+}
+
+.comentarios hr {
+	width: 447px;
+	margin: 10px 0 10px 0;
+	border: none;
+	border-bottom: 2px dotted #d3d3d3;
+}
+
+.classificacao {
+	display: inline;
+	position: relative;
+	right: -370px;
+	top: -25px;
+	width: 75px;
+	height: 14px;
+}
+
+.star {
+	background-image: url("../img/stars2.png");
+	background-position: -1px -2px;
+	background-repeat: no-repeat;
+	height: 14px;
+	width: 15px;
+	display: inline-block;
+}
+
+.um {
+	
+}
+
+.dois {
+	
+}
+
+.tres {
+	
+}
+
+.quatro {
+	
+}
+
+.cinco {
+	
+}
+
+a.star:hover { /*background-position: -1px -17px;*/
+	/*background-position: -1px -31px;*/
+	/*background-position: -1px -46px;*/
+	/*background-position: -1px -60px;*/
+	background-position: -1px -75px;
+	text-decoration: none;
+}
+
+/*################################################*/
+/*######              enderçador            ######*/
+/*################################################*/
+span.sheet {
+	margin-right: 1px;
+	background-color: #E0EEEE;
+	padding: 4px 8px 4px 4px;
+}
+
+span.sheet input {
+	height: 130px;
+}
+
+/*################################################*/
+/*######                 SRO                ######*/
+/*################################################*/
+
+/*Formatação do SRO*/
+.codSro span{
+	margin-bottom:0px;
+	margin-right: 4px;
+    background-color: inherit;
+    display: inherit;
+    float: inherit;
+    font-size: inherit;
+    margin-bottom: inherit;
+}
+
+
+table.listEvent tr td.sroDtEvent, table.listEvent tr td.sroLcEvent {
+	font-size: 1.1em;
+	color: #8A8A8A;
+	border-top: 1px dotted #8A8A8A;
+}
+
+table.listEvent tr td.sroLbEvent {
+	font-size: 1.2em;
+	/*font-weight: bold;*/
+	border-top: 1px dotted #8A8A8A;
+}
+table.listEvent tr td.sroLbEvent span{
+	font-weight: normal;
+	display:block;
+}
+table.listEvent tr td.sroDeEvent {
+	font-size: 1.2em;
+	padding-top: 0px;
+}
+
+table.listEvent tr td.sroDeEvent span {
+	font-size: 1em;
+	color: #8A8A8A;
+}
+table.listEvent tr th{
+	font-size:1.4em;
+	fonte-weight:bold;
+}
+/*---*/
+span.vejamais {
+	width: 218px;
+	background-color: #fff;
+	border: 1px solid #99CCCC;
+	padding: 5px;
+	float: left;
+	margin: 2px;
+	margin-bottom: -1px;
+}
+
+.dica.dicarotulo {
+	font-size: 1em;
+	color: #6CA6CD;
+}
+
+span.vejamais p {
+	margin: 1px 1px 8px 1px;
+	font-size: 1.15em;
+}
+
+.divdestfcinza {
+	text-align: center;
+	background-color: #ECEBEB;
+	padding: 7px 0 7px 0;
+	font-size: 1em;
+}
+
+.situacaoenvio {
+	background-image: url("../img/e2.jpg");
+	background-repeat: no-repeat;
+	background-position: 125px 20px;
+	height: 30px;
+	margin: 15px 0 15px 0;
+	padding-top: 80px;
+	font-size: 1.2em;
+}
+
+.resultadosro p {
+	border: 1px solid #99CCCC;
+	padding: 6px;
+	line-height: 1.5em;
+	margin-bottom: 8px;
+}
+
+.resultadosro span.dica {
+	margin-bottom: 0px;
+}
+
+.tblSroResultado{
+	border-collapse: collapse;
+}
+
+table.tblSroResultado tr th{
+	background-color: #006699;
+}
+table.tblSroResultado tr td{
+	border-top:none;
+	border-left:none;
+	border-right:none;
+	padding:6px 0px 6px 4px;
+	
+}
+
+/*################################################*/
+/*######              Agências              ######*/
+/*################################################*/
+	/* Classe complementar ao módulo listEvents, padronização a apresentação para as agências*/
+table.agencia tr th {
+	font-size: 1.3em;
+	color: #2884b2;
+}
+
+table.agencia tr td {
+	font-size: 1.3em;
+	border-top: 1px dotted #8A8A8A;
+}
+
+table.agencia tr td.ageNomeEvent {
+	color: #2884b2;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+table.listEvent tr td.sroDeEvent span {
+	font-size: 1em;
+	color: #8A8A8A;
+}
+
+/*DADOS AGENCIAS - Detalhe das informações de cada agência*/
+table.dadosAgencia {
+	width: 100%;
+}
+
+table.dadosAgencia tr td {
+	font-size: 1.2em;
+}
+
+table.dadosAgencia tr td span {
+	font-size: 1.1em;
+	color: #666666;
+}
+
+table.dadosAgencia tr td img {
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+ul.servicosAgencias li{
+	float:left;
+	font-size:1.2em;
+	line-height:1.2em;
+	padding:4px 4px 4px 0;
+	
+}
+ul.servicosAgencias li img{
+	margin-right:6px;
+	margin-bottom:-4px;
+}
+/*################################################*/
+/*######                LOGIN               ######*/
+/*################################################*/
+.login {
+	width: 318px;
+}
+
+div.bannercadastro a:link,.form div.bannercadastro a:visited {
+	color: #FFFFFF;
+	font-size: 1.2em;
+}
+
+.form div.bannercadastro {
+	height: 40px;
+	background-image: url("../img/bannercadastro.png");
+	background-repeat: repeat-x;
+	display: block;
+	margin-bottom: 7px;
+	margin-left: 7px;
+	color: #FFFFFF;
+	line-height: 40px;
+	text-align: center;
+	font-weight: bold;
+	right: 8px;
+	position: relative;
+}
+
+.formlogin .fechar {
+	position: relative;
+	left: 220px;
+	top: 20px;
+	background-image: url("../img/fecharlb.gif");
+	height: 20px;
+	width: 20px;
+	margin-top: -25px;
+	background-repeat: no-repeat;
+	display: inline-block;
+}
+
+/*################################################*/
+/*######               GERAL                ######*/
+/*################################################*/
+.dicadestaque {
+	color: #6CA6CD;
+	font-size: 1.4em !important;
+}
+
+/*################################################*/
+/*######         Acessibilidade             ######*/
+/*################################################*/
+.acessibilidade {
+	height: 30px;
+	margin: -15px 0 18px 0;
+	background: #EFEFEF url(../img/acessi/acess-correios.png) no-repeat;
+	display:block;
+}
+
+.acessibilidade ul li {
+	float: right;
+	line-height: 30px;
+}
+
+.acessibilidade ul li a { /*font-size:1.3em;*/
+	font-size: 13px;
+	color: #000;
+}
+
+ul li.contrast a {
+	background: url(../img/acessi/contrast.png) no-repeat 0px -5px;
+	padding-left: 24px;
+}
+
+ul li.tocontent a {
+	background: url(../img/acessi/to-content.png) no-repeat 0 -6px;
+	padding-left: 19px;
+	margin-right: 17px;
+}
+
+ul li.font-minus a {
+	background: url(../img/acessi/font-minus.png) no-repeat 10px -9px;
+	/*font-size:0.9em;*/
+	font-size: 9px;
+	padding-right: 17px;
+}
+
+ul li span.separator-dot {
+	background: url(../img/acessi/separator-dot.png) no-repeat 0 -9px;
+	padding-left: 8px;
+	margin-left: 6px;
+	font-size: 11px;
+}
+
+ul li span.separator-bar {
+	background: url(../img/acessi/separator.png) no-repeat 0 -9px;
+	padding-left: 25px;
+	margin-left: 23px;
+	font-size: 15px;
+}
+
+ul li.font-plus a {
+	background: url(../img/acessi/font-plus.png) no-repeat 10px -7px;
+	padding-right: 14px;
+	/*font-size:1.5em;*/
+	font-size: 15px;
+}
+
+/*Contraste*/
+body.contrast .wrap {
+	background-image: url("../img/blackbacknav.png");
+}
+
+body.contrast a {
+	color: #fff;
+}
+body.contrast div.contentexpodados, body.contrast div.expodados, body.contrast .expandAll {
+ background-color: #000;
+}	
+body.contrast div.expodados b{
+	color:#fff;
+}
+body.contrast .column2 div.quadroavisos h3, body.contrast .column2 div.quadroavisos h4, body.contrast .column2 div.quadrodicas h3,  body.contrast .column2 div.quadrodicas h4{
+	color:#fff;
+}
+body.contrast .footer {
+	color: #fff;
+}
+
+body.contrast .mfooter {
+	background-color: #000;
+	border: 1px solid lime;
+	color: #fff;
+}
+
+body.contrast .secoes {
+	color: #fff;
+}
+
+body.contrast .laminas {
+	border-color: lime;
+}
+
+body.contrast li.current a#orelhavoce h2,body.contrast li.current a#orelhaempresas h2,body.contrast li.current a#orelhacorreios h2,body.contrast li.current a#orelhafornecedores h2
+	{
+	border-color: lime;
+	background-color: #000;
+	color: #fff;
+}
+
+body.contrast .voce,body.contrast .fornecedores,body.contrast .empresas,body.contrast .correios
+	{
+	background-color: #000;
+	color: #fff;
+	background-image: none;
+}
+
+body.contrast .tabs a h2 {
+	background-color: #000;
+	color: #fff;
+	background-image: none;
+}
+
+body.contrast li.abarotulo a,body.contrast li.abarotulo a.icone {
+	color: #FFF;
+}
+
+body.contrast .voce ul.submenu li a,body.contrast .fornecedores ul.submenu li a,body.contrast .correios ul.submenu li a,body.contrast .empresas ul.submenu li a
+	{
+	background-color: #000;
+	color: #fff;
+}
+
+body.contrast .voce li.abarotulo a:hover,body.contrast .fornecedores li.abarotulo a:hover,body.contrast .correios li.abarotulo a:hover,body.contrast .empresas li.abarotulo a:hover
+	{
+	color: #FFF;
+	background-color: #000;
+	text-decoration: underline;
+}
+
+body.contrast li.abarotulo.selected {
+	color: #FFF;
+	background-color: #000;
+}
+
+body.contrast .box-mini {
+	background-color: #000;
+}
+
+body.contrast .form, body.contrast .form .contentform, body.contrast .form .contentform span, body.contrast .form .contentform span label input, body.contrast .form .contentform span label textarea, body.contrast .form .contentform span label select, body.contrast .form .contentform span label select option  {
+	background-color: #000;
+	color:#fff;
+}
+
+body.contrast .btn1,body.contrast .btn2,body.contrast .btn3 {
+	background-image: none;
+}
+
+body.contrast label {
+	color: #fff;
+}
+
+body.contrast .mver ul li:hover {
+	background-color: transparent;
+}
+
+body.contrast .abaaz {
+	background-color: #000;
+}
+
+body.contrast .optDiv {
+	background-color: #000;
+}
+body.contrast table.tmptabela tr td{
+	color:#fff;
+}
+
+
+/*
+body.ie6 {}
+div#container{margin-left:10px;}
+//corrigindo o famoso bug da margem dupla
+body.ie6 div#container{margin-left:5px;}
+*/ 
+/*################################################*/
+/*######       MENU NAVEGAÇÃO GERAL         ######*/
+/*################################################*/
+/*################################################*/
+/*######              HEADER                ######*/
+/*################################################*/
+body.ie6 .btnbuscar {
+	margin: 0 0 -5px -4px;
+}
+
+body.ie6 .acesso_rapido select {
+	font-size: 1.2em;
+	margin-bottom: -1px;
+}
+
+body.ie6 .acesso_rapido {
+	
+}
+
+/* Produtos de AaZ */
+body.ie6 .produtosaz {
+	position: absolute;
+	z-index: 1001;
+}
+
+body.ie6 .cbDiv {
+	position: absolute;
+	z-index: 1001;
+}
+
+body.ie6 .produtosaz {
+	/*Correção do posicionamento do combo box para o ie6*/
+	
+}
+
+body.ie6 .dados {
+	margin-left: 0;
+	padding-left: 3px;
+	border: none;
+}
+
+body.ie6 .dadosaz {
+	
+}
+
+/*################################################*/
+/*######             BOTÕES                 ######*/
+/*################################################*/
+/*################################################*/
+/*######          ABAS E LAMINAS            ######*/
+/*################################################*/
+body.ie6 .laminas {
+	width: 915px;
+	padding: 5px 0px 5px 3px;
+}
+
+body.ie6 .iconeaba {
+	margin: 0 3px 0 4px;
+	display: inline;
+}
+
+body.ie6 .submenu {
+	position: absolute;
+	/*Solução para a exibição da classe .submenu sobre os outros elementos*/
+	margin-left: -72px;
+}
+
+body.ie6 .bannerh {
+	float: left;
+	margin: 0 5px 0 2px;
+	position: relative;
+}
+
+/*## JTABBER ###*/
+body.ie6 .tabs {
+	height: 0; /*Correção para o erro de altura da abas no IE*/
+}
+
+/*################################################*/
+/*######              SECOES                ######*/
+/*################################################*/
+/*################################################*/
+/*######            BOX-MINI                ######*/
+/*################################################*/
+body.ie6 .box-mini h3 .btnh1_ajuda {
+	margin-top: -18px;
+}
+
+body.ie6 .box-mini h3 .btnh1_expandir {
+	margin-top: -18px;
+}
+
+body.ie6 .text-input {
+	width: 212px;
+	margin: 0 -1px 0 0;
+}
+
+/*################################################*/
+/*######      PARAMETRIZAÇÃO BOX-MINI       ######*/
+/*################################################*/
+body.ie6 .cep {
+	width: 297px;
+}
+
+body.ie6 .loginmail input {
+	height: 18px;
+	padding: 3px 0 0 3px;
+}
+
+/*################################################*/
+/*######           TELAS INTERNAS           ######*/
+/*################################################*/
+body.ie6 .column2 div.tituloimagem {
+	margin-bottom: 22px;
+}
+
+body.ie6 .column2 div.quadroavisos {
+	margin-top: -23px;
+}
+
+/*################################################*/
+/*######             FORMULÁRIOS            ######*/
+/*################################################*/
+body.ie6 .div1col,body.ie6 .div2col,body.ie6 .div3col,body.ie6 .div4col,body.ie6 .div5col,body.ie6 .div6col,body.ie6 .div7col,body.ie6 .div8col
+	{
+	margin-bottom: 5px;
+}
+
+/*f1row, f2row... utilizado para definir a altura, em linhas, dos componentes dos formulários*/
+body.ie6 .f1row,body.ie6 .f2row {
+	height: 72px;
+}
+
+body.ie6 .f3row {
+	height: 124px;
+}
+
+body.ie6 .f4row {
+	height: 176px;
+}
+
+body.ie6 .f5row {
+	height: 228px;
+}
+
+body.ie6 .f6row {
+	height: 280px;
+}
+
+body.ie6 .form div.btnform {
+
+}
+
+body.ie6 .form select {
+	line-height: 20px;
+	margin-top: 2px;
+	margin-bottom: 3px;
+	margin-right: 1px;
+	padding-left: 3px;
+	font-size: 1.1em;
+	top: 2px;
+}
+
+body.ie6 .form input {
+	height: 20px;
+}
+
+body.ie6 .form span.captchar {
+	top: -9px
+}
+
+body.ie6 .form button {
+	top: 0;
+	padding-top: 3px;
+}
+
+body.ie6 .paginacao {
+	padding-top: 0px;
+	margin-top: -10px;
+}
+
+body.ie6 .paginacao span.left {
+	top: 7px;
+}
+
+body.ie6 .paginacao span.right {
+	top: 7px;
+}
+
+/*formulário agencias*/
+body.ie6 .agencias-servicos {
+	margin-top: -21px;
+	margin-bottom: -15px;
+}
+
+/*################################################*/
+/*######                LOGIN               ######*/
+/*################################################*/
+body.ie6 .form div.bannercadastro {
+	margin-top: 40px;
+}
+
+/*################################################*/
+/*######                LOGIN               ######*/
+/*################################################*/
+body.ie7 .box-mini h1 .btnh1_expandir {
+	position: relative;
+	top: -20px;
+}
+
+body.ie7 .box-mini h1 .btnh1_ajuda {
+	position: relative;
+	top: -20px;
+}
+
+/*################################################*/
+/*######          ABAS E LAMINAS            ######*/
+/*################################################*/
+body.ie8 .tabs a.selected,body.ie8 .tabs a.selected:active,body.ie8 .tabs a.selected:visited{
+	margin-bottom: -4px;
+}
+
+/*----------------------------------------------------------------------------*/
+
+ul.listaAZ li{
+	float:left;
+}
+ul.listaAZ li a{
+	width:30px;
+	display:block;
+	text-align: center
+}
+ul.listaAZ li a:hover{
+	background-color:#F0F0F0;
+}
+
+/*################################################*/
+/*######          BARRA COMPARTILHAMENTO          ######*/
+/*################################################*/
+
+.act-extras{
+	width:100%;
+	text-align:center;
+	padding-top:15px;
+	font-size:1.2em;
+	margin-bottom:20px;
+}
+.act-extras fieldset{
+	display:inline;
+}
+.act-extras a{
+	margin-left:15px;
+}
+
+.act-extras a.twitter, .act-extras a.mail {
+	margin-left:-5px;
+}
+a.icon{
+	line-height: 22px;
+	position:relative;
+	cursor:pointer;
+}
+
+a.icon img{
+	background-image: url("../img/icons.png");
+	background-repeat: none;
+	position:relative;
+	margin-right:5px;
+	top:6px;
+}
+a.print img{
+	background-position: -86px -283px;
+}
+a.print:hover img{
+	background-position: -116px -283px;
+}
+a.print:active img{
+	background-position: -145px -283px;
+}
+
+a.facebook img{
+	background-position: -86px -365px;
+}
+a.facebook:hover img{
+	background-position: -116px -365px;
+}
+a.facebook:active img{
+	background-position: -145px -365px;
+}
+
+a.twitter img {
+	background-position: -86px -392px;
+}
+a.twitter:hover img {
+	background-position: -116px -392px;
+}
+a.twitter:active img {
+	background-position: -145px -392px;
+}
+
+a.mail img{
+	background-position: -86px -338px;
+}
+a.mail:hover img{
+	background-position: -116px -338px;
+}
+a.mail:active img{
+	background-position: -145px -338px;
+}
+
+a.sms img {
+	background-position: -86px -419px;
+}
+a.sms:hover img {
+	background-position: -116px -419px;
+}
+a.sms:active img {
+	background-position: -145px -419px;
+}
+
+a.maps img {
+	background-position: -86px -445px;
+}
+a.maps:hover img {
+	background-position: -116px -445px;
+}
+a.maps:active img {
+	background-position: -145px -445px;
+}
+
+ul.lista li a.icon img{
+	top:18px;
+	float:none;
+}
+
+.highlightSRO{
+	width:100%;
+	text-align:center;
+	font-size:1.2em;
+}
+
+.highlightSRO .status{
+	font-weight: bold;
+	font-size:1.1em;
+}
+
+.highlightSRO img{
+	padding:14px;
+	margin:auto;
+	display:block;
+}
+
+/*CONFIGURAÇÔES FORÇADAS*/
+/*Configuração da linha das abas do sistema importa fácil*/
+.x-tabs-wrap, .x-tabs-body{
+	border:none;
+}
+
+/* Modal */
+.modal{display:none;}
+.inline_content{padding:10px 10px 10px 10px;}
+.tip{padding:15px; text-align:left;}
+
+
+.formSearch{
+
+	/*border: 1px solid #CCC;*/
+	/*padding:5px;*/
+}
+
+.inline_content fieldset .fldBtns{
+	/*background-color:#fff;*/
+	/*border-top:1px solid #CCC;*/
+	margin: 10px -6px -6px -6px ;
+	padding:10px 0 10px 0;
+
+	
+}
+/*################################################*/
+/*######                SCPP                ######*/
+/*################################################*/
+
+.caixa{
+	background-image: url("../img/scpp/caixa.png");
+	background-repeat: no-repeat;
+}
+.envelope{
+	background-image: url("../img/scpp/envelope.png");
+	background-repeat: no-repeat;
+}
+
+.rolo{
+	background-image: url("../img/scpp/rolo.png");
+	background-repeat: no-repeat;
+}
+.caixa:hover, .envelope:hover, .rolo:hover{
+	background-position: 0px -108px;
+
+}
+.caixa.selected, .envelope.selected, .rolo.selected{	
+	background-position: 0px -216px;	
+
+}
+
+/* MANUAL SLIDER
+--------------------------------------------------------------------------------------------------*/
+.manual-slider{
+	display: table;
+	height:auto;
+	position:relative;
+	border:1px solid #99CBCC;
+	margin-bottom:15px;
+}
+.manual-slider div.window{
+	overflow: hidden;
+	display: block;
+}
+.manual-slider .container{
+}
+.manual-slider .sheet{
+	float:left;
+}
+.manual-slider .next-prev{
+	display:block;
+	position:absolute;
+	top:45%;
+}
+.manual-slider .next-prev a{
+	position:absolute;
+	cursor:pointer;
+	height:40px;
+	display:block;
+	width:25px;
+	text-indent:-9999px;
+}
+.manual-slider .next-prev a.prev{
+	background: url(../img/manualslider/arrowr.png);
+	background-repeat: no-repeat;
+	left:0;
+}
+.manual-slider .next-prev a.next{
+	background: url(../img/manualslider/arrowl.png);
+	background-repeat: no-repeat;
+	right:0;
+}
+
+/* PRECOS E PRAZOS 
+--------------------------------------------------------------------------------------------------*/
+
+table.comparaResult tr td{
+	padding:7px;
+	border:1px dotted #CCCCCB;
+	font-size:1.2em;
+	text-align:center;
+	
+}
+table.comparaResult tr th{
+	padding:7px;
+	background-color: #6699CC;
+	color:#fff;
+	font-size:1.2em;
+}
+table.comparaResult tr.destaque td{
+	background-color: #DFEDED;
+	padding:7px;
+	border:1px solid #99CBCC;
+	font-size:1.2em;
+	color: #1874CD;
+	font-weight: bolder;
+}
+small{
+	display:block;
+	clear:left;
+}
+
+tr.dragDropSection td{
+	background-image: url('../img/arrasteAqui.png');
+	background-image: none;
+	background-repeat: no-repeat;
+	background-position: 50%;
+	background-color: #F2F2F2;
+	height:55px;
+	font-weight: bolder;
+}
+tr.dragDropSection td:first-child{
+	background: none;
+	border:none;
+}
+
+/* PRECOS E PRAZOS SLIDER EMBALAGENS CORREIOS
+--------------------------------------------------------------------------------------------------*/
+.slide-tipo-embalagem{
+	width:100%;
+	text-align:center;
+}
+.slide-tipo-embalagem p{
+	font-size:1em;
+}
+.slide-tipo-embalagem p span{
+	color:#336699;
+	font-weight:bold;
+	font-size:1.2em !important;
+	float:none !important;
+	margin:0 !important;
+}
+.slide-tipo-embalagem img{
+	margin-top:35px;
+}
+.slide-tipo-embalagem button{
+	margin-top:3px !important;
+}
+.slide-tipo-embalagem button.selected{
+	background-image: url('../img/btn_selected.png');
+	background-repeat: no-repeat;
+	background-position: 10%;
+	background-color:#E6E6E5;
+}
+.obs-manual-slider{ 
+	font-size:1em !important; 
+	color:#818181;
+	margin-top:-10px;	
+}
+
+/* CONFIGURAÇÕES PARA O MODO DE IMPRESSÃO
+--------------------------------------------------------------------------------------------------*/
+.print{
+	width:550px;
+	margin:25px auto;
+}
+.print h3{
+	font-size:1.7em;
+	margin-bottom:15px;
+}
+.print h4{
+	font-size:1.5em;
+}
+.print .btnform, .print .act-extras{
+	display:none;
+}

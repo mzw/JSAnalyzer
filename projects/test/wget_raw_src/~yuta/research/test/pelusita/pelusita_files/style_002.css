@@ -1,0 +1,261 @@
+*{margin:0;padding:0;}
+img{border:0;}
+.msg{color:red;}
+.clear{clear: both;}
+#ventana{display:none;}
+.cerrar_ventana{text-align: center;background-color:#669966;padding:5px;}
+.cerrar_ventana a{text-decoration:none;color:#000;}
+a{text-decoration:none;color:#000090;}
+.cerrar{float:right;}
+.datos_cambiados_o_creados{display:none;text-align: center;font-size:20px;}
+.boton{
+	padding:4px;
+	background-color:#08650A;
+   border-color: #006A00;
+   font-size: 14px;
+   margin: 4px;
+   display:inline-block;
+   border-radius: 5px;
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+}
+a.boton{color:#fff !important;}
+.botonF{
+	padding:4px;
+	background-color:#DFDFDF;
+   border-color: #006A00;
+   font-size: 14px;
+   margin: 4px;
+   display:inline-block;
+   border-radius: 5px;
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+   color:#fff;
+}
+#confirmar{cursor: pointer;}
+.botonr{
+	padding:4px;
+	background-color:#980000;
+   border-color: #006A00;
+   font-size: 14px;
+   margin: 2px;
+   display:inline-block;
+   border-radius: 5px;
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+}
+.boton a,.botonr a{color: #FFFFFF;}
+body, button, input, select, textarea {
+    color: #222222;
+    font-family: arial,sans-serif;
+    font-size:13px;
+}
+#mensaje{
+	border-radius: 5px;
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+   box-shadow: 0 1px 3px #888 inset;
+   -moz-box-shadow: 0 1px 3px #888 inset;
+   -webkit-box-shadow: 0 1px 3px #888 inset;
+}
+button,input,select,textarea {padding:2px;color: #4C565C;}
+select{max-width: 200px;}
+form {line-height: 18px;}
+label{font-weight: bold;}
+.clear{clear:both;}
+li {list-style: none outside none;}
+
+.header_content{width: 960px;margin:0 auto;}
+.title{float: left;}
+#header {
+    background: url("../images/sprite-buttons.png") repeat scroll 0 -1px #1F1F1F;
+    color: #FFFFFF;
+    font-size: 13px;
+    height: 35px;
+    line-height: 35px;
+    margin: 0;
+    position: relative;
+    text-align: center;
+}
+a#entrar:hover{}
+#menu_sup{float:right;}
+#menu_sup, #header ul, #header li, #header li a, #header .header_content {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+#menu_sup li a{color: #FFFFFF;text-decoration: none; font-family: arial,sans-serif;}
+/*#menu_sup li:hover{background: url("../images/sprite-buttons.png") 0 -135px;}*/
+.title span{margin:0px 0px 10px 20px;font-size:19px;vertical-align:top;}
+a#publish_btn {background:#525252;width:162px;text-align:center;}
+
+#wrap_como_funciona{text-align:center;}
+#como_funciona{display: none;margin:10px auto;}
+
+#busc_registro{width: 960px;margin:0 auto;padding: 5px 0 0;color: #525252;}
+#busc_registro h2{display: inline;font-weight:bold;padding-right:5px;color:#525252;font-size:14px;}
+#busc_registro span b{color: #008700;font-size: 18px;}
+#busc_registro span a{color: #666666;font-size: 13px;}
+#busc_registro span a:hover{text-decoration: none;}
+select#select_municipio{box-shadow: none;-moz-box-shadow: none;-webkit-box-shadow: none;}
+#registro{float:right;}
+#content_imgs{width:1024px;height:432px;margin:0 auto;}
+#content{width: 980px;margin:10px auto;padding: 5px;}
+.slogan {
+	position:absolute;
+   z-index:1000;
+   width:1024px;
+   text-align: center;
+ }
+.slogan h2{
+	color: #FDFDFD;
+   font-size: 40px;
+   font-weight: bold;
+   text-shadow: 2px 2px 4px #000000;
+   margin-top: 30px;
+   margin-bottom: 30px;
+}
+#autocomplete-suggestions{text-align: left;padding:5px;}
+#autocomplete-suggestions ul li a{color:#111;margin-left:5px;}
+
+/* entrar, registro */
+input.campo_entrar{width:240px;}
+.form_entrar_l, .form_entrar_r{
+	width: 330px;
+	padding:10px;
+	background-color: #FDFDFD;
+	min-height:400px;
+	border-radius: 5px;
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+   border:2px solid #898989;
+}
+.form_entrar_l{float:left;}
+.form_entrar_r{float:right;}
+.olvidar a{color:#008800;font-weight:bold;text-decoration:none;}
+.olvidar_pass{display:none;}
+a.registro{color:#008800;font-weight:bold;text-decoration:none;}
+.form_reg_l, .form_reg_r{
+	width: 400px;
+	padding:10px;
+	background-color: #FDFDFD;
+	border-radius: 5px;
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+   border:2px solid #898989;
+ }
+.form_reg_l{float:left;}
+.form_reg_r{float:right;}
+.form_registro button,.form_registro input,.form_registro select,.form_registro textarea {
+	border: 1px solid #888888;
+   font-size: 1.1em;
+   padding: 6px;
+   margin:8px 5px;
+   color: #4C565C;
+   box-shadow: 0 1px 3px #888 inset;
+   -moz-box-shadow: 0 1px 3px #888 inset;
+   -webkit-box-shadow: 0 1px 3px #888 inset;
+   border-radius: 5px;
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+}
+/* fin entrar, registro */
+
+/* lista de peluquerias */
+.una_pelu{
+	border: 1px solid #888;
+	box-shadow: 0 1px 3px #888;
+   -moz-box-shadow: 0 1px 3px #888;
+   -webkit-box-shadow: 0 1px 3px #888;
+   border-radius: 5px;
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+   padding:5px;
+   margin-bottom:8px;
+   background-color: #fff;
+}
+.td_dats_pelu{width:450px;vertical-align: top;}
+.selec_serv_date{}
+.datepickercal, .form_pelu select, .fselect{
+	width:98px;
+	margin-right:5px;
+	border: 1px solid #999;
+   box-shadow: 0 2px 3px #999999 inset;
+	-moz-box-shadow: 0 2px 3px #999999 inset;
+   -webkit-box-shadow: 0 2px 3px #999999 inset;
+   color: #ABABAB;
+   display: inline-block;
+   font-size: 14px;
+   vertical-align: middle;
+	font-family: Helvetica,Arial,sans-serif !important;
+	padding-left:3px;
+}
+.fselect{width:140px;height:29px;line-height:27px;background:url('../images/down.png') no-repeat 110px center; }
+.form_pelu select{width:140px;height:27px;}
+.datepickercal{
+	background:url(../images/calendar.png) 80px center no-repeat;
+	width:98px;height:29px;line-height:27px;
+}
+.una_pelu h3, .una_pelu h2{color:#44AA44;font-size:1.4em;}
+.una_pelu h2{padding:4px;margin-bottom: 6px;}
+.dats_pelu p{text-align: justify;}
+.select_reserva{
+	width:200px;
+	margin-bottom:5px;
+}
+.tel_web{display: none;}
+.ver_tel, .ver_web{
+	padding:5px;
+	margin:4px;
+	color:#fff;
+	box-shadow: 0 1px 3px #888;
+   -moz-box-shadow: 0 1px 3px #888;
+   -webkit-box-shadow: 0 1px 3px #888;
+   border-radius: 5px;
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+	background-color:#008000;
+	display: inline-block; 
+}
+.select_reserva img{vertical-align: middle;}
+.form_pelu, .dats_pelu{padding:5px;margin: 5px;}
+.foto_pelu{float:left;margin-right:4px;}
+.reserva{
+	background: url('../images/Bookactive.jpg') no-repeat;
+	border: 0 none;
+    color: #FFFFFF;
+    cursor: pointer;
+    float: right;
+    height: 34px;
+    padding-top: 8px;
+    padding-left: 45px;
+    width: 130px;
+}
+.reserva a{color:#fff;text-decoration:none;}
+.un_ser{padding:5px;margin: 5px;border: 1px solid #CCC;}
+.form_pelu{border-left:1px solid #CCC;}
+.un_ser{background-color: #CCC;}
+.siguiente{padding:5px;margin: 5px;text-align: center;}
+.siguiente a{color:#44AA44;font-weight:bold;font-size:16px;}
+/* fin lista de peluquerias */
+
+a.nav{color:#fff;display: inline-block;width:100%;height:100%;}
+/*paginado*/
+	.navpel{padding: 3px ;}
+	a.navpel {text-decoration:none;color:#FFF;}
+	.navpelad{padding: 3px ;}
+	a.navpelad {text-decoration:none;color:#111;}
+/* fin paginado*/
+/*footer*/
+#footer {
+    color: #FFFFFF;
+    font-size: 13px;
+    line-height: 35px;
+    margin: 0;
+    position: relative;
+    text-align: center;
+}
+#footer a{color:#fff;}
+
+
+

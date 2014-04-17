@@ -36,11 +36,10 @@ public class Modeler {
 //		Analyzer analyzer = new Analyzer(new FileDLerRetry());
 //		Analyzer analyzer = new Analyzer(new QAsiteError());
 //		Analyzer analyzer = new Analyzer(new QAsiteCorrect());
-//		Analyzer analyzer = new Analyzer(new SWSError());
-//		Analyzer analyzer = new Analyzer(new LoginDemo());
+//		Analyzer analyzer = new Analyzer(new SWSError());;
 //		Analyzer analyzer = new Analyzer(new LWA());
 
-		Project project = CS2020m.getProject(CS2020m.INIT);
+		Project project = new FileDLerError();
 		Analyzer analyzer = new Analyzer(project);
 		
 		Modeler modeler = new Modeler(analyzer);
@@ -63,17 +62,8 @@ public class Modeler {
 		FiniteStateMachine fsm = extractor.extracts();
 		
 		System.out.println("--> [Success] Extraction time: " + extractor.getExtractTime());
-		System.out.println("HTML LoC: " + extractor.getHTMLCode().getLoC());
-		int jsloc = 0;
-		for(Code jscode : extractor.getJSCodeList()) {
-			jsloc += jscode.getLoC();
-		}
-		System.out.println("JavaScript LoC: " + jsloc);
-		int cssloc = 0;
-		for(Code csscode : extractor.getCSSCodeList()) {
-			cssloc += csscode.getLoC();
-		}
-		System.out.println("CSS LoC: " + cssloc);
+		System.out.println("#States: " + fsm.getStateList().size());
+		System.out.println("#Trans:  " + fsm.getTransList().size());
 		
 		return fsm;
 	}

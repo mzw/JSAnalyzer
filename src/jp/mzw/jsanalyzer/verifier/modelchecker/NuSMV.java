@@ -571,6 +571,19 @@ public class NuSMV extends ModelChecker {
 	}
 	
 	/**
+	 * Generates state expression in CTL formula
+	 * @param elmId State/Event ID
+	 * @return State expression
+	 */
+	public static String genExpr(String elmId) {
+		if(elmId == null || "".equals(elmId)) {
+			return "TRUE";
+		}
+		
+		return "(app.state = " + elmId + ")";
+	}
+	
+	/**
 	 * 
 	 * @param expr
 	 * @return

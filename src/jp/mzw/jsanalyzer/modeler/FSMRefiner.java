@@ -283,7 +283,7 @@ public class FSMRefiner extends Modeler {
 	}
 	
 	private void findDisabledInteraction(String curStateId, FiniteStateMachine fsm, EnDisableManager edManager, List<EnDisable> context) {
-		this.findDisabledInteraction(curStateId, fsm, edManager, context, true);
+		this.findDisabledInteraction(curStateId, fsm, edManager, context, false);
 	}
 	
 	private void findDisabledInteraction(String curStateId, FiniteStateMachine fsm, EnDisableManager edManager, List<EnDisable> context, boolean print) {

@@ -1,0 +1,467 @@
+
+ a:link          {color:blue; text-decoration: none}  
+ a:visited       {color:blue; text-decoration: none}   
+ a:hover         {color:red;  text-decoration: none}
+ a:active        {color:red;  text-decoration: none}
+ a:focus         {color:red;  text-decoration: none}
+
+ a.fuss:link          {color:black; text-decoration: none}  
+ a.fuss:visited       {color:black; text-decoration: none}   
+ a.fuss:hover         {color:black; text-decoration: underline}
+ a.fuss:active        {color:black; text-decoration: underline}
+ a.fuss:focus         {color:black; text-decoration: underline}
+
+ body
+ {
+	background-attachment: fixed; 
+	background-color:      white;
+	color:                 #000000;
+	font-family:           verdana;
+	font-size:             8pt;
+	font-weight:           normal;
+	font-style:            normal;
+	margin-left:           0px;
+	margin-right:          0px;
+	margin-top:            0px;
+	margin-width:          0px;
+	margin-height:         0px;
+	margin-bottom:         0px;
+ }
+
+ td
+ {
+	font-family:           verdana;
+	font-size:             8pt;
+	font-weight:           normal;
+	font-style:            normal;
+ }
+
+ hr
+ {
+	border:       2px #C0C0C0;
+ }
+
+ .dotted
+ {
+	border:       2px #C0C0C0;
+	border-style: dotted;
+ }
+
+ #inhalt
+ {
+	background-color: #FFFFFF;
+	color:            #000000;
+	font-family:      verdana;
+	font-size:        8pt;
+	font-weight:      normal;
+	font-style:       normal;
+ }
+
+ #over
+ {
+	background-color: #DBDBDB;
+	color:            #000000;
+	font-family:      verdana;
+	font-size:        8pt;
+	font-weight:      normal;
+	font-style:       normal;
+ }
+
+ #sub
+ {
+
+
+ }
+
+ #tab1
+ {
+	background-color: #FFFFFF;
+	color:            #000000;
+	font-family:      verdana;
+	font-size:        8pt;
+	font-weight:      normal;
+	font-style:       normal;
+ }
+
+ #tab2
+ {
+	background-color: #EFEFEF;
+	color:            #000000;
+	font-family:      verdana;
+	font-size:        8pt;
+	font-weight:      normal;
+	font-style:       normal;
+ }
+
+ #tdKat
+ {
+	background-color:      white;
+	background-attachment: fixed;
+	color:                 #000000;
+	font-family:           verdana;
+	font-size:             8pt;
+	font-weight:           normal;
+	font-style:            normal;
+ }
+
+ #kopf
+ {
+	background-color: #DBDBDB;
+	color:            #000000;
+	font-family:      verdana;
+	font-size:        8pt;
+	font-weight:      normal;
+	font-style:       normal;
+ }
+
+ #navi
+ {
+	background-color: #DBDBDB;
+	color:            #000000;
+	font-family:      verdana;
+	font-size:        8pt;
+	font-weight:      normal;
+	font-style:       normal;
+ }
+
+ #headline
+ {
+	background-color: #00cc00;
+	color:            #FFFFFF;
+	font-family:      verdana;
+	font-size:        8pt;
+	font-weight:      normal;
+	font-style:       normal;
+ }
+
+ #statistik
+ {
+	background-color: #DBDBDB;
+	color:            #000000;
+	font-family:      verdana;
+	font-size:        8pt;
+	font-weight:      normal;
+	font-style:       normal;
+ }
+
+ #homeLaender
+ {
+	background-color: #EFEFEF;
+	color:            #000000;
+	font-family:      verdana;
+	font-size:        8pt;
+	font-weight:      normal;
+	font-style:       normal;
+ }
+
+ #system
+ {
+	background-color: #EAEAEA;
+	color:            #000000;
+	font-family:      verdana;
+	font-size:        8pt;
+	font-weight:      normal;
+	font-style:       normal;
+ }
+
+ #single
+ {
+	background-color: #EFEFEF;
+	color:            #000000;
+	font-family:      verdana;
+	font-size:        8pt;
+	font-weight:      normal;
+	font-style:       normal;
+ }
+
+
+ /* Notdienstkalender =================================================== */
+
+ #kalKw
+ {
+	background-color: #AAAAAA;
+	color:            #000000;
+	font-family:      verdana;
+	font-size:        8pt;
+	font-weight:      normal;
+	font-style:       normal;
+ }
+
+ #kalWt
+ {
+	background-color: floralwhite;
+	color:            #000000;
+	font-family:      verdana;
+	font-size:        8pt;
+	font-weight:      normal;
+	font-style:       normal;
+ }
+
+ #kalTag
+ {
+	background-color: #EFEFEF;
+	color:            #000000;
+	font-family:      verdana;
+	font-size:        8pt;
+	font-weight:      normal;
+	font-style:       normal;
+ }
+
+ #kalHeute
+ {
+	background-color: #00cc00;
+	color:            #000000;
+	font-family:      verdana;
+	font-size:        8pt;
+	font-weight:      normal;
+	font-style:       normal;
+ }
+
+ #kalRest
+ {
+	background-color: #FFFFFF;
+	color:            #000000;
+	font-family:      verdana;
+	font-size:        8pt;
+	font-weight:      normal;
+	font-style:       normal;
+ }
+
+ #kalDienst
+ {
+	background-color: red;
+	color:            #000000;
+	font-family:      verdana;
+	font-size:        8pt;
+	font-weight:      normal;
+	font-style:       normal;
+ }
+
+
+ /* ===================================================================== */
+
+ #feld
+ {
+	background-color: #FFFFFF;
+	color:            #000000;
+	font-family:      verdana;
+	font-size:        8pt;
+	font-weight:      normal;
+	font-style:       normal;
+ }
+
+ .preisFeld
+ {
+	border: 1px solid #FFFFFF;
+	background-color: #FFFFFF;
+	color: #000000;
+	font-family: verdana;
+	font-size: 8pt;
+	font-weight: normal;
+	font-style: normal;
+ }
+
+ .preisImmo
+ {
+	border: 1px solid #F5F5DC;
+	background-color: #F5F5DC;
+	color: #000000;
+	font-family: verdana;
+	font-size: 8pt;
+	font-weight: normal;
+	font-style: normal;
+ }
+
+ .systemOver
+ {
+	color:       #FFFFFF;
+	font-family: verdana;
+	font-size:   8pt;
+	font-weight: bold;
+	font-style:  bold;
+ }
+
+ .katSpace
+ {
+	display:     block;
+	padding:     3px; 
+	font-family: verdana;
+	font-size:   8pt;
+	font-weight: normal;
+	font-style:  normal;
+ }
+
+ .katLinks
+ {
+	font-family: verdana;
+	font-size:   10pt;
+	font-weight: bold;
+	font-style:  normal;
+ }
+
+
+ /* Buttons ================================================================= */
+
+ .button
+ {
+
+
+ }
+
+ .buttonGrau
+ {
+
+
+ }
+
+ .buttonKarte
+ {
+	height:           19px;
+	background-color: #EAEAEA;
+	color:            #000000;
+	font-family:      verdana;
+	font-size:        8pt;
+	font-weight:      normal;
+	font-style:       normal;
+	border-color:     #000000;
+	border:1px solid  #000000;
+ }
+
+
+ .hinweisText
+ {
+	border: 1px solid #FFFFFF;
+	background-color: #FFFFFF;
+	color: #000000;
+	font-family: verdana;
+	font-size: 8pt;
+	font-weight: normal;
+	font-style: normal;
+ }
+
+
+ /* Men� ==================================================================== */
+
+ .menuTable
+ {
+	border: 1px solid #c0c0c0;
+ }
+
+ .data
+ {
+	height: 16px;
+	border: 0px solid #c0c0c0;
+	cursor: default;
+	font-family: "MS Sans Serif", Arial, Tahoma, sans-serif;
+	font-size: 8pt;
+	font-style: normal;
+	font-weight: normal;
+	margin: 1px;
+	padding: 2px 4px 2px 4px;
+	position: relative;
+	left: 0px;
+	top: 0px;
+	text-decoration: none;
+	white-space: nowrap;
+ }
+
+ .trenner
+ {
+	border: 0px solid #c0c0c0;
+	cursor: default;
+	font-family: "MS Sans Serif", Arial, Tahoma, sans-serif;
+	font-size: 8pt;
+	font-style: normal;
+	font-weight: normal;
+	margin: 1px;
+	padding: 2px 4px 2px 4px;
+	position: relative;
+	left: 0px;
+	top: 0px;
+	text-decoration: none;
+	white-space: nowrap;
+ }
+
+ div
+ {
+	width:300;
+	border: 0px solid;
+ }
+
+ .mainMenu
+ {
+	border: 1px solid;
+	border-top-color:    #EFEFEF;
+	border-right-color:  #C0C0C0;
+	border-bottom-color: #C0C0C0;
+	border-left-color:   #EFEFEF;
+	color: #000000;
+	cursor: default;
+	font-family: "MS Sans Serif", Arial, Tahoma, sans-serif;
+	font-size: 8pt;
+	font-style: normal;
+	font-weight: normal;
+	margin: 1px;
+	padding: 2px 8px 2px 8px;
+	position: relative;
+	left: 0px;
+	top: 0px;
+	text-decoration: none;
+	white-space: nowrap;
+ }
+
+ .mainSubMenu
+ {
+	border: 1px solid #c0c0c0;
+	color: #000000;
+	cursor: default;
+	font-family: "MS Sans Serif", Arial, Tahoma, sans-serif;
+	font-size: 8pt;
+	font-style: normal;
+	font-weight: normal;
+	margin: 1px;
+	padding: 2px 4px 2px 4px;
+	position: relative;
+	left: 0px;
+	top: 0px;
+	text-decoration: none;
+	white-space: nowrap;
+ }
+
+ .subMenu
+ {
+	background-color: #ECE9D8;
+	border: 1px solid #c0c0c0;
+	color: #000000;
+	cursor: default;
+	font-family: "MS Sans Serif", Arial, Tahoma, sans-serif;
+	font-size: 8pt;
+	font-style: normal;
+	font-weight: normal;
+	margin: 1px;
+	padding: 2px 4px 2px 4px;
+	position: relative;
+	left: 0px;
+	top: 0px;
+	text-decoration: none;
+	white-space: nowrap;
+ }
+
+ #inaktiv
+ {
+	color: silver;
+	border: 0px solid #c0c0c0;
+	cursor: default;
+	font-family: "MS Sans Serif", Arial, Tahoma, sans-serif;
+	font-size: 8pt;
+	font-style: normal;
+	font-weight: normal;
+	margin: 1px;
+	padding: 2px 4px 2px 4px;
+	position: relative;
+	left: 0px;
+	top: 0px;
+	text-decoration: none;
+	white-space: nowrap;
+ }
+

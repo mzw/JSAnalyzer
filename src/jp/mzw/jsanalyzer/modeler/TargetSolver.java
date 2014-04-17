@@ -119,7 +119,7 @@ public class TargetSolver {
 					idString = StringUtils.removeQuote(idAstNode.toSource());
 				}
 				else {
-					System.err.println("idAstNode is NOT StringLiteral@TargetSolver#findTargetCandidates: " + idAstNode.getClass());
+					System.err.println("idAstNode is NOT StringLiteral@TargetSolver#findTargetCandidates: " + idAstNode.getClass() + ", " + astNode.getParent().toSource());
 				}
 				
 				if(propAstNode.getTarget() instanceof Name) {

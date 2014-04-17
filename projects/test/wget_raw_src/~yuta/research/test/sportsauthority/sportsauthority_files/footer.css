@@ -1,0 +1,102 @@
+#footer .nav-links, #footer #contact-info dd, #footer .nav-header, #footer #contact-info {
+	margin:0; 
+	padding: 0
+}
+
+#footer {
+	background: #000;
+	border-top: 1px solid #3e3e3e;
+	padding: 17px 0 43px;
+	text-align: left;
+}
+
+#footer img {
+	border: none;
+}
+
+#footer .footer-links {
+	width: 108px;
+	margin: 0 40px 12px 0;
+	float: left;
+}
+
+
+#footer .footer-links.sociallinks {
+	width: 130px;
+	margin: 0 0px 12px 0;
+	float: left;
+}
+#footer .footer-links.sociallinks ul {
+	width: 145px;
+
+}
+
+#footer .first {
+	margin-left: 12px !important;
+}
+
+#footer .nav-header {
+	font: bold 11px/16px Arial, Helvetica, sans-serif;
+	color: #fff;
+	text-transform: uppercase;
+	text-align: left;
+}
+
+#footer .nav-links {
+	list-style: none;
+	margin-bottom: 10px;
+	text-align: left;
+}
+
+#footer .nav-links li {
+	line-height: 13px;
+}
+
+#footer .nav-links li a {
+	font: normal 11px/13px Arial, Helvetica, sans-serif;
+	color: #666;
+	text-decoration: none;
+
+}
+
+#footer #contact-info {
+	height: 40px;
+	border-top: 1px solid #3e3e3e;
+	border-bottom: 1px solid #3e3e3e;
+	clear: both;
+}
+
+#footer #contact-info dt {
+	color: #fff;
+	float: left;
+	font: bold 11px/40px Arial, Helvetica, sans-serif;
+	text-transform: uppercase;
+	padding-right: 10px;
+}
+
+#footer #contact-info dd {
+	color: #666;
+	float: left;
+	font: normal 11px/40px Arial, Helvetica, sans-serif;
+	padding-right: 15px;
+}
+
+#footer .info {
+	margin: 17px 24px 0 0;
+	width: 46%;
+	font: normal 10px/110% Arial, Helvetica, sans-serif;
+	color: #7d7d7d;
+	float: left;
+}
+
+#footer #gift-card {
+	float: right;
+	height: 102px;
+	width: 129px;
+	margin-right: 20px;
+}
+#gift-card img {
+	
+	width: 129px;
+	
+}

@@ -1,0 +1,36 @@
+#header #main-nav{
+	position:relative;
+}
+#header ul#main-nav li{
+	position:static;
+}
+#header #main-nav li.over ul,
+#header #main-nav li:hover ul{
+	display:block;
+}
+#header ul#main-nav ul{
+	width:780px; /* IE quirks mode forces fixed width. */
+	border-style:none none solid;
+}
+#header #main-nav ul#main-nav-cats {
+	padding-top:0;
+}
+#header ul#main-nav-cats li{
+	width:100%;
+}
+#header ul#main-nav-cats .super-nav{
+	padding-top:15px;
+	width:100%;
+}
+#header ul#main-nav-cats .super-nav-left{
+	width:75%;
+}
+#header ul#main-nav-cats .super-nav-right{
+	width:25%;
+}
+#header ul#main-nav-cats .super-nav .super-sub-nav{
+	width:167px;
+	_width:194px;
+	padding:0 14px 24px;
+}
+

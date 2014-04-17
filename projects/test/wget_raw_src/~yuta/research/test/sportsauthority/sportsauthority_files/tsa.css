@@ -1,0 +1,89 @@
+/* CSS Document */
+#rv_head * { margin: 0; padding: 0;}
+
+html { background: #f7f7f7 /*url(/images/background.jpg) no-repeat*/ !important; }
+
+.df_element_hide { display:none !important; visibility:hidden !important;}
+.df_element_show { display: block !important; visibility: visible !important;}
+#container {background: #fff; margin: 0 auto; width: 780px;}
+
+#mainContent { overflow: auto; width: 780px;}
+
+#left-content { width: 595px; float: right; }
+
+#breadcrumbs { height: 38px; padding: 0 0 0 195px; }
+#breadcrumbs li { float: left; font: bold 11px/38px Arial, Helvetica, sans-serif; list-style-type: none; padding: 0 4px 0 0; }
+#breadcrumbs li a { color: #333; font-weight: normal; text-decoration: underline; }
+#breadcrumbs li span { font-weight: normal; padding: 0 0 0 5px; }
+
+
+#phone-signup, 
+#email-signup { background: transparent url(../images/bg-home-signup.png) no-repeat 0 0; height: 57px; line-height: 57px; position: relative; }
+#phone-signup h4,
+#email-signup h4 { font: bold 14px/57px Arial, Helvetica, sans-serif; color: #434343; margin: 0 0 0 20px; text-transform: uppercase; float: left; display: inline;}
+#phone-signup form,
+#email-signup form { background: url(../images/header/global-sprite.png) no-repeat; position: absolute; top: 15px;  height: 26px; }
+#email-signup form { background-position: -130px -105px; width: 305px; left: 245px; }
+#phone-signup form { background-position: -452px -105px; width: 210px; left: 340px; }
+#phone-signup input#phoneNumber,
+#email-signup input#emailAddress { background: transparent; height: 26px; border: none; padding: 0 2px 0 8px; position: absolute; font-size: 11px; }
+#email-signup input#emailAddress { width: 217px; }
+#phone-signup input#phoneNumber  { line-height: 26px; width: 120px; }
+#phone-signup input#phoneNumber.active,
+#email-signup input#emailAddress.active { font-weight: normal; }
+#phone-signup input#phone-submit,
+#email-signup input#email-submit { height: 26px; width: 74px; border: none; background: transparent; position: absolute; cursor: pointer; }
+#email-signup input#email-submit { left: 229px;}
+#phone-signup input#phone-submit { left: 134px;}
+#phone-signup #mobile-exclusion { 
+	color: #666666;
+	float: right;
+	margin: 10px 15px 0 0;
+	width: 190px;
+	display: inline;
+}
+
+.cms-content { margin-bottom: 15px;}
+
+#shoeFinder #container { width: 770px;}
+
+body div#wrapper {width: 780px; }
+
+#famRightContent .countSort { margin: 0 0 17px 0; padding: 9px;}
+
+#sitewideSlot .wrap { position: relative; }
+#homepageSlot .wrap { position: relative; }
+#categoryPageSlot .wrap { position: relative; }
+#categoryPageSlot1 .wrap { position: relative; }
+#categoryPageSlot2 .wrap { position: relative; }
+
+.pageHeader h1 { line-height: normal !important; }
+
+#checkout2davisCart #davisCartOtherViewLink{text-align:center;}
+#checkout2davisCart #davisCartOtherViewLink span{display:block;}
+/* millere2: Make sure the label areas are long enough to fit on one line */
+#checkoutPanelsHolder fieldset#billingShipping label { width:130px;	}
+
+#wrapper #googleAdsSidebar,
+#content #googleAdsSidebar {
+	margin: 20px 0 30px 8px;
+}
+#wrapper #googleAdsContent,
+#content #googleAdsSidebar {
+	border-top: 1px solid #e2f1fc;
+	clear: both;
+	margin-left: 10px;
+	padding: 10px 0;
+}
+table .pageHeader{margin-left:10px;}
+.noresult-messagetable{width: 490px;}
+.noresult-searchtitle{font: bold 15px sans-serif; color:rgb(204,202,203); margin-bottom: 0px;}
+.noresult-message{font-family: Verdana;font-size: 12px;font-weight: bold;}
+.noresult-message-red{font-family: Verdana;font-size: 12px;font-weight: bold;color: red;}
+.noresult-didyoumean{color: grey;}
+.noresult-suggestion a{color:red; text-transform: capitalize;font-style:italic;font-weight:bold;}
+#headerSearchFF {margin-bottom:0px;}
+#noresults-search-box{font-size:15px; width:245px;margin-bottom:8px;margin-top:8px;}
+.noresult-messaget{font-family: Verdana;font-size: 12px;font-weight: bold;}
+.noresult-suggestion{ } 
+.noresult-messagetable2{}

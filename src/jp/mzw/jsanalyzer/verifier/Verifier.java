@@ -53,7 +53,7 @@ public class Verifier {
 //		Analyzer analyzer = new Analyzer(new LoginDemo());
 //		Analyzer analyzer = new Analyzer(new LWA());
 		
-		Project project = CS2020m.getProject(CS2020m.INIT);
+		Project project = new FileDLerError();
 		Analyzer analyzer = new Analyzer(project);
 		
 		Verifier verifier = new Verifier(analyzer);
@@ -70,11 +70,6 @@ public class Verifier {
 	
 	
 	public void verifyIADP() {
-		System.out.println("Verifying...");
-		long start = System.currentTimeMillis();
-		/// start
-
-		NuSMV nusmv = new NuSMV(this.mFSM, this.mAnalyzer);
 		List<Property> propList = this.readIADPInfo(this.mFSM);
 		ArrayList<Specification> specList = new ArrayList<Specification>();
 		/// Generates specifications based on properties
@@ -83,15 +78,7 @@ public class Verifier {
 			specList.add(spec);
 		}
 		/// Verifies
-		for(Specification spec : specList) {
-			nusmv.verify(spec);
-		}
-		
-		/// end
-		long end = System.currentTimeMillis();
-		this.mVerifyTime = end - start;
-
-		this.writeReults(specList);
+		this.verifyIADP(specList);
 	}
 	
 	public void verifyIADP(List<Specification> specList) {
@@ -102,14 +89,23 @@ public class Verifier {
 		NuSMV nusmv = new NuSMV(this.mFSM, this.mAnalyzer);
 		/// Verifies
 		for(Specification spec : specList) {
+			long v_start = System.currentTimeMillis();
+			System.out.println("Veriy: " + "[" + spec.getProperty().getNameAbbr() + "] " + spec.getCtlFormula());
 			nusmv.verify(spec);
+			long v_end = System.currentTimeMillis();
+			System.out.println("--> Result: " + spec.getSmvResult() + " (" + (v_end - v_start) + " msec)");
 		}
+		
+		this.writeReults(specList);
 		
 		/// end
 		long end = System.currentTimeMillis();
 		this.mVerifyTime = end - start;
 
-		this.writeReults(specList);
+		/// Gives viewer URL
+		System.out.println("--> [Success] Verification time: " + this.mVerifyTime);
+		System.out.println(FilePath.IADPRepositoryHttp + "/result/" + this.mAnalyzer.getProject().getName() + "/");
+
 	}
 	
 	
@@ -365,10 +361,6 @@ public class Verifier {
 		}
 		skeleton = skeleton.replace("@ResultTableBody", body);
 		TextFileUtils.write(dir.getPath(), "index.html", skeleton);
-
-		/// Gives viewer URL
-		System.out.println("--> [Success] Verification time: " + this.mVerifyTime);
-		System.out.println(FilePath.IADPRepositoryHttp + "/result/" + this.mAnalyzer.getProject().getName() + "/");
 	}
 	
 	/**
