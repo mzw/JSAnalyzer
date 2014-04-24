@@ -1,8 +1,15 @@
 package jp.mzw.jsanalyzer.preventer;
 
+import java.io.File;
 import java.util.Date;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
 import jp.mzw.jsanalyzer.core.Analyzer;
+import jp.mzw.jsanalyzer.parser.HTMLCode;
+import jp.mzw.jsanalyzer.parser.HTMLParser;
 import jp.mzw.jsanalyzer.preventer.insert_delay_ajax.JavaScriptLocation;
 import jp.mzw.jsanalyzer.preventer.insert_delay_ajax.MutatedCodeGenerator;
 import jp.mzw.jsanalyzer.util.TextFileUtils;
@@ -50,26 +57,47 @@ public class Preventer {
 		this.mAnalyzer = analyzer;
 	}
 	
-
-	public String getMutatedHTMLCode(String filename, int offset) {
-		String html = TextFileUtils.cat(filename);
+	public int getHTMLScriptOffset(String dir, String infile, String target) {
+		File file = new File(dir, infile);
+		String html_raw_code = TextFileUtils.cat(file.getPath());
+		Document doc = Jsoup.parse(html_raw_code);
+		
+		for(Element elm : doc.getAllElements()) {
+			if("script".equalsIgnoreCase(elm.tagName()) &&
+					"text/javascript".equals(elm.attr("type")) &&
+					target.equals(elm.attr("src"))) {
+				
+				int index = html_raw_code.indexOf(elm.toString());
+				return index;
+			}
+		}
+		
+		
+		return -1;
+	}
+	
+	public String getMutatedHTMLCode(String dir, String filename, int offset) {
+		File file = new File(dir, filename);
+		String html_raw_code = TextFileUtils.cat(file.getPath());
 		
 		String insersion = "<!-- start of delay insersion -->\n";
-		insersion += "<script type=\"text/javascript\" src=\"" + Preventer.RESPONSE_AFTER_DELAY + this.mDelayTime + "\"></script>\n";
+		insersion += "<script type=\"text/javascript\" src=\"" + Preventer.RESPONSE_AFTER_DELAY + Preventer.mDelayTime + "\"></script>\n";
 		insersion += "<!-- end of delay insersion -->\n";
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append(html);
+		sb.append(html_raw_code);
 		sb.insert(offset, insersion);
 		
 		return new String(sb); 
 	}
 	
-	public String getMutatedJSCode(String filename, int pos) {
-		JavaScriptLocation jsloc = JavaScriptLocation.jsFile(filename);
+	public String getMutatedJSCode(String dir, String filename, int pos) {
+		File file = new File(dir, filename);
 		
 		MutatedCodeGenerator gen = new MutatedCodeGenerator();
-		String code = gen.insertDelayedRequestObject(jsloc, pos, this.mDelayTime);
+		
+		JavaScriptLocation jsloc = JavaScriptLocation.jsFile(file.getPath());
+		String code = gen.insertDelayedRequestObject(jsloc, pos, Preventer.mDelayTime);
 		
 		return code;
 	}

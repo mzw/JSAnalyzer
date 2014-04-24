@@ -23,13 +23,13 @@ public class UEHRegist extends WebAppTestBase {
 	@Test
 	public void testUEHRegist() {
 		
-		Project project = UCDChina.getProject(UCDChina.Original);
-//		Project project = UCDChina.getProject(UCDChina.UEHRegist);
+//		Project project = UCDChina.getProject(UCDChina.Original);
+		Project project = UCDChina.getProject(UCDChina.UEHRegist);
 		
 		final String startUrl = project.getUrl();
 		
 		try {
-			driver.manage().timeouts().pageLoadTimeout(2000, TimeUnit.MILLISECONDS);
+			driver.manage().timeouts().pageLoadTimeout(10000, TimeUnit.MILLISECONDS);
 			gotoUrl(startUrl);
 			this.prepareJsErrorCollector();
 		} catch (TimeoutException e){

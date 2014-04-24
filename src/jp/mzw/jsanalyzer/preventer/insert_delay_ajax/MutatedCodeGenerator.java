@@ -17,12 +17,14 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.*;
 
+import jp.mzw.jsanalyzer.util.TextFileUtils;
+
 /**
  * @author Kazuki Nishiura
  */
 public class MutatedCodeGenerator {
 
-    private static final String JS_LIBARY_PATH = "/delayedRequest.js";
+    private static final String JS_LIBARY_PATH = "res/delay/delayedRequest.js";
     private static final String JS_PATH_LOAD_JS_LITERAL_WITH_DELAY
             = "/loadJsLiteralWithDelay.js";
     private static final String JS_PATH_LOAD_JS_SRC_WITH_DELAY
@@ -190,7 +192,7 @@ public class MutatedCodeGenerator {
                 = javaScript.substring(0, absoluteStartPosition)
                 + JS_ANNOTATION_FOR_INSERTING_DELAY
                 + javaScript.substring(absoluteStartPosition);
-
+        
         output.contentsForTest = libraryJsToString()
                 + javaScript.substring(0, absoluteStartPosition)
                 + modified
@@ -269,7 +271,8 @@ public class MutatedCodeGenerator {
     private String libraryJsToString() {
         return LIBRARY_HEADER
                 + System.getProperty("line.separator")
-                + readResource(JS_LIBARY_PATH)
+//                + readResource(JS_LIBARY_PATH)
+                + TextFileUtils.cat(JS_LIBARY_PATH)
                 + System.getProperty("line.separator")
                 + LIBRARY_FOOTER
                 + System.getProperty("line.separator");
@@ -289,7 +292,7 @@ public class MutatedCodeGenerator {
     /**
      * Class that represent replacement.
      */
-    private class Replacement {
+    public class Replacement {
         private final String original;
         private final String replaced;
         public Replacement(String original, String replaced) {

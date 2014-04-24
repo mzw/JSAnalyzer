@@ -44,17 +44,17 @@ public class FDValid extends WebAppTestBase {
 		WebElement search = driver.findElement(By.id("text"));
 		search.click();
 		
-//		try {
-//            wait.until(new Predicate<WebDriver>() {
-//                @Override
-//                public boolean apply(WebDriver webDriver) {
-//                    return !webDriver.getCurrentUrl().equals(startUrl);
-//                }
-//            });
-//            fail("We shouldn't allow page transition, but current url is " + driver.getCurrentUrl());
-//        } catch (TimeoutException e) {
-//            // Expected exception.
-//        }
+		try {
+            wait.until(new Predicate<WebDriver>() {
+                @Override
+                public boolean apply(WebDriver webDriver) {
+                    return !webDriver.getCurrentUrl().equals(startUrl);
+                }
+            });
+            fail("We shouldn't allow page transition, but current url is " + driver.getCurrentUrl());
+        } catch (TimeoutException e) {
+            // Expected exception.
+        }
 		
 //		this.assertNoJsErrorObserved();
 		

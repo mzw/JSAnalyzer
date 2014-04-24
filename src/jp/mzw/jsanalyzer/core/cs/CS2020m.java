@@ -10,6 +10,7 @@ import jp.mzw.jsanalyzer.modeler.Modeler;
 import jp.mzw.jsanalyzer.preventer.Preventer;
 import jp.mzw.jsanalyzer.serialize.Serializer;
 import jp.mzw.jsanalyzer.serialize.model.FiniteStateMachine;
+import jp.mzw.jsanalyzer.util.TextFileUtils;
 import jp.mzw.jsanalyzer.verifier.Verifier;
 import jp.mzw.jsanalyzer.verifier.modelchecker.NuSMV;
 import jp.mzw.jsanalyzer.verifier.specification.Specification;
@@ -20,16 +21,18 @@ public class CS2020m extends Project {
 		Project project = CS2020m.getProject(CS2020m.Original);
 		Analyzer analyzer = new Analyzer(project);
 		
-		Modeler modeler = new Modeler(analyzer);
-		jp.mzw.jsanalyzer.modeler.model.fsm.FiniteStateMachine fsm = modeler.extract();
-		Serializer.serialze(analyzer, fsm);
+//		Modeler modeler = new Modeler(analyzer);
+//		jp.mzw.jsanalyzer.modeler.model.fsm.FiniteStateMachine fsm = modeler.extract();
+//		Serializer.serialze(analyzer, fsm);
 		
-		Verifier verifier = new Verifier(analyzer);
+//		Verifier verifier = new Verifier(analyzer);
 ////		verifier.setup();
-		List<Specification> specList = CS2020m.getSpecList(analyzer, verifier.getExtractedFSM());
-		verifier.verifyIADP(specList);
+//		List<Specification> specList = CS2020m.getSpecList(analyzer, verifier.getExtractedFSM());
+//		verifier.verifyIADP(specList);
 		
 		Preventer preventer = new Preventer(analyzer);
+		CS2020m.insertDelay(analyzer, preventer, CS2020m.SeedRetrieve);
+		
 	}
 	
 	private CS2020m(String projName, String projUrl) {
@@ -63,6 +66,44 @@ public class CS2020m extends Project {
 		return ret;
 	}
 	
+	public static void insertDelay(Analyzer analyzer, Preventer preventer, int ver) {
+		
+		long start = System.currentTimeMillis();
+		
+		switch(ver) {
+		case CS2020m.Original:
+			break;
+		case CS2020m.UEHRegist:
+			String uehregist_dir = "/Users/yuta/Sites/research/cs/2020m/0.origin";
+			String uehregist_infile = "2020m.html";
+			String uehregist_outfile = "inserted." + uehregist_infile;
+			
+			/// for HTML code
+			/// Known: onclick -> forgotPasswordClick -> login_controller.js
+			String uehregist_target = "2020m_files/login_controller.js";
+			int uehregist_offset = preventer.getHTMLScriptOffset(uehregist_dir, uehregist_infile, uehregist_target);
+			String uehregist_content = preventer.getMutatedHTMLCode(uehregist_dir, uehregist_infile, uehregist_offset);
+			TextFileUtils.write(uehregist_dir, uehregist_outfile, uehregist_content);
+			
+			break;
+		case CS2020m.SeedRetrieve:
+			String sd_dir = "/Users/yuta/Sites/research/cs/2020m/0.origin/";
+			String sd_infile = "2020m_files/login_controller.js";
+			String sd_outfile = "inserted." + sd_infile;
+			
+			
+			/// for JS code
+			/// Known: $.post("include/login.php", { task: 'getseed' }, function...
+			int pos = 899;
+			String inserted_jscode = preventer.getMutatedJSCode(sd_dir, sd_infile, pos);
+			System.out.println(inserted_jscode);
+			
+			break;
+		}
+
+		long end = System.currentTimeMillis();
+		System.out.println("Insertion time: " + (end - start));
+	}
 	
 	public static List<Specification> getSpecList(Analyzer analyzer, FiniteStateMachine fsm) {
 		ArrayList<Specification> ret = new ArrayList<Specification>();

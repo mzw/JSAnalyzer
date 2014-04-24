@@ -24,8 +24,11 @@ public class Login extends WebAppTestBase {
 		gotoUrl(analyzer.getProject().getUrl());
 		
 		WebElement user = driver.findElement(By.id("user"));
-		user.sendKeys("yuta");
-
+		user.sendKeys("y");
+		user.sendKeys("u");
+		user.sendKeys("t");
+		user.sendKeys("a");
+		
 		WebElement pass = driver.findElement(By.id("pass"));
 		pass.sendKeys("maezawa");
 

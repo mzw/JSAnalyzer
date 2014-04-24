@@ -16,8 +16,8 @@ public class UEHRegist extends WebAppTestBase {
 	@Test
 	public void testUEHRegist() {
 		
-//		Project project = CS2020m.getProject(CS2020m.Original);
-		Project project = CS2020m.getProject(CS2020m.UEHRegist);
+		Project project = CS2020m.getProject(CS2020m.Original);
+//		Project project = CS2020m.getProject(CS2020m.UEHRegist);
 		
 		final String startUrl = project.getUrl();
 		

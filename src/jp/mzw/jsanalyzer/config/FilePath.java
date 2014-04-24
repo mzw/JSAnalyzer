@@ -11,6 +11,8 @@ public class FilePath {
 	public static final String Serialized		 	= "/serialized";
 	public static final String LimitationDir 		= "/limitation";
 	public static final String ExternsDir			= "res/externs";
+
+	public static final String InsertDir			= "/insert";
 	
 	/**
 	 * Under public html directory

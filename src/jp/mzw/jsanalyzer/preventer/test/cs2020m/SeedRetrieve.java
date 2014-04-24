@@ -19,8 +19,8 @@ public class SeedRetrieve extends WebAppTestBase {
 	@Test
 	public void testSeedRetrieve() {
 		
-		Project project = CS2020m.getProject(CS2020m.Original);
-//		Project project = CS2020m.getProject(CS2020m.SeedRetrieve);
+//		Project project = CS2020m.getProject(CS2020m.Original);
+		Project project = CS2020m.getProject(CS2020m.SeedRetrieve);
 		
 		final String startUrl = project.getUrl();
 		

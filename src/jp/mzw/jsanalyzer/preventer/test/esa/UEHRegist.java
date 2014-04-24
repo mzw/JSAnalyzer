@@ -24,8 +24,8 @@ public class UEHRegist extends WebAppTestBase {
 	@Test
 	public void testUEHRegist() {
 		
-		Project project = ESA.getProject(ESA.Original);
-//		Project project = ESA.getProject(ESA.UEHRegist);
+//		Project project = ESA.getProject(ESA.Original);
+		Project project = ESA.getProject(ESA.UEHRegist);
 		
 		final String startUrl = project.getUrl();
 		
@@ -45,7 +45,7 @@ public class UEHRegist extends WebAppTestBase {
 		actions.moveToElement(target);
 		actions.moveToElement(logo);
 		
-//		this.assertNoJsErrorObserved();
+		this.assertNoJsErrorObserved();
 		
 	}
 	
