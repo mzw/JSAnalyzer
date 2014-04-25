@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.concurrent.TimeUnit;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -19,7 +20,6 @@ import jp.mzw.jsanalyzer.preventer.test.WebAppTestBase;
 
 public class UEHRegist extends WebAppTestBase {
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testUEHRegist() {
 		
@@ -29,7 +29,7 @@ public class UEHRegist extends WebAppTestBase {
 		final String startUrl = project.getUrl();
 		
 		try {
-			driver.manage().timeouts().pageLoadTimeout(10000, TimeUnit.MILLISECONDS);
+			driver.manage().timeouts().pageLoadTimeout(2000, TimeUnit.MILLISECONDS);
 			gotoUrl(startUrl);
 			this.prepareJsErrorCollector();
 		} catch (TimeoutException e){
@@ -38,7 +38,11 @@ public class UEHRegist extends WebAppTestBase {
 
         WebElement searchForm = wait.until(
                 ExpectedConditions.presenceOfElementLocated(By.id("searchBox")));
+        driver.findElement(By.id("searchBox")).clear();
         searchForm.submit();
+
+		this.assertNoJsErrorObserved();
+		
         try {
             wait.until(new Predicate<WebDriver>() {
                 @Override
@@ -51,7 +55,6 @@ public class UEHRegist extends WebAppTestBase {
             // Expected exception.
         }
 		
-		this.assertNoJsErrorObserved();
 		
 	}
 	

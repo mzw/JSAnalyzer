@@ -1,9 +1,8 @@
 package jp.mzw.jsanalyzer.preventer.test.cs2020m;
 
-import static junit.framework.Assert.fail;
-
 import java.util.concurrent.TimeUnit;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -15,22 +14,21 @@ import jp.mzw.jsanalyzer.preventer.test.WebAppTestBase;
 
 public class SeedRetrieve extends WebAppTestBase {
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testSeedRetrieve() {
 		
-//		Project project = CS2020m.getProject(CS2020m.Original);
-		Project project = CS2020m.getProject(CS2020m.SeedRetrieve);
+		Project project = CS2020m.getProject(CS2020m.Original);
+//		Project project = CS2020m.getProject(CS2020m.SeedRetrieve);
 		
 		final String startUrl = project.getUrl();
 		
 		try {
 			driver.manage().timeouts().pageLoadTimeout(2000, TimeUnit.MILLISECONDS);
 			gotoUrl(startUrl);
-			this.prepareJsErrorCollector();
 		} catch (TimeoutException e){
             // Expected exception, when timeout occurs, move to next operations.
         }
+		this.prepareJsErrorCollector();
 
 		WebElement user = driver.findElement(By.id("user"));
 		user.sendKeys("yuta");
@@ -39,16 +37,14 @@ public class SeedRetrieve extends WebAppTestBase {
 		pass.sendKeys("maezawa");
 
 		WebElement loginbtn = driver.findElement(By.id("loginbtn"));
-		loginbtn.click();
 
-		WebElement msg = driver.findElement(By.id("msg"));
-		String text = msg.getText();
+		this.assertNoJsErrorObserved(); // before page transition
 		
-		if(!"Hello, yuta".equals(text)) {
-			fail();
-		}
+		loginbtn.click();
 		
-		this.assertNoJsErrorObserved();
+		String successful_logged_in_url = driver.getCurrentUrl();
+		Assert.assertNotEquals(startUrl, successful_logged_in_url);
+		
 		
 	}
 	

@@ -1,13 +1,11 @@
 package jp.mzw.jsanalyzer.preventer.test.cs2020m;
 
-import static junit.framework.Assert.fail;
-
 import java.util.concurrent.TimeUnit;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 
 import jp.mzw.jsanalyzer.core.Project;
@@ -16,12 +14,10 @@ import jp.mzw.jsanalyzer.preventer.test.WebAppTestBase;
 
 public class LFDisable extends WebAppTestBase {
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testLFDisable() {
 		
 		Project project = CS2020m.getProject(CS2020m.Original);
-//		Project project = CS2020m.getProject(CS2020m.SeedRetrieve);
 		
 		final String startUrl = project.getUrl();
 		
@@ -40,22 +36,16 @@ public class LFDisable extends WebAppTestBase {
 		pass.sendKeys("maezawa");
 
 		WebElement loginbtn = driver.findElement(By.id("loginbtn"));
-		loginbtn.click();
 
-		WebElement msg = driver.findElement(By.id("msg"));
-		String text = msg.getText();
+		this.assertNoJsErrorObserved(); // before page transition
 		
-		if(!"Hello, yuta".equals(text)) {
-			try {
-				waitAndClickElementLocated(By.id("loginbtn"));
-				fail();
-			} catch (WebDriverException e) {
-				// Expected exception
-				// PASS IS FAULT
-			}
-		}
+		loginbtn.click();
 		
-		this.assertNoJsErrorObserved();
+		String successful_logged_in_url = driver.getCurrentUrl();
+		Assert.assertNotEquals(startUrl, successful_logged_in_url); //  page transition means disable form
+		
+//		String disabled = loginbtn.getAttribute("disabled");
+//		Assert.assertEquals("true", disabled);
 		
 	}
 	

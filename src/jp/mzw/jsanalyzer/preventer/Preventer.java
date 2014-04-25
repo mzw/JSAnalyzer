@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Date;
 
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.DataNode;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -41,7 +42,7 @@ public class Preventer {
 	 * Default value: 1000 msec
 	 * b/c of "Time Scales in User Experience", http://www.nngroup.com/articles/powers-of-10-time-scales-in-ux/
 	 */
-	protected static final int mDelayTime = 1000;
+	protected static final int mDelayTime = 3000;
 	
 	/**
 	 * Server-side script for emulating network latency
@@ -100,6 +101,44 @@ public class Preventer {
 		String code = gen.insertDelayedRequestObject(jsloc, pos, Preventer.mDelayTime);
 		
 		return code;
+	}
+
+	public String getMutatedJSCode(String dir, String filename, String snippet) {
+		String jscode = TextFileUtils.cat(dir, filename);
+		int pos = jscode.indexOf(snippet);
+		
+		return this.getMutatedJSCode(dir, filename, pos);
+	}
+	
+	public String changeJSRefInHTML(String dir, String html_filename, String js_filename, String changed_js_filename) {
+		File file = new File(dir, html_filename);
+		String html_raw_code = TextFileUtils.cat(file.getPath());
+
+		Document doc = Jsoup.parse(html_raw_code);
+		for(Element elm : doc.getAllElements()) {
+			if("script".equalsIgnoreCase(elm.tagName()) &&
+					"text/javascript".equals(elm.attr("type")) &&
+					js_filename.equals(elm.attr("src"))) {
+
+				
+				/// Assumes "only one" corresponding file reference
+				
+				int index = html_raw_code.indexOf(elm.toString());
+				int length = elm.toString().length();
+				
+				String change = elm.toString().replace(js_filename, changed_js_filename);
+				
+				StringBuilder sb = new StringBuilder();
+				sb.append(html_raw_code);
+				sb.insert(index + length, " -->\n<!-- Start of automated script reference insertion -->\n" + change + "\n<!-- End of automated script reference insertion -->\n");
+				sb.insert(index, "<!-- [change reference] original is below:\n");
+				
+				return new String(sb);
+			}
+		}
+
+		System.err.println("Cannot find corresponding js reference@Preventer#changeJSRefInHTML: " + html_filename + ", " + js_filename);
+		return html_raw_code;
 	}
 	
 }

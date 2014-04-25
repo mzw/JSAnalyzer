@@ -1,8 +1,10 @@
 package jp.mzw.jsanalyzer.core.cs;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.mzw.jsanalyzer.config.FileExtension;
 import jp.mzw.jsanalyzer.core.Analyzer;
 import jp.mzw.jsanalyzer.core.Project;
 import jp.mzw.jsanalyzer.formulator.property.Property;
@@ -31,7 +33,9 @@ public class CS2020m extends Project {
 //		verifier.verifyIADP(specList);
 		
 		Preventer preventer = new Preventer(analyzer);
-		CS2020m.insertDelay(analyzer, preventer, CS2020m.SeedRetrieve);
+//		CS2020m.insertDelay(analyzer, preventer, CS2020m.UEHRegist);
+//		CS2020m.insertDelay(analyzer, preventer, CS2020m.SeedRetrieve);
+		CS2020m.insertDelay(analyzer, preventer, CS2020m.ValidateLogin);
 		
 	}
 	
@@ -44,16 +48,19 @@ public class CS2020m extends Project {
 	public static final int
 		Original = 0,
 		UEHRegist = 1,
-		SeedRetrieve = 2;
+		SeedRetrieve = 2,
+		ValidateLogin = 3;
 	
 	public static CS2020m getProject(int ver) {
 		switch(ver) {
 		case CS2020m.Original:
 			return new CS2020m("2020m.Original", "http://localhost/~yuta/research/cs/2020m/0.origin/2020m.html");
 		case CS2020m.UEHRegist:
-			return new CS2020m("2020m.UEHRegist", "http://localhost/~yuta/research/cs/2020m/1.uehregist/2020m.html");
+			return new CS2020m("2020m.UEHRegist", "http://localhost/~yuta/research/cs/2020m/0.origin/2020m.html.ver.1.html");
 		case CS2020m.SeedRetrieve:
-			return new CS2020m("2020m.SeedRetrieve", "http://localhost/~yuta/research/cs/2020m/2.seedretrieve/2020m.html");
+			return new CS2020m("2020m.SeedRetrieve", "http://localhost/~yuta/research/cs/2020m/0.origin/2020m.html.ver.2.html");
+		case CS2020m.ValidateLogin:
+			return new CS2020m("2020m.SeedRetrieve", "http://localhost/~yuta/research/cs/2020m/0.origin/2020m.html.ver.3.html");
 		}
 		return null;
 	}
@@ -70,33 +77,61 @@ public class CS2020m extends Project {
 		
 		long start = System.currentTimeMillis();
 		
+		/// Preliminary
+		String base_dir = "/Users/yuta/Sites/research/cs/2020m/0.origin/";
+		/// files
+		String html_filename = "2020m.html";
+		String js_filename = "2020m_files/login_controller.js";
+		
+		String postfix = ".ver."; // should add extension at tail
+		String output_filename = null; // should set "filename.inserted.property.ext"
+		
+		int html_offset = -1;
+		String html_code = null;
+		
+		String snippet = null;
+		String inserted_js_content = null;
+		
 		switch(ver) {
 		case CS2020m.Original:
 			break;
 		case CS2020m.UEHRegist:
-			String uehregist_dir = "/Users/yuta/Sites/research/cs/2020m/0.origin";
-			String uehregist_infile = "2020m.html";
-			String uehregist_outfile = "inserted." + uehregist_infile;
 			
-			/// for HTML code
-			/// Known: onclick -> forgotPasswordClick -> login_controller.js
-			String uehregist_target = "2020m_files/login_controller.js";
-			int uehregist_offset = preventer.getHTMLScriptOffset(uehregist_dir, uehregist_infile, uehregist_target);
-			String uehregist_content = preventer.getMutatedHTMLCode(uehregist_dir, uehregist_infile, uehregist_offset);
-			TextFileUtils.write(uehregist_dir, uehregist_outfile, uehregist_content);
+			html_offset = preventer.getHTMLScriptOffset(base_dir, html_filename, js_filename);
+			html_code = preventer.getMutatedHTMLCode(base_dir, html_filename, html_offset);
+			/// Writes
+			output_filename = html_filename + postfix + CS2020m.UEHRegist + FileExtension.HTML;
+			TextFileUtils.write(base_dir, output_filename, html_code);
 			
 			break;
 		case CS2020m.SeedRetrieve:
-			String sd_dir = "/Users/yuta/Sites/research/cs/2020m/0.origin/";
-			String sd_infile = "2020m_files/login_controller.js";
-			String sd_outfile = "inserted." + sd_infile;
 			
+			snippet = "$.post(\"include/login.php\", { task: 'getseed' }";
+			inserted_js_content = preventer.getMutatedJSCode(base_dir, js_filename, snippet);
+			/// Writes
+			output_filename = js_filename + postfix + CS2020m.SeedRetrieve + FileExtension.JS;
+			TextFileUtils.write(base_dir, output_filename, inserted_js_content);
 			
-			/// for JS code
-			/// Known: $.post("include/login.php", { task: 'getseed' }, function...
-			int pos = 899;
-			String inserted_jscode = preventer.getMutatedJSCode(sd_dir, sd_infile, pos);
-			System.out.println(inserted_jscode);
+			// for HTML code
+			/// from js_filename to output_filename
+			html_code = preventer.changeJSRefInHTML(base_dir, html_filename, js_filename, output_filename);
+			output_filename = html_filename + postfix + CS2020m.SeedRetrieve + FileExtension.HTML;
+			TextFileUtils.write(base_dir, output_filename, html_code);
+			
+			break;
+		case CS2020m.ValidateLogin:
+			
+			snippet = "$.post(action, { task: $('#task').val()";
+			inserted_js_content = preventer.getMutatedJSCode(base_dir, js_filename, snippet);
+			/// Writes
+			output_filename = js_filename + postfix + CS2020m.ValidateLogin + FileExtension.JS;
+			TextFileUtils.write(base_dir, output_filename, inserted_js_content);
+			
+			// for HTML code
+			/// from js_filename to output_filename
+			html_code = preventer.changeJSRefInHTML(base_dir, html_filename, js_filename, output_filename);
+			output_filename = html_filename + postfix + CS2020m.ValidateLogin + FileExtension.HTML;
+			TextFileUtils.write(base_dir, output_filename, html_code);
 			
 			break;
 		}

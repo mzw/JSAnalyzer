@@ -3,12 +3,15 @@ package jp.mzw.jsanalyzer.core.cs;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.mzw.jsanalyzer.config.FileExtension;
 import jp.mzw.jsanalyzer.core.Analyzer;
 import jp.mzw.jsanalyzer.core.Project;
 import jp.mzw.jsanalyzer.formulator.property.Property;
 import jp.mzw.jsanalyzer.modeler.Modeler;
+import jp.mzw.jsanalyzer.preventer.Preventer;
 import jp.mzw.jsanalyzer.serialize.Serializer;
 import jp.mzw.jsanalyzer.serialize.model.FiniteStateMachine;
+import jp.mzw.jsanalyzer.util.TextFileUtils;
 import jp.mzw.jsanalyzer.verifier.Verifier;
 import jp.mzw.jsanalyzer.verifier.modelchecker.NuSMV;
 import jp.mzw.jsanalyzer.verifier.specification.Specification;
@@ -27,6 +30,10 @@ public class UCDChina extends Project {
 //		verifier.setup();
 		List<Specification> specList = UCDChina.getSpecList(analyzer, verifier.getExtractedFSM());
 		verifier.verifyIADP(specList);
+
+//		Preventer preventer = new Preventer(analyzer);
+////		UCDChina.insertDelay(analyzer, preventer, UCDChina.UEHRegist);
+//		UCDChina.insertDelay(analyzer, preventer, UCDChina.FDValid);
 	}
 	
 	private UCDChina(String projName, String projUrl) {
@@ -43,13 +50,51 @@ public class UCDChina extends Project {
 	public static UCDChina getProject(int ver) {
 		switch(ver) {
 		case UCDChina.Original:
-			return new UCDChina("UCDChina.Original", "http://localhost/~yuta/research/cs/ucdchina/0.origin/cdchina.html");
+			return new UCDChina("UCDChina.Original", "http://localhost/~yuta/research/cs/ucdchina/0.origin/ucdchina.html");
 		case UCDChina.UEHRegist:
-			return new UCDChina("UCDChina.Original", "http://localhost/~yuta/research/cs/ucdchina/1.uehregist/cdchina.html");
+			return new UCDChina("UCDChina.UEHRegist", "http://localhost/~yuta/research/cs/ucdchina/0.origin/ucdchina.html.ver.1.html");
 		case UCDChina.FDValid:
-//			return new UCDChina("UCDChina.Original", "http://localhost/~yuta/research/cs/ucdchina/2.fdvalid/cdchina.html");
+			return new UCDChina("UCDChina.FDValid", "http://localhost/~yuta/research/cs/ucdchina/0.origin/ucdchina.html.ver.2.html");
 		}
 		return null;
+	}
+
+	public static void insertDelay(Analyzer analyzer, Preventer preventer, int ver) {
+		
+		long start = System.currentTimeMillis();
+		
+		/// Preliminary
+		String base_dir = "/Users/yuta/Sites/research/cs/ucdchina/0.origin/";
+		/// files
+		String html_filename = "ucdchina.html";
+		String js_filename = "./ucdchina_files/validate.js";
+		
+		String postfix = ".ver."; // should add extension at tail
+		String output_filename = null; // should set "filename.inserted.property.ext"
+		
+		int html_offset = -1;
+		String html_code = null;
+		
+		
+		switch(ver) {
+		case UCDChina.Original:
+			break;
+		case UCDChina.UEHRegist:
+			
+			html_offset = preventer.getHTMLScriptOffset(base_dir, html_filename, "./ucdchina_files/validate.js");
+			html_code = preventer.getMutatedHTMLCode(base_dir, html_filename, html_offset);
+			/// Writes
+			output_filename = html_filename + postfix + UCDChina.UEHRegist + FileExtension.HTML;
+			TextFileUtils.write(base_dir, output_filename, html_code);
+			
+			break;
+		case UCDChina.FDValid:
+			/// Executable fault on CSS-disabled browser
+			break;
+		}
+
+		long end = System.currentTimeMillis();
+		System.out.println("Insertion time: " + (end - start));
 	}
 	
 	public static List<String> setRuleFilenames() {
@@ -101,7 +146,7 @@ public class UCDChina extends Project {
 		
 		/// FDValid
 		String checkInput = fsm.getFuncId("checkInput", 1, 0);
-		String goSearch = fsm.getFuncId("goSearch", 1, 0);
+		String goSearch = fsm.getFuncId("sendMail", 1, 0);
 		
 		Property pFDValid = Property.getPropertyByNameAbbr("FDValid").clone();
 		pFDValid.setTemplateVariables(NuSMV.genExpr(goSearch), NuSMV.genExpr(checkInput), null, null);

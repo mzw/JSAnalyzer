@@ -35,5 +35,5 @@ public class Command {
 	/**
 	 * To execute and test Ajax apps by using Selenium WebDriver
 	 */
-	public static final String Firefox			= "/Users/yuta/Applications/Firefox.3.6.app/Contents/MacOS/firefox-bin";
+	public static final String Firefox			= "/Users/yuta/Applications/Firefox.10.0.2.app/Contents/MacOS/firefox-bin";
 }

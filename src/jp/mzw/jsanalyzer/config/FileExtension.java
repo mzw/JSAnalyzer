@@ -16,6 +16,8 @@ public class FileExtension {
 	public static final String Dot					= ".dot";
 	public static final String XML					= ".xml";
 	public static final String HTML					= ".html";
+	public static final String JS					= ".js";
+	public static final String CSS					= ".css";
 	public static final String PHP					= ".php";
 
 	public static final String Serialized			= ".bin";

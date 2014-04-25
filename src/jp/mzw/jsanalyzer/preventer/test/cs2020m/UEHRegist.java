@@ -12,7 +12,6 @@ import jp.mzw.jsanalyzer.preventer.test.WebAppTestBase;
 
 public class UEHRegist extends WebAppTestBase {
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testUEHRegist() {
 		
@@ -24,10 +23,10 @@ public class UEHRegist extends WebAppTestBase {
 		try {
 			driver.manage().timeouts().pageLoadTimeout(2000, TimeUnit.MILLISECONDS);
 			gotoUrl(startUrl);
-			this.prepareJsErrorCollector();
 		} catch (TimeoutException e){
             // Expected exception, when timeout occurs, move to next operations.
         }
+		this.prepareJsErrorCollector();
 		
 		this.waitAndClickElementLocated(By.xpath("//*[@id=\"loginboxs\"]/div[3]/a"));
 		

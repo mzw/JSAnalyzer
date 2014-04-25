@@ -46,7 +46,7 @@ public class MutatedCodeGenerator {
     private static final String ATTRIBUTE_FOR_INSERTING_DELAY
             = "data-annotation-insert-delay";
     private static final String JS_ANNOTATION_FOR_INSERTING_DELAY
-            = "/* auto-generated comment (do not delete), @delayWillBeInserted here when testing */";
+            = "/* auto-generated comment (do not delete), @delayWillBeInserted here when testing */\n";
 
     /**
      * Given JavaScript and position information of the target function, this
@@ -68,7 +68,7 @@ public class MutatedCodeGenerator {
                         contentsOfFile, absoluteStartPosition, delayInMillis);
 
                 // Insert annotation to indicate the point to insert delay.
-                writeToFile(output.contentsForDebug, javaScriptLocation.getFilePath());
+//                writeToFile(output.contentsForDebug, javaScriptLocation.getFilePath());
                 return output.contentsForTest;
             }
             case INLINE: {
@@ -220,9 +220,10 @@ public class MutatedCodeGenerator {
     private Replacement searchForMatch(String javaScript, int absoluteStartPosition) {
         Set<String> matchTargets = new HashSet<String>(FUNCTION_MAP.keySet());
         StringBuilder subStringBuilder = new StringBuilder();
+    	
         for (int i = absoluteStartPosition; i < javaScript.length(); i++) {
-            subStringBuilder.append(javaScript.charAt(i));
             String subString = subStringBuilder.toString();
+            subStringBuilder.append(javaScript.charAt(i));
             for (String matchTarget: matchTargets) {
                 if (matchTarget.equals(subString)) {
                     return new Replacement(matchTarget, FUNCTION_MAP.get(matchTarget));
@@ -230,7 +231,8 @@ public class MutatedCodeGenerator {
             }
             for (String matchTarget: FUNCTIONS_WITH_DEFAULT) {
                 if (matchTarget.equals(subString)
-                        && (i < javaScript.length() - 1) && '(' == javaScript.charAt(i + 1)) {
+//                        && (i < javaScript.length() - 1) && '(' == javaScript.charAt(i + 1)) {
+                        && (i < javaScript.length() - 1) && '(' == javaScript.charAt(i)) {
                     return new Replacement(matchTarget + '(',
                             DEFAULT_DELAYED_APPLY + '(' + matchTarget + ", ");
                 }
@@ -300,4 +302,5 @@ public class MutatedCodeGenerator {
             this.replaced = replaced;
         }
     }
+    
 }

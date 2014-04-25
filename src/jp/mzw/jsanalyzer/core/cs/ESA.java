@@ -15,6 +15,7 @@ import jp.mzw.jsanalyzer.formulator.property.Property;
 import jp.mzw.jsanalyzer.formulator.property.SRWait;
 import jp.mzw.jsanalyzer.formulator.property.UEHRegist;
 import jp.mzw.jsanalyzer.modeler.Modeler;
+import jp.mzw.jsanalyzer.preventer.Preventer;
 import jp.mzw.jsanalyzer.serialize.Serializer;
 import jp.mzw.jsanalyzer.serialize.model.Event;
 import jp.mzw.jsanalyzer.serialize.model.FiniteStateMachine;
@@ -35,10 +36,14 @@ public class ESA extends Project {
 //		jp.mzw.jsanalyzer.modeler.model.fsm.FiniteStateMachine fsm = modeler.extract();
 //		Serializer.serialze(analyzer, fsm);
 		
-		Verifier verifier = new Verifier(analyzer);
-//		verifier.setup();
-		List<Specification> specList = ESA.getSpecList(analyzer, verifier.getExtractedFSM());
-		verifier.verifyIADP(specList);
+//		Verifier verifier = new Verifier(analyzer);
+////		verifier.setup();
+//		List<Specification> specList = ESA.getSpecList(analyzer, verifier.getExtractedFSM());
+//		verifier.verifyIADP(specList);
+
+		Preventer preventer = new Preventer(analyzer);
+//		ESA.insertDelay(analyzer, preventer, ESA.UEHRegist);
+		ESA.insertDelay(analyzer, preventer, ESA.FDValid);
 	}
 	
 	private ESA(String projName, String projUrl) {
@@ -57,12 +62,57 @@ public class ESA extends Project {
 		case ESA.Original:
 			return new ESA("ESA.Original", "http://localhost/~yuta/research/cs/esa/0.1.origin/esa.html");
 		case ESA.UEHRegist:
-			return new ESA("ESA.UEHRegist", "http://localhost/~yuta/research/cs/esa/1.uehregist/esa.html");
+			return new ESA("ESA.UEHRegist", "http://localhost/~yuta/research/cs/esa/0.1.origin/esa.html.ver.1.html");
 		case ESA.FDValid:
-			return new ESA("ESA.FDValid", "http://localhost/~yuta/research/cs/esa/2.fdvalid/esa.html");
+			return new ESA("ESA.FDValid", "http://localhost/~yuta/research/cs/esa/0.1.origin/esa.html.ver.2.html");
 		}
 		return null;
 	}
+	
+
+	public static void insertDelay(Analyzer analyzer, Preventer preventer, int ver) {
+		
+		long start = System.currentTimeMillis();
+		
+		/// Preliminary
+		String base_dir = "/Users/yuta/Sites/research/cs/esa/0.1.origin/";
+		/// files
+		String html_filename = "esa.html";
+		String js_filename = "esa_files/core129.js";
+		
+		String postfix = ".ver."; // should add extension at tail
+		String output_filename = null; // should set "filename.inserted.property.ext"
+		
+		int html_offset = -1;
+		String html_code = null;
+		
+		
+		switch(ver) {
+		case ESA.Original:
+			break;
+		case ESA.UEHRegist:
+			
+			html_offset = preventer.getHTMLScriptOffset(base_dir, html_filename, "esa_files/addthis_widget.js");
+			html_code = preventer.getMutatedHTMLCode(base_dir, html_filename, html_offset);
+			/// Writes
+			output_filename = html_filename + postfix + ESA.UEHRegist + FileExtension.HTML;
+			TextFileUtils.write(base_dir, output_filename, html_code);
+			
+			break;
+		case ESA.FDValid:
+			
+			html_offset = preventer.getHTMLScriptOffset(base_dir, html_filename, "esa_files/c_main.js");
+			html_code = preventer.getMutatedHTMLCode(base_dir, html_filename, html_offset);
+			/// Writes
+			output_filename = html_filename + postfix + ESA.FDValid + FileExtension.HTML;
+			TextFileUtils.write(base_dir, output_filename, html_code);
+			break;
+		}
+
+		long end = System.currentTimeMillis();
+		System.out.println("Insertion time: " + (end - start));
+	}
+	
 	
 	public static List<String> setRuleFilenames() {
 		List<String> ret = Project.getDefaultRuleFilenames();
