@@ -207,7 +207,7 @@ public class FSMExtender extends Modeler {
 		else {
 			StringUtils.printError(this, "Cannot identify enable/disable statement",
 					"[Class: " + node.getAstNode().getClass().toString() + "] " + node.getAstNode().toSource() + "\n" +
-					node.getAstNode().getParent().toSource() + " (" + node.getAstNode().getLineno() + "," + node.getAstNode().getPosition() + ")"
+					node.getAstNode().getParent().getParent().toSource() + " (" + node.getAstNode().getLineno() + "," + node.getAstNode().getPosition() + ")"
 					);
 		}
 	}
@@ -369,9 +369,28 @@ public class FSMExtender extends Modeler {
 			callGraph.addEdge(edge);
 //			TextFileUtils.registSnapchot(callGraph.toDot());
 		}
+		// Target(..., {..., trigger: callback, ...}, ...)
+		else if(node.getAstNode().getParent() instanceof ObjectProperty &&
+				((ObjectProperty)node.getAstNode().getParent()).getLeft() == node.getAstNode() &&
+				node.getAstNode().getParent().getParent() instanceof ObjectLiteral &&
+				node.getAstNode().getParent().getParent().getParent() instanceof FunctionCall) {
+			
+			AstNode cbAstNode = ((ObjectProperty)node.getAstNode().getParent()).getRight();
+			Node fromNode = callGraph.getNode((ObjectProperty)node.getAstNode().getParent());
+			Node toNode = callGraph.getNode(callGraph.getFunctionNode(cbAstNode));
+
+			Edge edge = new Edge(fromNode.getId(), toNode.getId());
+			
+			FunctionCall target = (FunctionCall)node.getAstNode().getParent().getParent().getParent();
+			edge.setEvent(target, node.getAstNode(), rule);
+			
+			node.setNodeType(Node.Trigger);
+			callGraph.addEdge(edge);
+//			TextFileUtils.registSnapchot(callGraph.toDot());
+		}
 		
 		else {
-			StringUtils.printError(this, "Cannot identify interaction", 
+			StringUtils.printError(this, "2: Cannot identify interaction", 
 					"[Class: " + node.getAstNode().getClass().toString() + "] " + node.getAstNode().toSource() + "\n" +
 					node.getAstNode().toSource() + " (" + node.getAstNode().getLineno() + "," + node.getAstNode().getPosition() + ")"
 					);

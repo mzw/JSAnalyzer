@@ -212,6 +212,16 @@ public class FiniteStateMachine extends SerializableElement {
 				ret.add(event.getId());
 			}
 			
+			/// hard cording
+			if(event != null && !ret.contains(event.getId()) &&
+				("click".equals(event.getEvent()) ||
+					"change".equals(event.getEvent()) ||
+					"onchange".equals(event.getEvent()) ||
+					false)) {
+				System.out.println("Find@FSM#getUserEventIdList: " + event.getEvent());
+				ret.add(event.getId());
+			}
+			
 		}
 		
 		return ret;

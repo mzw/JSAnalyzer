@@ -176,8 +176,8 @@ public class NuSMV extends ModelChecker {
 
 	/**
 	 * Executes NuSMV
-	 * @param spec Given specication (based on Ajax design patterns)
-	 * @throws IOException Writes SMV model with this specification in local file syste
+	 * @param spec Given specification (based on Ajax design patterns)
+	 * @throws IOException Writes SMV model with this specification in local file system
 	 * @throws InterruptedException For timeout
 	 */
 	private void runNuSMV(Specification spec) throws IOException, InterruptedException {

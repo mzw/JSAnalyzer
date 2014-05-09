@@ -1,6 +1,7 @@
 Test
 jp.mzw.jsanalyzer.config
 jp.mzw.jsanalyzer.core
+jp.mzw.jsanalyzer.core.cs
 jp.mzw.jsanalyzer.core.examples
 jp.mzw.jsanalyzer.formulator
 jp.mzw.jsanalyzer.formulator.adp
@@ -14,6 +15,11 @@ jp.mzw.jsanalyzer.modeler.model.graph
 jp.mzw.jsanalyzer.modeler.model.interaction
 jp.mzw.jsanalyzer.parser
 jp.mzw.jsanalyzer.preventer
+jp.mzw.jsanalyzer.preventer.insert_delay_ajax
+jp.mzw.jsanalyzer.preventer.test
+jp.mzw.jsanalyzer.preventer.test.cs2020m
+jp.mzw.jsanalyzer.preventer.test.esa
+jp.mzw.jsanalyzer.preventer.test.ucdchina
 jp.mzw.jsanalyzer.rule
 jp.mzw.jsanalyzer.serialize
 jp.mzw.jsanalyzer.serialize.model

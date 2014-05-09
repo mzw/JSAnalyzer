@@ -3,9 +3,9 @@ package jp.mzw.jsanalyzer.preventer.insert_delay_ajax;
 import com.google.common.base.Preconditions;
 
 /**
- * JavaScriptの場所を指し示すためのデータクラス
- * JavaScriptは1つのファイルとして存在する(LocationType.INDEPENDENT_FILE)もしくは
- * HTMLの中のscriptタグ中にインラインで書かれている(LocationType.INLINE)とする．
+ * Data class for indicating JavaScript locations
+ * LocationType.INDEPENDENT_FILE: JavaScript is located at an external file. Otherwise,
+ * LocationType.INLINE: JavaScript is located in an inline of HTML script
  */
 
 /**
@@ -13,7 +13,7 @@ import com.google.common.base.Preconditions;
  */
 public class JavaScriptLocation {
     /**
-     * JavaScriptがどこにあるのかを示すための型
+     * Types for indicating JavaScript locations
      */
     public enum LocationType {INDEPENDENT_FILE, INLINE};
 
@@ -29,7 +29,7 @@ public class JavaScriptLocation {
     }
 
     /**
-     * @return 1つのJavaScriptファイルに対応したインスタンス
+     * @return An instance corresponding to an external JavaScript file
      */
     static public JavaScriptLocation jsFile(String pathToJsFile) {
         return new JavaScriptLocation(
@@ -37,10 +37,9 @@ public class JavaScriptLocation {
     }
 
     /**
-     * @param pathToHtmlFile JavaScriptを含むHTMLファイルへのパス
-     * @param scriptTagIndex 対象とするscriptタグは，HTML中の何番目(0はじまり)の
-     *                       scriptタグであるか
-     * @return HTML中のインラインJavaScriptに対応したインスタンス
+     * @param pathToHtmlFile A path to a HTML file containing JavaScript
+     * @param scriptTagIndex Represents an index order of the target script tag from all scripts in HTML
+     * @return An instance corresponding to an HTML-script-inline JavaScript
      */
     static public JavaScriptLocation inHtmlFile(
             String pathToHtmlFile, int scriptTagIndex) {
@@ -55,15 +54,14 @@ public class JavaScriptLocation {
     }
 
     /**
-     * @return JavaScriptが存在するファイルのパス
+     * @return A path to existing JavaScript
      */
     public String getFilePath() {
         return pathToFile;
     }
 
     /**
-     * @return HTML中のインラインJavaScriptに対して，それがHTMLファイル中の何番目の
-     * scriptタグの中にあるかを表す整数値(0はじまり)を返す．
+     * @return An index order of this JavaScript from all HTML-inline JavaScripts
      */
     public int getIndexInHtml() {
         return indexInHtml;
