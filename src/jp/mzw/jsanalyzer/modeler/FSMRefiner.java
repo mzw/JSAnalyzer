@@ -295,6 +295,7 @@ public class FSMRefiner extends Modeler {
 		} else {
 			curState.visit();
 		}
+
 		
 		/// Inherits previous context
 		List<EnDisable> curContext = new ArrayList<EnDisable>();
@@ -325,6 +326,7 @@ public class FSMRefiner extends Modeler {
 				return;
 			}
 		}
+		
 		
 		/// Goes to next states if no disabled interactions at currect state
 		for(Transition trans : fsm.getTransListFrom(curState.getId())) {

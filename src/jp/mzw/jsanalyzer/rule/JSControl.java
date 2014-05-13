@@ -46,8 +46,6 @@ public class JSControl extends Control {
 	}
 	
 	public boolean disabled(String prop, String value) {
-		System.out.println("\t\t\tfunc: " + this.getKeyword());
-		
 		String script = this.mDisabled;
 		script = script.replaceAll("<prop>", prop);
 		script = script.replaceAll("<value>", value);
