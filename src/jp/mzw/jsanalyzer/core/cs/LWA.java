@@ -18,7 +18,7 @@ public class LWA extends Project {
 	
 
 	public static void main(String[] args) {
-		Project project = LWA.getProject(CS2020m.Original);
+		Project project = LWA.getProject(LWA.Original);
 		Analyzer analyzer = new Analyzer(project);
 		
 		Modeler modeler = new Modeler(analyzer);
@@ -27,13 +27,13 @@ public class LWA extends Project {
 		
 //		Verifier verifier = new Verifier(analyzer);
 //		verifier.setup();
-//		List<Specification> specList = CS2020m.getSpecList(analyzer, verifier.getExtractedFSM());
+//		List<Specification> specList = LWA.getSpecList(analyzer, verifier.getExtractedFSM());
 //		verifier.verifyIADP(specList);
 		
 //		Preventer preventer = new Preventer(analyzer);
-////		CS2020m.insertDelay(analyzer, preventer, CS2020m.UEHRegist);
-////		CS2020m.insertDelay(analyzer, preventer, CS2020m.SeedRetrieve);
-//		CS2020m.insertDelay(analyzer, preventer, CS2020m.ValidateLogin);
+////		LWA.insertDelay(analyzer, preventer, CS2020m.UEHRegist);
+////		LWA.insertDelay(analyzer, preventer, CS2020m.SeedRetrieve);
+//		LWA.insertDelay(analyzer, preventer, CS2020m.ValidateLogin);
 		
 	}
 	

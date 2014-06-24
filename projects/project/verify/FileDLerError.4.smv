@@ -61,4 +61,4 @@ VAR
 
 ----- Specifications are below -----
 
-SPEC !E[!((app.state = JSAnalyzer_0000000938 | app.state = JSAnalyzer_0000000940 | app.state = JSAnalyzer_0000000944) & !(app.state = JSAnalyzer_0000000322)) U ((app.state = JSAnalyzer_0000000322) & !((app.state = JSAnalyzer_0000000938 | app.state = JSAnalyzer_0000000940 | app.state = JSAnalyzer_0000000944) & !(app.state = JSAnalyzer_0000000322)))]
+SPEC AG(!(app.state = JSAnalyzer_0000000451))

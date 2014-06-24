@@ -19,7 +19,7 @@ import jp.mzw.jsanalyzer.verifier.specification.Specification;
 public class UCDChina extends Project {
 	
 	public static void main(String[] args) {
-		Project project = UCDChina.getProject(UCDChina.Original);
+		Project project = UCDChina.getProject(UCDChina.Debug1);
 		Analyzer analyzer = new Analyzer(project);
 		
 //		Modeler modeler = new Modeler(analyzer);
@@ -45,7 +45,10 @@ public class UCDChina extends Project {
 	public static final int
 		Original = 0,
 		UEHRegist = 1,
-		FDValid = 2;
+		FDValid = 2,
+		///
+		Debug = 10,
+		Debug1 = 11;
 	
 	public static UCDChina getProject(int ver) {
 		switch(ver) {
@@ -55,6 +58,10 @@ public class UCDChina extends Project {
 			return new UCDChina("UCDChina.UEHRegist", "http://localhost/~yuta/research/cs/ucdchina/0.origin/ucdchina.html.ver.1.html");
 		case UCDChina.FDValid:
 			return new UCDChina("UCDChina.FDValid", "http://localhost/~yuta/research/cs/ucdchina/0.origin/ucdchina.html.ver.2.html");
+		case UCDChina.Debug:
+			return new UCDChina("UCDChina.Debug", "http://localhost/~yuta/research/cs/ucdchina/10.debug/ucdchina.html");
+		case UCDChina.Debug1:
+			return new UCDChina("UCDChina.Debug1", "http://localhost/~yuta/research/cs/ucdchina/10.debug/ucdchina.html.ver.1.html");
 		}
 		return null;
 	}
@@ -145,11 +152,22 @@ public class UCDChina extends Project {
 		/// b/c keyword "onblur=checkInput" at NerdyData
 		
 		/// FDValid
-		String checkInput = fsm.getFuncId("checkInput", 1, 0);
-		String goSearch = fsm.getFuncId("sendMail", 1, 0);
+		/// for original 
+//		String checkInput = NuSMV.genOr(fsm.getFuncIdList("checkInput"));
+//		String checkInput = NuSMV.genExpr(fsm.getFuncId("checkInput", 1, 0));
+//		String sendMail = NuSMV.genExpr(fsm.getFuncId("sendMail", 1, 0));
+		
+		/// for debug
+//		String checkInput = NuSMV.genExpr(fsm.getFuncId("checkInput", 8, 9));
+//		String sendMail = NuSMV.genExpr(fsm.getFuncId("sendMail", 66, 7));
+
+		/// for debug1
+		String checkInput = NuSMV.genExpr(fsm.getFuncId("checkInput", 8, 9));
+		String sendMail = NuSMV.genExpr(fsm.getFuncId("sendMail", 66, 7));
+		
 		
 		Property pFDValid = Property.getPropertyByNameAbbr("FDValid").clone();
-		pFDValid.setTemplateVariables(NuSMV.genExpr(goSearch), NuSMV.genExpr(checkInput), null, null);
+		pFDValid.setTemplateVariables(sendMail, checkInput, null, null);
 		ret.add(new Specification(pFDValid));
 
 		

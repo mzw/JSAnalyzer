@@ -38,7 +38,7 @@ public class SRWait extends Property {
 		}
 		
 		String template = this.mPropertyPattern.getCTLTemplate();
-		String formula = template.replace("$P", this.mP).replace("$S", "EX " + this.mS);
+		String formula = template.replace("$P", this.mP).replace("$S", this.mS);
 		
 		return formula;
 	}

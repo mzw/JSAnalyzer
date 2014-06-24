@@ -36,14 +36,14 @@ public class ESA extends Project {
 //		jp.mzw.jsanalyzer.modeler.model.fsm.FiniteStateMachine fsm = modeler.extract();
 //		Serializer.serialze(analyzer, fsm);
 		
-//		Verifier verifier = new Verifier(analyzer);
-////		verifier.setup();
-//		List<Specification> specList = ESA.getSpecList(analyzer, verifier.getExtractedFSM());
-//		verifier.verifyIADP(specList);
+		Verifier verifier = new Verifier(analyzer);
+//		verifier.setup();
+		List<Specification> specList = ESA.getSpecList(analyzer, verifier.getExtractedFSM());
+		verifier.verifyIADP(specList);
 
-		Preventer preventer = new Preventer(analyzer);
-//		ESA.insertDelay(analyzer, preventer, ESA.UEHRegist);
-		ESA.insertDelay(analyzer, preventer, ESA.FDValid);
+//		Preventer preventer = new Preventer(analyzer);
+////		ESA.insertDelay(analyzer, preventer, ESA.UEHRegist);
+//		ESA.insertDelay(analyzer, preventer, ESA.FDValid);
 	}
 	
 	private ESA(String projName, String projUrl) {
@@ -55,7 +55,9 @@ public class ESA extends Project {
 	public static final int
 		Original = 0,
 		UEHRegist = 1,
-		FDValid = 2;
+		FDValid = 2,
+		///
+		Debug = 10;
 	
 	public static ESA getProject(int ver) {
 		switch(ver) {
@@ -162,11 +164,13 @@ public class ESA extends Project {
 		/// b/c keyword "onsubmit=validate" at NerdyData
 		
 		/// FDValid
-		String onsubmit = fsm.getEventId("onsubmit", 0, 0);
+//		String onsubmit = fsm.getEventId("onsubmit", 0, 0);
+		String submit = fsm.getFuncId("document.gsearch.submit", 10, 0);
 		String validate = fsm.getFuncId("validate", 13, 727);
 		
+		
 		Property pFDValid = Property.getPropertyByNameAbbr("FDValid").clone();
-		pFDValid.setTemplateVariables(NuSMV.genExpr(onsubmit), NuSMV.genExpr(validate), null, null);
+		pFDValid.setTemplateVariables(NuSMV.genExpr(submit), NuSMV.genExpr(validate), null, null);
 		ret.add(new Specification(pFDValid));
 
 		

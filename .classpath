@@ -1,59 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="jar/CSSParser/cssparser-0.9.7.jar"/>
-	<classpathentry kind="lib" path="jar/jsoup/jsoup-1.7.1.jar"/>
-	<classpathentry kind="lib" path="jar/Rhino/js-14.jar"/>
-	<classpathentry kind="lib" path="jar/Rhino/js.jar"/>
-	<classpathentry kind="lib" path="jar/Grappa/grappa1_2.jar"/>
-	<classpathentry kind="lib" path="jar/SAC/sac.jar"/>
-	<classpathentry kind="lib" path="jar/Xerces/serializer.jar"/>
-	<classpathentry kind="lib" path="jar/Xerces/xercesImpl.jar"/>
-	<classpathentry kind="lib" path="jar/Xerces/xml-apis.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/selenium-java-2.31.0.jar"/>
-	<classpathentry kind="lib" path="jar/JUnit/junit-4.11.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/apache-mime4j-0.6.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/bsh-1.3.0.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/cglib-nodep-2.1_3.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/commons-codec-1.6.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/commons-collections-3.2.1.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/commons-exec-1.1.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/commons-io-2.2.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/commons-jxpath-1.3.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/commons-lang3-3.1.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/cssparser-0.9.8.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/cssparser-0.9.9.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/guava-14.0.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/hamcrest-core-1.3.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/hamcrest-library-1.3.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/htmlunit-2.11.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/htmlunit-2.12.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/htmlunit-core-js-2.11.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/htmlunit-core-js-2.12.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/httpclient-4.2.1.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/httpcore-4.2.1.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/httpmime-4.2.1.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/ini4j-0.5.2.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/jcommander-1.29.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/jetty-websocket-8.1.8.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/jna-3.4.0.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/jna-platform-3.4.0.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/json-20080701.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/junit-dep-4.11.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/nekohtml-1.9.17.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/netty-3.5.7.Final.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/operadriver-1.2.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/operadriver-1.3.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/phantomjsdriver-1.0.1.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/phantomjsdriver-1.0.3.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/protobuf-java-2.4.1.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/sac-1.3.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/serializer-2.7.1.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/testng-6.8.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/xalan-2.7.1.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/xercesImpl-2.10.0.jar"/>
-	<classpathentry kind="lib" path="jar/Selenium/libs/xml-apis-1.4.01.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry including="**/*.java" kind="src" output="target/classes" path="src">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>

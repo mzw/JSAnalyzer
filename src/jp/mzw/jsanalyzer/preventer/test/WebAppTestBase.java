@@ -74,7 +74,8 @@ public class WebAppTestBase {
 
     @After
     public void closeBrowser() {
-        driver.close();
+//        driver.close();
+        driver.quit();
     }
 
     protected void gotoUrl(String url) {
@@ -119,5 +120,24 @@ public class WebAppTestBase {
     protected void waitAndClickElementLocated(By by) throws TimeoutException {
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         driver.findElement(by).click();
+    }
+
+    protected void waitAndSendKeysToElementLocated(By by, String keys) throws TimeoutException {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        driver.findElement(by).sendKeys(keys);
+    }
+
+    protected void waitAndClearKeysToElementLocated(By by) throws TimeoutException {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        driver.findElement(by).clear();
+    }
+    
+
+	protected static void sleep(int microtime) {
+        try {
+            Thread.sleep(microtime);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
