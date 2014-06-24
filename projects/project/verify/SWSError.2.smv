@@ -1,0 +1,48 @@
+MODULE App
+VAR
+	state : {
+		-- States
+		JSAnalyzer_0000000025, JSAnalyzer_0000000755, JSAnalyzer_0000000815, JSAnalyzer_0000000883, JSAnalyzer_0000000889, JSAnalyzer_0000000893, JSAnalyzer_0000000956, JSAnalyzer_0000000896, 
+		JSAnalyzer_0000002374, -- Exit state ID
+		-- Virtual events
+		JSAnalyzer_0000001190, JSAnalyzer_0000001192, JSAnalyzer_0000001194, JSAnalyzer_0000001196, JSAnalyzer_0000001198, JSAnalyzer_0000001202, JSAnalyzer_0000001200, 
+		__empty__};
+ASSIGN
+	init(state) := JSAnalyzer_0000000025;
+	next(state) := case
+		state = JSAnalyzer_0000000025 : {JSAnalyzer_0000001190, JSAnalyzer_0000000025};
+		state = JSAnalyzer_0000001190 : JSAnalyzer_0000000755;
+		state = JSAnalyzer_0000000755 : {JSAnalyzer_0000001192, JSAnalyzer_0000001194, JSAnalyzer_0000001196, JSAnalyzer_0000001198, JSAnalyzer_0000000755};
+		state = JSAnalyzer_0000001192 : JSAnalyzer_0000000815;
+		state = JSAnalyzer_0000001194 : JSAnalyzer_0000000815;
+		state = JSAnalyzer_0000001196 : JSAnalyzer_0000000815;
+		state = JSAnalyzer_0000001198 : JSAnalyzer_0000000883;
+		state = JSAnalyzer_0000000815 : {JSAnalyzer_0000001192, JSAnalyzer_0000001194, JSAnalyzer_0000001196, JSAnalyzer_0000001198, JSAnalyzer_0000000815};
+		state = JSAnalyzer_0000001192 : JSAnalyzer_0000000815;
+		state = JSAnalyzer_0000001194 : JSAnalyzer_0000000815;
+		state = JSAnalyzer_0000001196 : JSAnalyzer_0000000815;
+		state = JSAnalyzer_0000001198 : JSAnalyzer_0000000883;
+		state = JSAnalyzer_0000000883 : {JSAnalyzer_0000000889, JSAnalyzer_0000000893};
+		state = JSAnalyzer_0000000889 : {JSAnalyzer_0000001202, JSAnalyzer_0000001192, JSAnalyzer_0000001194, JSAnalyzer_0000001196, JSAnalyzer_0000001198, JSAnalyzer_0000000889};
+		state = JSAnalyzer_0000001202 : JSAnalyzer_0000000956;
+		state = JSAnalyzer_0000001192 : JSAnalyzer_0000000815;
+		state = JSAnalyzer_0000001194 : JSAnalyzer_0000000815;
+		state = JSAnalyzer_0000001196 : JSAnalyzer_0000000815;
+		state = JSAnalyzer_0000001198 : JSAnalyzer_0000000883;
+		state = JSAnalyzer_0000000893 : {JSAnalyzer_0000001200, JSAnalyzer_0000000893};
+		state = JSAnalyzer_0000001200 : JSAnalyzer_0000000896;
+		state = JSAnalyzer_0000000956 : {JSAnalyzer_0000002374};
+		state = JSAnalyzer_0000000896 : {JSAnalyzer_0000001192, JSAnalyzer_0000001194, JSAnalyzer_0000001196, JSAnalyzer_0000001198, JSAnalyzer_0000000896};
+		state = JSAnalyzer_0000001192 : JSAnalyzer_0000000815;
+		state = JSAnalyzer_0000001194 : JSAnalyzer_0000000815;
+		state = JSAnalyzer_0000001196 : JSAnalyzer_0000000815;
+		state = JSAnalyzer_0000001198 : JSAnalyzer_0000000883;
+		TRUE : state;
+		esac;
+MODULE main
+VAR
+	app : App;
+
+----- Specifications are below -----
+
+SPEC AG(!((app.state = JSAnalyzer_0000000883) & EX EX (app.state = JSAnalyzer_0000001198)))

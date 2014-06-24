@@ -1,0 +1,32 @@
+digraph FSM {
+JSAnalyzer_0000000025;
+JSAnalyzer_0000000755;
+JSAnalyzer_0000000815;
+JSAnalyzer_0000000883;
+JSAnalyzer_0000000889;
+JSAnalyzer_0000000893;
+JSAnalyzer_0000000956;
+JSAnalyzer_0000000896;
+JSAnalyzer_0000000883 -> JSAnalyzer_0000000889 []
+JSAnalyzer_0000000883 -> JSAnalyzer_0000000893 []
+JSAnalyzer_0000000025 -> JSAnalyzer_0000000755 [label="onload"]
+JSAnalyzer_0000000755 -> JSAnalyzer_0000000815 [label="onchange"]
+JSAnalyzer_0000000755 -> JSAnalyzer_0000000815 [label="onchange"]
+JSAnalyzer_0000000755 -> JSAnalyzer_0000000815 [label="onchange"]
+JSAnalyzer_0000000755 -> JSAnalyzer_0000000883 [label="onclick"]
+JSAnalyzer_0000000815 -> JSAnalyzer_0000000815 [label="onchange"]
+JSAnalyzer_0000000815 -> JSAnalyzer_0000000815 [label="onchange"]
+JSAnalyzer_0000000815 -> JSAnalyzer_0000000815 [label="onchange"]
+JSAnalyzer_0000000815 -> JSAnalyzer_0000000883 [label="onclick"]
+JSAnalyzer_0000000889 -> JSAnalyzer_0000000956 [label="onSuccess"]
+JSAnalyzer_0000000889 -> JSAnalyzer_0000000815 [label="onchange"]
+JSAnalyzer_0000000889 -> JSAnalyzer_0000000815 [label="onchange"]
+JSAnalyzer_0000000889 -> JSAnalyzer_0000000815 [label="onchange"]
+JSAnalyzer_0000000889 -> JSAnalyzer_0000000883 [label="onclick",style=bold,color=red]
+JSAnalyzer_0000000893 -> JSAnalyzer_0000000896 [label="User Click"]
+JSAnalyzer_0000000896 -> JSAnalyzer_0000000815 [label="onchange"]
+JSAnalyzer_0000000896 -> JSAnalyzer_0000000815 [label="onchange"]
+JSAnalyzer_0000000896 -> JSAnalyzer_0000000815 [label="onchange"]
+JSAnalyzer_0000000896 -> JSAnalyzer_0000000883 [label="onclick"]
+JSAnalyzer_0000000956 -> JSAnalyzer_0000002374 []
+}
