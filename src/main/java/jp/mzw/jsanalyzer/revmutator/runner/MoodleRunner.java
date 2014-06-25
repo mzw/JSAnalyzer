@@ -22,21 +22,14 @@ import com.crawljax.plugins.proxy.WebScarabProxyPlugin;
 public class MoodleRunner extends Runner {
 	protected static final Logger LOGGER = LoggerFactory.getLogger(MoodleRunner.class);
 	
-	private static void log(String content) {
-		LOGGER.info(content);
-	}
-	
 	public static void main(String[] args) {
-		log("kore ha test desu");
-		System.out.println("kore ha test desu @stdout");
-		
 		Runner runner = new MoodleRunner();
 		runner.run();
 	}
 	
 	@Override
 	public void run() {
-		LOGGER.info("Moodle runner start");
+		LOGGER.debug("Moodle runner start");
 		
 		Project project = Moodle.getProject(Moodle.Original_2_3_1);
 		String url = project.getUrl();

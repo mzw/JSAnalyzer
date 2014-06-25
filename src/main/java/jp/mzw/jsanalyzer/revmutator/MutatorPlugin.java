@@ -18,7 +18,7 @@ import com.google.common.collect.ImmutableList;
 
 public class MutatorPlugin
 	implements PreStateCrawlingPlugin, OnNewStatePlugin, PreCrawlingPlugin, PostCrawlingPlugin, GeneratesOutput {
-	private static final Logger LOG = LoggerFactory.getLogger(MutatorPlugin.class.getName());
+	private static final Logger LOGGER = LoggerFactory.getLogger(MutatorPlugin.class);
 
 	protected String outputFolder;	
 	@Override

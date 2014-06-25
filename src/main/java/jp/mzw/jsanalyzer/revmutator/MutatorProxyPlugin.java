@@ -22,7 +22,6 @@ public class MutatorProxyPlugin extends ProxyPlugin {
 	 */
 	private Response interpret(Request req, Response res) {
 		LOGGER.info("Interpret: " + req.getURL().toString());
-		System.out.println("Interpret: " + req.getURL().toString());
 		
 		return res;
 	}

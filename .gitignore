@@ -9,5 +9,9 @@
 ## Mac OS X
 .DS_Store
 
-## WebScarab
+## Crawljax
 conversationRecords/
+
+## Slf4j
+logback-test.xml
+logs/

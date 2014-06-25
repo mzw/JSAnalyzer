@@ -41,8 +41,8 @@ public abstract class Runner {
 	protected static final boolean CLICK_ELEMENTS_IN_RANDOM_ORDER = true;
 	protected static final int MAX_STATES = 20;
 	protected static final int MAX_DEPTH = 2;
-	protected static final long WAIT_TIME_AFTER_EVENT = 5000;
-	protected static final long WAIT_TIME_AFTER_RELOAD = 5000;
+	protected static final long WAIT_TIME_AFTER_EVENT = 1000;
+	protected static final long WAIT_TIME_AFTER_RELOAD = 1000;
 	/// Proxy
 	protected static final String PROXY_HOST = "127.0.0.1";
 	protected static final int PROXY_PORT = 8084;
