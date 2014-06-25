@@ -7,7 +7,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 
-import Test.TestConstants;
 import jp.mzw.jsanalyzer.core.Analyzer;
 import jp.mzw.jsanalyzer.core.Project;
 import jp.mzw.jsanalyzer.core.cs.CS2020m;

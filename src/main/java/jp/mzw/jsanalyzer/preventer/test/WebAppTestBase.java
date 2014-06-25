@@ -22,7 +22,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import jp.mzw.jsanalyzer.config.Command;
+import jp.mzw.jsanalyzer.config.Bin;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -60,7 +60,7 @@ public class WebAppTestBase {
 
     @Before
     public void setupBrowser() throws Exception {
-    	File file = new File(Command.Firefox);
+    	File file = new File(Bin.Firefox);
     	FirefoxBinary binary = new FirefoxBinary(file);
     	FirefoxProfile profile = new FirefoxProfile();
     	/// Firefox (ver. 10.0.2 or later)

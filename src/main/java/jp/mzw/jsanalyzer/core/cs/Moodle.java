@@ -9,7 +9,7 @@ public class Moodle extends Project {
 	private Moodle(String projName, String projUrl) {
 		super(projName, projUrl,
 				Moodle.setRuleFilenames(),
-				"projects/project");
+				"projects/moodle");
 	}
 
 	public static final int
@@ -45,7 +45,8 @@ public class Moodle extends Project {
 		return "Moodle.2.3." + ver + ".Original";
 	}
 	public static String getUrl(int ver) {
-		return "http://maezawa.honiden.nii.ac.jp/yuta/research/test/moodle/moodle-v2.3." + ver + "/";
+//		return "http://maezawa.honiden.nii.ac.jp/yuta/research/test/moodle/moodle-v2.3." + ver + "/";
+		return "http://localhost/~yuta/research/test/moodle/2.3." + ver + "/";
 	}
 	
 	public static List<String> setRuleFilenames() {
@@ -55,4 +56,7 @@ public class Moodle extends Project {
 		
 		return ret;
 	}
+	
+	///
+	public static final String XPATH_LOGIN_ANCHOR = "//*[@id=\"page-header\"]/div/div/a";
 }

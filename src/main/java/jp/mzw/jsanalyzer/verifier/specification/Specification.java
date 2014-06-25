@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.jsoup.nodes.Element;
 
-import jp.mzw.jsanalyzer.config.Command;
+import jp.mzw.jsanalyzer.config.Bin;
 import jp.mzw.jsanalyzer.config.FileExtension;
 import jp.mzw.jsanalyzer.config.FilePath;
 import jp.mzw.jsanalyzer.core.Analyzer;
@@ -112,7 +112,7 @@ public class Specification {
 			String filename = analyzer.getProject().getName() + ".spec." + this.getId() + ".step." + (step) + FileExtension.Dot;
 			String output = filename + ".png";
 			
-			String[] cmd_dot = { Command.Dot, "-Tpng", filename, "-o", output };
+			String[] cmd_dot = { Bin.Dot, "-Tpng", filename, "-o", output };
 			try {
 				CommandLineUtils.exec(dir, cmd_dot);
 			} catch (IOException e) {

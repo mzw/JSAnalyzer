@@ -10,7 +10,7 @@ import org.mozilla.javascript.ast.AstNode;
 import org.mozilla.javascript.ast.FunctionCall;
 import org.mozilla.javascript.ast.FunctionNode;
 
-import jp.mzw.jsanalyzer.config.Command;
+import jp.mzw.jsanalyzer.config.Bin;
 import jp.mzw.jsanalyzer.config.FileExtension;
 import jp.mzw.jsanalyzer.config.FilePath;
 import jp.mzw.jsanalyzer.core.Analyzer;
@@ -97,7 +97,7 @@ public class Spin extends ModelChecker {
 		
 		Process proc = null;
 		TextFileUtils.write(this.mBaseDir, this.getLTLFilename(spec), spec.getFormula());
-		String[] cmd = { Command.Spin, "-F", this.getLTLFilename(spec) };
+		String[] cmd = { Bin.Spin, "-F", this.getLTLFilename(spec) };
 		try {
 			proc = Runtime.getRuntime().exec(cmd, null, new File(this.mBaseDir));
 			int proc_result = proc.waitFor();
@@ -123,7 +123,7 @@ public class Spin extends ModelChecker {
 		timeout.start();
 		
 		Process proc = null;
-		String[] cmd = { Command.Spin, "-a", "-N", this.getNCFilename(spec), this.getPromelaFilename() };
+		String[] cmd = { Bin.Spin, "-a", "-N", this.getNCFilename(spec), this.getPromelaFilename() };
 		try {
 			proc = Runtime.getRuntime().exec(cmd, null, new File(this.mBaseDir));
 			int proc_result = proc.waitFor();
@@ -150,8 +150,8 @@ public class Spin extends ModelChecker {
 		timeout.start();
 		
 		Process proc = null;
-		String[] cmd = { Command.Gcc,  "-o", "pan", "pan.c" };
-//		String[] cmd = { Command.Gcc, "-DSAFETY", "-DREACH", "-o", "pan", "pan.c" };
+		String[] cmd = { Bin.Gcc,  "-o", "pan", "pan.c" };
+//		String[] cmd = { Bin.Gcc, "-DSAFETY", "-DREACH", "-o", "pan", "pan.c" };
 		try {
 			proc = Runtime.getRuntime().exec(cmd, null, new File(this.mBaseDir));
 			int proc_result = proc.waitFor();
@@ -233,7 +233,7 @@ public class Spin extends ModelChecker {
 		String ret = "";
 
 		Process proc = null;
-		String[] cmd = { Command.Spin, "-p", "-g", "-l", "-r", "-s", "-k", this.getTrailFilename(spec), this.getPromelaFilename() };
+		String[] cmd = { Bin.Spin, "-p", "-g", "-l", "-r", "-s", "-k", this.getTrailFilename(spec), this.getPromelaFilename() };
 		try {
 			proc = Runtime.getRuntime().exec(cmd, null, new File(this.mBaseDir));
 			//proc.waitFor();

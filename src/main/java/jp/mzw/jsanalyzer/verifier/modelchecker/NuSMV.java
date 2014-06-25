@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.mzw.jsanalyzer.config.Command;
+import jp.mzw.jsanalyzer.config.Bin;
 import jp.mzw.jsanalyzer.config.FileExtension;
 import jp.mzw.jsanalyzer.config.FilePath;
 import jp.mzw.jsanalyzer.core.Analyzer;
@@ -127,7 +127,7 @@ public class NuSMV extends ModelChecker {
 				String dir = this.mAnalyzer.getProject().getDir() + FilePath.VerifyResult + FilePath.Counterexample;
 //				System.out.print("Counterexample: " );
 				int step = 0;
-				String sh = "#!" + Command.Bin + "\n";
+				String sh = "#!" + Bin.SH + "\n";
 				
 				String fromStateId = this.mFSM.getRootStateId();
 				for(String elmId : spec.getCounterexample()) {
@@ -152,7 +152,7 @@ public class NuSMV extends ModelChecker {
 					String filename = this.mAnalyzer.getProject().getName() + ".spec." + spec.getId() + ".step." + (step++) + FileExtension.Dot;
 					TextFileUtils.write(dir, filename, dot);
 					
-					sh += Command.Dot + " -Tpng " + filename + " -o " + filename + ".png\n";
+					sh += Bin.Dot + " -Tpng " + filename + " -o " + filename + ".png\n";
 				}
 //				System.out.println("");
 				
@@ -197,7 +197,7 @@ public class NuSMV extends ModelChecker {
 				content);
 		
 		Process proc = null;
-		String[] cmd = { Command.NuSMV, this.getSmvFilename(spec) };
+		String[] cmd = { Bin.NuSMV, this.getSmvFilename(spec) };
 		try {
 			proc = Runtime.getRuntime().exec(cmd, null, new File(dir));
 			int proc_result = proc.waitFor();

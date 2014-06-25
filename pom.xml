@@ -1,10 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  
+<!-- Project -->
   <groupId>jp.mzw.jsanalyzer</groupId>
   <artifactId>JSAnalyzer</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   
-  <!-- developer -->
+<!-- About Us -->
   <developers>
     <developer>
       <name>Yuta Maezawa</name>
@@ -18,7 +20,7 @@
     </developer>
   </developers>
   
-  <!-- dependencies -->
+<!-- Greatest Libraries -->
   <dependencies>
   	<dependency>
   		<groupId>com.crawljax</groupId>
@@ -112,17 +114,8 @@
     </repository>
   </repositories>
   
-  <!-- build -->
+<!-- Build Configuration -->
   <build>
-    <sourceDirectory>src</sourceDirectory>
-    <resources>
-      <resource>
-        <directory>src</directory>
-        <excludes>
-          <exclude>**/*.java</exclude>
-        </excludes>
-      </resource>
-    </resources>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>

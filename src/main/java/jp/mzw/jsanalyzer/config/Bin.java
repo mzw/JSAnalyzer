@@ -5,7 +5,7 @@ package jp.mzw.jsanalyzer.config;
  * @author Yuta Maezawa
  *
  */
-public class Command {
+public class Bin {
 	/**
 	 * A path where Spin model checker is installed
 	 */
@@ -30,7 +30,7 @@ public class Command {
 	/**
 	 * For bash file to generate graphs by using Graphviz
 	 */
-	public static final String Bin				= "/bin/sh";
+	public static final String SH				= "/bin/sh";
 	
 	/**
 	 * To execute and test Ajax apps by using Selenium WebDriver
