@@ -1,2 +1,13 @@
 /bin
 /target
+
+## Eclipse
+.classpath
+.project
+.settings/
+
+## Mac OS X
+.DS_Store
+
+## WebScarab
+conversationRecords/
