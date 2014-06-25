@@ -5,14 +5,16 @@ import java.io.File;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.crawljax.core.configuration.CrawlRules.CrawlRulesBuilder;
 import com.crawljax.core.configuration.InputSpecification;
 
 import jp.mzw.jsanalyzer.config.Bin;
 
 public abstract class Runner {
-	protected static final Logger LOGGER = LoggerFactory.getLogger(Runner.class.getName());
+	protected static final Logger LOGGER = LoggerFactory.getLogger(Runner.class);
 	
 	public abstract void run();
+	protected abstract void setClickCrawlRules(CrawlRulesBuilder crawlRulesBuilder);
 	protected abstract InputSpecification getInputSpec();
 
 	private static final String OUTPUT_DIR = "runner_output";
@@ -39,10 +41,10 @@ public abstract class Runner {
 	protected static final boolean CLICK_ELEMENTS_IN_RANDOM_ORDER = true;
 	protected static final int MAX_STATES = 20;
 	protected static final int MAX_DEPTH = 2;
-	protected static final long WAIT_TIME_AFTER_EVENT = 50;
-	protected static final long WAIT_TIME_AFTER_RELOAD = 20;
+	protected static final long WAIT_TIME_AFTER_EVENT = 5000;
+	protected static final long WAIT_TIME_AFTER_RELOAD = 5000;
 	/// Proxy
 	protected static final String PROXY_HOST = "127.0.0.1";
-	protected static final int PROXY_PORT = 8008;
+	protected static final int PROXY_PORT = 8084;
 	
 }

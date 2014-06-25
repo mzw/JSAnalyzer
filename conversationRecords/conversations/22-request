@@ -1,0 +1,10 @@
+GET http://localhost:80/~yuta/research/test/moodle/2.3.1/theme/yui_combo.php?moodle/1402396112/calendar/eventmanager/eventmanager.js HTTP/1.1
+Host: localhost
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:10.0.2) Gecko/20100101 Firefox/10.0.2
+Accept: */*
+Accept-Language: ja,en-us;q=0.7,en;q=0.3
+Accept-Encoding: gzip, deflate
+Proxy-Connection: keep-alive
+Referer: http://localhost/~yuta/research/test/moodle/2.3.1/
+Cookie: MoodleSession=pc8uamuir4l0mkvkmkfs3p3342
+

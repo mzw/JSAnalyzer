@@ -1,4 +1,3 @@
-Test
 jp.mzw.jsanalyzer.config
 jp.mzw.jsanalyzer.core
 jp.mzw.jsanalyzer.core.cs
@@ -19,7 +18,11 @@ jp.mzw.jsanalyzer.preventer.insert_delay_ajax
 jp.mzw.jsanalyzer.preventer.test
 jp.mzw.jsanalyzer.preventer.test.cs2020m
 jp.mzw.jsanalyzer.preventer.test.esa
+jp.mzw.jsanalyzer.preventer.test.moodle
 jp.mzw.jsanalyzer.preventer.test.ucdchina
+jp.mzw.jsanalyzer.revmutator
+jp.mzw.jsanalyzer.revmutator.runner
+jp.mzw.jsanalyzer.revmutator.tracer
 jp.mzw.jsanalyzer.rule
 jp.mzw.jsanalyzer.serialize
 jp.mzw.jsanalyzer.serialize.model

@@ -5,11 +5,14 @@ import java.util.concurrent.TimeUnit;
 
 import jp.mzw.jsanalyzer.core.Project;
 import jp.mzw.jsanalyzer.core.cs.Moodle;
+import jp.mzw.jsanalyzer.revmutator.MutatorPlugin;
+import jp.mzw.jsanalyzer.revmutator.MutatorProxyPlugin;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.crawljax.core.CrawljaxRunner;
+import com.crawljax.core.configuration.CrawlRules.CrawlRulesBuilder;
 import com.crawljax.core.configuration.CrawljaxConfiguration;
 import com.crawljax.core.configuration.InputSpecification;
 import com.crawljax.core.configuration.ProxyConfiguration;
@@ -17,15 +20,24 @@ import com.crawljax.core.configuration.CrawljaxConfiguration.CrawljaxConfigurati
 import com.crawljax.plugins.proxy.WebScarabProxyPlugin;
 
 public class MoodleRunner extends Runner {
-	protected static final Logger LOGGER = LoggerFactory.getLogger(MoodleRunner.class.getName());
+	protected static final Logger LOGGER = LoggerFactory.getLogger(MoodleRunner.class);
+	
+	private static void log(String content) {
+		LOGGER.info(content);
+	}
 	
 	public static void main(String[] args) {
+		log("kore ha test desu");
+		System.out.println("kore ha test desu @stdout");
+		
 		Runner runner = new MoodleRunner();
 		runner.run();
 	}
 	
 	@Override
 	public void run() {
+		LOGGER.info("Moodle runner start");
+		
 		Project project = Moodle.getProject(Moodle.Original_2_3_1);
 		String url = project.getUrl();
 		String outputdir = getOutputDir(project.getDir());
@@ -44,27 +56,32 @@ public class MoodleRunner extends Runner {
 		builder.setOutputDirectory(new File(outputdir));
 
 		/// Proxy
-		ProxyConfiguration prox = ProxyConfiguration.manualProxyOn(PROXY_HOST, PROXY_PORT);
-		builder.setProxyConfig(prox);
+		ProxyConfiguration proxy = ProxyConfiguration.manualProxyOn(PROXY_HOST, PROXY_PORT);
+		builder.setProxyConfig(proxy);
 
 		WebScarabProxyPlugin web = new WebScarabProxyPlugin();
-		/// To be implemented
-//		AstFunctionCallInstrumenter astfuncCallInst = new AstFunctionCallInstrumenter();
-//		JSCyclCompxCalc cyclo = new JSCyclCompxCalc(OUTPUT_DIR);
-//		JSModifyProxyPlugin proxyPlugin = new JSModifyProxyPlugin(astfuncCallInst, cyclo);
-//		proxyPlugin.excludeDefaults();
-//		web.addPlugin(proxyPlugin);
-//		JSFuncExecutionTracer tracer = new JSFuncExecutionTracer("funcinstrumentation");
-//		tracer.setJsFilesFolder(JS_FILES_FOLDER);
-//		builder.addPlugin(tracer);
-		///
+		MutatorProxyPlugin intercepter = new MutatorProxyPlugin();
+		intercepter.setDefaultExcludeContentList();
+		web.addPlugin(intercepter);
 		builder.addPlugin(web);
 		
+		/// My crawling plugin
+		MutatorPlugin mutator = new MutatorPlugin();
+		mutator.setOutputFolder(outputdir);
+		builder.addPlugin(mutator);
+		
 		/// Gives input specs
+		setClickCrawlRules(builder.crawlRules());
 		builder.crawlRules().setInputSpec(getInputSpec());
 		
 		CrawljaxRunner crawljax = new CrawljaxRunner(builder.build());
 		crawljax.call();
+		
+	}
+	
+	@Override
+	protected void setClickCrawlRules(CrawlRulesBuilder builder) {
+		builder.click("a").withText("Login");
 	}
 	
 	@Override
