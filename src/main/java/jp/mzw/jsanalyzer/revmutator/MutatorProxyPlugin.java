@@ -3,7 +3,12 @@ package jp.mzw.jsanalyzer.revmutator;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import jp.mzw.jsanalyzer.revmutator.tracer.HtmlExecTracer;
+
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.owasp.webscarab.httpclient.HTTPClient;
+import org.owasp.webscarab.model.HttpUrl;
 import org.owasp.webscarab.model.Request;
 import org.owasp.webscarab.model.Response;
 import org.owasp.webscarab.plugin.proxy.ProxyPlugin;
@@ -16,14 +21,35 @@ public class MutatorProxyPlugin extends ProxyPlugin {
 
 	/**
 	 * Interprets server communication data
-	 * @param req Contains raw request data
-	 * @param res Contains raw response data
+	 * @param request Contains raw request data
+	 * @param response Contains raw response data
 	 * @return
 	 */
-	private Response interpret(Request req, Response res) {
-		LOGGER.info("Interpret: " + req.getURL().toString());
+	private Response interpret(Request request, Response response) {
+		String type = response.getHeader("Content-Type");
+		if(type == null) {
+			LOGGER.info("Content type is null at response header", response);
+			return response;
+		}
 		
-		return res;
+		if(type.contains("html")) {
+			LOGGER.debug("HTML" + request.getURL());
+			
+			String html = new String(response.getContent());
+			Document doc = HtmlExecTracer.parse(html);
+			for(Element element : doc.getAllElements()) {
+				String elementId = element.attr("id");
+				if(elementId != null && !"".equals(elementId)) {
+					LOGGER.debug("Found!: element id is " + elementId);
+				}
+			}
+			
+		} else if(type.contains("javascript")) {
+			
+			
+		}
+		
+		return response;
 	}
 
 	protected ArrayList<String> mExcludeCotentList;
@@ -99,6 +125,12 @@ public class MutatorProxyPlugin extends ProxyPlugin {
 
 		@Override
 		public Response fetchResponse(Request request) throws IOException {
+			if(request.getURL() == null) {
+				LOGGER.info("[Workaround] Request is: Unitialised Request!", request);
+				request = new Request();
+				request.setURL(new HttpUrl("http://localhost"));
+				return client.fetchResponse(request);
+			}
 			return interpret(request, client.fetchResponse(request));
 		}
 	}

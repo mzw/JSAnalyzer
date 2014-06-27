@@ -24,12 +24,16 @@ public abstract class Runner {
 	}
 	
 	public enum BrowserType {
-		FIREFOX
+		FIREFOX, FIREFOX_17_0_11, FIREFOX_27_0
 	}
 	private static final String SYSTEM_PROPERTY_FIREFOX = "webdriver.firefox.bin";
 	protected static void setBrowser(BrowserType type) {
 		if(BrowserType.FIREFOX.equals(type)) {
 			System.setProperty(SYSTEM_PROPERTY_FIREFOX, Bin.Firefox);
+		} else if(BrowserType.FIREFOX_17_0_11.equals(type)) {
+			System.setProperty(SYSTEM_PROPERTY_FIREFOX, Bin.Firefox_17_0_11);
+		} else if(BrowserType.FIREFOX_27_0.equals(type)) {
+			System.setProperty(SYSTEM_PROPERTY_FIREFOX, Bin.Firefox_27_0);
 		} else {
 			LOGGER.debug("Unknown browser type", type);
 		}
@@ -41,8 +45,8 @@ public abstract class Runner {
 	protected static final boolean CLICK_ELEMENTS_IN_RANDOM_ORDER = true;
 	protected static final int MAX_STATES = 20;
 	protected static final int MAX_DEPTH = 2;
-	protected static final long WAIT_TIME_AFTER_EVENT = 1000;
-	protected static final long WAIT_TIME_AFTER_RELOAD = 1000;
+	protected static final long WAIT_TIME_AFTER_EVENT = 50;
+	protected static final long WAIT_TIME_AFTER_RELOAD = 200;
 	/// Proxy
 	protected static final String PROXY_HOST = "127.0.0.1";
 	protected static final int PROXY_PORT = 8084;

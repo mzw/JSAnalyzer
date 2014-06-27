@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import jp.mzw.jsanalyzer.core.Project;
-import jp.mzw.jsanalyzer.core.cs.Moodle;
+import jp.mzw.jsanalyzer.core.cs.Tudu;
 import jp.mzw.jsanalyzer.revmutator.MutatorPlugin;
 import jp.mzw.jsanalyzer.revmutator.MutatorProxyPlugin;
 
@@ -19,24 +19,24 @@ import com.crawljax.core.configuration.ProxyConfiguration;
 import com.crawljax.core.configuration.CrawljaxConfiguration.CrawljaxConfigurationBuilder;
 import com.crawljax.plugins.proxy.WebScarabProxyPlugin;
 
-public class MoodleRunner extends Runner {
-	protected static final Logger LOGGER = LoggerFactory.getLogger(MoodleRunner.class);
+public class TuduRunner extends Runner {
+	protected static final Logger LOGGER = LoggerFactory.getLogger(TuduRunner.class);
 	
 	public static void main(String[] args) {
-		Runner runner = new MoodleRunner();
+		Runner runner = new TuduRunner();
 		runner.run();
 	}
 	
 	@Override
 	public void run() {
-		LOGGER.debug("Moodle runner start");
+		LOGGER.debug("Tudu runner start");
 		
-		Project project = Moodle.getProject(Moodle.Original_2_3_1);
+		Project project = Tudu.getProject(Tudu.Original);
 		String url = project.getUrl();
 		String outputdir = getOutputDir(project.getDir());
 
 		CrawljaxConfigurationBuilder builder = CrawljaxConfiguration.builderFor(url);
-		setBrowser(BrowserType.FIREFOX_27_0);
+		setBrowser(BrowserType.FIREFOX);
 		///
 		builder.crawlRules().insertRandomDataInInputForms(INSERT_RANDOM_DATA_IN_INPUT_FORMS);
 		builder.crawlRules().clickElementsInRandomOrder(CLICK_ELEMENTS_IN_RANDOM_ORDER);
@@ -83,11 +83,11 @@ public class MoodleRunner extends Runner {
 
 		/// Take your greatest care: Multiple entries with same key
 		
-		String username = "admin";
-		String password = "admin-Adm1n";
+		String username = "test";
+		String password = "testtest";
 
-		input.field("username").setValue(username);
-		input.field("password").setValue(password);
+		input.field("j_username").setValue(username);
+		input.field("j_password").setValue(password);
 		
 		return input;
 	}

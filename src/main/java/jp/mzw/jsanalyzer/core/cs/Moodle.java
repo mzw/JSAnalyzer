@@ -39,14 +39,16 @@ public class Moodle extends Project {
 //			return new Moodle("Moodle.2.3.3.Original", "http://maezawa.honiden.nii.ac.jp/yuta/research/test/moodle/2.3.3/");
 //		}
 		
-		return new Moodle(getProjectName(ver), getUrl(ver));
+//		return new Moodle(getProjectName(ver), getUrl(ver));
+
+		return new Moodle("Moodle.2.3.0.Original", "http://maezawa.honiden.nii.ac.jp/yuta/research/test/moodle/moodle-v2.3.0/login/");
 	}
 	public static String getProjectName(int ver) {
 		return "Moodle.2.3." + ver + ".Original";
 	}
 	public static String getUrl(int ver) {
 //		return "http://maezawa.honiden.nii.ac.jp/yuta/research/test/moodle/moodle-v2.3." + ver + "/";
-		return "http://localhost/~yuta/research/test/moodle/2.3." + ver + "/";
+		return "http://localhost/~yuta/research/test/moodle/2.3." + ver + "/login/";
 	}
 	
 	public static List<String> setRuleFilenames() {
