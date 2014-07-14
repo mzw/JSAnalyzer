@@ -18,7 +18,7 @@ import com.google.common.collect.ImmutableList;
 
 public class MutatorPlugin
 	implements PreStateCrawlingPlugin, OnNewStatePlugin, PreCrawlingPlugin, PostCrawlingPlugin, GeneratesOutput {
-	private static final Logger LOGGER = LoggerFactory.getLogger(MutatorPlugin.class);
+	private static final Logger LOG = LoggerFactory.getLogger(MutatorPlugin.class);
 
 	protected String outputFolder;	
 	@Override
@@ -28,27 +28,27 @@ public class MutatorPlugin
 
 	@Override
 	public String getOutputFolder() {
-		return null;
+		return outputFolder;
 	}
 
 	@Override
 	public void preCrawling(CrawljaxConfiguration config) throws RuntimeException {
-		
+		LOG.debug("preCrawling");
 	}
 
 	@Override
 	public void postCrawling(CrawlSession session, ExitStatus exitReason) {
-		
+		LOG.debug("postCrawling");
 	}
 
 	@Override
 	public void onNewState(CrawlerContext context, StateVertex newState) {
-		
+		LOG.debug("onNewState");
 	}
 
 	@Override
 	public void preStateCrawling(CrawlerContext context, ImmutableList<CandidateElement> candidateElements, StateVertex state) {
-		
+		LOG.debug("preStateCrawling");
 	}
 
 }

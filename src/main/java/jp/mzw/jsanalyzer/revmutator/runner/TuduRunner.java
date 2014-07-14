@@ -3,6 +3,8 @@ package jp.mzw.jsanalyzer.revmutator.runner;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import jp.mzw.jsanalyzer.util.VersionUtils;
+import jp.mzw.jsanalyzer.util.BrowserUtils;
 import jp.mzw.jsanalyzer.core.Project;
 import jp.mzw.jsanalyzer.core.cs.Tudu;
 import jp.mzw.jsanalyzer.revmutator.MutatorPlugin;
@@ -36,7 +38,7 @@ public class TuduRunner extends Runner {
 		String outputdir = getOutputDir(project.getDir());
 
 		CrawljaxConfigurationBuilder builder = CrawljaxConfiguration.builderFor(url);
-		setBrowser(BrowserType.FIREFOX);
+		BrowserUtils.setBrowser(BrowserUtils.Type.FIREFOX, VersionUtils.get(17, 0, 11));
 		///
 		builder.crawlRules().insertRandomDataInInputForms(INSERT_RANDOM_DATA_IN_INPUT_FORMS);
 		builder.crawlRules().clickElementsInRandomOrder(CLICK_ELEMENTS_IN_RANDOM_ORDER);

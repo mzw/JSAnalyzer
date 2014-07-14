@@ -16,7 +16,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import jp.mzw.jsanalyzer.config.Bin;
+import jp.mzw.jsanalyzer.util.VersionUtils;
+import jp.mzw.jsanalyzer.util.BrowserUtils;
 import jp.mzw.jsanalyzer.core.Project;
 import jp.mzw.jsanalyzer.core.cs.UCDChina;
 import jp.mzw.jsanalyzer.preventer.test.WebAppTestBase;
@@ -25,7 +26,7 @@ public class FDValid extends WebAppTestBase {
 
     @Override
     public void setupBrowser() throws Exception {
-    	File file = new File(Bin.Firefox);
+    	File file = new File(BrowserUtils.getFirefoxBin(VersionUtils.get(10, 0, 2)));
     	FirefoxBinary binary = new FirefoxBinary(file);
     	FirefoxProfile profile = new FirefoxProfile();
         profile.setPreference("webdriver.load.strategy", "unstable");

@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MutatorProxyPlugin extends ProxyPlugin {
-	private static final Logger LOGGER = LoggerFactory.getLogger(MutatorProxyPlugin.class);
+	private static final Logger LOG = LoggerFactory.getLogger(MutatorProxyPlugin.class);
 	public static final String logbackFilePath = "/logback.xml";
 
 	/**
@@ -28,19 +28,19 @@ public class MutatorProxyPlugin extends ProxyPlugin {
 	private Response interpret(Request request, Response response) {
 		String type = response.getHeader("Content-Type");
 		if(type == null) {
-			LOGGER.info("Content type is null at response header", response);
+			LOG.info("Content type is null at response header", response);
 			return response;
 		}
 		
 		if(type.contains("html")) {
-			LOGGER.debug("HTML" + request.getURL());
+			LOG.debug("HTML: " + request.getURL());
 			
 			String html = new String(response.getContent());
 			Document doc = HtmlExecTracer.parse(html);
 			for(Element element : doc.getAllElements()) {
 				String elementId = element.attr("id");
 				if(elementId != null && !"".equals(elementId)) {
-					LOGGER.debug("Found!: element id is " + elementId);
+					LOG.debug("Found!: element id is " + elementId);
 				}
 			}
 			
@@ -126,7 +126,7 @@ public class MutatorProxyPlugin extends ProxyPlugin {
 		@Override
 		public Response fetchResponse(Request request) throws IOException {
 			if(request.getURL() == null) {
-				LOGGER.info("[Workaround] Request is: Unitialised Request!", request);
+				LOG.info("[Workaround] Request is: Unitialised Request!", request);
 				request = new Request();
 				request.setURL(new HttpUrl("http://localhost"));
 				return client.fetchResponse(request);

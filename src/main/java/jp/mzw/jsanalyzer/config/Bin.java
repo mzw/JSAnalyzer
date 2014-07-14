@@ -32,12 +32,4 @@ public class Bin {
 	 */
 	public static final String SH				= "/bin/sh";
 	
-	/**
-	 * To execute and test Ajax apps by using Selenium WebDriver
-	 */
-	public static final String Firefox_10_0_2	= "/Users/yuta/Applications/Firefox.10.0.2.app/Contents/MacOS/firefox-bin";
-	public static final String Firefox_17_0_11	= "/Users/yuta/Applications/Firefox.17.0.11esr.app/Contents/MacOS/firefox-bin";
-	public static final String Firefox_27_0		= "/Users/yuta/Applications/Firefox.27.0.app/Contents/MacOS/firefox-bin";
-
-	public static final String Firefox			= Firefox_10_0_2;
 }

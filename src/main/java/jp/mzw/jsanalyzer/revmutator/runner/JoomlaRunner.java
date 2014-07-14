@@ -5,8 +5,8 @@ import java.util.concurrent.TimeUnit;
 
 import jp.mzw.jsanalyzer.util.VersionUtils;
 import jp.mzw.jsanalyzer.util.BrowserUtils;
+import jp.mzw.jsanalyzer.app.cs.Joomla;
 import jp.mzw.jsanalyzer.core.Project;
-import jp.mzw.jsanalyzer.core.cs.Moodle;
 import jp.mzw.jsanalyzer.revmutator.MutatorPlugin;
 import jp.mzw.jsanalyzer.revmutator.MutatorProxyPlugin;
 
@@ -25,31 +25,20 @@ import com.crawljax.core.configuration.CrawljaxConfiguration.CrawljaxConfigurati
 import com.crawljax.plugins.proxy.WebScarabProxyPlugin;
 import com.crawljax.core.CandidateElementExtractor;
 
-public class MoodleRunner extends Runner {
-	protected static final Logger LOG = LoggerFactory.getLogger(MoodleRunner.class);
+public class JoomlaRunner extends Runner {
+	protected static final Logger LOG = LoggerFactory.getLogger(JoomlaRunner.class);
 	
 	public static void main(String[] args) {
-		Runner runner = new MoodleRunner();
+		Runner runner = new JoomlaRunner();
 		runner.run();
-	}
-	
-	public static void test() {
-		Project project = Moodle.getProject(Moodle.Original_2_3_1);
-		String url = project.getUrl();
-		
-		CrawljaxRunner crawljax =
-		        new CrawljaxRunner(CrawljaxConfiguration.builderFor(url)
-		                .build());
-		crawljax.call();
 	}
 	
 	@Override
 	public void run() {
-		LOG.debug("Moodle runner start");
+		LOG.debug("Joomla runner start");
 		
-		Project project = Moodle.getProject(Moodle.Original_2_3_1);
+		Project project = Joomla.getProject(VersionUtils.get(3, 3, 1));
 		String url = project.getUrl();
-//		String url = "http://demo.crawljax.com/";
 		String outputdir = getOutputDir(project.getDir());
 
 		CrawljaxConfigurationBuilder builder = CrawljaxConfiguration.builderFor(url);
@@ -61,32 +50,28 @@ public class MoodleRunner extends Runner {
 		builder.crawlRules().waitAfterEvent(WAIT_TIME_AFTER_EVENT, TimeUnit.MILLISECONDS);
 		///
 		builder.crawlRules().clickDefaultElements();
-//		builder.crawlRules().click("div");
-//		setClickCrawlRules(builder.crawlRules());
+		setClickCrawlRules(builder.crawlRules());
 		builder.crawlRules().setInputSpec(getInputSpec());
-//		InputSpecification input = new InputSpecification();
-//		input.field("username").setValue("admin-Adm1n");
-//		builder.crawlRules().setInputSpec(input);
 		///
 		builder.setMaximumStates(MAX_STATES);
 		builder.setMaximumDepth(MAX_DEPTH);
 		builder.setOutputDirectory(new File(outputdir));
 
 		/// Proxy
-//		ProxyConfiguration proxy = ProxyConfiguration.manualProxyOn(PROXY_HOST, PROXY_PORT);
-//		builder.setProxyConfig(proxy);
-//
-//		/// WebScarab
-//		WebScarabProxyPlugin web = new WebScarabProxyPlugin();
-//		MutatorProxyPlugin intercepter = new MutatorProxyPlugin();
-//		intercepter.setDefaultExcludeContentList();
-//		web.addPlugin(intercepter);
-//		builder.addPlugin(web);
+		ProxyConfiguration proxy = ProxyConfiguration.manualProxyOn(PROXY_HOST, PROXY_PORT);
+		builder.setProxyConfig(proxy);
+
+		/// WebScarab
+		WebScarabProxyPlugin web = new WebScarabProxyPlugin();
+		MutatorProxyPlugin intercepter = new MutatorProxyPlugin();
+		intercepter.setDefaultExcludeContentList();
+		web.addPlugin(intercepter);
+		builder.addPlugin(web);
 		
 		/// My crawling plugin
-//		MutatorPlugin mutator = new MutatorPlugin();
-//		mutator.setOutputFolder(outputdir);
-//		builder.addPlugin(mutator);
+		MutatorPlugin mutator = new MutatorPlugin();
+		mutator.setOutputFolder(outputdir);
+		builder.addPlugin(mutator);
 		
 		/// Running Browser
 		BrowserUtils.setBrowser(BrowserUtils.Type.FIREFOX, VersionUtils.get(17, 0, 11));
@@ -100,25 +85,17 @@ public class MoodleRunner extends Runner {
 	@Override
 	protected void setClickCrawlRules(CrawlRulesBuilder builder) {
 //		builder.click("a").withText("Login");
-		builder.click("input").withAttribute("id", "loginbtn");
+//		builder.click("input").withAttribute("id", "loginbtn");
 	}
 	
 	@Override
 	protected InputSpecification getInputSpec() {
 		InputSpecification input = new InputSpecification();
-
-		/// Take your greatest care: Multiple entries with same key
-		
-//		String username = "admin";
-//		String password = "admin-Adm1n";
-//
-//		input.field("username").setValue(username);
-//		input.field("password").setValue(password);
 		
 		Form loginForm = new Form();
-		loginForm.field("username").setValue("admin");
-		loginForm.field("password").setValue("admin-Adm1n");
-		input.setValuesInForm(loginForm).beforeClickElement("input").withAttribute("id", "loginbtn");
+		loginForm.field("modlgn-username").setValue("test");
+		loginForm.field("modlgn-passwd").setValue("testtest");
+		input.setValuesInForm(loginForm).beforeClickElement("button").withText("Log in");
 		
 		return input;
 	}

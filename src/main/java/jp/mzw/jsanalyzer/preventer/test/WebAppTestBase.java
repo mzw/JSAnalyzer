@@ -17,12 +17,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import jp.mzw.jsanalyzer.config.Bin;
+import jp.mzw.jsanalyzer.util.VersionUtils;
+import jp.mzw.jsanalyzer.util.BrowserUtils;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -60,7 +60,7 @@ public class WebAppTestBase {
 
     @Before
     public void setupBrowser() throws Exception {
-    	File file = new File(Bin.Firefox);
+    	File file = new File(BrowserUtils.getFirefoxBin(VersionUtils.get(10, 0, 2)));
     	FirefoxBinary binary = new FirefoxBinary(file);
     	FirefoxProfile profile = new FirefoxProfile();
     	/// Firefox (ver. 10.0.2 or later)
