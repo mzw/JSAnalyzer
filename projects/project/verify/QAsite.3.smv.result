@@ -13,4 +13,4 @@
 *** See http://www.cs.chalmers.se/Cs/Research/FormalMethods/MiniSat
 *** Copyright (c) 2003-2005, Niklas Een, Niklas Sorensson 
 
--- specification !E [ !(EX TRUE) U (app.state = JSAnalyzer_0000000105 & !(EX TRUE)) ]   is true
+-- specification !E [ !TRUE U (app.state = JSAnalyzer_0000000121 & !TRUE) ]   is true

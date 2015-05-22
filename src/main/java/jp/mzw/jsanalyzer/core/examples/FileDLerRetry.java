@@ -6,6 +6,9 @@ import java.util.List;
 import jp.mzw.jsanalyzer.core.Analyzer;
 import jp.mzw.jsanalyzer.core.Project;
 import jp.mzw.jsanalyzer.formulator.property.Property;
+import jp.mzw.jsanalyzer.formulator.property.UEHSingle;
+import jp.mzw.jsanalyzer.modeler.Modeler;
+import jp.mzw.jsanalyzer.serialize.Serializer;
 import jp.mzw.jsanalyzer.serialize.model.FiniteStateMachine;
 import jp.mzw.jsanalyzer.verifier.Verifier;
 import jp.mzw.jsanalyzer.verifier.modelchecker.NuSMV;
@@ -15,7 +18,7 @@ public class FileDLerRetry extends Project {
 	
 	
 	public static void main(String[] args) {
-		Project project = new FileDLerError();
+		Project project = new FileDLerRetry();
 		Analyzer analyzer = new Analyzer(project);
 		
 //		Modeler modeler = new Modeler(analyzer);
@@ -27,13 +30,13 @@ public class FileDLerRetry extends Project {
 		
 		Verifier verifier = new Verifier(analyzer);
 //		verifier.setup();
-		List<Specification> specList = FileDLerError.getSpecList(analyzer, verifier.getExtractedFSM());
+		List<Specification> specList = FileDLerRetry.getSpecList(analyzer, verifier.getExtractedFSM());
  		verifier.verifyIADP(specList);
 	}
 
 	public FileDLerRetry() {
 		super("FileDLerRetry",
-				"http://mzw.jp/research/ex/fd/motivatingExample.retry.correct.html",
+				"http://mzw.jp/yuta/research/ex/fd/motivatingExample.retry.correct.html",
 				FileDLerCorrect.setRuleFilenames(),
 				"projects/project");
 	}
@@ -75,8 +78,9 @@ public class FileDLerRetry extends Project {
 		ret.add(new Specification(pUEHRegist));
 		
 		/// UEHSingle
-		Property pUEHSingle = Property.getPropertyByNameAbbr("UEHSingle").clone();
-		pUEHSingle.setTemplateVariables(NuSMV.genOr(fsm.getFuncIdList("doDownload")), NuSMV.genOr(fsm.getEventIdList("onclick")), null, null);
+		UEHSingle pUEHSingle = new UEHSingle();
+//		pUEHSingle.setTemplateVariables(NuSMV.genOr(fsm.getFuncIdList("doDownload")), NuSMV.genOr(fsm.getEventIdList("onclick")), true);
+		pUEHSingle.setTemplateVariables(NuSMV.genOr(fsm.getFuncIdList("doDownload")), NuSMV.genOr(fsm.getUserEventIdList(analyzer)), false);
 		ret.add(new Specification(pUEHSingle));
 		
 		return ret;

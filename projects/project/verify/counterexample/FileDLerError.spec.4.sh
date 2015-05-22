@@ -11,3 +11,4 @@
 /usr/local/bin/dot -Tpng FileDLerError.spec.4.step.9.dot -o FileDLerError.spec.4.step.9.dot.png
 /usr/local/bin/dot -Tpng FileDLerError.spec.4.step.10.dot -o FileDLerError.spec.4.step.10.dot.png
 /usr/local/bin/dot -Tpng FileDLerError.spec.4.step.11.dot -o FileDLerError.spec.4.step.11.dot.png
+/usr/local/bin/dot -Tpng FileDLerError.spec.4.step.12.dot -o FileDLerError.spec.4.step.12.dot.png

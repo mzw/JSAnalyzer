@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Shopping Website | Conference registration</title>
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/myscript.js"></script>
+<script type="text/javascript"><!--//
+window.onload = setEventHandlers;
+function setEventHandlers() {
+	document.getElementById("reg_type").onchange = calcPrice;
+	document.getElementById("reg_attendee").onchange = calcPrice;
+	document.getElementById("reg_payment").addEventListener("change", calcPrice);
+//	$("#addcart").click(addCart);
+	document.getElementById("addcart").onclick = addCart;
+};
+
+function calcPrice() {
+	var value = document.getElementById("reg_type").value;
+	/* Calculate and display total price */
+	calculate_and_display_total_price();
+};
+
+function addCart() {
+//	disableAddCart(); // fault
+
+	if(isValidInput()) {
+		reqRunTrans();
+	} else {
+		alert("Invalid user inputs");
+//		enableAddCart(); // fault
+	};
+};
+
+function reqRunTrans() {
+	jQuery.ajax({
+		url: "runTrans_quick.php",
+		data: getParams(),
+		success: succeeded
+	});
+}
+
+function enableAddCart() {
+	var addcart = document.getElementById("addcart");
+	addcart.disabled = false;
+};
+
+function disableAddCart() {
+	var addcart = document.getElementById("addcart");
+	addcart.disabled = true;
+};
+
+function succeeded() {
+	disableAll();
+	jumpToConfirm();
+};
+//--></script>
+</head>
+
+<body>
+
+<div id="header">
+<h1><span id="header_text">Shopping Website<span></h1>
+</div>
+
+
+<div id="item">
+<p id="item_name">FCSE 2015: Conference registration</p>
+
+<div style="float:left;">
+<div id="thumbnail_field">
+<img id="thumbnail" src="./img/thumbnail.png" />
+</div>
+</div>
+
+<div style="float:left;">
+<div id="description">
+You can register for 
+<span class="caution">"Fictional"</span> Conference on Software Engineering (FCSE) 2015
+with the following registration.
+Please contact us in case of any problems.
+</div>
+
+<div id="selection">
+<p><span>Price: $</span><span id="price">500</span>
+
+<div>Type</div>
+<select id="reg_type">
+<option id="all" value="350">All days</option>
+<option id="cnf" value="250">Conference</option>
+<option id="wsp" value="100">Workshop</option>
+</select>
+
+<div>Attendee</div>
+<select id="reg_attendee">
+<option id="reg" value="150">Regular</option>
+<option id="mem" value="75">Member</option>
+<option id="stu" value="0">Student</option>
+</select>
+
+<div>Payment</div>
+<select id="reg_payment">
+<option id="early" value="0">Early</option>
+<option id="later" value="25">Later</option>
+<option id="on-site" value="75">On site</option>
+</select>
+</div>
+
+<p>
+<span>Quantity: </span><input id="quantity" type="text" value="1"/>
+<input id="addcart" type="submit" value="Add to Cart" />
+</p>
+</div>
+
+<div style="clear:both;"></div>
+</div>
+
+
+<div id="footer">
+Shopping Website (c), 2015.
+</div>
+	</body>
+</html>

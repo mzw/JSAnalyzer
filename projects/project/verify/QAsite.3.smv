@@ -2,61 +2,61 @@ MODULE App
 VAR
 	state : {
 		-- States
-		JSAnalyzer_0000000031, JSAnalyzer_0000000055, JSAnalyzer_0000000105, JSAnalyzer_0000000127, JSAnalyzer_0000000136, JSAnalyzer_0000000153, JSAnalyzer_0000000183, JSAnalyzer_0000000240, JSAnalyzer_0000000248, JSAnalyzer_0000000253, JSAnalyzer_0000000490, JSAnalyzer_0000000256, 
-		JSAnalyzer_0000002379, -- Exit state ID
+		JSAnalyzer_0000000031, JSAnalyzer_0000000055, JSAnalyzer_0000000121, JSAnalyzer_0000000143, JSAnalyzer_0000000152, JSAnalyzer_0000000169, JSAnalyzer_0000000199, JSAnalyzer_0000000256, JSAnalyzer_0000000264, JSAnalyzer_0000000269, JSAnalyzer_0000000506, JSAnalyzer_0000000272, 
+		JSAnalyzer_0000002443, -- Exit state ID
 		-- Virtual events
-		JSAnalyzer_0000001192, JSAnalyzer_0000001194, JSAnalyzer_0000001196, JSAnalyzer_0000001198, JSAnalyzer_0000001200, JSAnalyzer_0000001202, JSAnalyzer_0000001204, JSAnalyzer_0000001208, JSAnalyzer_0000001206, 
+		JSAnalyzer_0000001224, JSAnalyzer_0000001226, JSAnalyzer_0000001228, JSAnalyzer_0000001230, JSAnalyzer_0000001232, JSAnalyzer_0000001234, JSAnalyzer_0000001236, JSAnalyzer_0000001240, JSAnalyzer_0000001238, 
 		__empty__};
 ASSIGN
 	init(state) := JSAnalyzer_0000000031;
 	next(state) := case
-		state = JSAnalyzer_0000000031 : {JSAnalyzer_0000001192, JSAnalyzer_0000000031};
-		state = JSAnalyzer_0000001192 : JSAnalyzer_0000000055;
-		state = JSAnalyzer_0000000055 : {JSAnalyzer_0000001194, JSAnalyzer_0000001196, JSAnalyzer_0000001198, JSAnalyzer_0000001200, JSAnalyzer_0000000055};
-		state = JSAnalyzer_0000001194 : JSAnalyzer_0000000127;
-		state = JSAnalyzer_0000001196 : JSAnalyzer_0000000127;
-		state = JSAnalyzer_0000001198 : JSAnalyzer_0000000183;
-		state = JSAnalyzer_0000001200 : JSAnalyzer_0000000105;
-		state = JSAnalyzer_0000000105 : {JSAnalyzer_0000001194, JSAnalyzer_0000001196, JSAnalyzer_0000001198, JSAnalyzer_0000001200, JSAnalyzer_0000000105};
-		state = JSAnalyzer_0000001194 : JSAnalyzer_0000000127;
-		state = JSAnalyzer_0000001196 : JSAnalyzer_0000000127;
-		state = JSAnalyzer_0000001198 : JSAnalyzer_0000000183;
-		state = JSAnalyzer_0000001200 : JSAnalyzer_0000000105;
-		state = JSAnalyzer_0000000127 : {JSAnalyzer_0000000136};
-		state = JSAnalyzer_0000000136 : {JSAnalyzer_0000001202, JSAnalyzer_0000001194, JSAnalyzer_0000001196, JSAnalyzer_0000001198, JSAnalyzer_0000001200, JSAnalyzer_0000000136};
-		state = JSAnalyzer_0000001202 : JSAnalyzer_0000000153;
-		state = JSAnalyzer_0000001194 : JSAnalyzer_0000000127;
-		state = JSAnalyzer_0000001196 : JSAnalyzer_0000000127;
-		state = JSAnalyzer_0000001198 : JSAnalyzer_0000000183;
-		state = JSAnalyzer_0000001200 : JSAnalyzer_0000000105;
-		state = JSAnalyzer_0000000153 : {JSAnalyzer_0000001194, JSAnalyzer_0000001196, JSAnalyzer_0000001198, JSAnalyzer_0000001200, JSAnalyzer_0000000153};
-		state = JSAnalyzer_0000001194 : JSAnalyzer_0000000127;
-		state = JSAnalyzer_0000001196 : JSAnalyzer_0000000127;
-		state = JSAnalyzer_0000001198 : JSAnalyzer_0000000183;
-		state = JSAnalyzer_0000001200 : JSAnalyzer_0000000105;
-		state = JSAnalyzer_0000000183 : {JSAnalyzer_0000001204, JSAnalyzer_0000001194, JSAnalyzer_0000001196, JSAnalyzer_0000001198, JSAnalyzer_0000001200, JSAnalyzer_0000000183};
-		state = JSAnalyzer_0000001204 : JSAnalyzer_0000000240;
-		state = JSAnalyzer_0000001194 : JSAnalyzer_0000000127;
-		state = JSAnalyzer_0000001196 : JSAnalyzer_0000000127;
-		state = JSAnalyzer_0000001198 : JSAnalyzer_0000000183;
-		state = JSAnalyzer_0000001200 : JSAnalyzer_0000000105;
-		state = JSAnalyzer_0000000240 : {JSAnalyzer_0000000248, JSAnalyzer_0000000253};
-		state = JSAnalyzer_0000000248 : {JSAnalyzer_0000001208, JSAnalyzer_0000001198, JSAnalyzer_0000001200, JSAnalyzer_0000000248};
-		state = JSAnalyzer_0000001208 : JSAnalyzer_0000000490;
-		state = JSAnalyzer_0000001198 : JSAnalyzer_0000000183;
-		state = JSAnalyzer_0000001200 : JSAnalyzer_0000000105;
-		state = JSAnalyzer_0000000253 : {JSAnalyzer_0000001206, JSAnalyzer_0000000253};
-		state = JSAnalyzer_0000001206 : JSAnalyzer_0000000256;
-		state = JSAnalyzer_0000000490 : {JSAnalyzer_0000001194, JSAnalyzer_0000001196, JSAnalyzer_0000001198, JSAnalyzer_0000001200, JSAnalyzer_0000000490};
-		state = JSAnalyzer_0000001194 : JSAnalyzer_0000000127;
-		state = JSAnalyzer_0000001196 : JSAnalyzer_0000000127;
-		state = JSAnalyzer_0000001198 : JSAnalyzer_0000000183;
-		state = JSAnalyzer_0000001200 : JSAnalyzer_0000000105;
-		state = JSAnalyzer_0000000256 : {JSAnalyzer_0000001194, JSAnalyzer_0000001196, JSAnalyzer_0000001198, JSAnalyzer_0000001200, JSAnalyzer_0000000256};
-		state = JSAnalyzer_0000001194 : JSAnalyzer_0000000127;
-		state = JSAnalyzer_0000001196 : JSAnalyzer_0000000127;
-		state = JSAnalyzer_0000001198 : JSAnalyzer_0000000183;
-		state = JSAnalyzer_0000001200 : JSAnalyzer_0000000105;
+		state = JSAnalyzer_0000000031 : {JSAnalyzer_0000001224, JSAnalyzer_0000000031};
+		state = JSAnalyzer_0000001224 : JSAnalyzer_0000000055;
+		state = JSAnalyzer_0000000055 : {JSAnalyzer_0000001226, JSAnalyzer_0000001228, JSAnalyzer_0000001230, JSAnalyzer_0000001232, JSAnalyzer_0000000055};
+		state = JSAnalyzer_0000001226 : JSAnalyzer_0000000143;
+		state = JSAnalyzer_0000001228 : JSAnalyzer_0000000143;
+		state = JSAnalyzer_0000001230 : JSAnalyzer_0000000199;
+		state = JSAnalyzer_0000001232 : JSAnalyzer_0000000121;
+		state = JSAnalyzer_0000000121 : {JSAnalyzer_0000001226, JSAnalyzer_0000001228, JSAnalyzer_0000001230, JSAnalyzer_0000001232, JSAnalyzer_0000000121};
+		state = JSAnalyzer_0000001226 : JSAnalyzer_0000000143;
+		state = JSAnalyzer_0000001228 : JSAnalyzer_0000000143;
+		state = JSAnalyzer_0000001230 : JSAnalyzer_0000000199;
+		state = JSAnalyzer_0000001232 : JSAnalyzer_0000000121;
+		state = JSAnalyzer_0000000143 : {JSAnalyzer_0000000152};
+		state = JSAnalyzer_0000000152 : {JSAnalyzer_0000001234, JSAnalyzer_0000001226, JSAnalyzer_0000001228, JSAnalyzer_0000001230, JSAnalyzer_0000001232, JSAnalyzer_0000000152};
+		state = JSAnalyzer_0000001234 : JSAnalyzer_0000000169;
+		state = JSAnalyzer_0000001226 : JSAnalyzer_0000000143;
+		state = JSAnalyzer_0000001228 : JSAnalyzer_0000000143;
+		state = JSAnalyzer_0000001230 : JSAnalyzer_0000000199;
+		state = JSAnalyzer_0000001232 : JSAnalyzer_0000000121;
+		state = JSAnalyzer_0000000169 : {JSAnalyzer_0000001226, JSAnalyzer_0000001228, JSAnalyzer_0000001230, JSAnalyzer_0000001232, JSAnalyzer_0000000169};
+		state = JSAnalyzer_0000001226 : JSAnalyzer_0000000143;
+		state = JSAnalyzer_0000001228 : JSAnalyzer_0000000143;
+		state = JSAnalyzer_0000001230 : JSAnalyzer_0000000199;
+		state = JSAnalyzer_0000001232 : JSAnalyzer_0000000121;
+		state = JSAnalyzer_0000000199 : {JSAnalyzer_0000001236, JSAnalyzer_0000001226, JSAnalyzer_0000001228, JSAnalyzer_0000001230, JSAnalyzer_0000001232, JSAnalyzer_0000000199};
+		state = JSAnalyzer_0000001236 : JSAnalyzer_0000000256;
+		state = JSAnalyzer_0000001226 : JSAnalyzer_0000000143;
+		state = JSAnalyzer_0000001228 : JSAnalyzer_0000000143;
+		state = JSAnalyzer_0000001230 : JSAnalyzer_0000000199;
+		state = JSAnalyzer_0000001232 : JSAnalyzer_0000000121;
+		state = JSAnalyzer_0000000256 : {JSAnalyzer_0000000264, JSAnalyzer_0000000269};
+		state = JSAnalyzer_0000000264 : {JSAnalyzer_0000001240, JSAnalyzer_0000001230, JSAnalyzer_0000001232, JSAnalyzer_0000000264};
+		state = JSAnalyzer_0000001240 : JSAnalyzer_0000000506;
+		state = JSAnalyzer_0000001230 : JSAnalyzer_0000000199;
+		state = JSAnalyzer_0000001232 : JSAnalyzer_0000000121;
+		state = JSAnalyzer_0000000269 : {JSAnalyzer_0000001238, JSAnalyzer_0000000269};
+		state = JSAnalyzer_0000001238 : JSAnalyzer_0000000272;
+		state = JSAnalyzer_0000000506 : {JSAnalyzer_0000001226, JSAnalyzer_0000001228, JSAnalyzer_0000001230, JSAnalyzer_0000001232, JSAnalyzer_0000000506};
+		state = JSAnalyzer_0000001226 : JSAnalyzer_0000000143;
+		state = JSAnalyzer_0000001228 : JSAnalyzer_0000000143;
+		state = JSAnalyzer_0000001230 : JSAnalyzer_0000000199;
+		state = JSAnalyzer_0000001232 : JSAnalyzer_0000000121;
+		state = JSAnalyzer_0000000272 : {JSAnalyzer_0000001226, JSAnalyzer_0000001228, JSAnalyzer_0000001230, JSAnalyzer_0000001232, JSAnalyzer_0000000272};
+		state = JSAnalyzer_0000001226 : JSAnalyzer_0000000143;
+		state = JSAnalyzer_0000001228 : JSAnalyzer_0000000143;
+		state = JSAnalyzer_0000001230 : JSAnalyzer_0000000199;
+		state = JSAnalyzer_0000001232 : JSAnalyzer_0000000121;
 		TRUE : state;
 		esac;
 MODULE main
@@ -65,4 +65,4 @@ VAR
 
 ----- Specifications are below -----
 
-SPEC !E[!EX TRUE U ((app.state = JSAnalyzer_0000000105) & !EX TRUE)]
+SPEC !E[!TRUE U ((app.state = JSAnalyzer_0000000121) & !TRUE)]

@@ -13,7 +13,7 @@
 *** See http://www.cs.chalmers.se/Cs/Research/FormalMethods/MiniSat
 *** Copyright (c) 2003-2005, Niklas Een, Niklas Sorensson 
 
--- specification AG !(app.state = JSAnalyzer_0000000451)  is false
+-- specification AG !(app.state = JSAnalyzer_0000000451 & EX ((app.state = JSAnalyzer_0000000938 | app.state = JSAnalyzer_0000000940) | app.state = JSAnalyzer_0000000944))  is false
 -- as demonstrated by the following execution sequence
 Trace Description: CTL Counterexample 
 Trace Type: Counterexample 
@@ -25,6 +25,7 @@ Trace Type: Counterexample
   app.state = JSAnalyzer_0000000119
 -> State: 1.4 <-
   app.state = JSAnalyzer_0000000126
+-- Loop starts here
 -> State: 1.5 <-
   app.state = JSAnalyzer_0000000938
 -> State: 1.6 <-
@@ -41,3 +42,5 @@ Trace Type: Counterexample
   app.state = JSAnalyzer_0000000944
 -> State: 1.12 <-
   app.state = JSAnalyzer_0000000451
+-> State: 1.13 <-
+  app.state = JSAnalyzer_0000000938

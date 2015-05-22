@@ -4,7 +4,7 @@
 	<Trigger event="onload" repeatable="false" />
 	
 	
-	<Trigger interact="User" via="mouse" event="onclick" />
+	<Trigger interact="User" via="mouse" event="onclick" /> <!-- viaは使っていない-->
 	<Trigger interact="User" via="mouse" event="oncontextmenu" />
 	<Trigger interact="User" via="mouse" event="ondblclick" />
 	<Trigger interact="User" via="mouse" event="ondrag" />

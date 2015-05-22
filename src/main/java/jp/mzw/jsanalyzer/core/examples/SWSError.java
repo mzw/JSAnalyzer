@@ -16,9 +16,9 @@ public class SWSError extends Project {
 		Project project = new SWSError();
 		Analyzer analyzer = new Analyzer(project);
 		
-//		Modeler modeler = new Modeler(analyzer);
-//		jp.mzw.jsanalyzer.modeler.model.fsm.FiniteStateMachine fsm = modeler.extract();
-//		Serializer.serialze(analyzer, fsm);
+		Modeler modeler = new Modeler(analyzer);
+		jp.mzw.jsanalyzer.modeler.model.fsm.FiniteStateMachine fsm = modeler.extract();
+		Serializer.serialze(analyzer, fsm);
 		
 //		Property.setOriginalPropertyList();
 //		TextFileUtils.write("/Users/yuta/Sites/research/ex/iadp/", "properties.xml", Property.getPropertyListXML());

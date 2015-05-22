@@ -13,23 +13,23 @@
 *** See http://www.cs.chalmers.se/Cs/Research/FormalMethods/MiniSat
 *** Copyright (c) 2003-2005, Niklas Een, Niklas Sorensson 
 
--- specification !E [ !(app.state = JSAnalyzer_0000000183) U (app.state = JSAnalyzer_0000000153 & !(app.state = JSAnalyzer_0000000183)) ]   is false
+-- specification !E [ !(app.state = JSAnalyzer_0000000199) U (app.state = JSAnalyzer_0000000169 & !(app.state = JSAnalyzer_0000000199)) ]   is false
 -- as demonstrated by the following execution sequence
 Trace Description: CTL Counterexample 
 Trace Type: Counterexample 
 -> State: 1.1 <-
   app.state = JSAnalyzer_0000000031
 -> State: 1.2 <-
-  app.state = JSAnalyzer_0000001192
+  app.state = JSAnalyzer_0000001224
 -> State: 1.3 <-
   app.state = JSAnalyzer_0000000055
 -> State: 1.4 <-
-  app.state = JSAnalyzer_0000001194
+  app.state = JSAnalyzer_0000001226
 -> State: 1.5 <-
-  app.state = JSAnalyzer_0000000127
+  app.state = JSAnalyzer_0000000143
 -> State: 1.6 <-
-  app.state = JSAnalyzer_0000000136
+  app.state = JSAnalyzer_0000000152
 -> State: 1.7 <-
-  app.state = JSAnalyzer_0000001202
+  app.state = JSAnalyzer_0000001234
 -> State: 1.8 <-
-  app.state = JSAnalyzer_0000000153
+  app.state = JSAnalyzer_0000000169
