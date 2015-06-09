@@ -10,6 +10,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
 
 import jp.mzw.jsanalyzer.xml.XMLTag;
+import jp.mzw.jsanalyzer.modeler.visitor.CSSDetectionVisitor;
+import jp.mzw.jsanalyzer.modeler.visitor.EnDisableDetectionVisitor;
+import jp.mzw.jsanalyzer.modeler.visitor.InteractionDetectionVisitor;
 import jp.mzw.jsanalyzer.util.StringUtils;
 import jp.mzw.jsanalyzer.util.TextFileUtils;
 import jp.mzw.jsanalyzer.verifier.specification.Specification;
@@ -174,5 +177,22 @@ public class Project {
 		ret += "</IADPInfo>\n";
 		
 		return ret;
+	}
+	
+	/*
+	 * List
+	 * @author Honda
+	 */
+
+	public List<InteractionDetectionVisitor> getInteractionList() {
+		return null;
+	}
+	
+	public List<EnDisableDetectionVisitor> getEnDisableList() {
+		return null;
+	}
+
+	public List<CSSDetectionVisitor> getCSSList() {
+		return null;
 	}
 }
